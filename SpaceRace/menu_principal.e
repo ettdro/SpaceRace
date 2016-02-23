@@ -13,6 +13,8 @@ inherit
 
 	GAME_LIBRARY_SHARED
 
+	IMG_LIBRARY_SHARED
+
 create
 	make_principal
 
@@ -22,20 +24,20 @@ feature {NONE} -- Initialization
 			-- Initialization de `Current'.
 		do
 			game_library.enable_video
+			image_file_library.enable_image (True, True, False)
 			execution
+			image_file_library.quit_library
 			game_library.quit_library
 		end
 
 	execution
 			-- Boucle principale du jeu.
-		local
-			l_fenetre: FENETRE
 		do
-				--l_fenetre := create fenetre.make_fenetre
+			--l_fenetre := create fenetre.make_fenetre
 			make_affichage
-				--create musique.ajuster_son (make_affichage)
+			--create musique.ajuster_son (make_affichage)
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
-				--	elsif "bouton 'Quitter' pressé" then
+				--	elsif "bouton 'Quitter' presse" then
 				--		quitter_jeu(true)
 				--	end
 			game_library.launch
