@@ -29,8 +29,7 @@ feature {NONE} -- Initialisation
 	execution
 			-- Boucle principale du jeu.
 		do
-			make_fenetre
-			make_background ("space_fond.gif")
+			make_affichage
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
 				--	elsif "bouton 'Quitter' pressé" then
 				--		quitter_jeu(true)
