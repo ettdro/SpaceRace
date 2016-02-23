@@ -14,12 +14,12 @@ inherit
 	GAME_LIBRARY_SHARED
 
 create
-	make
+	make_principal
 
-feature {NONE} -- Initialisation
+feature {NONE} -- Initialization
 
-	make
-			-- Initialisation de `Current'.
+	make_principal
+			-- Initialization de `Current'.
 		do
 			game_library.enable_video
 			execution
@@ -28,9 +28,12 @@ feature {NONE} -- Initialisation
 
 	execution
 			-- Boucle principale du jeu.
+		local
+			l_fenetre: FENETRE
 		do
-			make_fenetre
-			make_background ("space_fond.gif")
+				--l_fenetre := create fenetre.make_fenetre
+			make_affichage
+				--create musique.ajuster_son (make_affichage)
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
 				--	elsif "bouton 'Quitter' pressé" then
 				--		quitter_jeu(true)
