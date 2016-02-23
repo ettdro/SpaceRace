@@ -8,7 +8,6 @@ deferred class
 	MENU
 
 inherit
-
 	AFFICHAGE
 
 feature
