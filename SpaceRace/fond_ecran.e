@@ -1,13 +1,14 @@
 note
 	description: "Classe pour gérer le fond d'ecran {FOND_ECRAN}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-03-01"
+	revision: "1.0"
 
 class
 	FOND_ECRAN
 
 inherit
+
 	GAME_TEXTURE
 
 create
@@ -15,9 +16,10 @@ create
 
 feature {NONE} -- Initialization
 
-	make_fond_ecran(a_renderer:GAME_RENDERER)
+	make_fond_ecran (a_renderer: GAME_RENDERER)
+			-- Initialization de `Current'.
 		local
-			l_fond:IMG_IMAGE_FILE
+			l_fond: IMG_IMAGE_FILE
 		do
 			create l_fond.make ("space.jpg")
 			if l_fond.is_openable then
@@ -26,11 +28,12 @@ feature {NONE} -- Initialization
 					make_from_image (a_renderer, l_fond)
 				else
 					has_error := True
-					print("Le fichier ne peut se faire.")
+					print ("Le fichier ne peut se faire.")
 				end
 			else
 				has_error := True
-				print("Le fichier n'est pas bon, pensez à regarder le type du fichier.")
+				print ("Le fichier n'est pas bon, pensez à regarder le type du fichier.")
 			end
 		end
+
 end

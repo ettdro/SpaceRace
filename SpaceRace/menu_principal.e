@@ -33,10 +33,10 @@ feature {NONE} -- Initialization
 	execution
 			-- Boucle principale du jeu.
 		local
-			l_musique: FENETRE
+			-- l_musique: FENETRE
 		do
 			make_affichage
-			--create l_musique.ajuster_son (l_fenetre)
+				-- create l_musique.creer_son (l_fenetre)
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
 				--	elsif "bouton 'Quitter' presse" then
 				--		quitter_jeu(true)
@@ -45,11 +45,13 @@ feature {NONE} -- Initialization
 		end
 
 	navigation (a_choix: INTEGER)
+			-- Méthode qui permet de changer au menu choisi.
 		do
 			print ("Navigation")
 		end
 
 	quitter_jeu (a: NATURAL_32)
+			-- Méthode qui ferme le programme.
 		do
 			game_library.stop
 		end

@@ -13,12 +13,15 @@ inherit
 
 	AUDIO_SOURCE
 
+	SON
+
 create
-	ajouter_son
+	creer_son
 
 feature
 
-	ajuster_son (a_fenetre: GAME_WINDOW)
+	creer_son (a_fenetre: GAME_WINDOW)
+			-- Crée la musique principale du jeu.
 		local
 			l_son_musique: AUDIO_SOUND_FILE
 			l_source: AUDIO_SOURCE
@@ -37,6 +40,7 @@ feature
 		end
 
 	repeter_son (a_temps: NATURAL; a_fenetre: GAME_WINDOW)
+			-- Méthode qui fait en sorte que la musique se répète à l'infini.
 		do
 			audio_library.update
 		end

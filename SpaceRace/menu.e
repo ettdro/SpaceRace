@@ -8,19 +8,23 @@ deferred class
 	MENU
 
 inherit
+
 	AFFICHAGE
 
 feature
 
 	quitter_jeu (a: NATURAL_32)
+			-- Méthode pour fermer le programme.
 		deferred
 		end
 
 	navigation (a_choix: INTEGER)
+			-- Méthode pour changer de menu.
 		deferred
 		end
 
 	execution
+			-- Faire afficher le menu.
 		deferred
 		end
 
