@@ -32,10 +32,11 @@ feature {NONE} -- Initialization
 
 	execution
 			-- Boucle principale du jeu.
+		local
+			l_musique: FENETRE
 		do
-			--l_fenetre := create fenetre.make_fenetre
 			make_affichage
-			--create musique.ajuster_son (make_affichage)
+			--create l_musique.ajuster_son (l_fenetre)
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
 				--	elsif "bouton 'Quitter' presse" then
 				--		quitter_jeu(true)

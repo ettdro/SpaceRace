@@ -30,13 +30,13 @@ feature
 					audio_library.sources_add
 					l_source := audio_library.last_source_added
 					l_source.queue_sound (l_son_musique)
-					game_library.iteration_actions.extend (agent mise_a_jour_son(?, a_fenetre))
+					game_library.iteration_actions.extend (agent repeter_son(?, a_fenetre))
 					l_source.play
 				end
 			end
 		end
 
-	mise_a_jour_son (a_temps: NATURAL; a_fenetre: GAME_WINDOW)
+	repeter_son (a_temps: NATURAL; a_fenetre: GAME_WINDOW)
 		do
 			audio_library.update
 		end

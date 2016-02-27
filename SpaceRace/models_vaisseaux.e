@@ -8,11 +8,11 @@ class
 	MODELS_VAISSEAUX
 
 create
-	make
+	make_modele_vaisseau
 
 feature {NONE} -- Initialization
 
-	make
+	make_modele_vaisseau
 			-- Initialization for `Current'.
 		do
 			
