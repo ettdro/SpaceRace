@@ -12,11 +12,11 @@ inherit
 	GAME_TEXTURE
 
 create
-	make_fond_ecran
+	make_image
 
 feature {NONE} -- Initialization
 
-	make_fond_ecran (a_renderer: GAME_RENDERER)
+	make_image (a_renderer: GAME_RENDERER; a_nom_fichier: STRING): GAME_SURFACE
 			-- Initialization de `Current'.
 		local
 			l_fond: IMG_IMAGE_FILE

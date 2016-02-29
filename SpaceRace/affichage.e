@@ -14,11 +14,11 @@ inherit
 	IMG_LIBRARY_SHARED
 
 create
-	make
+	make_ecran
 
 feature {NONE} -- Initialization
 
-	make
+	make_ecran
 			-- Initialization for `Current'.
 		local
 			l_fenetre: FENETRE

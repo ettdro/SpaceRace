@@ -38,7 +38,7 @@ feature {NONE} -- Initialization
 			-- Boucle principale du jeu.
 		local
 		do
-			make
+			make_ecran
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
 			game_library.launch
 		end
