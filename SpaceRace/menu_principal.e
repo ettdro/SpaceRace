@@ -33,7 +33,7 @@ feature {NONE} -- Initialization
 	execution
 			-- Boucle principale du jeu.
 		local
-			-- l_musique: FENETRE
+			-- l_musique: MUSIQUE
 		do
 			make_affichage
 				-- create l_musique.creer_son (l_fenetre)
