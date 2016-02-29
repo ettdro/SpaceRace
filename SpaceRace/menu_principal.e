@@ -15,6 +15,8 @@ inherit
 
 	IMG_LIBRARY_SHARED
 
+	AUDIO_LIBRARY_SHARED
+
 create
 	make_principal
 
@@ -25,7 +27,9 @@ feature {NONE} -- Initialization
 		do
 			game_library.enable_video
 			image_file_library.enable_image (True, True, False)
+			audio_library.enable_sound
 			execution
+			audio_library.quit_library
 			image_file_library.quit_library
 			game_library.quit_library
 		end
@@ -33,14 +37,9 @@ feature {NONE} -- Initialization
 	execution
 			-- Boucle principale du jeu.
 		local
-			-- l_musique: MUSIQUE
 		do
 			make_affichage
-				-- create l_musique.creer_son (l_fenetre)
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
-				--	elsif "bouton 'Quitter' presse" then
-				--		quitter_jeu(true)
-				--	end
 			game_library.launch
 		end
 
@@ -48,6 +47,9 @@ feature {NONE} -- Initialization
 			-- Méthode qui permet de changer au menu choisi.
 		do
 			print ("Navigation")
+				--	elsif "bouton 'Quitter' presse" then
+				--		quitter_jeu(true)
+				--	end
 		end
 
 	quitter_jeu (a: NATURAL_32)

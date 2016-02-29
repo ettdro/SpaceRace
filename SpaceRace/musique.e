@@ -9,9 +9,9 @@ class
 
 inherit
 
-	AUDIO_SOUND_FILE
+	GAME_LIBRARY_SHARED
 
-	AUDIO_SOURCE
+	AUDIO_LIBRARY_SHARED
 
 	SON
 
@@ -24,17 +24,16 @@ feature
 			-- Crée la musique principale du jeu.
 		local
 			l_son_musique: AUDIO_SOUND_FILE
-			l_source: AUDIO_SOURCE
 		do
+			audio_library.sources_add
+			source := audio_library.last_source_added
 			create l_son_musique.make ("MusiqueMenu.wav")
 			if l_son_musique.is_openable then
 				l_son_musique.open
 				if l_son_musique.is_open then
-					audio_library.sources_add
-					l_source := audio_library.last_source_added
-					l_source.queue_sound (l_son_musique)
+					source.queue_sound (l_son_musique)
 					game_library.iteration_actions.extend (agent repeter_son(?, a_fenetre))
-					l_source.play
+					source.play
 				end
 			end
 		end
@@ -44,5 +43,9 @@ feature
 		do
 			audio_library.update
 		end
+
+feature {NONE} -- Implementation
+
+	source: AUDIO_SOURCE
 
 end

@@ -9,12 +9,12 @@ deferred class
 
 feature
 
-	creer_son (a_fenetre: GAME_WINDOW)
+	creer_son (a_fenetre: GAME_RENDERER)
 			-- Méthode qui crée le son.
 		deferred
 		end
 
-	repeter_son (a_temps: NATURAl; a_fenetre: GAME_WINDOW)
+	repeter_son (a_temps: NATURAl; a_fenetre: GAME_RENDERER)
 			-- Méthode qui fait répéter le son.
 		deferred
 		end

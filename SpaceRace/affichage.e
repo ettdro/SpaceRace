@@ -23,7 +23,7 @@ feature {NONE} -- Initialization
 		local
 			l_fenetre: FENETRE
 		do
-			create l_fenetre.make_fenetre
+			create l_fenetre.make
 		end
 
 	make_with_window (a_window: GAME_WINDOW_SURFACED) --Pour overwrite la fenetre (Pour pas être obligé de créer une fenêtre à chaque fois
