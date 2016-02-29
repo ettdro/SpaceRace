@@ -59,7 +59,7 @@ feature {NONE} -- Implementation
 			l_renderer.draw_filled_rectangle (0, 0, a_fond.width, a_fond.height)
 			l_renderer.draw_texture (a_fond, 0, 0)
 
-			-- Met à jour les modifications dans l'écran.
+				-- Met à jour les modifications dans l'écran.
 			l_renderer.present
 		end
 
