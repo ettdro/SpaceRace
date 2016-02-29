@@ -20,7 +20,7 @@ create
 
 feature
 
-	creer_son (a_fenetre: GAME_WINDOW)
+	creer_son (a_fenetre: GAME_RENDERER)
 			-- Crée la musique principale du jeu.
 		local
 			l_son_musique: AUDIO_SOUND_FILE
@@ -39,7 +39,7 @@ feature
 			end
 		end
 
-	repeter_son (a_temps: NATURAL; a_fenetre: GAME_WINDOW)
+	repeter_son (a_temps: NATURAL; a_fenetre: GAME_RENDERER)
 			-- Méthode qui fait en sorte que la musique se répète à l'infini.
 		do
 			audio_library.update

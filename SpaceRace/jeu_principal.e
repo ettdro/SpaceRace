@@ -15,7 +15,7 @@ feature {NONE} -- Initialization
 	make
 			-- Initialization for `Current'.
 		do
-
+			make_affichage
 		end
 
 end
