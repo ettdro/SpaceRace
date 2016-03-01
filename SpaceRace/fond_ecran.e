@@ -8,6 +8,7 @@ class
 	FOND_ECRAN
 
 inherit
+
 	GAME_TEXTURE
 
 create
