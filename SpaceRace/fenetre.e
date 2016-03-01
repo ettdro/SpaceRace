@@ -31,7 +31,7 @@ feature {NONE} -- Initialization
 			create l_musique.creer_son (fenetre.renderer)
 			fenetre.renderer.clear
 			create fond.make_image (fenetre.renderer)
-			create boutons.creer_bouton_quitter (fenetre.renderer)
+			create boutons.creer_bouton_jouer (fenetre.renderer)
 			if not fond.has_error and not boutons.has_error then
 				game_library.iteration_actions.extend (agent repeter_fenetre(?,fenetre.renderer))
 			else
@@ -49,7 +49,7 @@ feature {NONE} -- Implementation
 	repeter_fenetre (a_timestamp: NATURAL_32; l_renderer: GAME_RENDERER)
 		do
 			l_renderer.draw_texture (fond, 0, 0)
-			l_renderer.draw_texture (boutons, 400, 300)
+			l_renderer.draw_texture (boutons, 400, 450)
 			l_renderer.present
 		end
 
