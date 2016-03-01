@@ -77,7 +77,7 @@ feature {NONE} -- Initialization
 		end
 
 	creer_logo (a_renderer: GAME_RENDERER)
-			-- Méthode pour créer le logo.
+			-- Méthode pour créer le logo. (N'EST PAS UN BOUTON, NE JOUE PAS LE RÔLE D'UN BOUTON)
 		local
 			l_logo_image: IMG_IMAGE_FILE
 		do

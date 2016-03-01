@@ -37,13 +37,27 @@ feature {NONE} -- Initialization
 	execution
 			-- Boucle principale du jeu.
 		local
+			l_fenetre: FENETRE
 		do
-			make_ecran
+--			make_fenetre_menu
+			create l_fenetre.make_menu_principal
+			l_fenetre.fenetre.mouse_button_pressed_actions.extend (agent on_mouse_pressed(?, ?, ?, l_fenetre.fenetre))
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
 			game_library.launch
 		end
 
-	navigation (a_choix: INTEGER)
+	on_mouse_pressed(a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8; a_window:GAME_WINDOW_RENDERED)
+		local
+			l_fenetre: FENETRE
+		do
+			if a_mouse_state.is_left_button_pressed then
+				if a_mouse_state.x > 400 and a_mouse_state.x < 606 then
+					print("allo")
+				end
+			end
+		end
+
+	navigation
 			-- Méthode qui permet de changer au menu choisi.
 		do
 			print ("Navigation")
@@ -57,5 +71,9 @@ feature {NONE} -- Initialization
 		do
 			game_library.stop
 		end
+
+feature {ANY}
+
+--	fenetre: GAME_WINDOW_RENDERED
 
 end

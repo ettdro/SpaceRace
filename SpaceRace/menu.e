@@ -18,7 +18,7 @@ feature
 		deferred
 		end
 
-	navigation (a_choix: INTEGER)
+	navigation
 			-- Méthode pour changer de menu.
 		deferred
 		end

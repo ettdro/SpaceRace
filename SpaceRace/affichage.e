@@ -14,16 +14,16 @@ inherit
 	IMG_LIBRARY_SHARED
 
 create
-	make_ecran
+	make_fenetre_menu
 
 feature {NONE} -- Initialization
 
-	make_ecran
+	make_fenetre_menu
 			-- Initialization for `Current'.
 		local
 			l_fenetre: FENETRE
 		do
-			create l_fenetre.make
+			create l_fenetre.make_menu_principal
 		end
 
 	make_with_window (a_window: GAME_WINDOW_SURFACED) --Pour overwrite la fenetre (Pour pas être obligé de créer une fenêtre à chaque fois)
