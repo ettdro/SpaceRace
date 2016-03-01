@@ -16,18 +16,17 @@ create
 
 feature {NONE} -- Initialization
 
-	make_image (a_renderer: GAME_RENDERER; a_nom_fichier: STRING)
+	make_image (a_renderer: GAME_RENDERER)
 			-- Initialization de `Current'.
 		local
 			l_fond: GAME_TEXTURE
 			l_fond_image: IMG_IMAGE_FILE
 		do
 			create l_fond_image.make ("space.jpg")
-			create l_fond.make_from_image (a_renderer: GAME_RENDERER, a_image: GAME_IMAGE)
 			if l_fond_image.is_openable then
 				l_fond_image.open
 				if l_fond_image.is_open then
-					create l_fond.make_from_image (a_renderer, l_fond)
+					create l_fond.make_from_image (a_renderer, l_fond_image)
 					a_renderer.draw_texture (l_fond, 0, 0)
 				else
 					has_error := True

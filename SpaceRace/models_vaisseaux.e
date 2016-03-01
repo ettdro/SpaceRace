@@ -27,15 +27,15 @@ feature {NONE} -- Initialization
 				l_image.open
 				if l_image.is_open then
 					make_from_image (a_renderer, l_image)
-					if not contient_erreur then
+					if not has_error then
 						sub_image_largeur := largeur // 3
 						sub_image_longueur := hauteur
 					end
 				else
-					contient_erreur := False
+					has_error := False
 				end
 			else
-				contient_erreur := False
+				has_error := False
 			end
 			initialisation_animation
 		end

@@ -26,14 +26,12 @@ feature {NONE} -- Initialization
 			l_icone_image: GAME_IMAGE_BMP_FILE
 			l_icone: GAME_SURFACE
 			l_musique: MUSIQUE
-			l_bouton: GAME_SURFACE
 		do
 			create l_construction_fenetre
 			create l_icone_image.make ("iconeVaisseau.bmp")
 			l_construction_fenetre.set_dimension (1000, 600)
 			l_construction_fenetre.set_title ("SpaceRace")
 			fenetre := l_construction_fenetre.generate_window
-			create l_bouton.make_image (fenetre.renderer, "bouton_quitter.png")
 			create l_musique.creer_son (fenetre.renderer)
 			fenetre.renderer.set_drawing_color (create {GAME_COLOR}.make_rgb (0, 0, 0))
 			if l_icone_image.is_openable then
@@ -45,7 +43,7 @@ feature {NONE} -- Initialization
 				end
 			end
 			fenetre.renderer.clear
-			create l_fond.make_image (fenetre.renderer, "space.jpg")
+			create l_fond.make_image (fenetre.renderer)
 			if not l_fond.has_error then
 				game_library.iteration_actions.extend (agent repeter_fenetre(?, l_fond, fenetre.renderer))
 			else
