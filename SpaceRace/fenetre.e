@@ -31,17 +31,15 @@ feature {NONE} -- Initialization
 			create l_musique.creer_son (fenetre.renderer)
 			fenetre.renderer.clear
 			create fond.make_image (fenetre.renderer)
-			create boutons.creer_bouton_quitter (fenetre.renderer)
-			if not fond.has_error and not boutons.has_error then
-				game_library.iteration_actions.extend (agent repeter_fenetre(?,fenetre.renderer))
+			create bouton_quitter.creer_bouton_quitter (fenetre.renderer)
+			create bouton_options.creer_bouton_options (fenetre.renderer)
+			create bouton_jouer.creer_bouton_jouer (fenetre.renderer)
+			create logo.creer_logo (fenetre.renderer)
+			if not fond.has_error and not bouton_quitter.has_error and not bouton_options.has_error and not bouton_jouer.has_error and not logo.has_error then
+				game_library.iteration_actions.extend (agent repeter_fenetre(?, fenetre.renderer))
 			else
-				print ("Ne peut ouvrir le fond d'ecran")
+				print ("Ne peut ouvrir une ou des images.")
 			end
---			if not l_boutons.has_error then
---				game_library.iteration_actions.extend (agent repeter_fenetre(?, l_boutons, fenetre.renderer))
---			else
---				print ("Ne peut ouvrir le bouton quitter.")
---			end
 		end
 
 feature {NONE} -- Implementation
@@ -49,10 +47,12 @@ feature {NONE} -- Implementation
 	repeter_fenetre (a_timestamp: NATURAL_32; l_renderer: GAME_RENDERER)
 		do
 			l_renderer.draw_texture (fond, 0, 0)
-			l_renderer.draw_texture (boutons, 400, 300)
+			l_renderer.draw_texture (bouton_quitter, 400, 450)
+			l_renderer.draw_texture (bouton_options, 400, 350)
+			l_renderer.draw_texture (bouton_jouer, 400, 250)
+			l_renderer.draw_texture (logo, 275, 75)
 			l_renderer.present
 		end
-
 
 feature {ANY}
 
@@ -60,6 +60,12 @@ feature {ANY}
 
 	fond: FOND_ECRAN
 
-	boutons: BOUTONS
+	bouton_quitter: BOUTONS
+
+	bouton_options: BOUTONS
+
+	bouton_jouer: BOUTONS
+
+	logo: BOUTONS -- Dans la classe "BOUTONS" même s'il n'en est pas un.
 
 end
