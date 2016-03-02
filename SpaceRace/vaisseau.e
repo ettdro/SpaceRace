@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {VAISSEAU}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "Gère les mouvements du vaisseau."
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-03-01"
+	revision: "1.0"
 
 class
 	VAISSEAU
@@ -13,9 +13,9 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Initialization for `Current'.
+			-- Construit le vaisseau.
 		do
-			
+
 		end
 
 end

@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {JEU_PRINCIPAL}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "Classe pour gérer le JEU."
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-03-01"
+	revision: "1.0"
 
 class
 	JEU_PRINCIPAL
@@ -13,7 +13,7 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Initialization for `Current'.
+			-- Construit le Jeu.
 		do
 			make_affichage
 		end

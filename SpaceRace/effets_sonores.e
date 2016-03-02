@@ -14,21 +14,24 @@ inherit
 create
 	creer
 
-feature
+feature {NONE} -- Initialisation
 
 	creer
-			-- Crée le son du click
+			-- Créer le son du click
 		local
 			l_son_click: AUDIO_SOUND_FILE
 		do
 			creer_son ("click_sound.wav")
 		end
 
-feature
+feature -- Access
 
 	jouer
+			-- Vérifie si le son n'est pas NULL et fait jouer le son.
 		do
 			if attached son_click as la_son then
+				source.stop
+				la_son.restart
 				source.queue_sound (la_son)
 				source.play
 			end

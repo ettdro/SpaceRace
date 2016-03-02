@@ -1,3 +1,6 @@
+
+	-- CLASSE NON TERMINÉE, ELLE N'A PAS D'IMPACT SUR LE PROGRAMME ET N'EST PAS UTILE POUR LA REMISE 1.
+
 note
 	description: "Crée les images des vaisseaux."
 	author: "Nicolas Bisson et Étienne Drolet"
@@ -17,7 +20,7 @@ create
 feature {NONE} -- Initialization
 
 	make_modele_vaisseau (a_renderer: GAME_RENDERER)
-			-- Initialization for `Current'.
+			-- Construit les modèles des vaisseaux.
 		local
 			l_image: IMG_IMAGE_FILE
 		do

@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {PISTES}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "Gère les pistes"
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-03-01"
+	revision: "1.0"
 
 class
 	PISTES
@@ -13,9 +13,8 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Initialization for `Current'.
+			-- Construit les pistes.
 		do
-			
 		end
 
 end

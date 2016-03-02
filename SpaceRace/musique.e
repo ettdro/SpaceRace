@@ -18,8 +18,6 @@ feature {NONE} -- Initialisation
 
 	creer
 			-- Crée la musique principale du jeu.
-		local
-			l_son_musique: AUDIO_SOUND_FILE
 		do
 			creer_son ("MusiqueMenu.wav")
 		end

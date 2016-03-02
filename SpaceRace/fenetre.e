@@ -1,5 +1,5 @@
 note
-	description: "Classe pour gérer la fenetre {FENETRE}."
+	description: "Classe pour gérer la fenêtre {FENETRE}."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-03-01"
 	revision: "1.0"
@@ -19,7 +19,7 @@ create
 feature {NONE} -- Initialization
 
 	make_menu_principal
-			-- Initialization for `Current'.
+			-- Construit la fenêtre pour le MENU_PRINCIPAL.
 		local
 			l_construction_fenetre: GAME_WINDOW_RENDERED_BUILDER
 			l_musique: MUSIQUE
@@ -29,6 +29,7 @@ feature {NONE} -- Initialization
 			l_construction_fenetre.set_title ("SpaceRace")
 			fenetre := l_construction_fenetre.generate_window
 			create l_musique.creer
+			l_musique.jouer
 			create fond.make_image (fenetre.renderer)
 			create bouton_quitter.creer_bouton_quitter (fenetre.renderer)
 			create bouton_options.creer_bouton_options (fenetre.renderer)
@@ -43,13 +44,14 @@ feature {NONE} -- Initialization
 
 feature {NONE} -- Implementation
 
-	repeter_fenetre (a_timestamp: NATURAL_32; l_renderer: GAME_RENDERER)
+	repeter_fenetre (a_temps: NATURAL_32; l_renderer: GAME_RENDERER)
+			-- Dessine les éléments de la fenêtre.
 		do
 			l_renderer.draw_texture (fond, 0, 0)
 			l_renderer.draw_texture (bouton_quitter, 400, 450)
 			l_renderer.draw_texture (bouton_options, 400, 350)
 			l_renderer.draw_texture (bouton_jouer, 400, 250)
-			l_renderer.draw_texture (logo, 275, 75)
+			l_renderer.draw_texture (logo, 150, 75)
 			l_renderer.present
 		end
 

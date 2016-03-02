@@ -21,14 +21,14 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Initialization for `Current'.
+			-- Boucle principal du jeu. (Part le MENU_PRINCIPAL)
 		local
 			l_menu: detachable MENU_PRINCIPAL
 		do
 			game_library.enable_video
 			image_file_library.enable_image (True, True, False)
 			audio_library.enable_sound
-			create l_menu.make_principal
+			create l_menu.make
 			l_menu.execution
 			l_menu := Void
 			audio_library.quit_library

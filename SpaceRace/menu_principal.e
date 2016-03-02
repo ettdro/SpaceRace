@@ -18,12 +18,12 @@ inherit
 	AUDIO_LIBRARY_SHARED
 
 create
-	make_principal
+	make
 
 feature {NONE} -- Initialization
 
-	make_principal
-			-- Initialization de `Current'.
+	make
+			-- Construit les éléments de MENU_PRINCIPAL.
 		do
 			create son_click.creer
 		end
@@ -35,7 +35,6 @@ feature -- Access
 		local
 			l_fenetre: FENETRE
 		do
-				--			make_fenetre_menu
 			create l_fenetre.make_menu_principal
 			l_fenetre.fenetre.mouse_button_pressed_actions.extend (agent action_souris(?, ?, ?, l_fenetre.fenetre))
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
@@ -43,14 +42,11 @@ feature -- Access
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8; a_fenetre: GAME_WINDOW_RENDERED)
-		-- Méthode qui gère les clicks de souris pour permettre la navigation à partir de ce menu.
-		local
-			l_click_son: EFFETS_SONORES
-
+			-- Méthode qui gère les clicks de souris pour permettre la navigation à partir de ce menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
 				if a_etat_souris.x > 400 and a_etat_souris.x < 606 and a_etat_souris.y > 450 and a_etat_souris.y < 506 then
-					quitter_jeu(1)
+					quitter_jeu (1)
 				elseif a_etat_souris.x > 400 and a_etat_souris.x < 606 and a_etat_souris.y > 350 and a_etat_souris.y < 406 then
 					son_click.jouer
 				elseif a_etat_souris.x > 400 and a_etat_souris.x < 606 and a_etat_souris.y > 250 and a_etat_souris.y < 306 then
@@ -59,12 +55,6 @@ feature -- Access
 			end
 		end
 
-	quitter_jeu (a_temps: NATURAL_32)
-			-- Méthode qui ferme le programme.
-		do
-			game_library.stop
-		end
-
-	son_click:EFFETS_SONORES
+	son_click: EFFETS_SONORES
 
 end

@@ -17,7 +17,7 @@ create
 feature {NONE} -- Initialization
 
 	make_image (a_renderer: GAME_RENDERER)
-			-- Initialization de `Current'.
+			-- Construit l'image de fond.
 		local
 			l_fond_image: IMG_IMAGE_FILE
 		do

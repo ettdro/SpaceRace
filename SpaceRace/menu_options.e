@@ -1,13 +1,14 @@
 note
-	description: "Summary description for {MENU_OPTIONS}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "Classe pour gérer les options du jeu."
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-03-01"
+	revision: "1.0"
 
 class
 	MENU_OPTIONS
 
 inherit
+
 	MENU
 
 create
@@ -16,9 +17,8 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Initialization for `Current'.
+			-- Construit le menu des options.
 		do
-
 		end
 
 end

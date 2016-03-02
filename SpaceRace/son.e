@@ -22,19 +22,19 @@ feature -- Access
 		do
 			audio_library.sources_add
 			source := audio_library.last_source_added
-			game_library.iteration_actions.extend (agent repeter_son)
 			create l_son_click.make (a_nom_fichier)
 			if l_son_click.is_openable then
 				l_son_click.open
 				if l_son_click.is_open then
 					son_click := l_son_click
+					game_library.iteration_actions.extend (agent repeter_son)
 				end
 			end
 		end
 
 	repeter_son (a_temps: NATURAL)
 		do
-			source.update_playing
+			audio_library.update
 		end
 
 feature {NONE} -- Implementation

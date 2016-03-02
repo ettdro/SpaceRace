@@ -19,20 +19,16 @@ create
 feature {NONE} -- Initialization
 
 	make_fenetre_menu
-			-- Initialization for `Current'.
+			-- Construit la fenêtre du MENU_PRINCIPAL.
 		local
 			l_fenetre: FENETRE
 		do
 			create l_fenetre.make_menu_principal
 		end
 
-	make_with_window (a_window: GAME_WINDOW_SURFACED) --Pour overwrite la fenetre (Pour pas être obligé de créer une fenêtre à chaque fois)
-			-- Méthode à faire.
-		do
-		end
-
-feature {ANY}
-
-		--	fenetre:GAME_WINDOW_RENDERED
+		--	make_with_window (a_window: GAME_WINDOW_SURFACED) --Pour overwrite la fenetre (Pour pas être obligé de créer une fenêtre à chaque fois)
+		--			-- Méthode à faire.
+		--		do
+		--		end
 
 end
