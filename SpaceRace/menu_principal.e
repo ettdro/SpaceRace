@@ -52,7 +52,8 @@ feature {NONE} -- Initialization
 		do
 			if a_mouse_state.is_left_button_pressed then
 				if a_mouse_state.x > 400 and a_mouse_state.x < 606 then
-					print("allo")
+					print("QUITTER")
+					quitter_jeu(1)
 				end
 			end
 		end
