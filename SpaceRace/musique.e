@@ -9,43 +9,29 @@ class
 
 inherit
 
-	GAME_LIBRARY_SHARED
-
-	AUDIO_LIBRARY_SHARED
-
 	SON
 
 create
-	creer_son
+	creer
 
-feature
+feature {NONE} -- Initialisation
 
-	creer_son (a_fenetre: GAME_RENDERER)
+	creer
 			-- Crée la musique principale du jeu.
 		local
 			l_son_musique: AUDIO_SOUND_FILE
 		do
-			audio_library.sources_add
-			source := audio_library.last_source_added
-			create l_son_musique.make ("MusiqueMenu.wav")
-			if l_son_musique.is_openable then
-				l_son_musique.open
-				if l_son_musique.is_open then
-					source.queue_sound (l_son_musique)
-					game_library.iteration_actions.extend (agent repeter_son(?, a_fenetre))
-					source.play
-				end
+			creer_son ("MusiqueMenu.wav")
+		end
+
+feature -- Access
+
+	jouer
+		do
+			if attached son_click as la_son then
+				source.queue_sound_infinite_loop (la_son)
+				source.play
 			end
 		end
-
-	repeter_son (a_temps: NATURAL; a_fenetre: GAME_RENDERER)
-			-- Méthode qui fait en sorte que la musique se répète à l'infini.
-		do
-			audio_library.update
-		end
-
-feature {NONE} -- Implementation
-
-	source: AUDIO_SOURCE
 
 end

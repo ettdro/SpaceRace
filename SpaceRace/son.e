@@ -7,16 +7,40 @@ note
 deferred class
 	SON
 
-feature
+inherit
 
-	creer_son (a_fenetre: GAME_RENDERER)
+	GAME_LIBRARY_SHARED
+
+	AUDIO_LIBRARY_SHARED
+
+feature -- Access
+
+	creer_son (a_nom_fichier: STRING)
 			-- Méthode qui crée le son.
-		deferred
+		local
+			l_son_click: AUDIO_SOUND_FILE
+		do
+			audio_library.sources_add
+			source := audio_library.last_source_added
+			game_library.iteration_actions.extend (agent repeter_son)
+			create l_son_click.make (a_nom_fichier)
+			if l_son_click.is_openable then
+				l_son_click.open
+				if l_son_click.is_open then
+					son_click := l_son_click
+				end
+			end
 		end
 
-	repeter_son (a_temps: NATURAl; a_fenetre: GAME_RENDERER)
-			-- Méthode qui fait répéter le son.
-		deferred
+	repeter_son (a_temps: NATURAL)
+		do
+			source.update_playing
 		end
+
+feature {NONE} -- Implementation
+
+	source: AUDIO_SOURCE
+
+	son_click: detachable AUDIO_SOUND
 
 end

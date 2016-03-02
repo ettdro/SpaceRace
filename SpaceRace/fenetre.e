@@ -28,7 +28,7 @@ feature {NONE} -- Initialization
 			l_construction_fenetre.set_dimension (1000, 600)
 			l_construction_fenetre.set_title ("SpaceRace")
 			fenetre := l_construction_fenetre.generate_window
-			create l_musique.creer_son (fenetre.renderer)
+			create l_musique.creer
 			create fond.make_image (fenetre.renderer)
 			create bouton_quitter.creer_bouton_quitter (fenetre.renderer)
 			create bouton_options.creer_bouton_options (fenetre.renderer)
@@ -39,15 +39,9 @@ feature {NONE} -- Initialization
 			else
 				print ("Ne peut ouvrir une ou des images.")
 			end
---			fenetre.mouse_button_pressed_actions.extend (agent on_mouse_pressed(?, ?, ?, fenetre))
 		end
 
 feature {NONE} -- Implementation
-
---	on_mouse_pressed(a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8; a_window:GAME_WINDOW_RENDERED)
---		do
---			print("allo")
---		end
 
 	repeter_fenetre (a_timestamp: NATURAL_32; l_renderer: GAME_RENDERER)
 		do
