@@ -33,6 +33,7 @@ feature -- Access
 		end
 
 	repeter_son (a_temps: NATURAL)
+			-- Fais jouer le son lorsque voulu.
 		do
 			audio_library.update
 		end

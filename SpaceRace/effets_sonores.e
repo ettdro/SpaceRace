@@ -18,8 +18,6 @@ feature {NONE} -- Initialisation
 
 	creer
 			-- Créer le son du click
-		local
-			l_son_click: AUDIO_SOUND_FILE
 		do
 			creer_son ("click_sound.wav")
 		end
