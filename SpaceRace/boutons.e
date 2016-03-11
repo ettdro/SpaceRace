@@ -12,35 +12,15 @@ inherit
 	IMAGES
 
 create
-	creer_bouton_quitter,
-	creer_bouton_options,
-	creer_bouton_jouer,
-	creer_logo
+	creer_affichable
+	--	creer_bouton_quitter, creer_bouton_options, creer_bouton_jouer, creer_logo
 
 feature {NONE} -- Initialization
 
-	creer_bouton_quitter (a_renderer: GAME_RENDERER)
-			-- Méthode pour créer le bouton 'Quitter'.
+	creer_affichable (a_renderer: GAME_RENDERER; a_nom_fichier: STRING)
+			-- Méthode pour créer un fichier affichable
 		do
-			creer_image (a_renderer, "bouton_quitter2.png")
-		end
-
-	creer_bouton_options (a_renderer: GAME_RENDERER)
-			-- Méthode pour créer le bouton 'Options'.
-		do
-			creer_image (a_renderer, "bouton_options2.png")
-		end
-
-	creer_bouton_jouer (a_renderer: GAME_RENDERER)
-			-- Méthode pour créer le bouton 'Jouer'.
-		do
-			creer_image (a_renderer, "bouton_jouer2.png")
-		end
-
-	creer_logo (a_renderer: GAME_RENDERER)
-			-- Méthode pour créer le logo. (N'EST PAS UN BOUTON, NE JOUE PAS LE RÔLE D'UN BOUTON, MAIS EST LÀ POUR L'INSTANT)
-		do
-			creer_image (a_renderer, "logo2.png")
+			creer_image (a_renderer, a_nom_fichier)
 		end
 
 end

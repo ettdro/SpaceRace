@@ -38,6 +38,24 @@ feature -- Access
 			audio_library.update
 		end
 
+	jouer (a_boucle_infini: BOOLEAN)
+			-- Vérifie si le son n'est pas NULL et fait jouer le son.
+		do
+			if a_boucle_infini = True then
+				if attached son_click as la_son then
+					source.queue_sound_infinite_loop (la_son)
+					source.play
+				end
+			else
+				if attached son_click as la_son then
+					source.stop
+					la_son.restart
+					source.queue_sound (la_son)
+					source.play
+				end
+			end
+		end
+
 feature {NONE} -- Implementation
 
 	source: AUDIO_SOURCE

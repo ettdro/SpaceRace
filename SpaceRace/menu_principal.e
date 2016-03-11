@@ -28,10 +28,10 @@ feature {NONE} -- Initialization
 			create fenetre.make
 			create son_click.creer
 			create musique.creer
-			create bouton_jouer.creer_bouton_jouer (fenetre.fenetre.renderer)
-			create bouton_options.creer_bouton_options (fenetre.fenetre.renderer)
-			create bouton_quitter.creer_bouton_quitter (fenetre.fenetre.renderer)
-			create logo.creer_logo (fenetre.fenetre.renderer)
+			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
+			create bouton_options.creer_affichable (fenetre.fenetre.renderer, "bouton_options2.png")
+			create bouton_quitter.creer_affichable (fenetre.fenetre.renderer, "bouton_quitter2.png")
+			create logo.creer_affichable (fenetre.fenetre.renderer, "logo2.png")
 		end
 
 feature -- Access
@@ -41,7 +41,7 @@ feature -- Access
 		do
 			generer_fenetre_principal(1, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
-			musique.jouer
+			musique.jouer(True)
 			fenetre.fenetre.mouse_button_pressed_actions.extend (agent action_souris(?, ?, ?, fenetre.fenetre))
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
 			game_library.launch
@@ -54,10 +54,10 @@ feature -- Access
 				if a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 449 and a_etat_souris.y < 507 then
 					quitter_jeu (1)
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 349 and a_etat_souris.y < 407 then
-					son_click.jouer
+					son_click.jouer(False)
 					generer_fenetre_options(0, fenetre.fenetre.renderer)
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 249 and a_etat_souris.y < 307 then
-					son_click.jouer
+					son_click.jouer(False)
 				end
 			end
 		end

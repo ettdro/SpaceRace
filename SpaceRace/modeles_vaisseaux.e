@@ -8,18 +8,18 @@ note
 	revision: "1.0"
 
 class
-	MODELS_VAISSEAUX
+	MODELES_VAISSEAUX
 
 inherit
 
 	GAME_TEXTURE
 
 create
-	make_modele_vaisseau
+	make
 
 feature {NONE} -- Initialization
 
-	make_modele_vaisseau (a_renderer: GAME_RENDERER)
+	make (a_renderer: GAME_RENDERER)
 			-- Construit les modèles des vaisseaux.
 		local
 			l_image: IMG_IMAGE_FILE

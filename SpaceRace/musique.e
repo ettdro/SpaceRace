@@ -22,14 +22,4 @@ feature {NONE} -- Initialisation
 			creer_son ("MusiqueMenu.wav")
 		end
 
-feature -- Access
-
-	jouer
-		do
-			if attached son_click as la_son then
-				source.queue_sound_infinite_loop (la_son)
-				source.play
-			end
-		end
-
 end
