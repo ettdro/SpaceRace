@@ -19,7 +19,7 @@ feature {NONE} -- Initialization
 	make_image (a_renderer: GAME_RENDERER)
 			-- Construit l'image de fond.
 		do
-			creer_image (a_renderer, "space.jpg")
+			creer_image (a_renderer, "background_space.png")
 		end
 
 end

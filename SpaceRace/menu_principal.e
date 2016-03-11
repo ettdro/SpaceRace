@@ -25,18 +25,24 @@ feature {NONE} -- Initialization
 	make
 			-- Construit les éléments de MENU_PRINCIPAL.
 		do
+			create fenetre.make
 			create son_click.creer
+			create musique.creer
+			create bouton_jouer.creer_bouton_jouer (fenetre.fenetre.renderer)
+			create bouton_options.creer_bouton_options (fenetre.fenetre.renderer)
+			create bouton_quitter.creer_bouton_quitter (fenetre.fenetre.renderer)
+			create logo.creer_logo (fenetre.fenetre.renderer)
 		end
 
 feature -- Access
 
 	execution
 			-- Boucle principale du jeu.
-		local
-			l_fenetre: FENETRE
 		do
-			create l_fenetre.make_menu_principal
-			l_fenetre.fenetre.mouse_button_pressed_actions.extend (agent action_souris(?, ?, ?, l_fenetre.fenetre))
+			generer_fenetre_principal(1, fenetre.fenetre.renderer)
+			fenetre.fenetre.renderer.present
+			musique.jouer
+			fenetre.fenetre.mouse_button_pressed_actions.extend (agent action_souris(?, ?, ?, fenetre.fenetre))
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
 			game_library.launch
 		end
@@ -45,16 +51,49 @@ feature -- Access
 			-- Méthode qui gère les clicks de souris pour permettre la navigation à partir de ce menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
-				if a_etat_souris.x > 400 and a_etat_souris.x < 606 and a_etat_souris.y > 450 and a_etat_souris.y < 506 then
+				if a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 449 and a_etat_souris.y < 507 then
 					quitter_jeu (1)
-				elseif a_etat_souris.x > 400 and a_etat_souris.x < 606 and a_etat_souris.y > 350 and a_etat_souris.y < 406 then
+				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 349 and a_etat_souris.y < 407 then
 					son_click.jouer
-				elseif a_etat_souris.x > 400 and a_etat_souris.x < 606 and a_etat_souris.y > 250 and a_etat_souris.y < 306 then
+					generer_fenetre_options(0, fenetre.fenetre.renderer)
+				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 249 and a_etat_souris.y < 307 then
 					son_click.jouer
 				end
 			end
 		end
 
+feature {NONE} -- Implementation
+
+	generer_fenetre_principal (a_temps: NATURAL_32; l_renderer: GAME_RENDERER)
+			-- Dessine les éléments de la fenêtre.
+		do
+			bouton_jouer.afficher (bouton_jouer, 400, 250, fenetre.fenetre.renderer)
+			bouton_options.afficher (bouton_options, 400, 350, fenetre.fenetre.renderer)
+			bouton_quitter.afficher (bouton_quitter, 400, 450, fenetre.fenetre.renderer)
+			logo.afficher (logo, 250, 75, fenetre.fenetre.renderer)
+		end
+
+	generer_fenetre_options (a_temps: NATURAL_32; l_renderer: GAME_RENDERER)
+		do
+			fenetre.fenetre.renderer.clear
+			fenetre.fenetre.renderer.draw_texture (fenetre.fond, 0, 0)
+			fenetre.fenetre.clear_events
+			fenetre.fenetre.renderer.present
+		end
+
+feature {ANY}
+
 	son_click: EFFETS_SONORES
 
+	musique: MUSIQUE
+
+	bouton_jouer: BOUTONS
+
+	bouton_options: BOUTONS
+
+	bouton_quitter: BOUTONS
+
+	logo: BOUTONS
+
+	fenetre: FENETRE
 end
