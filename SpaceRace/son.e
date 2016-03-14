@@ -27,7 +27,6 @@ feature -- Access
 				l_son_click.open
 				if l_son_click.is_open then
 					son_click := l_son_click
-					game_library.iteration_actions.extend (agent repeter_son)
 				end
 			end
 		end
@@ -44,6 +43,7 @@ feature -- Access
 			if a_boucle_infini = True then
 				if attached son_click as la_son then
 					source.queue_sound_infinite_loop (la_son)
+					source.set_gain (1)
 					source.play
 				end
 			else
@@ -51,9 +51,20 @@ feature -- Access
 					source.stop
 					la_son.restart
 					source.queue_sound (la_son)
+					source.set_gain (1)
 					source.play
 				end
 			end
+		end
+
+	mute
+		do
+			source.set_gain (0)
+		end
+
+	unmute
+		do
+			source.set_gain (1)
 		end
 
 feature {NONE} -- Implementation
