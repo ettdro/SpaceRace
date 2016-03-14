@@ -10,6 +10,9 @@ class
 inherit
 
 	MENU
+		redefine
+			execution
+		end
 
 	GAME_LIBRARY_SHARED
 
@@ -39,12 +42,24 @@ feature -- Access
 	execution
 			-- Boucle principale du jeu.
 		do
-			generer_fenetre_principal(1, fenetre.fenetre.renderer)
-			fenetre.fenetre.renderer.present
 			musique.jouer(True)
-			fenetre.fenetre.mouse_button_pressed_actions.extend (agent action_souris(?, ?, ?, fenetre.fenetre))
-			game_library.quit_signal_actions.extend (agent quitter_jeu)
-			game_library.launch
+			from
+				is_quit_selected := False
+			until
+				is_quit_selected
+			loop
+				game_library.clear_all_events
+				game_library.iteration_actions.extend (agent (a_timestamp:NATURAL) do audio_library.update end)
+				generer_fenetre_principal(1, fenetre.fenetre.renderer)
+				fenetre.fenetre.mouse_button_pressed_actions.extend (agent action_souris(?, ?, ?, fenetre.fenetre))
+				Precursor {MENU}
+				is_option_clicked := False
+				game_library.launch
+				if is_option_clicked then
+					lancer_fenetre_options (1, fenetre.fenetre)
+				end
+			end
+
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8; a_fenetre: GAME_WINDOW_RENDERED)
@@ -55,30 +70,33 @@ feature -- Access
 					quitter_jeu (1)
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 349 and a_etat_souris.y < 407 then
 					son_click.jouer(False)
-					generer_fenetre_options(0, fenetre.fenetre.renderer)
+					lancer_fenetre_options(0, fenetre.fenetre)
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 249 and a_etat_souris.y < 307 then
 					son_click.jouer(False)
 				end
 			end
 		end
 
-feature {NONE} -- Implementation
+feature  -- Implementation
 
 	generer_fenetre_principal (a_temps: NATURAL_32; l_renderer: GAME_RENDERER)
 			-- Dessine les éléments de la fenêtre.
 		do
-			bouton_jouer.afficher (bouton_jouer, 400, 250, fenetre.fenetre.renderer)
-			bouton_options.afficher (bouton_options, 400, 350, fenetre.fenetre.renderer)
-			bouton_quitter.afficher (bouton_quitter, 400, 450, fenetre.fenetre.renderer)
-			logo.afficher (logo, 250, 75, fenetre.fenetre.renderer)
+			fenetre.repeter_fenetre (a_temps, l_renderer)
+			bouton_jouer.afficher (400, 250, l_renderer)
+			bouton_options.afficher (400, 350, l_renderer)
+			bouton_quitter.afficher (400, 450, l_renderer)
+			logo.afficher (250, 75, l_renderer)
+			fenetre.fenetre.renderer.present
 		end
 
-	generer_fenetre_options (a_temps: NATURAL_32; l_renderer: GAME_RENDERER)
+	lancer_fenetre_options (a_temps: NATURAL_32; l_renderer: GAME_WINDOW_RENDERED)
+		local
+			l_menu_options: MENU_OPTIONS
 		do
-			fenetre.fenetre.renderer.clear
-			fenetre.fenetre.renderer.draw_texture (fenetre.fond, 0, 0)
-			fenetre.fenetre.clear_events
-			fenetre.fenetre.renderer.present
+			create l_menu_options.make (fenetre, musique)
+			l_menu_options.execution
+			is_quit_selected := l_menu_options.is_quit_selected
 		end
 
 feature {ANY}
@@ -96,4 +114,7 @@ feature {ANY}
 	logo: BOUTONS
 
 	fenetre: FENETRE
+
+	is_option_clicked:BOOLEAN
+
 end

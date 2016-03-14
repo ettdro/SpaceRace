@@ -36,12 +36,12 @@ feature {NONE} -- Initialization
 			end
 		end
 
-feature {NONE} -- Implementation
+feature -- Access
 
 	repeter_fenetre (a_temps: NATURAL_32; l_renderer: GAME_RENDERER)
 			-- Dessine les éléments de la fenêtre.
 		do
-			fond.afficher (fond, 0, 0, l_renderer)
+			fond.afficher (0, 0, l_renderer)
 		end
 
 feature {ANY}

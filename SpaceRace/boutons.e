@@ -22,5 +22,4 @@ feature {NONE} -- Initialization
 		do
 			creer_image (a_renderer, a_nom_fichier)
 		end
-
 end

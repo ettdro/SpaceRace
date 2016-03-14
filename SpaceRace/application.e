@@ -3,7 +3,7 @@ note
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-03-01"
 	revision: "1.0"
-
+	
 class
 	APPLICATION
 

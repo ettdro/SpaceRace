@@ -34,12 +34,10 @@ feature -- Access
 			end
 		end
 
-	afficher (a_image: GAME_TEXTURE; a_pos_x, a_pos_y: INTEGER; l_renderer: GAME_RENDERER)
+	afficher (a_pos_x, a_pos_y: INTEGER; l_renderer: GAME_RENDERER)
 			-- Vérifie si l'image n'est pas NULL et affiche l'image.
 		do
-			if attached image as la_image then
-				l_renderer.draw_texture (a_image, a_pos_x, a_pos_y)
-			end
+				l_renderer.draw_texture (Current, a_pos_x, a_pos_y)
 		end
 
 feature {NONE} -- Implementation
