@@ -29,6 +29,12 @@ feature {NONE} -- Initialization
 			create fenetre.make
 			create son_click.creer
 			create musique.creer
+			if son_click.source.is_stop then
+				mute_son_click := True
+			end
+			if son_click.source.is_playing then
+				mute_son_click := False
+			end
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
 			create bouton_options.creer_affichable (fenetre.fenetre.renderer, "bouton_options2.png")
 			create bouton_quitter.creer_affichable (fenetre.fenetre.renderer, "bouton_quitter2.png")
@@ -67,11 +73,8 @@ feature -- Access
 					son_click.jouer(False)
 					lancer_fenetre_options
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 249 and a_etat_souris.y < 307 then
-					if mute_son_click then
-						son_click.desactiver_son_click
-					else
-						son_click.jouer(False)
-					end
+					son_click.jouer (False)
+					lancer_fenetre_jouer
 				end
 			end
 		end
@@ -96,6 +99,15 @@ feature  -- Implementation
 			create l_menu_options.make (fenetre, musique, son_click)
 			l_menu_options.execution
 			is_quit_selected := l_menu_options.is_quit_selected
+		end
+
+	lancer_fenetre_jouer
+		local
+			l_menu_piste_vaisseaux: MENU_VAISSEAUX_PISTES
+		do
+			create l_menu_piste_vaisseaux.make(fenetre, musique, son_click)
+			l_menu_piste_vaisseaux.execution
+			is_quit_selected := l_menu_piste_vaisseaux.is_quit_selected
 		end
 
 feature {ANY}
