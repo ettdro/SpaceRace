@@ -72,6 +72,11 @@ feature -- Access
 			source.stop
 		end
 
+	est_muet:BOOLEAN
+		do
+			Result := source.gain = 0
+		end
+
 feature  -- Implementation
 
 	source: AUDIO_SOURCE

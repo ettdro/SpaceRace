@@ -29,16 +29,12 @@ feature {NONE} -- Initialization
 			create fenetre.make
 			create son_click.creer
 			create musique.creer
-			if son_click.source.is_stop then
-				mute_son_click := True
-			end
-			if son_click.source.is_playing then
-				mute_son_click := False
-			end
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
 			create bouton_options.creer_affichable (fenetre.fenetre.renderer, "bouton_options2.png")
 			create bouton_quitter.creer_affichable (fenetre.fenetre.renderer, "bouton_quitter2.png")
 			create logo.creer_affichable (fenetre.fenetre.renderer, "logo2.png")
+			create curseur_main.make_hand
+			create curseur_defaut.make_arrow
 		end
 
 feature -- Access
@@ -54,6 +50,7 @@ feature -- Access
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_principal
+				fenetre.fenetre.mouse_motion_actions.extend (agent mouvements_souris(?,?,?,?,fenetre.fenetre))
 				Precursor {MENU}
 				is_option_clicked := False
 				game_library.launch
@@ -70,16 +67,38 @@ feature -- Access
 				if a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 449 and a_etat_souris.y < 507 then
 					quitter_jeu (1)
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 349 and a_etat_souris.y < 407 then
-					son_click.jouer(False)
+					if not musique.est_muet then
+						son_click.jouer(False)
+					end
+					game_library.set_cursor (curseur_defaut)
 					lancer_fenetre_options
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 249 and a_etat_souris.y < 307 then
-					son_click.jouer (False)
+					if not musique.est_muet then
+						son_click.jouer(False)
+					end
 					lancer_fenetre_jouer
 				end
 			end
 		end
 
 feature  -- Implementation
+
+	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window:GAME_WINDOW_RENDERED)
+			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
+			-- `a_font' to draw text.
+		do
+			x := a_mouse_state.x
+			y := a_mouse_state.y
+			if x > 399 and x < 607 and y > 249 and y < 307 then
+				game_library.set_cursor (curseur_main)
+			elseif x > 399 and x < 607 and y > 449 and y < 507 then
+				game_library.set_cursor (curseur_main)
+			elseif x > 399 and x < 607 and y > 349 and y < 407 then
+				game_library.set_cursor (curseur_main)
+			else
+				game_library.set_cursor (curseur_defaut)
+			end
+		end
 
 	lancer_fenetre_principal
 			-- Dessine les éléments de la fenêtre.
@@ -111,6 +130,12 @@ feature  -- Implementation
 		end
 
 feature {ANY}
+
+	curseur_main: GAME_CURSOR
+
+	curseur_defaut: GAME_CURSOR
+
+	y,x: INTEGER
 
 	mute_son_click: BOOLEAN
 

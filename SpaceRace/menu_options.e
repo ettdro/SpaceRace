@@ -25,10 +25,10 @@ feature -- Initialization
 			fenetre := a_fenetre
 			musique := a_musique
 			son_click := a_son_click
-			if musique.source.is_playing then
+			if not musique.est_muet then
 				doit_afficher_bouton_muet := False
 			end													--POURQUOI DOIS-JE FAIRE 2 IF ICI POUR QUE SA FONCTIONNE?
-			if musique.source.gain = 0 then
+			if musique.est_muet then
 				doit_afficher_bouton_muet := True
 			end
 			create bouton_muet.creer_affichable (fenetre.fenetre.renderer, "bouton_muet.png")
@@ -39,6 +39,7 @@ feature -- Initialization
 			create fond.make_image (fenetre.fenetre.renderer)
 		end
 
+feature -- Access
 	execution
 		do
 			game_library.clear_all_events
@@ -66,11 +67,9 @@ feature -- Initialization
 			if doit_afficher_bouton_muet = True then
 				bouton_muet.afficher (400, 100, fenetre.fenetre.renderer)
 				musique.mute
-				son_click.desactiver_son_click
 			else
 				bouton_non_muet.afficher (400, 100, fenetre.fenetre.renderer)
 				musique.unmute
-				son_click.unmute
 			end
 			bouton_credits.afficher (400, 200, fenetre.fenetre.renderer)
 			bouton_comment_jouer.afficher ( 310, 300, fenetre.fenetre.renderer)
