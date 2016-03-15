@@ -30,18 +30,21 @@ feature --Access
 	execution
 			-- Faire afficher le menu.
 		do
-			game_library.iteration_actions.extend (agent (a_timestamp:NATURAL) do audio_library.update end)
+			game_library.iteration_actions.extend (agent  (a_timestamp: NATURAL)
+				do
+					audio_library.update
+				end)
 			fenetre.fenetre.mouse_button_pressed_actions.extend (agent action_souris(?, ?, ?))
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
 		end
 
 feature {ANY} -- Implementation
 
-	is_quit_selected:BOOLEAN
+	is_quit_selected: BOOLEAN
 
 	fenetre: FENETRE
 
-	musique:MUSIQUE
+	musique: MUSIQUE
 
 	son_click: EFFETS_SONORES
 
