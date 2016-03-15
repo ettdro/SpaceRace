@@ -29,8 +29,7 @@ feature {NONE} -- Initialization
 			fenetre := l_construction_fenetre.generate_window
 			create fond.make_image (fenetre.renderer)
 			if not fond.has_error then
-				repeter_fenetre(1, fenetre.renderer)
-				fenetre.renderer.present
+				repeter_fenetre
 			else
 				print ("Ne peut ouvrir une ou des images.")
 			end
@@ -38,10 +37,11 @@ feature {NONE} -- Initialization
 
 feature -- Access
 
-	repeter_fenetre (a_temps: NATURAL_32; l_renderer: GAME_RENDERER)
+	repeter_fenetre
 			-- Dessine les éléments de la fenêtre.
 		do
-			fond.afficher (0, 0, l_renderer)
+			fond.afficher (0, 0, fenetre.renderer)
+			fenetre.renderer.present
 		end
 
 feature {ANY}

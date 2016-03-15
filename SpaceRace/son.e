@@ -67,7 +67,12 @@ feature -- Access
 			source.set_gain (1)
 		end
 
-feature {NONE} -- Implementation
+	desactiver_son_click
+		do
+			source.stop
+		end
+
+feature  -- Implementation
 
 	source: AUDIO_SOURCE
 

@@ -11,7 +11,9 @@ inherit
 
 	AFFICHAGE
 
-feature
+	AUDIO_LIBRARY_SHARED
+
+feature --Access
 
 	quitter_jeu (a_temps: NATURAL_32)
 			-- Méthode qui ferme le programme.
@@ -20,17 +22,27 @@ feature
 			is_quit_selected := True
 		end
 
---	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8; a_fenetre: GAME_WINDOW_RENDERED)
---			-- Méthode qui gère les actions de la souris dans les menus.
---		deferred
---		end
+	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
+			-- Méthode qui gère les actions de la souris dans les menus.
+		deferred
+		end
 
 	execution
 			-- Faire afficher le menu.
 		do
+			game_library.iteration_actions.extend (agent (a_timestamp:NATURAL) do audio_library.update end)
+			fenetre.fenetre.mouse_button_pressed_actions.extend (agent action_souris(?, ?, ?))
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
 		end
 
-is_quit_selected:BOOLEAN
+feature {ANY} -- Implementation
+
+	is_quit_selected:BOOLEAN
+
+	fenetre: FENETRE
+
+	musique:MUSIQUE
+
+	son_click: EFFETS_SONORES
 
 end

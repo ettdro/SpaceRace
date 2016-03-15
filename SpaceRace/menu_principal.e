@@ -18,8 +18,6 @@ inherit
 
 	IMG_LIBRARY_SHARED
 
-	AUDIO_LIBRARY_SHARED
-
 create
 	make
 
@@ -49,20 +47,17 @@ feature -- Access
 				is_quit_selected
 			loop
 				game_library.clear_all_events
-				game_library.iteration_actions.extend (agent (a_timestamp:NATURAL) do audio_library.update end)
-				generer_fenetre_principal(1, fenetre.fenetre.renderer)
-				fenetre.fenetre.mouse_button_pressed_actions.extend (agent action_souris(?, ?, ?, fenetre.fenetre))
+				lancer_fenetre_principal
 				Precursor {MENU}
 				is_option_clicked := False
 				game_library.launch
 				if is_option_clicked then
-					lancer_fenetre_options (1, fenetre.fenetre)
+					lancer_fenetre_options
 				end
 			end
-
 		end
 
-	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8; a_fenetre: GAME_WINDOW_RENDERED)
+	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
 			-- Méthode qui gère les clicks de souris pour permettre la navigation à partir de ce menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
@@ -70,40 +65,42 @@ feature -- Access
 					quitter_jeu (1)
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 349 and a_etat_souris.y < 407 then
 					son_click.jouer(False)
-					lancer_fenetre_options(0, fenetre.fenetre)
+					lancer_fenetre_options
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 249 and a_etat_souris.y < 307 then
-					son_click.jouer(False)
+					if mute_son_click then
+						son_click.desactiver_son_click
+					else
+						son_click.jouer(False)
+					end
 				end
 			end
 		end
 
 feature  -- Implementation
 
-	generer_fenetre_principal (a_temps: NATURAL_32; l_renderer: GAME_RENDERER)
+	lancer_fenetre_principal
 			-- Dessine les éléments de la fenêtre.
 		do
-			fenetre.repeter_fenetre (a_temps, l_renderer)
-			bouton_jouer.afficher (400, 250, l_renderer)
-			bouton_options.afficher (400, 350, l_renderer)
-			bouton_quitter.afficher (400, 450, l_renderer)
-			logo.afficher (250, 75, l_renderer)
+			fenetre.repeter_fenetre
+			bouton_jouer.afficher (400, 250, fenetre.fenetre.renderer)
+			bouton_options.afficher (400, 350, fenetre.fenetre.renderer)
+			bouton_quitter.afficher (400, 450, fenetre.fenetre.renderer)
+			logo.afficher (250, 75, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
 
-	lancer_fenetre_options (a_temps: NATURAL_32; l_renderer: GAME_WINDOW_RENDERED)
+	lancer_fenetre_options
 		local
 			l_menu_options: MENU_OPTIONS
 		do
-			create l_menu_options.make (fenetre, musique)
+			create l_menu_options.make (fenetre, musique, son_click)
 			l_menu_options.execution
 			is_quit_selected := l_menu_options.is_quit_selected
 		end
 
 feature {ANY}
 
-	son_click: EFFETS_SONORES
-
-	musique: MUSIQUE
+	mute_son_click: BOOLEAN
 
 	bouton_jouer: BOUTONS
 
@@ -113,8 +110,6 @@ feature {ANY}
 
 	logo: BOUTONS
 
-	fenetre: FENETRE
-
-	is_option_clicked:BOOLEAN
+	is_option_clicked: BOOLEAN
 
 end
