@@ -42,7 +42,7 @@ feature -- Access
 	execution
 			-- Boucle principale du jeu.
 		do
-			musique.jouer(True)
+			musique.jouer (True)
 			from
 				is_quit_selected := False
 			until
@@ -50,7 +50,7 @@ feature -- Access
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_principal
-				fenetre.fenetre.mouse_motion_actions.extend (agent mouvements_souris(?,?,?,?,fenetre.fenetre))
+				fenetre.fenetre.mouse_motion_actions.extend (agent mouvements_souris(?, ?, ?, ?, fenetre.fenetre))
 				Precursor {MENU}
 				is_option_clicked := False
 				game_library.launch
@@ -68,37 +68,33 @@ feature -- Access
 					quitter_jeu (1)
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 349 and a_etat_souris.y < 407 then
 					if not musique.est_muet then
-						son_click.jouer(False)
+						son_click.jouer (False)
 					end
 					game_library.set_cursor (curseur_defaut)
 					lancer_fenetre_options
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 249 and a_etat_souris.y < 307 then
 					if not musique.est_muet then
-						son_click.jouer(False)
+						son_click.jouer (False)
 					end
 					lancer_fenetre_jouer
 				end
 			end
 		end
 
-feature  -- Implementation
-
-	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window:GAME_WINDOW_RENDERED)
+	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
 			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
 			-- `a_font' to draw text.
 		do
 			x := a_mouse_state.x
 			y := a_mouse_state.y
-			if x > 399 and x < 607 and y > 249 and y < 307 then
-				game_library.set_cursor (curseur_main)
-			elseif x > 399 and x < 607 and y > 449 and y < 507 then
-				game_library.set_cursor (curseur_main)
-			elseif x > 399 and x < 607 and y > 349 and y < 407 then
+			if (x > 399 and x < 607 and y > 249 and y < 307) or (x > 399 and x < 607 and y > 449 and y < 507) or (x > 399 and x < 607 and y > 349 and y < 407) then
 				game_library.set_cursor (curseur_main)
 			else
 				game_library.set_cursor (curseur_defaut)
 			end
 		end
+
+feature -- Implementation
 
 	lancer_fenetre_principal
 			-- Dessine les éléments de la fenêtre.
@@ -124,7 +120,7 @@ feature  -- Implementation
 		local
 			l_menu_piste_vaisseaux: MENU_VAISSEAUX_PISTES
 		do
-			create l_menu_piste_vaisseaux.make(fenetre, musique, son_click)
+			create l_menu_piste_vaisseaux.make (fenetre, musique, son_click)
 			l_menu_piste_vaisseaux.execution
 			is_quit_selected := l_menu_piste_vaisseaux.is_quit_selected
 		end
@@ -135,7 +131,7 @@ feature {ANY}
 
 	curseur_defaut: GAME_CURSOR
 
-	y,x: INTEGER
+	y, x: INTEGER
 
 	mute_son_click: BOOLEAN
 
