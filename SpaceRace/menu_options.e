@@ -36,6 +36,8 @@ feature -- Initialization
 			create bouton_credits.creer_affichable (fenetre.fenetre.renderer, "bouton_credits.png")
 			create bouton_comment_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_comment_jouer.png")
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
+			create bouton_musique_precedente.creer_affichable (fenetre.fenetre.renderer, "fleche_musique_precedente.png")
+			create bouton_musique_suivante.creer_affichable (fenetre.fenetre.renderer, "fleche_musique_suivante.png")
 			create fond.make_image (fenetre.fenetre.renderer)
 		end
 
@@ -55,6 +57,10 @@ feature -- Access
 				if a_etat_souris.x > 399 and a_etat_souris.x < 606 and a_etat_souris.y > 100 and a_etat_souris.y < 155 then
 					doit_afficher_bouton_muet := not doit_afficher_bouton_muet
 					generer_fenetre
+				elseif a_etat_souris.x > 800 and a_etat_souris.x < 853 and a_etat_souris.y > 520 and a_etat_souris.y < 579 then
+					print("musique précédente")
+				elseif a_etat_souris.x > 875 and a_etat_souris.x < 928 and a_etat_souris.y > 520 and a_etat_souris.y < 579 then
+					musique.suivante
 				elseif a_etat_souris.x > 30 and a_etat_souris.x < 236 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
 					game_library.stop
 				end
@@ -73,6 +79,8 @@ feature -- Access
 			end
 			bouton_credits.afficher (400, 200, fenetre.fenetre.renderer)
 			bouton_comment_jouer.afficher ( 310, 300, fenetre.fenetre.renderer)
+			bouton_musique_precedente.afficher (800, 520, fenetre.fenetre.renderer)
+			bouton_musique_suivante.afficher (875, 520, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
@@ -92,5 +100,9 @@ feature {ANY}
 	bouton_comment_jouer: BOUTONS
 
 	bouton_retour: BOUTONS
+
+	bouton_musique_precedente: BOUTONS
+
+	bouton_musique_suivante: BOUTONS
 
 end

@@ -25,7 +25,7 @@ feature {NONE} -- Initialization
 			fenetre := a_fenetre
 			musique := a_musique
 			son_click := a_son_click
-			create musique.creer
+--			create musique.creer
 		end
 
 feature -- Access

@@ -133,8 +133,6 @@ feature {ANY}
 
 	y, x: INTEGER
 
-	mute_son_click: BOOLEAN
-
 	bouton_jouer: BOUTONS
 
 	bouton_options: BOUTONS
