@@ -13,13 +13,13 @@ inherit
 
 create
 	creer_affichable
-	--	creer_bouton_quitter, creer_bouton_options, creer_bouton_jouer, creer_logo
 
 feature {NONE} -- Initialization
 
 	creer_affichable (a_renderer: GAME_RENDERER; a_nom_fichier: STRING)
-			-- Méthode pour créer un fichier affichable
+			-- Méthode pour créer un fichier affichable (une image quelconque, ex.: les boutons, le logo, etc.)
 		do
 			creer_image (a_renderer, a_nom_fichier)
 		end
+
 end

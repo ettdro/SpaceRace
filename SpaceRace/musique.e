@@ -1,5 +1,5 @@
 note
-	description: "Joue la musique du jeu en boucle infini."
+	description: "Joue la musique du jeu en boucle infini et permet de changer de chanson."
 	author: "Nicolas Bisson & Étienne Drolet"
 	date: "2016-03-01"
 	revision: "1.0"
@@ -25,6 +25,7 @@ feature {NONE} -- Initialisation
 feature -- Access
 
 	suivante
+			-- Lance la chanson suivante
 		do
 		end
 

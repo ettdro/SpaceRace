@@ -1,5 +1,5 @@
 note
-	description: "Gère les pistes"
+	description: "Gère le menu où l'on choisi la piste sur laquelle courser."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-03-01"
 	revision: "1.0"
@@ -20,7 +20,7 @@ create
 feature {NONE} -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
-			-- Construit le menu pour choisir la pistes.
+			-- Construit le menu pour choisir la piste.
 		do
 			fenetre := a_fenetre
 			musique := a_musique
@@ -28,12 +28,12 @@ feature {NONE} -- Initialization
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create fond.make_image (fenetre.fenetre.renderer)
 			create cadre.creer_affichable (fenetre.fenetre.renderer, "bordure_pistes.png")
---			create musique.creer
 		end
 
 feature -- Access
 
 	execution
+			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
 		do
 			game_library.clear_all_events
 			lancer_fenetre_pistes
@@ -51,15 +51,16 @@ feature -- Access
 			end
 		end
 
-	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
-			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
-			-- `a_font' to draw text.
-		do
-		end
+		--	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
+		--			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
+		--			-- `a_font' to draw text.
+		--		do
+		--		end
 
-feature
+feature {NONE}
 
 	lancer_fenetre_pistes
+			-- Dessine les éléments de la fenêtre.
 		do
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
@@ -70,7 +71,7 @@ feature
 			fenetre.fenetre.renderer.present
 		end
 
-feature
+feature {ANY} -- Implementation
 
 	cadre: BOUTONS
 

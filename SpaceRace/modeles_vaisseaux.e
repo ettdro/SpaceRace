@@ -1,8 +1,5 @@
-
-	-- CLASSE NON TERMINÉE, ELLE N'A PAS D'IMPACT SUR LE PROGRAMME ET N'EST PAS UTILE POUR LA REMISE 1.
-
 note
-	description: "Crée les images des vaisseaux."
+	description: "Gère le menu où l'on choisi le modèle du vaisseau avec lequel courser."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-03-01"
 	revision: "1.0"
@@ -28,75 +25,27 @@ feature {NONE} -- Initialization
 			fenetre := a_fenetre
 			musique := a_musique
 			son_click := a_son_click
---			create musique.creer
 		end
 
 feature -- Access
 
 	execution
+			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
 		do
+			game_library.clear_all_events
+			Precursor {MENU}
+			game_library.launch
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
-			-- Méthode qui gère les actions de la souris dans les menus.
+			-- Méthode qui gère les actions de la souris dans le menu.
 		do
 		end
 
-	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
-			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
-			-- `a_font' to draw text.
-		do
-		end
-
-		--		local
-		--			l_image: IMG_IMAGE_FILE
+		--	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
+		--			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
+		--			-- `a_font' to draw text.
 		--		do
-		--			contient_erreur := False
-		--			create l_image.make_modele_vaisseau ("vaisseauTest.jpg")
-		--			if l_image.is_openable then
-		--				l_image.open
-		--				if l_image.is_open then
-		--					make_from_image (a_renderer, l_image)
-		--					if not has_error then
-		--						sub_image_largeur := largeur // 3
-		--						sub_image_longueur := hauteur
-		--					end
-		--				else
-		--					has_error := False
-		--				end
-		--			else
-		--				has_error := False
-		--			end
-		--			initialisation_animation
 		--		end
-
-		--	initialisation_animation
-		--			-- Crée les animations du vaisseau
-		--		do
-		--			create {ARRAYED_LIST [TUPLE [x, y: INTEGER]]} coordination_animation.make (4)
-		--			coordination_animation.extend ([largeur // 3, 0]) -- S'assurer de positionner l'image dans la fenêtre.
-		--			coordination_animation.extend ([0, 0])
-		--			coordination_animation.extend ([(largeur // 3) * 2, 0])
-		--			coordination_animation.extend ([0, 0])
-		--			sub_image_x := coordination_animation.premier.x -- Positionne l'image en X.
-		--			sub_image_y := coordination_animation.premier.y -- Positionne l'image en Y.
-		--		end
-
-		--feature
-
-		--	sub_image_largeur: INTEGER
-
-		--	sub_image_longueur: INTEGER
-		--			-- Dimensions de l'image
-
-		--	sub_image_x: INTEGER
-
-		--	sub_image_y: INTEGER
-		--			-- Position de l'image
-
-		--feature {NONE}
-
-		--	coordination_animation: LIST [TUPLE [x, y: INTEGER]]
-		--			-- Les coordinations de l'image
 
 end

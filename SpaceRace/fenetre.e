@@ -1,5 +1,5 @@
 note
-	description: "Classe pour gérer la fenêtre {FENETRE}."
+	description: "Classe pour générer la fenêtre de l'application et pour la rafraichir."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-03-01"
 	revision: "1.0"
@@ -19,7 +19,7 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Construit la fenêtre pour le MENU_PRINCIPAL.
+			-- Construit la fenêtre pour l'application.
 		local
 			l_construction_fenetre: GAME_WINDOW_RENDERED_BUILDER
 		do
@@ -31,14 +31,14 @@ feature {NONE} -- Initialization
 			if not fond.has_error then
 				repeter_fenetre
 			else
-				print ("Ne peut ouvrir une ou des images.")
+				print ("Ne peut ouvrir une ou plusieurs images.")
 			end
 		end
 
 feature -- Access
 
 	repeter_fenetre
-			-- Dessine les éléments de la fenêtre.
+			-- Affiche le fond d'écran et rafraichie la fenêtre.
 		do
 			fond.afficher (0, 0, fenetre.renderer)
 			fenetre.renderer.present

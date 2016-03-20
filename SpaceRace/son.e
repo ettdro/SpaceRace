@@ -1,5 +1,5 @@
 note
-	description: "Contient les méthodes générales liées aux sons, autant pour la musique que les bruits de vaisseaux."
+	description: "Contient les méthodes générales liées aux sons, autant pour la musique que les effets sonores."
 	author: "Nicolas Bisson & Étienne Drolet"
 	date: "2016-03-01"
 	revision: "1.0"
@@ -58,26 +58,30 @@ feature -- Access
 		end
 
 	mute
+			-- Coupe le musique du jeu.
 		do
 			source.set_gain (0)
 		end
 
 	unmute
+			-- Rouvre le son du jeu.
 		do
 			source.set_gain (1)
 		end
 
 	desactiver_son_click
+			-- Désactive le son lorsqu'on click sur un bouton.
 		do
 			source.stop
 		end
 
-	est_muet:BOOLEAN
+	est_muet: BOOLEAN
+			-- Vérifie si c'est muet pour l'affichage du bon bouton dans le menu des options.
 		do
 			Result := source.gain = 0
 		end
 
-feature  -- Implementation
+feature -- Implementation
 
 	source: AUDIO_SOURCE
 

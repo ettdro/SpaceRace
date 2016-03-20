@@ -14,7 +14,7 @@ inherit
 feature -- Access
 
 	creer_image (a_renderer: GAME_RENDERER; a_nom_fichier: STRING)
-			-- Méthode qui crée une image.
+			-- Méthode qui crée une image si le fichier est ouvrable.
 		local
 			l_image: IMG_IMAGE_FILE
 		do
@@ -35,9 +35,9 @@ feature -- Access
 		end
 
 	afficher (a_pos_x, a_pos_y: INTEGER; l_renderer: GAME_RENDERER)
-			-- Vérifie si l'image n'est pas NULL et affiche l'image.
+			-- Affiche l'image à l'endroit voulu.
 		do
-				l_renderer.draw_texture (Current, a_pos_x, a_pos_y)
+			l_renderer.draw_texture (Current, a_pos_x, a_pos_y)
 		end
 
 feature {NONE} -- Implementation

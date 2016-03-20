@@ -1,5 +1,5 @@
 note
-	description: "Classe pour gérer le JEU."
+	description: "Classe pour gérer le jeu, la partie qui consiste à faire une course pour enregistrer le meilleur temps."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-03-01"
 	revision: "1.0"
@@ -13,9 +13,8 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Construit le Jeu.
+			-- Construit le jeu principal.
 		do
-			make_affichage
 		end
 
 end

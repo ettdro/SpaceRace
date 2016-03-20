@@ -1,5 +1,5 @@
 note
-	description: "Affiche le menu de démarrage où l'on peut choisir de jouer ou les options."
+	description: "Affiche le menu de démarrage où l'on peut choisir de jouer ou d'aller dans les options."
 	author: "Étienne Drolet & Nicolas Bisson"
 	date: "2016-03-01"
 	revision: "1.0"
@@ -24,10 +24,10 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Construit les éléments de MENU_PRINCIPAL.
+			-- Construit le menu principal et ses images.
 		do
 			create fenetre.make
-			create son_click.creer
+			create son_click.creer_son_click
 			create musique.creer
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
 			create bouton_options.creer_affichable (fenetre.fenetre.renderer, "bouton_options2.png")
@@ -40,7 +40,7 @@ feature {NONE} -- Initialization
 feature -- Access
 
 	execution
-			-- Boucle principale du jeu.
+			-- Gère le menu principal et le bouton "X" rouge de la fenêtre pour tous les menus.
 		do
 			musique.jouer (True)
 			from
@@ -95,7 +95,7 @@ feature -- Access
 			end
 		end
 
-feature -- Implementation
+feature {NONE}
 
 	lancer_fenetre_principal
 			-- Dessine les éléments de la fenêtre.
@@ -109,6 +109,7 @@ feature -- Implementation
 		end
 
 	lancer_fenetre_options
+			-- Lance le menu des options.
 		local
 			l_menu_options: MENU_OPTIONS
 		do
@@ -118,6 +119,7 @@ feature -- Implementation
 		end
 
 	lancer_fenetre_jouer
+			-- Lance le menu de sélection de la piste et du vaisseau.
 		local
 			l_menu_piste_vaisseaux: MENU_VAISSEAUX_PISTES
 		do
@@ -126,7 +128,7 @@ feature -- Implementation
 			is_quit_selected := l_menu_piste_vaisseaux.is_quit_selected
 		end
 
-feature {ANY}
+feature {ANY} -- Implementation
 
 	bouton_jouer: BOUTONS
 

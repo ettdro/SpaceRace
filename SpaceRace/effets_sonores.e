@@ -1,6 +1,6 @@
 note
-	description: "Classe qui va regrouper tous les effets sonores."
-	author: "Nicolas Bisson"
+	description: "Classe qui va créer tous les effets sonores."
+	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-03-01"
 	revision: "1.0"
 
@@ -12,12 +12,12 @@ inherit
 	SON
 
 create
-	creer
+	creer_son_click
 
-feature {NONE} -- Initialisation
+feature {NONE} -- Initialization
 
-	creer
-			-- Créer le son du click
+	creer_son_click
+			-- Crée le son du click
 		do
 			creer_son ("click_sound.wav")
 		end

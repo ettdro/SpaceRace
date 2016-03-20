@@ -1,5 +1,5 @@
 note
-	description: "Classe principale pour lancer le jeu."
+	description: "Classe principale de l'application qui lance le jeu."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-03-01"
 	revision: "1.0"
@@ -23,7 +23,7 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Boucle principal du jeu. (Part le MENU_PRINCIPAL)
+			-- Boucle principale du jeu qui ouvre les librairies et lance le menu principal.
 		local
 			l_menu: detachable MENU_PRINCIPAL
 		do
