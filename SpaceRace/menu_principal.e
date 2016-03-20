@@ -76,6 +76,7 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
+					game_library.set_cursor (curseur_defaut)
 					lancer_fenetre_jouer
 				end
 			end
@@ -127,12 +128,6 @@ feature -- Implementation
 
 feature {ANY}
 
-	curseur_main: GAME_CURSOR
-
-	curseur_defaut: GAME_CURSOR
-
-	y, x: INTEGER
-
 	bouton_jouer: BOUTONS
 
 	bouton_options: BOUTONS
@@ -142,5 +137,11 @@ feature {ANY}
 	logo: BOUTONS
 
 	is_option_clicked: BOOLEAN
+
+	curseur_main: GAME_CURSOR
+
+	curseur_defaut: GAME_CURSOR
+
+	y, x: INTEGER
 
 end

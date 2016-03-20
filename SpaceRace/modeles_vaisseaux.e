@@ -42,6 +42,12 @@ feature -- Access
 		do
 		end
 
+	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
+			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
+			-- `a_font' to draw text.
+		do
+		end
+
 		--		local
 		--			l_image: IMG_IMAGE_FILE
 		--		do
