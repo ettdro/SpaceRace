@@ -53,10 +53,16 @@ feature -- Access
 		do
 			if a_etat_souris.is_left_button_pressed then
 				if a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
+					if not musique.est_muet then
+						son_click.jouer (False)
+					end
 					is_quit_vaisseaux := True
 					is_quit_pistes := False
 					game_library.stop
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
+					if not musique.est_muet then
+						son_click.jouer (False)
+					end
 						-- LANCER LA FENETRE DE JEU_PRINCIPAL
 				end
 			end
