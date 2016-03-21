@@ -20,8 +20,13 @@ feature --Access
 	quitter_jeu (a_temps: NATURAL_32)
 			-- Méthode qui ferme l'application.
 		do
+			is_quit_credits := True
+			is_quit_options := True
+			is_quit_principal := True
+			is_quit_comment_jouer := True
+			is_quit_pistes := True
+			is_quit_vaisseaux := True
 			game_library.stop
-			is_quit_selected := True
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
@@ -29,11 +34,11 @@ feature --Access
 		deferred
 		end
 
-		--	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
-		--			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
-		--			-- `a_font' to draw text.
-		--		deferred
-		--		end
+--	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
+--			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
+--			-- `a_font' to draw text.
+--		deferred
+--		end
 
 	execution
 			-- Faire afficher le menu et leurs images et lancer la gestion de la souris.
@@ -48,7 +53,17 @@ feature --Access
 
 feature {ANY} -- Implementation
 
-	is_quit_selected: BOOLEAN
+	is_quit_principal: BOOLEAN
+
+	is_quit_options: BOOLEAN
+
+	is_quit_credits: BOOLEAN
+
+	is_quit_comment_jouer: BOOLEAN
+
+	is_quit_pistes: BOOLEAN
+
+	is_quit_vaisseaux: BOOLEAN
 
 	fenetre: FENETRE
 

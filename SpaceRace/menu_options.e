@@ -44,10 +44,16 @@ feature -- Access
 	execution
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
 		do
-			game_library.clear_all_events
-			lancer_fenetre_options
-			Precursor {MENU}
-			game_library.launch
+			from
+				is_quit_options := False
+			until
+				is_quit_options
+			loop
+				game_library.clear_all_events
+				lancer_fenetre_options
+				Precursor {MENU}
+				game_library.launch
+			end
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
@@ -58,10 +64,29 @@ feature -- Access
 					doit_afficher_bouton_muet := not doit_afficher_bouton_muet
 					lancer_fenetre_options
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 199 and a_etat_souris.y < 257 then
+					if not musique.est_muet then
+						son_click.jouer (False)
+					end
+					is_quit_options := True
+					is_quit_principal := True
+					is_quit_credits := False
 					lancer_fenetre_credits
 				elseif a_etat_souris.x > 309 and a_etat_souris.x < 695 and a_etat_souris.y > 299 and a_etat_souris.y < 357 then
+					if not musique.est_muet then
+						son_click.jouer (False)
+					end
+					is_quit_options := True
+					is_quit_principal := True
+					is_quit_comment_jouer := False
 					lancer_fenetre_comment_jouer
 				elseif a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
+					if not musique.est_muet then
+						son_click.jouer (False)
+					end
+					is_quit_options := True
+					is_quit_principal := False
+					is_quit_credits := True
+					is_quit_comment_jouer := True
 					game_library.stop
 				end
 			end
@@ -104,7 +129,7 @@ feature -- Access
 		do
 			create l_menu_credits.make (fenetre, musique, son_click)
 			l_menu_credits.execution
-			is_quit_selected := l_menu_credits.is_quit_selected
+			is_quit_options := l_menu_credits.is_quit_options
 		end
 
 	lancer_fenetre_comment_jouer
@@ -114,7 +139,7 @@ feature -- Access
 		do
 			create l_menu_comment_jouer.make (fenetre, musique, son_click)
 			l_menu_comment_jouer.execution
-			is_quit_selected := l_menu_comment_jouer.is_quit_selected
+			is_quit_options := l_menu_comment_jouer.is_quit_options
 		end
 
 feature {ANY} -- Implementation

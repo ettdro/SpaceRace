@@ -44,19 +44,15 @@ feature -- Access
 		do
 			musique.jouer (True)
 			from
-				is_quit_selected := False
+				is_quit_principal := False
 			until
-				is_quit_selected
+				is_quit_principal
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_principal
 				fenetre.fenetre.mouse_motion_actions.extend (agent mouvements_souris(?, ?, ?, ?, fenetre.fenetre))
 				Precursor {MENU}
-				is_option_clicked := False
 				game_library.launch
-				if is_option_clicked then
-					lancer_fenetre_options
-				end
 			end
 		end
 
@@ -71,12 +67,17 @@ feature -- Access
 						son_click.jouer (False)
 					end
 					game_library.set_cursor (curseur_defaut)
+					is_quit_options := False
+					is_quit_principal := True
 					lancer_fenetre_options
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 249 and a_etat_souris.y < 307 then
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
 					game_library.set_cursor (curseur_defaut)
+					is_quit_principal := True
+					is_quit_pistes := False
+					is_quit_vaisseaux := True
 					lancer_fenetre_jouer
 				end
 			end
@@ -115,7 +116,7 @@ feature {NONE}
 		do
 			create l_menu_options.make (fenetre, musique, son_click)
 			l_menu_options.execution
-			is_quit_selected := l_menu_options.is_quit_selected
+			is_quit_principal := l_menu_options.is_quit_principal
 		end
 
 	lancer_fenetre_jouer
@@ -125,7 +126,7 @@ feature {NONE}
 		do
 			create l_menu_piste.make (fenetre, musique, son_click)
 			l_menu_piste.execution
-			is_quit_selected := l_menu_piste.is_quit_selected
+			is_quit_principal := l_menu_piste.is_quit_principal
 		end
 
 feature {ANY} -- Implementation

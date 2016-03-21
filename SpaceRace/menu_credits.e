@@ -34,10 +34,16 @@ feature -- Access
 	execution
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
 		do
-			game_library.clear_all_events
-			lancer_fenetre_credits
-			Precursor {MENU}
-			game_library.launch
+			from
+				is_quit_credits := False
+			until
+				is_quit_credits
+			loop
+				game_library.clear_all_events
+				lancer_fenetre_credits
+				Precursor {MENU}
+				game_library.launch
+			end
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
@@ -45,16 +51,23 @@ feature -- Access
 		do
 			if a_etat_souris.is_left_button_pressed then
 				if a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
+					if not musique.est_muet then
+						son_click.jouer (False)
+					end
+					is_quit_options := False
+					is_quit_principal := True
+					is_quit_credits := True
+					is_quit_comment_jouer := True
 					game_library.stop
 				end
 			end
 		end
 
-		--	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
-		--			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
-		--			-- `a_font' to draw text.
-		--		do
-		--		end
+	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
+			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
+			-- `a_font' to draw text.
+		do
+		end
 
 feature {NONE}
 
