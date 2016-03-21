@@ -9,9 +9,11 @@ deferred class
 
 inherit
 
-	AFFICHAGE
-
 	AUDIO_LIBRARY_SHARED
+
+	GAME_LIBRARY_SHARED
+
+	IMG_LIBRARY_SHARED
 
 feature --Access
 

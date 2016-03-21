@@ -119,13 +119,13 @@ feature {NONE}
 		end
 
 	lancer_fenetre_jouer
-			-- Lance le menu de sélection de la piste et du vaisseau.
+			-- Lance le menu de sélection de la piste.
 		local
-			l_menu_piste_vaisseaux: MENU_VAISSEAUX_PISTES
+			l_menu_piste: MENU_PISTES
 		do
-			create l_menu_piste_vaisseaux.make (fenetre, musique, son_click)
-			l_menu_piste_vaisseaux.execution
-			is_quit_selected := l_menu_piste_vaisseaux.is_quit_selected
+			create l_menu_piste.make (fenetre, musique, son_click)
+			l_menu_piste.execution
+			is_quit_selected := l_menu_piste.is_quit_selected
 		end
 
 feature {ANY} -- Implementation

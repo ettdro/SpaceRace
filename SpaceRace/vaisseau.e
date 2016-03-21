@@ -15,7 +15,6 @@ feature {NONE} -- Initialization
 	make
 			-- Construit le vaisseau.
 		do
-
 		end
 
 end
