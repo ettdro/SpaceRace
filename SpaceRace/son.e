@@ -18,15 +18,15 @@ feature -- Access
 	creer_son (a_nom_fichier: STRING)
 			-- Méthode qui crée le son.
 		local
-			l_son_click: AUDIO_SOUND_FILE
+			l_son: AUDIO_SOUND_FILE
 		do
 			audio_library.sources_add
 			source := audio_library.last_source_added
-			create l_son_click.make (a_nom_fichier)
-			if l_son_click.is_openable then
-				l_son_click.open
-				if l_son_click.is_open then
-					son_click := l_son_click
+			create l_son.make (a_nom_fichier)
+			if l_son.is_openable then
+				l_son.open
+				if l_son.is_open then
+					son_click := l_son
 				end
 			end
 		end

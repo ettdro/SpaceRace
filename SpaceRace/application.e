@@ -30,11 +30,9 @@ feature {NONE} -- Initialization
 			game_library.enable_video
 			image_file_library.enable_image (True, True, False)
 			audio_library.enable_sound
-			text_library.enable_text
 			create l_menu.make
 			l_menu.execution
 			l_menu := Void
-			text_library.quit_library
 			audio_library.quit_library
 			image_file_library.quit_library
 			game_library.quit_library

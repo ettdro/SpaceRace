@@ -34,15 +34,17 @@ feature --Access
 		deferred
 		end
 
---	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
---			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
---			-- `a_font' to draw text.
---		deferred
---		end
+	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_x, a_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
+			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
+			-- `a_font' to draw text.
+		do
+			curseur.est_sur_bouton (a_timestamp, a_mouse_state, a_x, a_y, a_window, liste_coordonnees)
+		end
 
 	execution
 			-- Faire afficher le menu et leurs images et lancer la gestion de la souris.
 		do
+			fenetre.fenetre.mouse_motion_actions.extend (agent mouvements_souris(?, ?, ?, ?, fenetre.fenetre))
 			game_library.iteration_actions.extend (agent  (a_timestamp: NATURAL)
 				do
 					audio_library.update
@@ -70,5 +72,9 @@ feature {ANY} -- Implementation
 	musique: MUSIQUE
 
 	son_click: EFFETS_SONORES
+
+	curseur: CURSEUR
+
+	liste_coordonnees: LIST[TUPLE[x1, y1, x2, y2:INTEGER]]
 
 end

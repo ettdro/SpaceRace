@@ -27,6 +27,9 @@ feature -- Initialization
 			son_click := a_son_click
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create fond.make_image (fenetre.fenetre.renderer)
+			create curseur.make
+			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (1)
+			liste_coordonnees.extend ([30,520,236,576])		-- Coordonnées du bouton RETOUR.
 		end
 
 feature -- Access
@@ -54,6 +57,7 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
+					curseur.reinitialiser_curseur
 					is_quit_options := False
 					is_quit_principal := True
 					is_quit_credits := True
@@ -61,12 +65,6 @@ feature -- Access
 					game_library.stop
 				end
 			end
-		end
-
-	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
-			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
-			-- `a_font' to draw text.
-		do
 		end
 
 feature {NONE}

@@ -33,8 +33,11 @@ feature {NONE} -- Initialization
 			create bouton_options.creer_affichable (fenetre.fenetre.renderer, "bouton_options2.png")
 			create bouton_quitter.creer_affichable (fenetre.fenetre.renderer, "bouton_quitter2.png")
 			create logo.creer_affichable (fenetre.fenetre.renderer, "logo2.png")
-			create curseur_main.make_hand
-			create curseur_defaut.make_arrow
+			create curseur.make
+			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (3)
+			liste_coordonnees.extend ([400,250,606,306])	-- Coordonnées du bouton JOUER.
+			liste_coordonnees.extend ([400,350,606,406])	-- Coordonnées du bouton OPTIONS.
+			liste_coordonnees.extend ([400,450,606,506])	-- Coordonnées du bouton QUITTER.
 		end
 
 feature -- Access
@@ -50,7 +53,6 @@ feature -- Access
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_principal
-				fenetre.fenetre.mouse_motion_actions.extend (agent mouvements_souris(?, ?, ?, ?, fenetre.fenetre))
 				Precursor {MENU}
 				game_library.launch
 			end
@@ -66,7 +68,7 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
-					game_library.set_cursor (curseur_defaut)
+					curseur.reinitialiser_curseur
 					is_quit_options := False
 					is_quit_principal := True
 					lancer_fenetre_options
@@ -74,25 +76,12 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
-					game_library.set_cursor (curseur_defaut)
+					curseur.reinitialiser_curseur
 					is_quit_principal := True
 					is_quit_pistes := False
 					is_quit_vaisseaux := True
 					lancer_fenetre_jouer
 				end
-			end
-		end
-
-	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
-			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
-			-- `a_font' to draw text.
-		do
-			x := a_mouse_state.x
-			y := a_mouse_state.y
-			if (x > 399 and x < 607 and y > 249 and y < 307) or (x > 399 and x < 607 and y > 449 and y < 507) or (x > 399 and x < 607 and y > 349 and y < 407) then
-				game_library.set_cursor (curseur_main)
-			else
-				game_library.set_cursor (curseur_defaut)
 			end
 		end
 
@@ -138,13 +127,5 @@ feature {ANY} -- Implementation
 	bouton_quitter: AFFICHABLE
 
 	logo: AFFICHABLE
-
-	is_option_clicked: BOOLEAN
-
-	curseur_main: GAME_CURSOR
-
-	curseur_defaut: GAME_CURSOR
-
-	y, x: INTEGER
 
 end

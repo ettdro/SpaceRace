@@ -22,11 +22,4 @@ feature {NONE} -- Initialisation
 			creer_son ("MusiqueMenu.wav")
 		end
 
-feature -- Access
-
-	suivante
-			-- Lance la chanson suivante
-		do
-		end
-
 end

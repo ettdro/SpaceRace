@@ -27,7 +27,7 @@ feature -- Initialization
 			son_click := a_son_click
 			if not musique.est_muet then
 				doit_afficher_bouton_muet := False
-			end 									--POURQUOI DOIS-JE FAIRE 2 IF ICI POUR QUE SA FONCTIONNE?
+			end
 			if musique.est_muet then
 				doit_afficher_bouton_muet := True
 			end
@@ -37,6 +37,12 @@ feature -- Initialization
 			create bouton_comment_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_comment_jouer.png")
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create fond.make_image (fenetre.fenetre.renderer)
+			create curseur.make
+			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (4)
+			liste_coordonnees.extend ([400,100,606,156])	-- Coordonnées des boutons MUET/NON_MUET.
+			liste_coordonnees.extend ([400,200,606,256])	-- Coordonnées du bouton CREDITS.
+			liste_coordonnees.extend ([310,300,695,356])	-- Coordonnées du bouton COMMENT_JOUER.
+			liste_coordonnees.extend ([30,520,236,576])		-- Coordonnées du bouton RETOUR.
 		end
 
 feature -- Access
@@ -67,6 +73,7 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
+					curseur.reinitialiser_curseur
 					is_quit_options := True
 					is_quit_principal := True
 					is_quit_credits := False
@@ -75,6 +82,7 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
+					curseur.reinitialiser_curseur
 					is_quit_options := True
 					is_quit_principal := True
 					is_quit_comment_jouer := False
@@ -83,6 +91,7 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
+					curseur.reinitialiser_curseur
 					is_quit_options := True
 					is_quit_principal := False
 					is_quit_credits := True
@@ -91,19 +100,6 @@ feature -- Access
 				end
 			end
 		end
-
-		--	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
-		--			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
-		--			-- `a_font' to draw text.
-		--		do
-		--			x := a_mouse_state.x
-		--			y := a_mouse_state.y
-		--			if (x > 399 and x < 606 and y > 100 and y < 155) or (x > 30 and x < 236 and y > 519 and y < 577) then
-		--				game_library.set_cursor (curseur_main)
-		--			else
-		--				game_library.set_cursor (curseur_defaut)
-		--			end
-		--		end
 
 	lancer_fenetre_options
 			-- Affiche toutes les images du menu à l'endroit précisé.

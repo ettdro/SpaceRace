@@ -30,6 +30,9 @@ feature {NONE} -- Initialization
 			create titre.creer_affichable (fenetre.fenetre.renderer, "choisir_piste.png")
 			create cadre.creer_affichable (fenetre.fenetre.renderer, "bordure_pistes.png")
 			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
+			create curseur.make
+			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (1)
+			liste_coordonnees.extend ([30,520,236,576])		-- Coordonnées du bouton RETOUR.
 		end
 
 feature -- Access
@@ -69,12 +72,6 @@ feature -- Access
 					lancer_fenetre_vaisseaux
 				end
 			end
-		end
-
-	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
-			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
-			-- `a_font' to draw text.
-		do
 		end
 
 feature {NONE}
