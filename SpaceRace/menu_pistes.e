@@ -27,6 +27,7 @@ feature {NONE} -- Initialization
 			son_click := a_son_click
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create fond.make_image (fenetre.fenetre.renderer)
+			create titre.creer_affichable (fenetre.fenetre.renderer, "choisir_piste.png")
 			create cadre.creer_affichable (fenetre.fenetre.renderer, "bordure_pistes.png")
 			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
 		end
@@ -82,12 +83,13 @@ feature {NONE}
 			-- Dessine les éléments de la fenêtre.
 		do
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
+			titre.afficher (230, 30, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
 			bouton_suivant.afficher (760, 520, fenetre.fenetre.renderer)
-			cadre.afficher (200, 50, fenetre.fenetre.renderer)
-			cadre.afficher (538, 50, fenetre.fenetre.renderer)
+			cadre.afficher (200, 120, fenetre.fenetre.renderer)
+			cadre.afficher (550, 120, fenetre.fenetre.renderer)
 			cadre.afficher (200, 300, fenetre.fenetre.renderer)
-			cadre.afficher (538, 300, fenetre.fenetre.renderer)
+			cadre.afficher (550, 300, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
 
@@ -103,12 +105,14 @@ feature {NONE}
 
 feature {ANY} -- Implementation
 
-	cadre: BOUTONS
+	cadre: AFFICHABLE
 
-	bouton_retour: BOUTONS
+	titre: AFFICHABLE
+
+	bouton_retour: AFFICHABLE
 
 	fond: FOND_ECRAN
 
-	bouton_suivant: BOUTONS
+	bouton_suivant: AFFICHABLE
 
 end

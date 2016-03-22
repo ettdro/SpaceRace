@@ -81,7 +81,7 @@ feature {NONE}
 
 feature {ANY} -- Implementation
 
-	bouton_retour: BOUTONS
+	bouton_retour: AFFICHABLE
 
 	fond: FOND_ECRAN
 

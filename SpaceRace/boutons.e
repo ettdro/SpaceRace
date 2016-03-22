@@ -5,7 +5,7 @@ note
 	revision: "1.0"
 
 class
-	BOUTONS
+	AFFICHABLE
 
 inherit
 

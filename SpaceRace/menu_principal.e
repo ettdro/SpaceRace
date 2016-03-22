@@ -131,13 +131,13 @@ feature {NONE}
 
 feature {ANY} -- Implementation
 
-	bouton_jouer: BOUTONS
+	bouton_jouer: AFFICHABLE
 
-	bouton_options: BOUTONS
+	bouton_options: AFFICHABLE
 
-	bouton_quitter: BOUTONS
+	bouton_quitter: AFFICHABLE
 
-	logo: BOUTONS
+	logo: AFFICHABLE
 
 	is_option_clicked: BOOLEAN
 

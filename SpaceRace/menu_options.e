@@ -148,14 +148,14 @@ feature {ANY} -- Implementation
 
 	doit_afficher_bouton_muet: BOOLEAN
 
-	bouton_muet: BOUTONS
+	bouton_muet: AFFICHABLE
 
-	bouton_non_muet: BOUTONS
+	bouton_non_muet: AFFICHABLE
 
-	bouton_credits: BOUTONS
+	bouton_credits: AFFICHABLE
 
-	bouton_comment_jouer: BOUTONS
+	bouton_comment_jouer: AFFICHABLE
 
-	bouton_retour: BOUTONS
+	bouton_retour: AFFICHABLE
 
 end

@@ -25,10 +25,14 @@ feature {NONE} -- Initialization
 			fenetre := a_fenetre
 			musique := a_musique
 			son_click := a_son_click
-			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create fond.make_image (fenetre.fenetre.renderer)
-			create cadre.creer_affichable (fenetre.fenetre.renderer, "bordure_pistes.png")
+			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
+			create titre.creer_affichable (fenetre.fenetre.renderer, "choisir_vaisseau.png")
+			create cadre.creer_affichable (fenetre.fenetre.renderer, "bordure_vaisseaux.png")
+			create vaisseau_rouge.creer_affichable (fenetre.fenetre.renderer, "vaisseau_rouge.png")
+			create vaisseau_jaune.creer_affichable (fenetre.fenetre.renderer, "vaisseau_jaune.png")
+			create vaisseau_vert.creer_affichable (fenetre.fenetre.renderer, "vaisseau_vert.png")
 		end
 
 feature -- Access
@@ -80,22 +84,34 @@ feature {NONE}
 			-- Dessine les éléments de la fenêtre.
 		do
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
+			titre.afficher (180, 30, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
 			bouton_suivant.afficher (760, 520, fenetre.fenetre.renderer)
-			cadre.afficher (200, 50, fenetre.fenetre.renderer)
-			cadre.afficher (538, 50, fenetre.fenetre.renderer)
-			cadre.afficher (375, 300, fenetre.fenetre.renderer)
+			cadre.afficher (200, 200, fenetre.fenetre.renderer)
+			vaisseau_rouge.afficher (260, 240, fenetre.fenetre.renderer)
+			cadre.afficher (430, 200, fenetre.fenetre.renderer)
+			vaisseau_jaune.afficher (490, 240, fenetre.fenetre.renderer)
+			cadre.afficher (660, 200, fenetre.fenetre.renderer)
+			vaisseau_vert.afficher (720, 240, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
 
 feature {ANY} -- Implementation
 
-	cadre: BOUTONS
+	titre: AFFICHABLE
 
-	bouton_retour: BOUTONS
+	vaisseau_rouge: AFFICHABLE
+
+	vaisseau_jaune: AFFICHABLE
+
+	vaisseau_vert: AFFICHABLE
+
+	cadre: AFFICHABLE
+
+	bouton_retour: AFFICHABLE
 
 	fond: FOND_ECRAN
 
-	bouton_suivant: BOUTONS
+	bouton_suivant: AFFICHABLE
 
 end
