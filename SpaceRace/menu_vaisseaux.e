@@ -30,12 +30,16 @@ feature {NONE} -- Initialization
 			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
 			create titre.creer_affichable (fenetre.fenetre.renderer, "choisir_vaisseau.png")
 			create cadre.creer_affichable (fenetre.fenetre.renderer, "bordure_vaisseaux.png")
-			create vaisseau_rouge.creer_affichable (fenetre.fenetre.renderer, "vaisseau_rouge.png")
-			create vaisseau_jaune.creer_affichable (fenetre.fenetre.renderer, "vaisseau_jaune.png")
-			create vaisseau_vert.creer_affichable (fenetre.fenetre.renderer, "vaisseau_vert.png")
+			create vaisseau1.creer_affichable (fenetre.fenetre.renderer, "vaisseau1_cadre.png")
+			create vaisseau2.creer_affichable (fenetre.fenetre.renderer, "vaisseau2_cadre.png")
+			create vaisseau3.creer_affichable (fenetre.fenetre.renderer, "vaisseau3_cadre.png")
 			create curseur.make
-			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (1)
-			liste_coordonnees.extend ([30,520,236,576])		-- Coordonnées du bouton RETOUR.
+			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (5)
+			liste_coordonnees.extend ([30,520,236,576])			-- Coordonnées du bouton RETOUR.
+			liste_coordonnees.extend ([760,520,966,576])		-- Coordonnées du bouton SUIVANT.
+			liste_coordonnees.extend ([200,200,380,380])		-- Coordonnées du bouton CADRE_1.
+			liste_coordonnees.extend ([430,200,610,380])		-- Coordonnées du bouton CADRE_2.
+			liste_coordonnees.extend ([660,200,840,380])		-- Coordonnées du bouton CADRE_3.
 		end
 
 feature -- Access
@@ -63,6 +67,7 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
+					curseur.reinitialiser_curseur
 					is_quit_vaisseaux := True
 					is_quit_pistes := False
 					game_library.stop
@@ -70,16 +75,11 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
+					curseur.reinitialiser_curseur
 						-- LANCER LA FENETRE DE JEU_PRINCIPAL
 				end
 			end
 		end
-
---	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_delta_x, a_delta_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
---			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
---			-- `a_font' to draw text.
---		do
---		end
 
 feature {NONE}
 
@@ -91,11 +91,11 @@ feature {NONE}
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
 			bouton_suivant.afficher (760, 520, fenetre.fenetre.renderer)
 			cadre.afficher (200, 200, fenetre.fenetre.renderer)
-			vaisseau_rouge.afficher (260, 240, fenetre.fenetre.renderer)
+			vaisseau1.afficher (240, 230, fenetre.fenetre.renderer)
 			cadre.afficher (430, 200, fenetre.fenetre.renderer)
-			vaisseau_jaune.afficher (490, 240, fenetre.fenetre.renderer)
+			vaisseau2.afficher (470, 230, fenetre.fenetre.renderer)
 			cadre.afficher (660, 200, fenetre.fenetre.renderer)
-			vaisseau_vert.afficher (720, 240, fenetre.fenetre.renderer)
+			vaisseau3.afficher (700, 230, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
 
@@ -103,11 +103,11 @@ feature {ANY} -- Implementation
 
 	titre: AFFICHABLE
 
-	vaisseau_rouge: AFFICHABLE
+	vaisseau1: AFFICHABLE
 
-	vaisseau_jaune: AFFICHABLE
+	vaisseau2: AFFICHABLE
 
-	vaisseau_vert: AFFICHABLE
+	vaisseau3: AFFICHABLE
 
 	cadre: AFFICHABLE
 

@@ -31,8 +31,13 @@ feature {NONE} -- Initialization
 			create cadre.creer_affichable (fenetre.fenetre.renderer, "bordure_pistes.png")
 			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
 			create curseur.make
-			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (1)
-			liste_coordonnees.extend ([30,520,236,576])		-- Coordonnées du bouton RETOUR.
+			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (6)
+			liste_coordonnees.extend ([30,520,236,576])			-- Coordonnées du bouton RETOUR.
+			liste_coordonnees.extend ([760,520,966,576])		-- Coordonnées du bouton SUIVANT.
+			liste_coordonnees.extend ([200,120,450,270])		-- Coordonnées du bouton CADRE_1.
+			liste_coordonnees.extend ([550,120,800,270])		-- Coordonnées du bouton CADRE_2.
+			liste_coordonnees.extend ([200,300,450,450])		-- Coordonnées du bouton CADRE_3.
+			liste_coordonnees.extend ([550,300,800,450])		-- Coordonnées du bouton CADRE_4.
 		end
 
 feature -- Access
@@ -60,6 +65,7 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
+					curseur.reinitialiser_curseur
 					is_quit_pistes := True
 					is_quit_principal := False
 					game_library.stop
@@ -67,6 +73,7 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
+					curseur.reinitialiser_curseur
 					is_quit_vaisseaux := False
 					is_quit_pistes := True
 					lancer_fenetre_vaisseaux
