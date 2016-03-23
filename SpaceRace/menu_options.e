@@ -11,7 +11,7 @@ inherit
 
 	MENU
 		redefine
-			execution
+			execution, make
 		end
 
 create
@@ -22,9 +22,7 @@ feature -- Initialization
 	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
 			-- Construit le menu des options et ses images.
 		do
-			fenetre := a_fenetre
-			musique := a_musique
-			son_click := a_son_click
+			Precursor(a_fenetre, a_musique, a_son_click)
 			if not musique.est_muet then
 				doit_afficher_bouton_muet := False
 			end
@@ -37,8 +35,6 @@ feature -- Initialization
 			create bouton_comment_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_comment_jouer.png")
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create fond.make_image (fenetre.fenetre.renderer)
-			create curseur.make
-			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (4)
 			liste_coordonnees.extend ([400,100,606,156])	-- Coordonnées des boutons MUET/NON_MUET.
 			liste_coordonnees.extend ([400,200,606,256])	-- Coordonnées du bouton CREDITS.
 			liste_coordonnees.extend ([310,300,695,356])	-- Coordonnées du bouton COMMENT_JOUER.
@@ -51,9 +47,9 @@ feature -- Access
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
 		do
 			from
-				is_quit_options := False
+				is_quit := False
 			until
-				is_quit_options
+				is_quit
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_options
@@ -74,28 +70,19 @@ feature -- Access
 						son_click.jouer (False)
 					end
 					curseur.reinitialiser_curseur
-					is_quit_options := True
-					is_quit_principal := True
-					is_quit_credits := False
 					lancer_fenetre_credits
 				elseif a_etat_souris.x > 309 and a_etat_souris.x < 695 and a_etat_souris.y > 299 and a_etat_souris.y < 357 then
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
 					curseur.reinitialiser_curseur
-					is_quit_options := True
-					is_quit_principal := True
-					is_quit_comment_jouer := False
 					lancer_fenetre_comment_jouer
 				elseif a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
 					curseur.reinitialiser_curseur
-					is_quit_options := True
-					is_quit_principal := False
-					is_quit_credits := True
-					is_quit_comment_jouer := True
+					is_quit := True
 					game_library.stop
 				end
 			end
@@ -125,7 +112,7 @@ feature -- Access
 		do
 			create l_menu_credits.make (fenetre, musique, son_click)
 			l_menu_credits.execution
-			is_quit_options := l_menu_credits.is_quit_options
+			is_quit := not l_menu_credits.is_quit
 		end
 
 	lancer_fenetre_comment_jouer
@@ -135,7 +122,7 @@ feature -- Access
 		do
 			create l_menu_comment_jouer.make (fenetre, musique, son_click)
 			l_menu_comment_jouer.execution
-			is_quit_options := l_menu_comment_jouer.is_quit_options
+			is_quit := l_menu_comment_jouer.is_quit
 		end
 
 feature {ANY} -- Implementation

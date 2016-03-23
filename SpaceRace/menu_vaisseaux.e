@@ -11,7 +11,7 @@ inherit
 
 	MENU
 		redefine
-			execution
+			execution, make
 		end
 
 create
@@ -22,9 +22,7 @@ feature {NONE} -- Initialization
 	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
 			-- Construit le menu pour choisir le vaisseaux.
 		do
-			fenetre := a_fenetre
-			musique := a_musique
-			son_click := a_son_click
+			Precursor(a_fenetre, a_musique, a_son_click)
 			create fond.make_image (fenetre.fenetre.renderer)
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
@@ -33,8 +31,6 @@ feature {NONE} -- Initialization
 			create vaisseau1.creer_affichable (fenetre.fenetre.renderer, "vaisseau1_cadre.png")
 			create vaisseau2.creer_affichable (fenetre.fenetre.renderer, "vaisseau2_cadre.png")
 			create vaisseau3.creer_affichable (fenetre.fenetre.renderer, "vaisseau3_cadre.png")
-			create curseur.make
-			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (5)
 			liste_coordonnees.extend ([30,520,236,576])			-- Coordonnées du bouton RETOUR.
 			liste_coordonnees.extend ([760,520,966,576])		-- Coordonnées du bouton SUIVANT.
 			liste_coordonnees.extend ([200,200,380,380])		-- Coordonnées du bouton CADRE_1.
@@ -48,9 +44,9 @@ feature -- Access
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
 		do
 			from
-				is_quit_vaisseaux := False
+				is_quit := False
 			until
-				is_quit_vaisseaux
+				is_quit
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_vaisseaux
@@ -68,8 +64,6 @@ feature -- Access
 						son_click.jouer (False)
 					end
 					curseur.reinitialiser_curseur
-					is_quit_vaisseaux := True
-					is_quit_pistes := False
 					game_library.stop
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
 					if not musique.est_muet then

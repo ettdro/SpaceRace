@@ -15,17 +15,30 @@ inherit
 
 	IMG_LIBRARY_SHARED
 
+feature {NONE} -- Initialization
+
+	make(a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
+		do
+			fenetre := a_fenetre
+			musique := a_musique
+			son_click := a_son_click
+			create curseur.make
+			create {LINKED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make
+--			is_quit := False
+		end
+
 feature --Access
 
 	quitter_jeu (a_temps: NATURAL_32)
 			-- Méthode qui ferme l'application.
 		do
-			is_quit_credits := True
-			is_quit_options := True
-			is_quit_vaisseaux := True
-			is_quit_principal := True
-			is_quit_comment_jouer := True
-			is_quit_pistes := True
+			is_quit := True
+--			is_quit_credits := True
+--			is_quit_options := True
+--			is_quit_vaisseaux := True
+--			is_quit_principal := True
+--			is_quit_comment_jouer := True
+--			is_quit_pistes := True
 			game_library.stop
 		end
 
@@ -55,17 +68,9 @@ feature --Access
 
 feature {ANY} -- Implementation
 
-	is_quit_principal: BOOLEAN
+	is_quit: BOOLEAN
 
-	is_quit_options: BOOLEAN
-
-	is_quit_credits: BOOLEAN
-
-	is_quit_comment_jouer: BOOLEAN
-
-	is_quit_pistes: BOOLEAN
-
-	is_quit_vaisseaux: BOOLEAN
+	is_retour: BOOLEAN
 
 	fenetre: FENETRE
 

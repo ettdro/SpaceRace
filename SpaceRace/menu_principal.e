@@ -10,6 +10,8 @@ class
 inherit
 
 	MENU
+		rename
+			make as make_menu
 		redefine
 			execution
 		end
@@ -25,16 +27,19 @@ feature {NONE} -- Initialization
 
 	make
 			-- Construit le menu principal et ses images.
+		local
+			l_fenetre:FENETRE
+			l_musique:MUSIQUE
+			l_son_click: EFFETS_SONORES
 		do
-			create fenetre.make
-			create son_click.creer_son_click
-			create musique.creer
+			create l_fenetre.make
+			create l_son_click.creer_son_click
+			create l_musique.creer
+			make_menu(l_fenetre, l_musique, l_son_click)
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
 			create bouton_options.creer_affichable (fenetre.fenetre.renderer, "bouton_options2.png")
 			create bouton_quitter.creer_affichable (fenetre.fenetre.renderer, "bouton_quitter2.png")
 			create logo.creer_affichable (fenetre.fenetre.renderer, "logo2.png")
-			create curseur.make
-			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (3)
 			liste_coordonnees.extend ([400,250,606,306])	-- Coordonnées du bouton JOUER.
 			liste_coordonnees.extend ([400,350,606,406])	-- Coordonnées du bouton OPTIONS.
 			liste_coordonnees.extend ([400,450,606,506])	-- Coordonnées du bouton QUITTER.
@@ -47,9 +52,9 @@ feature -- Access
 		do
 			musique.jouer (True)
 			from
-				is_quit_principal := False
+				is_quit := False
 			until
-				is_quit_principal
+				is_quit
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_principal
@@ -63,22 +68,18 @@ feature -- Access
 		do
 			if a_etat_souris.is_left_button_pressed then
 				if a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 449 and a_etat_souris.y < 507 then
-					quitter_jeu (1)
+					quitter_jeu(1)
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 349 and a_etat_souris.y < 407 then
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
 					curseur.reinitialiser_curseur
-					is_quit_options := False
-					is_quit_principal := True
 					lancer_fenetre_options
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 249 and a_etat_souris.y < 307 then
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
 					curseur.reinitialiser_curseur
-					is_quit_principal := True
-					is_quit_pistes := False
 					lancer_fenetre_jouer
 				end
 			end
@@ -102,9 +103,10 @@ feature {NONE}
 		local
 			l_menu_options: MENU_OPTIONS
 		do
+			is_quit := True
 			create l_menu_options.make (fenetre, musique, son_click)
 			l_menu_options.execution
-			is_quit_principal := l_menu_options.is_quit_principal
+			is_quit := l_menu_options.is_quit
 		end
 
 	lancer_fenetre_jouer
@@ -114,7 +116,7 @@ feature {NONE}
 		do
 			create l_menu_piste.make (fenetre, musique, son_click)
 			l_menu_piste.execution
-			is_quit_principal := l_menu_piste.is_quit_principal
+			is_quit := l_menu_piste.is_quit
 		end
 
 feature {ANY} -- Implementation
