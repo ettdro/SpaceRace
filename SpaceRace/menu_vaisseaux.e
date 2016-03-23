@@ -33,6 +33,9 @@ feature {NONE} -- Initialization
 			create vaisseau_rouge.creer_affichable (fenetre.fenetre.renderer, "vaisseau_rouge.png")
 			create vaisseau_jaune.creer_affichable (fenetre.fenetre.renderer, "vaisseau_jaune.png")
 			create vaisseau_vert.creer_affichable (fenetre.fenetre.renderer, "vaisseau_vert.png")
+			create curseur.make
+			create {ARRAYED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make (1)
+			liste_coordonnees.extend ([30,520,236,576])		-- Coordonnées du bouton RETOUR.
 		end
 
 feature -- Access

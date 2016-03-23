@@ -22,10 +22,10 @@ feature --Access
 		do
 			is_quit_credits := True
 			is_quit_options := True
+			is_quit_vaisseaux := True
 			is_quit_principal := True
 			is_quit_comment_jouer := True
 			is_quit_pistes := True
-			is_quit_vaisseaux := True
 			game_library.stop
 		end
 

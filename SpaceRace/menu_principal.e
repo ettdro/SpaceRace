@@ -79,7 +79,6 @@ feature -- Access
 					curseur.reinitialiser_curseur
 					is_quit_principal := True
 					is_quit_pistes := False
-					is_quit_vaisseaux := True
 					lancer_fenetre_jouer
 				end
 			end
