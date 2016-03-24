@@ -24,7 +24,6 @@ feature {NONE} -- Initialization
 			son_click := a_son_click
 			create curseur.make
 			create {LINKED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make
---			is_quit := False
 		end
 
 feature --Access
@@ -32,13 +31,7 @@ feature --Access
 	quitter_jeu (a_temps: NATURAL_32)
 			-- Méthode qui ferme l'application.
 		do
-			is_quit := True
---			is_quit_credits := True
---			is_quit_options := True
---			is_quit_vaisseaux := True
---			is_quit_principal := True
---			is_quit_comment_jouer := True
---			is_quit_pistes := True
+			quitter := True
 			game_library.stop
 		end
 
@@ -48,8 +41,7 @@ feature --Access
 		end
 
 	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_x, a_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
-			-- When the mouse is moving, update the mouse information (from `a_mouse_state') on the `a_window' using
-			-- `a_font' to draw text.
+			-- Change le curseur de la souris pour la main lorsque la position de la souris est sur une zone cliquable.
 		do
 			curseur.est_sur_bouton (a_timestamp, a_mouse_state, a_x, a_y, a_window, liste_coordonnees)
 		end
@@ -68,9 +60,19 @@ feature --Access
 
 feature {ANY} -- Implementation
 
-	is_quit: BOOLEAN
+	quitter: BOOLEAN
 
-	is_retour: BOOLEAN
+	retour_principal: BOOLEAN
+
+	retour_options: BOOLEAN
+
+	retour_credits: BOOLEAN
+
+	retour_comment_jouer: BOOLEAN
+
+	retour_pistes: BOOLEAN
+
+	retour_vaisseaux: BOOLEAN
 
 	fenetre: FENETRE
 

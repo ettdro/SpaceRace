@@ -47,9 +47,10 @@ feature -- Access
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
 		do
 			from
-				is_quit := False
+				quitter := False
+				retour_options := False
 			until
-				is_quit
+				quitter or retour_options
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_options
@@ -82,7 +83,8 @@ feature -- Access
 						son_click.jouer (False)
 					end
 					curseur.reinitialiser_curseur
-					is_quit := True
+					retour_options := True
+					quitter := False
 					game_library.stop
 				end
 			end
@@ -112,7 +114,7 @@ feature -- Access
 		do
 			create l_menu_credits.make (fenetre, musique, son_click)
 			l_menu_credits.execution
-			is_quit := not l_menu_credits.is_quit
+			quitter := l_menu_credits.quitter
 		end
 
 	lancer_fenetre_comment_jouer
@@ -122,7 +124,7 @@ feature -- Access
 		do
 			create l_menu_comment_jouer.make (fenetre, musique, son_click)
 			l_menu_comment_jouer.execution
-			is_quit := l_menu_comment_jouer.is_quit
+			quitter := l_menu_comment_jouer.quitter
 		end
 
 feature {ANY} -- Implementation

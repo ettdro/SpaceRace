@@ -52,9 +52,10 @@ feature -- Access
 		do
 			musique.jouer (True)
 			from
-				is_quit := False
+				quitter := False
+				retour_principal := False
 			until
-				is_quit
+				quitter or retour_principal
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_principal
@@ -103,10 +104,9 @@ feature {NONE}
 		local
 			l_menu_options: MENU_OPTIONS
 		do
-			is_quit := True
 			create l_menu_options.make (fenetre, musique, son_click)
 			l_menu_options.execution
-			is_quit := l_menu_options.is_quit
+			quitter := l_menu_options.quitter
 		end
 
 	lancer_fenetre_jouer
@@ -116,7 +116,7 @@ feature {NONE}
 		do
 			create l_menu_piste.make (fenetre, musique, son_click)
 			l_menu_piste.execution
-			is_quit := l_menu_piste.is_quit
+			quitter := l_menu_piste.quitter
 		end
 
 feature {ANY} -- Implementation

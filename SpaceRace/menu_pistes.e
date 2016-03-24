@@ -42,9 +42,10 @@ feature -- Access
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
 		do
 			from
-				is_quit := False
+				quitter := False
+				retour_pistes := False
 			until
-				is_quit
+				quitter or retour_pistes
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_pistes
@@ -62,6 +63,8 @@ feature -- Access
 						son_click.jouer (False)
 					end
 					curseur.reinitialiser_curseur
+					retour_pistes := True
+					quitter := False
 					game_library.stop
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
 					if not musique.est_muet then
@@ -96,8 +99,7 @@ feature {NONE}
 		do
 			create l_menu_vaisseaux.make (fenetre, musique, son_click)
 			l_menu_vaisseaux.execution
-			is_quit := l_menu_vaisseaux.is_quit
---			is_quit_pistes := l_menu_vaisseaux.is_quit_pistes
+			quitter := l_menu_vaisseaux.quitter
 		end
 
 feature {ANY} -- Implementation

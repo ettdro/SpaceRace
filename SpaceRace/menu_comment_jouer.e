@@ -35,9 +35,10 @@ feature -- Access
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
 		do
 			from
-				is_quit := False
+				quitter := False
+				retour_comment_jouer := False
 			until
-				is_quit
+				quitter or retour_comment_jouer
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_comment_jouer
@@ -54,6 +55,9 @@ feature -- Access
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
+					curseur.reinitialiser_curseur
+					retour_comment_jouer := True
+					quitter := False
 					game_library.stop
 				end
 			end
