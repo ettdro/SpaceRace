@@ -18,6 +18,8 @@ inherit
 feature {NONE} -- Initialization
 
 	make(a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
+			-- Constructeur de la classe abstraite MENU qui créer une liste de coordonnées,
+			-- la fenêtre, la musique et les sons lors de clicks.
 		do
 			fenetre := a_fenetre
 			musique := a_musique
@@ -26,7 +28,7 @@ feature {NONE} -- Initialization
 			create {LINKED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make
 		end
 
-feature --Access
+feature -- Access
 
 	quitter_jeu (a_temps: NATURAL_32)
 			-- Méthode qui ferme l'application.
@@ -40,14 +42,14 @@ feature --Access
 		deferred
 		end
 
-	mouvements_souris (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_x, a_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED)
-			-- Change le curseur de la souris pour la main lorsque la position de la souris est sur une zone cliquable.
+	mouvements_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_MOTION_STATE; a_x, a_y: INTEGER_32; a_fenetre: GAME_WINDOW_RENDERED)
+			-- Détecte la position du curseur en positions 'a_x' et 'a_y'.
 		do
-			curseur.est_sur_bouton (a_timestamp, a_mouse_state, a_x, a_y, a_window, liste_coordonnees)
+			curseur.est_sur_bouton (a_temps, a_etat_souris, a_x, a_y, a_fenetre, liste_coordonnees)
 		end
 
 	execution
-			-- Faire afficher le menu et leurs images et lancer la gestion de la souris.
+			-- Méthode d'exécution des menus.
 		do
 			fenetre.fenetre.mouse_motion_actions.extend (agent mouvements_souris(?, ?, ?, ?, fenetre.fenetre))
 			game_library.iteration_actions.extend (agent  (a_timestamp: NATURAL)
@@ -82,6 +84,6 @@ feature {ANY} -- Implementation
 
 	curseur: CURSEUR
 
-	liste_coordonnees: LIST[TUPLE[x1, y1, x2, y2:INTEGER]]
+	liste_coordonnees: LIST[TUPLE[x1, y1, x2, y2:INTEGER]] -- Liste de coordonnées des boutons dans les menus.
 
 end

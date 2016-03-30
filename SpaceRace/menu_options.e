@@ -20,7 +20,7 @@ create
 feature -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
-			-- Construit le menu des options et ses images.
+			-- Construit le menu des options, ses images ainsi que la liste des coordonnées des boutons.
 		do
 			Precursor(a_fenetre, a_musique, a_son_click)
 			if not musique.est_muet then
@@ -44,7 +44,7 @@ feature -- Initialization
 feature -- Access
 
 	execution
-			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
+			-- Méthode d'exécution de MENU_OPTIONS qui génère la fenêtre d'options.
 		do
 			from
 				quitter := False

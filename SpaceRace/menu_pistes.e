@@ -62,7 +62,12 @@ feature -- Access
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
 			-- Méthode qui gère les actions de la souris dans les menus.
+		local
+			liste_cadres: LINKED_LIST[TUPLE[cadre1, cadre2, cadre3, cadre4:BOOLEAN]]
 		do
+			create liste_cadres.make
+			liste_cadres.extend ([False,False,False,False])
+			liste_cadres.start
 			if a_etat_souris.is_left_button_pressed then
 				if a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
 					if not musique.est_muet then
@@ -81,24 +86,22 @@ feature -- Access
 						lancer_fenetre_vaisseaux
 					end
 				elseif a_etat_souris.x > 200 and a_etat_souris.x < 450 and a_etat_souris.y > 120 and a_etat_souris.y < 270 then
-					est_selectionne := True
+					liste_cadres.item.cadre1 := True
 					liste_coordonnees.go_i_th (3)	-- CADRE 1
-					curseur_precedent := liste_coordonnees.index + 1
+--					curseur_precedent := liste_coordonnees.index + 1
 					actualiser_cadre(liste_coordonnees.item)
+					liste_cadres.put ([False, False, False, False])
 				elseif a_etat_souris.x > 550 and a_etat_souris.x < 800 and a_etat_souris.y > 120 and a_etat_souris.y < 270 then
-					est_selectionne := True
 					liste_coordonnees.go_i_th (4)	-- CADRE 2
-					curseur_precedent := liste_coordonnees.index - 1
+--					curseur_precedent := liste_coordonnees.index - 1
 					actualiser_cadre(liste_coordonnees.item)
 				elseif a_etat_souris.x > 200 and a_etat_souris.x < 450 and a_etat_souris.y > 300 and a_etat_souris.y < 450 then
-					est_selectionne := True
 					liste_coordonnees.go_i_th (5)	-- CADRE 3
-					curseur_precedent := liste_coordonnees.index - 1
+--					curseur_precedent := liste_coordonnees.index - 1
 					actualiser_cadre(liste_coordonnees.item)
 				elseif a_etat_souris.x > 550 and a_etat_souris.x < 800 and a_etat_souris.y > 300 and a_etat_souris.y < 450 then
-					est_selectionne := True
 					liste_coordonnees.go_i_th (6)	-- CADRE 4
-					curseur_precedent := liste_coordonnees.index - 1
+--					curseur_precedent := liste_coordonnees.index - 1
 					actualiser_cadre(liste_coordonnees.item)
 				end
 			end
@@ -109,8 +112,8 @@ feature {NONE}
 	actualiser_cadre(a_liste_coordonnees: TUPLE[x1, y1, x2, y2:INTEGER])
 		do
 			cadre_selectionne.afficher (a_liste_coordonnees.x1, a_liste_coordonnees.y1, fenetre.fenetre.renderer)
-			liste_coordonnees.go_i_th (curseur_precedent)
-			cadre.afficher (liste_coordonnees.item.x1, liste_coordonnees.item.y1, fenetre.fenetre.renderer)
+--			liste_coordonnees.go_i_th (curseur_precedent)
+--			cadre.afficher (liste_coordonnees.item.x1, liste_coordonnees.item.y1, fenetre.fenetre.renderer)
 			bouton_suivant.afficher (760, 520, fenetre.fenetre.renderer)
 			suivant_est_visible := True
 			fenetre.fenetre.renderer.present

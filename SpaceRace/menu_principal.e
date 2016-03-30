@@ -26,7 +26,7 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Construit le menu principal et ses images.
+			-- Construit le menu principal, ses images ainsi que la liste des coordonnées des boutons.
 		local
 			l_fenetre:FENETRE
 			l_musique:MUSIQUE
@@ -89,7 +89,7 @@ feature -- Access
 feature {NONE}
 
 	lancer_fenetre_principal
-			-- Dessine les éléments de la fenêtre.
+			-- Dessine les éléments de la fenêtre du MENU_PRINCIPAL.
 		do
 			fenetre.repeter_fenetre
 			bouton_jouer.afficher (400, 250, fenetre.fenetre.renderer)
@@ -100,7 +100,7 @@ feature {NONE}
 		end
 
 	lancer_fenetre_options
-			-- Lance le menu des options.
+			-- Lance le menu d'options.
 		local
 			l_menu_options: MENU_OPTIONS
 		do
