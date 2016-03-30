@@ -17,6 +17,8 @@ feature -- Access
 
 	creer_son (a_nom_fichier: STRING)
 			-- Méthode qui crée le son.
+		require
+			Bon_Format_Audio: a_nom_fichier.ends_with (".wav")
 		local
 			l_son: AUDIO_SOUND_FILE
 		do
