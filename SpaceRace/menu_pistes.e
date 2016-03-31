@@ -28,11 +28,11 @@ feature {NONE} -- Initialization
 			create fond.make_image (fenetre.fenetre.renderer)
 			create titre.creer_affichable (fenetre.fenetre.renderer, "choisir_piste.png")
 			create cadre.creer_affichable (fenetre.fenetre.renderer, "bordure_pistes.png")
-			create cadre_selectionne.creer_affichable (fenetre.fenetre.renderer, "bordure_pistes_selected.png")
+			create cadre_selectionne.creer_affichable (fenetre.fenetre.renderer, "bordure_pistes_selectionne.png")
 			create piste_facile.creer_affichable (fenetre.fenetre.renderer, "piste_facile_cadre.png")
-			create piste_moyen.creer_affichable (fenetre.fenetre.renderer, "piste3.png")
-			create piste_difficile.creer_affichable (fenetre.fenetre.renderer, "piste4.png")
-			create piste_extreme.creer_affichable (fenetre.fenetre.renderer, "piste2.png")
+			create piste_moyen.creer_affichable (fenetre.fenetre.renderer, "piste_moyen_cadre.png")
+			create piste_difficile.creer_affichable (fenetre.fenetre.renderer, "piste_difficile_cadre.png")
+			create piste_extreme.creer_affichable (fenetre.fenetre.renderer, "piste_extreme_cadre.png")
 			liste_coordonnees.extend ([30,520,236,576])			-- Coordonnées du bouton RETOUR. (position liste = 1)
 			liste_coordonnees.extend ([760,520,966,576])		-- Coordonnées du bouton SUIVANT. (position liste = 2)
 			liste_coordonnees.extend ([200,120,450,270])		-- Coordonnées du bouton CADRE_1. (position liste = 3)
@@ -133,7 +133,10 @@ feature {NONE}
 			cadre.afficher (550, 120, fenetre.fenetre.renderer)
 			cadre.afficher (200, 300, fenetre.fenetre.renderer)
 			cadre.afficher (550, 300, fenetre.fenetre.renderer)
-			piste_facile.afficher (210, 130, fenetre.fenetre.renderer)
+			piste_facile.afficher (230, 130, fenetre.fenetre.renderer)
+			piste_moyen.afficher (580, 130, fenetre.fenetre.renderer)
+			piste_difficile.afficher (230, 310, fenetre.fenetre.renderer)
+			piste_extreme.afficher (580, 310, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
 
