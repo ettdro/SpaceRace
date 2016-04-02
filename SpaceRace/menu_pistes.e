@@ -178,6 +178,4 @@ feature {ANY} -- Implementation
 
 	piste_extreme: AFFICHABLE
 
-
-
 end

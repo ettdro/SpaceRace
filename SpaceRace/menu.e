@@ -76,6 +76,8 @@ feature {ANY} -- Implementation
 
 	retour_vaisseaux: BOOLEAN
 
+	retour_jeu_principal: BOOLEAN
+
 	fenetre: FENETRE
 
 	musique: MUSIQUE

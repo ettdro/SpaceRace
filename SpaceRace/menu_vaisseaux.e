@@ -11,7 +11,8 @@ inherit
 
 	MENU
 		redefine
-			execution, make
+			execution,
+			make
 		end
 
 create
@@ -22,7 +23,7 @@ feature {NONE} -- Initialization
 	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
 			-- Construit le menu pour choisir le vaisseaux.
 		do
-			Precursor(a_fenetre, a_musique, a_son_click)
+			Precursor (a_fenetre, a_musique, a_son_click)
 			create fond.make_image (fenetre.fenetre.renderer)
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
@@ -31,11 +32,11 @@ feature {NONE} -- Initialization
 			create vaisseau1.creer_affichable (fenetre.fenetre.renderer, "vaisseau1_cadre.png")
 			create vaisseau2.creer_affichable (fenetre.fenetre.renderer, "vaisseau2_cadre.png")
 			create vaisseau3.creer_affichable (fenetre.fenetre.renderer, "vaisseau3_cadre.png")
-			liste_coordonnees.extend ([30,520,236,576])			-- Coordonnées du bouton RETOUR.
-			liste_coordonnees.extend ([760,520,966,576])		-- Coordonnées du bouton SUIVANT.
-			liste_coordonnees.extend ([200,200,380,380])		-- Coordonnées du bouton CADRE_1.
-			liste_coordonnees.extend ([430,200,610,380])		-- Coordonnées du bouton CADRE_2.
-			liste_coordonnees.extend ([660,200,840,380])		-- Coordonnées du bouton CADRE_3.
+			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
+			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton SUIVANT.
+			liste_coordonnees.extend ([200, 200, 380, 380]) -- Coordonnées du bouton CADRE_1.
+			liste_coordonnees.extend ([430, 200, 610, 380]) -- Coordonnées du bouton CADRE_2.
+			liste_coordonnees.extend ([660, 200, 840, 380]) -- Coordonnées du bouton CADRE_3.
 		end
 
 feature -- Access
@@ -73,7 +74,7 @@ feature -- Access
 						son_click.jouer (False)
 					end
 					curseur.reinitialiser_curseur
-						-- LANCER LA FENETRE DE JEU_PRINCIPAL
+					lancer_fenetre_jeu_principal
 				end
 			end
 		end
@@ -94,6 +95,16 @@ feature {NONE}
 			cadre.afficher (660, 200, fenetre.fenetre.renderer)
 			vaisseau3.afficher (700, 230, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
+		end
+
+	lancer_fenetre_jeu_principal
+			-- Lance le menu du jeu principal
+		local
+			l_menu_jeu_principal: JEU_PRINCIPAL
+		do
+			create l_menu_jeu_principal.make (fenetre, musique, son_click)
+			l_menu_jeu_principal.execution
+			quitter := l_menu_jeu_principal.quitter
 		end
 
 feature {ANY} -- Implementation
