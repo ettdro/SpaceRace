@@ -29,6 +29,7 @@ feature {NONE} -- Initialization
 			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
 			create titre.creer_affichable (fenetre.fenetre.renderer, "choisir_vaisseau.png")
 			create cadre.creer_affichable (fenetre.fenetre.renderer, "bordure_vaisseaux.png")
+			create cadre_selectionne.creer_affichable (fenetre.fenetre.renderer, "bordure_vaisseaux_selectionne.png")
 			create vaisseau1.creer_affichable (fenetre.fenetre.renderer, "vaisseau1_cadre.png")
 			create vaisseau2.creer_affichable (fenetre.fenetre.renderer, "vaisseau2_cadre.png")
 			create vaisseau3.creer_affichable (fenetre.fenetre.renderer, "vaisseau3_cadre.png")
@@ -37,6 +38,7 @@ feature {NONE} -- Initialization
 			liste_coordonnees.extend ([200, 200, 380, 380]) -- Coordonnées du bouton CADRE_1.
 			liste_coordonnees.extend ([430, 200, 610, 380]) -- Coordonnées du bouton CADRE_2.
 			liste_coordonnees.extend ([660, 200, 840, 380]) -- Coordonnées du bouton CADRE_3.
+			liste_coordonnees.start
 		end
 
 feature -- Access
@@ -70,24 +72,58 @@ feature -- Access
 					quitter := False
 					game_library.stop
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
-					if not musique.est_muet then
-						son_click.jouer (False)
+					if suivant_est_visible then
+						if not musique.est_muet then
+							son_click.jouer (False)
+						end
+						curseur.reinitialiser_curseur
+						lancer_fenetre_jeu_principal
 					end
-					curseur.reinitialiser_curseur
-					lancer_fenetre_jeu_principal
+				elseif a_etat_souris.x > 200 and a_etat_souris.x < 380 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
+					liste_coordonnees.go_i_th (3)	-- CADRE 1
+					actualiser_cadre(liste_coordonnees.item)
+					deselectionner_cadre
+				elseif a_etat_souris.x > 430 and a_etat_souris.x < 610 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
+					liste_coordonnees.go_i_th (4)	-- CADRE 2
+					actualiser_cadre(liste_coordonnees.item)
+					deselectionner_cadre
+				elseif a_etat_souris.x > 660 and a_etat_souris.x < 840 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
+					liste_coordonnees.go_i_th (5)	-- CADRE 3
+					actualiser_cadre(liste_coordonnees.item)
+					deselectionner_cadre
 				end
 			end
 		end
 
 feature {NONE}
 
+	actualiser_cadre(a_liste_coordonnees: TUPLE[x1, y1, x2, y2:INTEGER])
+		do
+			cadre_selectionne.afficher (a_liste_coordonnees.x1, a_liste_coordonnees.y1, fenetre.fenetre.renderer)
+			bouton_suivant.afficher (760, 520, fenetre.fenetre.renderer)
+			suivant_est_visible := True
+			fenetre.fenetre.renderer.present
+		end
+
+	deselectionner_cadre
+		do
+			across
+				liste_coordonnees as la_liste_coordonnees
+			loop
+				if liste_coordonnees.readable then
+					cadre.afficher (liste_coordonnees.item.x1, liste_coordonnees.item.y1, fenetre.fenetre.renderer)
+					liste_coordonnees.move (1)
+				end
+			end
+		end
+
 	lancer_fenetre_vaisseaux
 			-- Dessine les éléments de la fenêtre.
 		do
+			suivant_est_visible := False
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
 			titre.afficher (180, 30, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
-			bouton_suivant.afficher (760, 520, fenetre.fenetre.renderer)
 			cadre.afficher (200, 200, fenetre.fenetre.renderer)
 			vaisseau1.afficher (240, 230, fenetre.fenetre.renderer)
 			cadre.afficher (430, 200, fenetre.fenetre.renderer)
@@ -124,5 +160,9 @@ feature {ANY} -- Implementation
 	fond: FOND_ECRAN
 
 	bouton_suivant: AFFICHABLE
+
+	cadre_selectionne: AFFICHABLE
+
+	suivant_est_visible: BOOLEAN
 
 end

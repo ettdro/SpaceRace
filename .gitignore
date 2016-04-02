@@ -2,7 +2,6 @@ EIFGENs
 exception_trace.log
 game2
 UML
-YOLO_TEST
 *.dll
 Thumbs.db
 UML1.vpp~*
@@ -12,4 +11,3 @@ anciennes_images
 correction
 test
 SpaceRace.zip
-TODO.txt

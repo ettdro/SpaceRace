@@ -156,10 +156,6 @@ feature {ANY} -- Implementation
 
 	cadre_selectionne: AFFICHABLE
 
-	est_selectionne: BOOLEAN
-
-	curseur_precedent: INTEGER
-
 	suivant_est_visible: BOOLEAN
 
 	titre: AFFICHABLE
