@@ -22,11 +22,24 @@ feature {NONE} -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
 			-- Construit le menu pour choisir le vaisseaux.
+			--		local
+			--			nom_piste: STRING
+			--			nom_vaisseau: STRING
 		do
+				-- nom_piste := choix_piste
+				-- nom_vaisseau := choix_vaisseau
 			Precursor (a_fenetre, a_musique, a_son_click)
 			create fond.make_image (fenetre.fenetre.renderer)
+			create titre_tours.creer_affichable (fenetre.fenetre.renderer, "titre_tours.png")
+			create titre_chrono.creer_affichable (fenetre.fenetre.renderer, "titre_chrono.png")
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
+			create bouton_pause.creer_affichable (fenetre.fenetre.renderer, "bouton_pause.png")
+			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
+				--			create piste.creer_affichable (fenetre.fenetre.renderer, nom_piste)
+				--			create vaisseau.creer_affichable (fenetre.fenetre.renderer, nom_vaisseau)
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton RETOUR.
+			liste_coordonnees.extend ([760, 420, 966, 476]) -- Coordonnées du bouton PAUSE.
+			liste_coordonnees.extend ([760, 320, 966, 376]) -- Coordonnées du bouton JOUER.
 		end
 
 feature -- Access
@@ -59,6 +72,18 @@ feature -- Access
 					retour_jeu_principal := True
 					quitter := False
 					game_library.stop
+				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 419 and a_etat_souris.y < 477 then
+					if not musique.est_muet then
+						son_click.jouer (False)
+					end
+					curseur.reinitialiser_curseur
+						-- STOP LE CHRONO ET LES MOUVEMENTS DU VAISSEAU
+				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 319 and a_etat_souris.y < 377 then
+					if not musique.est_muet then
+						son_click.jouer (False)
+					end
+					curseur.reinitialiser_curseur
+						-- DÉMARRE LA PARTIE (LE CHRONO, LE VAISSEAU PEUT BOUGER, REPREND LA PARTIE SI PAUSE IL Y A)
 				end
 			end
 		end
@@ -70,13 +95,65 @@ feature {NONE}
 		do
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
 			bouton_retour.afficher (760, 520, fenetre.fenetre.renderer)
+			bouton_pause.afficher (760, 420, fenetre.fenetre.renderer)
+			bouton_jouer.afficher (760, 320, fenetre.fenetre.renderer)
+			titre_tours.afficher (760, 160, fenetre.fenetre.renderer)
+			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
+				--			piste.afficher (0, 0, fenetre.fenetre.renderer)
+				--			vaisseau.afficher (a_pos_x_vaisseau, a_pos_y_vaisseau, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
+
+		--	choix_piste
+		--			if piste_choisie(du menu pistes) := 1 then
+		--				nom_piste := "pisteV.png"
+		--				a_pos_x_vaisseau := X
+		--				a_pos_y_vaisseau := Y
+		--			elseif piste_choisie(du menu pistes) := 2 then
+		--				nom_piste := "pisteJ.png"
+		--				a_pos_x_vaisseau := X
+		--				a_pos_y_vaisseau := Y
+		--			elseif piste_choisie(du menu pistes) := 3 then
+		--				nom_piste := "pisteM.png"
+		--				a_pos_x_vaisseau := X
+		--				a_pos_y_vaisseau := Y
+		--			elseif piste_choisie(du menu pistes) := 4 then
+		--				nom_piste := "pisteB.png"
+		--				a_pos_x_vaisseau := X
+		--				a_pos_y_vaisseau := Y
+		--			end
+
+		--	choix_vaisseau
+		--			if vaisseau_choisi(du menu vaisseaux) := 1 then
+		--				nom_vaisseau := "vaisseau1.png"
+		--			elseif vaisseau_choisi(du menu vaisseaux) := 2 then
+		--				nom_vaisseau := "vaisseau2.png"
+		--			elseif vaisseau_choisi(du menu vaisseaux) := 3 then
+		--				nom_vaisseau := "vaisseau3.png"
+		--			end
+
+		--	VA DEVOIR CRÉER DEUX ATTRIBUTS INTEGER POUR GÉRER LE CODE CI-DESSUS (ATTRIBUT POUR TOUS LES MENUS??? À VOIR)
 
 feature {ANY} -- Implementation
 
 	bouton_retour: AFFICHABLE
 
+	bouton_pause: AFFICHABLE
+
+	bouton_jouer: AFFICHABLE
+
+	titre_tours: AFFICHABLE
+
+	titre_chrono: AFFICHABLE
+
 	fond: FOND_ECRAN
+
+		--	piste: AFFICHABLE
+
+		--	vaisseau: AFFICHABLE
+
+		--  a_pos_x_vaisseau: INTEGER
+
+		--	a_pos_y_vaisseau: INTEGER
 
 end
