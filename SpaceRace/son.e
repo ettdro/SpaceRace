@@ -1,8 +1,8 @@
 note
-	description: "Contient les méthodes générales liées aux sons, autant pour la musique que les effets sonores."
+	description: "Contient les méthodes générales liées aux sons, autant pour la musique que pour les effets sonores."
 	author: "Nicolas Bisson & Étienne Drolet"
-	date: "2016-03-01"
-	revision: "1.0"
+	date: "2016-04-03"
+	revision: "1.1"
 
 deferred class
 	SON
@@ -15,7 +15,7 @@ inherit
 
 feature -- Access
 
-	creer_son (a_nom_fichier: STRING)
+	creer_audio (a_nom_fichier: STRING)
 			-- Méthode qui crée le son.
 		require
 			Bon_Format_Audio: a_nom_fichier.ends_with (".wav")
@@ -40,7 +40,7 @@ feature -- Access
 		end
 
 	jouer (a_boucle_infini: BOOLEAN)
-			-- Vérifie si le son n'est pas NULL et fait jouer le son.
+			-- Vérifie si le son n'est pas NULL et fait jouer le son (à l'infini si TRUE).
 		do
 			if a_boucle_infini = True then
 				if attached son_click as la_son then

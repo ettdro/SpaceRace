@@ -1,8 +1,8 @@
 note
-	description: "Classe qui gére le menu des options de l'application."
+	description: "Classe qui gére le menu des options du jeu."
 	author: "Étienne Drolet et Nicolas Bisson"
-	date: "2016-03-01"
-	revision: "1.0"
+	date: "2016-04-03"
+	revision: "1.1"
 
 class
 	MENU_OPTIONS
@@ -11,7 +11,8 @@ inherit
 
 	MENU
 		redefine
-			execution, make
+			execution,
+			make
 		end
 
 create
@@ -22,7 +23,7 @@ feature -- Initialization
 	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
 			-- Construit le menu des options, ses images ainsi que la liste des coordonnées des boutons.
 		do
-			Precursor(a_fenetre, a_musique, a_son_click)
+			Precursor (a_fenetre, a_musique, a_son_click)
 			if not musique.est_muet then
 				doit_afficher_bouton_muet := False
 			end
@@ -34,17 +35,16 @@ feature -- Initialization
 			create bouton_credits.creer_affichable (fenetre.fenetre.renderer, "bouton_credits.png")
 			create bouton_comment_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_comment_jouer.png")
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
-			create fond.make_image (fenetre.fenetre.renderer)
-			liste_coordonnees.extend ([400,100,606,156])	-- Coordonnées des boutons MUET/NON_MUET.
-			liste_coordonnees.extend ([400,200,606,256])	-- Coordonnées du bouton CREDITS.
-			liste_coordonnees.extend ([310,300,695,356])	-- Coordonnées du bouton COMMENT_JOUER.
-			liste_coordonnees.extend ([30,520,236,576])		-- Coordonnées du bouton RETOUR.
+			liste_coordonnees.extend ([400, 100, 606, 156]) -- Coordonnées des boutons MUET/NON_MUET.
+			liste_coordonnees.extend ([400, 200, 606, 256]) -- Coordonnées du bouton CREDITS.
+			liste_coordonnees.extend ([310, 300, 695, 356]) -- Coordonnées du bouton COMMENT_JOUER.
+			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
 		end
 
 feature -- Access
 
 	execution
-			-- Méthode d'exécution de MENU_OPTIONS qui génère la fenêtre d'options.
+			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
 		do
 			from
 				quitter := False
@@ -64,21 +64,25 @@ feature -- Access
 		do
 			if a_etat_souris.is_left_button_pressed then
 				if a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 99 and a_etat_souris.y < 157 then
+						-- Bouton MUET
 					doit_afficher_bouton_muet := not doit_afficher_bouton_muet
 					lancer_fenetre_options
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 199 and a_etat_souris.y < 257 then
+						-- Bouton CRÉDITS
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
 					curseur.reinitialiser_curseur
 					lancer_fenetre_credits
 				elseif a_etat_souris.x > 309 and a_etat_souris.x < 695 and a_etat_souris.y > 299 and a_etat_souris.y < 357 then
+						-- Bouton COMMENT JOUER
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
 					curseur.reinitialiser_curseur
 					lancer_fenetre_comment_jouer
 				elseif a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
+						-- Bouton RETOUR
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
@@ -128,8 +132,6 @@ feature -- Access
 		end
 
 feature {ANY} -- Implementation
-
-	fond: FOND_ECRAN
 
 	doit_afficher_bouton_muet: BOOLEAN
 

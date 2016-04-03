@@ -1,8 +1,8 @@
 note
-	description: "Gère le menu des crédits."
+	description: "Classe qui gère le menu des crédits."
 	author: "Nicolas Bisson et Étienne Drolet"
-	date: "2016-03-20"
-	revision: "1.0"
+	date: "2016-04-03"
+	revision: "1.1"
 
 class
 	MENU_CREDITS
@@ -11,7 +11,8 @@ inherit
 
 	MENU
 		redefine
-			execution, make
+			execution,
+			make
 		end
 
 create
@@ -22,10 +23,9 @@ feature -- Initialization
 	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
 			-- Construit le menu des crédits et ses images.
 		do
-			Precursor(a_fenetre, a_musique, a_son_click)
+			Precursor (a_fenetre, a_musique, a_son_click)
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
-			create fond.make_image (fenetre.fenetre.renderer)
-			liste_coordonnees.extend ([30,520,236,576])		-- Coordonnées du bouton RETOUR.
+			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
 		end
 
 feature -- Access
@@ -51,6 +51,7 @@ feature -- Access
 		do
 			if a_etat_souris.is_left_button_pressed then
 				if a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
+						-- Bouton RETOUR
 					if not musique.est_muet then
 						son_click.jouer (False)
 					end
@@ -75,7 +76,5 @@ feature {NONE}
 feature {ANY} -- Implementation
 
 	bouton_retour: AFFICHABLE
-
-	fond: FOND_ECRAN
 
 end

@@ -1,8 +1,8 @@
 note
-	description: "Contient les méthodes générales liées à l'affichage d'images"
+	description: "Contient les méthodes générales liées à la création et à l'affichage d'images"
 	author: "Nicolas Bisson et Étienne Drole"
-	date: "2016-03-04"
-	revision: "1.0"
+	date: "2016-04-03"
+	revision: "1.1"
 
 deferred class
 	IMAGES

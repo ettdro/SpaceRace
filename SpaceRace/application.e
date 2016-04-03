@@ -1,8 +1,8 @@
 note
-	description: "Classe principale de l'application qui lance le jeu."
+	description: "Classe principale de l'application qui crée et lance le jeu."
 	author: "Nicolas Bisson et Étienne Drolet"
-	date: "2016-03-01"
-	revision: "1.0"
+	date: "2016-04-03"
+	revision: "1.1"
 
 class
 	APPLICATION

@@ -1,8 +1,8 @@
 note
-	description: "Joue la musique du jeu en boucle infini et permet de changer de chanson."
+	description: "Lance la création de la musique principale."
 	author: "Nicolas Bisson & Étienne Drolet"
-	date: "2016-03-01"
-	revision: "1.0"
+	date: "2016-04-03"
+	revision: "1.1"
 
 class
 	MUSIQUE
@@ -16,10 +16,12 @@ create
 
 feature {NONE} -- Initialisation
 
-	creer
+	creer (a_nom_fichier: STRING)
 			-- Crée la musique principale du jeu.
+		require
+			Bon_Format_Audio: a_nom_fichier.ends_with (".wav")
 		do
-			creer_son ("MusiqueMenu.wav")
+			creer_audio (a_nom_fichier)
 		end
 
 end

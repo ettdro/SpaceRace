@@ -1,8 +1,8 @@
 note
-	description: "Classe pour gérer le jeu, la partie qui consiste à faire une course pour enregistrer le meilleur temps."
+	description: "Classe pour gérer le jeu qui consiste à faire une course pour enregistrer le meilleur temps."
 	author: "Étienne Drolet et Nicolas Bisson"
-	date: "2016-03-01"
-	revision: "1.0"
+	date: "2016-04-03"
+	revision: "1.1"
 
 class
 	JEU_PRINCIPAL
@@ -21,7 +21,7 @@ create
 feature {NONE} -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
-			-- Construit le menu pour choisir le vaisseaux.
+			-- Construit le menu du jeu et ses images.
 			--		local
 			--			nom_piste: STRING
 			--			nom_vaisseau: STRING
@@ -29,7 +29,6 @@ feature {NONE} -- Initialization
 				-- nom_piste := choix_piste
 				-- nom_vaisseau := choix_vaisseau
 			Precursor (a_fenetre, a_musique, a_son_click)
-			create fond.make_image (fenetre.fenetre.renderer)
 			create titre_tours.creer_affichable (fenetre.fenetre.renderer, "titre_tours.png")
 			create titre_chrono.creer_affichable (fenetre.fenetre.renderer, "titre_chrono.png")
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
@@ -104,7 +103,8 @@ feature {NONE}
 			fenetre.fenetre.renderer.present
 		end
 
-		--	choix_piste
+		--		choix_piste
+		-- Gère le choix de la piste pour afficher la bonne à l'écran et avoir les bonnes coordonnées de départ pour le vaisseau.
 		--			if piste_choisie(du menu pistes) := 1 then
 		--				nom_piste := "pisteV.png"
 		--				a_pos_x_vaisseau := X
@@ -123,7 +123,8 @@ feature {NONE}
 		--				a_pos_y_vaisseau := Y
 		--			end
 
-		--	choix_vaisseau
+		--		choix_vaisseau
+		-- Gère le bon choix du vaisseau pour afficher le bon à l'écran.
 		--			if vaisseau_choisi(du menu vaisseaux) := 1 then
 		--				nom_vaisseau := "vaisseau1.png"
 		--			elseif vaisseau_choisi(du menu vaisseaux) := 2 then
@@ -132,7 +133,7 @@ feature {NONE}
 		--				nom_vaisseau := "vaisseau3.png"
 		--			end
 
-		--	VA DEVOIR CRÉER DEUX ATTRIBUTS INTEGER POUR GÉRER LE CODE CI-DESSUS (ATTRIBUT POUR TOUS LES MENUS??? À VOIR)
+		--	VA DEVOIR CRÉER DEUX ATTRIBUTS INTEGER POUR GÉRER LE CODE CI-DESSUS (ATTRIBUTS POUR TOUS LES MENUS??? À VOIR)
 
 feature {ANY} -- Implementation
 
@@ -145,8 +146,6 @@ feature {ANY} -- Implementation
 	titre_tours: AFFICHABLE
 
 	titre_chrono: AFFICHABLE
-
-	fond: FOND_ECRAN
 
 		--	piste: AFFICHABLE
 

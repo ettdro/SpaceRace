@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {CURSEUR}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "Classe qui fait la gestion de la position du curseur pour pouvoir le changer si nécessaire."
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-04-03"
+	revision: "1.1"
 
 class
 	CURSEUR
@@ -17,14 +17,14 @@ create
 feature -- Initialization
 
 	make
-			-- Initialization for `Current'.
+			-- Crée les curseurs.
 		do
 			create curseur_main.make_hand
 			create curseur_defaut.make_arrow
 		end
 
 	est_sur_bouton (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_x, a_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED; a_liste_coordonnees: LIST [TUPLE [x1, y1, x2, y2: INTEGER]])
-			-- Vérifie que le curseur est sur un bouton.
+			-- Vérifie que le curseur est sur un bouton et change l'image du curseur au besoin.
 		local
 			est_defaut: BOOLEAN
 		do

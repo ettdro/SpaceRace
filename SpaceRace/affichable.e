@@ -1,8 +1,8 @@
 note
-	description: "Classe qui crée les boutons à afficher dans les menus et le logo SpaceRace."
+	description: "Classe qui lance la création de toutes les images du jeux."
 	author: "Nicolas Bisson et Étienne Drolet"
-	date: "2016-03-01"
-	revision: "1.0"
+	date: "2016-04-03"
+	revision: "1.1"
 
 class
 	AFFICHABLE

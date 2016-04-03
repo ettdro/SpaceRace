@@ -1,8 +1,8 @@
 note
 	description: "Contient les méthodes de gestion que tous les menus se doivent d'avoir."
 	author: "Étienne Drolet & Nicolas Bisson"
-	date: "2016-03-01"
-	revision: "1.0"
+	date: "2016-04-03"
+	revision: "1.1"
 
 deferred class
 	MENU
@@ -15,17 +15,18 @@ inherit
 
 	IMG_LIBRARY_SHARED
 
-feature {NONE} -- Initialization
+feature -- Initialization
 
-	make(a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
+	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
 			-- Constructeur de la classe abstraite MENU qui créer une liste de coordonnées,
-			-- la fenêtre, la musique et les sons lors de clicks.
+			-- la fenêtre, la musique et le son lors d'un click.
 		do
 			fenetre := a_fenetre
 			musique := a_musique
 			son_click := a_son_click
 			create curseur.make
-			create {LINKED_LIST[TUPLE[x1, y1, x2, y2:INTEGER]]}liste_coordonnees.make
+			create fond.make_image (fenetre.fenetre.renderer, "background_space.png")
+			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} liste_coordonnees.make
 		end
 
 feature -- Access
@@ -49,7 +50,7 @@ feature -- Access
 		end
 
 	execution
-			-- Méthode d'exécution des menus.
+			-- Méthode d'exécution des menus qui gère la boucle du menu.
 		do
 			fenetre.fenetre.mouse_motion_actions.extend (agent mouvements_souris(?, ?, ?, ?, fenetre.fenetre))
 			game_library.iteration_actions.extend (agent  (a_timestamp: NATURAL)
@@ -86,6 +87,8 @@ feature {ANY} -- Implementation
 
 	curseur: CURSEUR
 
-	liste_coordonnees: LIST[TUPLE[x1, y1, x2, y2:INTEGER]] -- Liste de coordonnées des boutons dans les menus.
+	fond: FOND_ECRAN
+
+	liste_coordonnees: LIST [TUPLE [x1, y1, x2, y2: INTEGER]] -- Liste de coordonnées des boutons dans les menus.
 
 end
