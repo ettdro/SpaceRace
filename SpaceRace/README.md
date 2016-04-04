@@ -10,7 +10,7 @@ IDE : EiffelStudio
 --------------------------------------------------------------------------------
 
 Résumé:
-	SpaceRace est un jeux de course contre la montre. Il y a quatre(4) modèles 
+	SpaceRace est un jeu de course contre la montre. Il y a quatre(4) modèles 
 	de pistes et trois(3) modèles de vaisseaux disponibles. Le jeux est simple, 
 	il suffit simplement de terminer le nombre de tours requis le plus 
 	rapidement possible en passant par tous les terminus pour pouvoir compléter 

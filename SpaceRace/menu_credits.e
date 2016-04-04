@@ -25,6 +25,7 @@ feature -- Initialization
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
+			create texte.creer_affichable (fenetre.fenetre.renderer, "texte_credits")
 			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
 		end
 
@@ -69,6 +70,7 @@ feature {NONE}
 			-- Dessine les éléments de la fenêtre.
 		do
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
+			texte.afficher (0,0, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
@@ -76,5 +78,7 @@ feature {NONE}
 feature {ANY} -- Implementation
 
 	bouton_retour: AFFICHABLE
+
+	texte: AFFICHABLE
 
 end
