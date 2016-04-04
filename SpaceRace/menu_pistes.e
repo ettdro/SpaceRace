@@ -33,6 +33,7 @@ feature {NONE} -- Initialization
 			create piste_moyen.creer_affichable (fenetre.fenetre.renderer, "piste_moyen_cadre.png")
 			create piste_difficile.creer_affichable (fenetre.fenetre.renderer, "piste_difficile_cadre.png")
 			create piste_extreme.creer_affichable (fenetre.fenetre.renderer, "piste_extreme_cadre.png")
+			create piste_selectionne.make_empty
 			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR. (position liste = 1)
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton SUIVANT. (position liste = 2)
 			liste_coordonnees.extend ([200, 120, 450, 270]) -- Coordonnées du bouton CADRE_1. (position liste = 3)
@@ -83,18 +84,22 @@ feature -- Access
 						lancer_fenetre_vaisseaux
 					end
 				elseif a_etat_souris.x > 200 and a_etat_souris.x < 450 and a_etat_souris.y > 120 and a_etat_souris.y < 270 then
+					piste_selectionne := "pisteV.png"
 					liste_coordonnees.go_i_th (3) -- CADRE 1
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 550 and a_etat_souris.x < 800 and a_etat_souris.y > 120 and a_etat_souris.y < 270 then
+					piste_selectionne := "pisteJ.png"
 					liste_coordonnees.go_i_th (4) -- CADRE 2
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 200 and a_etat_souris.x < 450 and a_etat_souris.y > 300 and a_etat_souris.y < 450 then
+					piste_selectionne := "pisteM.png"
 					liste_coordonnees.go_i_th (5) -- CADRE 3
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 550 and a_etat_souris.x < 800 and a_etat_souris.y > 300 and a_etat_souris.y < 450 then
+					piste_selectionne := "pisteB.png"
 					liste_coordonnees.go_i_th (6) -- CADRE 4
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
@@ -149,7 +154,7 @@ feature {NONE}
 		local
 			l_menu_vaisseaux: MENU_VAISSEAUX
 		do
-			create l_menu_vaisseaux.make (fenetre, musique, son_click)
+			create l_menu_vaisseaux.make (fenetre, musique, son_click, piste_selectionne)
 			l_menu_vaisseaux.execution
 			quitter := l_menu_vaisseaux.quitter
 		end
@@ -161,6 +166,8 @@ feature {ANY} -- Implementation
 	cadre_selectionne: AFFICHABLE
 
 	suivant_est_visible: BOOLEAN
+
+	piste_selectionne: STRING
 
 	titre: AFFICHABLE
 

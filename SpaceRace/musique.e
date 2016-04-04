@@ -18,8 +18,6 @@ feature {NONE} -- Initialisation
 
 	creer (a_nom_fichier: STRING)
 			-- Crée la musique principale du jeu.
-		require
-			Bon_Format_Audio: a_nom_fichier.ends_with (".wav")
 		do
 			creer_audio (a_nom_fichier)
 		end

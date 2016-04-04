@@ -18,8 +18,6 @@ feature {NONE} -- Initialization
 
 	creer_son (a_nom_fichier: STRING)
 			-- Lance la création d'un effet sonore.
-		require
-			Bon_Format_Audio: a_nom_fichier.ends_with (".wav")
 		do
 			creer_audio (a_nom_fichier)
 		end

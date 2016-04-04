@@ -10,9 +10,10 @@ class
 inherit
 
 	MENU
+		rename
+			make as make_menu
 		redefine
-			execution,
-			make
+			execution
 		end
 
 create
@@ -20,10 +21,11 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
+	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES; a_piste_selectionne: STRING)
 			-- Construit le menu pour choisir le vaisseaux.
 		do
-			Precursor (a_fenetre, a_musique, a_son_click)
+			make_menu (a_fenetre, a_musique, a_son_click)
+			piste_selectionne := a_piste_selectionne
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
 			create titre.creer_affichable (fenetre.fenetre.renderer, "choisir_vaisseau.png")
@@ -32,6 +34,7 @@ feature {NONE} -- Initialization
 			create vaisseau1.creer_affichable (fenetre.fenetre.renderer, "vaisseau1_cadre.png")
 			create vaisseau2.creer_affichable (fenetre.fenetre.renderer, "vaisseau2_cadre.png")
 			create vaisseau3.creer_affichable (fenetre.fenetre.renderer, "vaisseau3_cadre.png")
+			create vaisseau_selectionne.make_empty
 			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton SUIVANT.
 			liste_coordonnees.extend ([200, 200, 380, 380]) -- Coordonnées du bouton CADRE_1.
@@ -81,14 +84,17 @@ feature -- Access
 						lancer_fenetre_jeu_principal
 					end
 				elseif a_etat_souris.x > 200 and a_etat_souris.x < 380 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
+					vaisseau_selectionne := "vaisseau1.png"
 					liste_coordonnees.go_i_th (3) -- CADRE 1
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 430 and a_etat_souris.x < 610 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
+					vaisseau_selectionne := "vaisseau2.png"
 					liste_coordonnees.go_i_th (4) -- CADRE 2
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 660 and a_etat_souris.x < 840 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
+					vaisseau_selectionne := "vaisseau3.png"
 					liste_coordonnees.go_i_th (5) -- CADRE 3
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
@@ -141,7 +147,7 @@ feature {NONE}
 		local
 			l_menu_jeu_principal: JEU_PRINCIPAL
 		do
-			create l_menu_jeu_principal.make (fenetre, musique, son_click)
+			create l_menu_jeu_principal.make (fenetre, musique, son_click, piste_selectionne, vaisseau_selectionne)
 			l_menu_jeu_principal.execution
 			quitter := l_menu_jeu_principal.quitter
 		end
@@ -155,6 +161,10 @@ feature {ANY} -- Implementation
 	vaisseau2: AFFICHABLE
 
 	vaisseau3: AFFICHABLE
+
+	piste_selectionne: STRING
+
+	vaisseau_selectionne: STRING
 
 	cadre: AFFICHABLE
 
