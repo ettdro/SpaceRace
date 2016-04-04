@@ -52,3 +52,6 @@ License:
 		- Le vaisseau du logo n'est pas une création originale et 
 		viens de : 
 		http://thumbs.dreamstime.com/z/cartoon-spaceship-icon-22913758.jpg
+		
+		- Le fond d'écran n'est pas une création originale (nous n'avons plus
+		la source malheureusement...)

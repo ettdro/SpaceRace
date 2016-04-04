@@ -1,20 +1,39 @@
 note
-	description: "Gère les mouvements du vaisseau."
+	description: "Classe qui crée et gère les mouvements du vaisseau."
 	author: "Étienne Drolet et Nicolas Bisson"
-	date: "2016-03-01"
-	revision: "1.0"
+	date: "2016-04-04"
+	revision: "1.1"
 
 class
 	VAISSEAU
 
 create
-	make
+	make_1,
+	make_2,
+	make_3
 
 feature {NONE} -- Initialization
 
-	make
-			-- Construit le vaisseau.
+	make_1 (a_fenetre: FENETRE)
+			-- Construit le vaisseau 1 (Rouge).
 		do
+			create vaisseau.creer_affichable (a_fenetre.fenetre.renderer, "vaisseau1.png")
 		end
+
+	make_2 (a_fenetre: FENETRE)
+			-- Construit le vaisseau 2 (Orange).
+		do
+			create vaisseau.creer_affichable (a_fenetre.fenetre.renderer, "vaisseau2.png")
+		end
+
+	make_3 (a_fenetre: FENETRE)
+			-- Construit le vaisseau 3 (Bleu).
+		do
+			create vaisseau.creer_affichable (a_fenetre.fenetre.renderer, "vaisseau3.png")
+		end
+
+feature {ANY} -- Implementation
+
+	vaisseau: AFFICHABLE
 
 end
