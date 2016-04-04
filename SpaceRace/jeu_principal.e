@@ -21,7 +21,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES; a_piste_selectionne: PISTE; a_vaisseau_selectionne: STRING)
+	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES; a_piste_selectionne: PISTE; a_vaisseau_selectionne: VAISSEAU)
 			-- Construit le menu du jeu et ses images.
 		do
 			piste_selectionne := a_piste_selectionne
@@ -32,8 +32,6 @@ feature {NONE} -- Initialization
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create bouton_pause.creer_affichable (fenetre.fenetre.renderer, "bouton_pause.png")
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
---			create piste.creer_affichable (fenetre.fenetre.renderer, piste_selectionne)
-			create vaisseau.creer_affichable (fenetre.fenetre.renderer, vaisseau_selectionne)
 			create {LINKED_LIST [TUPLE [x, y: INTEGER]]} liste_depart.make
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton RETOUR.
 			liste_coordonnees.extend ([760, 420, 966, 476]) -- Coordonnées du bouton PAUSE.
@@ -105,10 +103,13 @@ feature {NONE}
 			bouton_jouer.afficher (760, 320, fenetre.fenetre.renderer)
 			titre_tours.afficher (760, 160, fenetre.fenetre.renderer)
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
---			piste.afficher (0, 0, fenetre.fenetre.renderer)
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
-			vaisseau.afficher (liste_depart.item.x, liste_depart.item.y, fenetre.fenetre.renderer)
+			vaisseau_selectionne.vaisseau.afficher (piste_selectionne.x, piste_selectionne.y, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
+		end
+
+	definir_depart
+		do
 		end
 
 feature {ANY} -- Implementation
@@ -127,10 +128,6 @@ feature {ANY} -- Implementation
 
 	piste_selectionne: PISTE
 
-	vaisseau_selectionne: STRING
-
---	piste: AFFICHABLE
-
-	vaisseau: AFFICHABLE
+	vaisseau_selectionne: VAISSEAU
 
 end

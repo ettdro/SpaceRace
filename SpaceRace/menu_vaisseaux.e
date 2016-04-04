@@ -149,7 +149,7 @@ feature {NONE}
 			l_menu_jeu_principal: JEU_PRINCIPAL
 		do
 			if attached vaisseau_selectionne as la_vaisseau_selectionne then
-				create l_menu_jeu_principal.make (fenetre, musique, son_click, piste_selectionne, vaisseau_selectionne)
+				create l_menu_jeu_principal.make (fenetre, musique, son_click, piste_selectionne, la_vaisseau_selectionne)
 				l_menu_jeu_principal.execution
 				quitter := l_menu_jeu_principal.quitter
 			end
