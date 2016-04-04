@@ -25,7 +25,7 @@ feature -- Initialization
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
-			create texte.creer_affichable (fenetre.fenetre.renderer, "texte_credits")
+			create texte.creer_affichable (fenetre.fenetre.renderer, "texte_credits.png")
 			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
 		end
 
