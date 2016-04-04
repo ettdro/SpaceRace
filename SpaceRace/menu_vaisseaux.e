@@ -21,7 +21,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES; a_piste_selectionne: STRING)
+	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES; a_piste_selectionne: PISTE)
 			-- Construit le menu pour choisir le vaisseaux.
 		do
 			make_menu (a_fenetre, a_musique, a_son_click)
@@ -34,7 +34,6 @@ feature {NONE} -- Initialization
 			create vaisseau1.creer_affichable (fenetre.fenetre.renderer, "vaisseau1_cadre.png")
 			create vaisseau2.creer_affichable (fenetre.fenetre.renderer, "vaisseau2_cadre.png")
 			create vaisseau3.creer_affichable (fenetre.fenetre.renderer, "vaisseau3_cadre.png")
-			create vaisseau_selectionne.make_empty
 			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton SUIVANT.
 			liste_coordonnees.extend ([200, 200, 380, 380]) -- Coordonnées du bouton CADRE_1.
@@ -84,17 +83,17 @@ feature -- Access
 						lancer_fenetre_jeu_principal
 					end
 				elseif a_etat_souris.x > 200 and a_etat_souris.x < 380 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
-					vaisseau_selectionne := "vaisseau1.png"
+					create vaisseau_selectionne.make_1 (fenetre)
 					liste_coordonnees.go_i_th (3) -- CADRE 1
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 430 and a_etat_souris.x < 610 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
-					vaisseau_selectionne := "vaisseau2.png"
+					create vaisseau_selectionne.make_2 (fenetre)
 					liste_coordonnees.go_i_th (4) -- CADRE 2
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 660 and a_etat_souris.x < 840 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
-					vaisseau_selectionne := "vaisseau3.png"
+					create vaisseau_selectionne.make_3 (fenetre)
 					liste_coordonnees.go_i_th (5) -- CADRE 3
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
@@ -144,12 +143,16 @@ feature {NONE}
 
 	lancer_fenetre_jeu_principal
 			-- Lance le menu du jeu principal
+		require
+			Vaisseau_Selectionne: attached vaisseau_selectionne
 		local
 			l_menu_jeu_principal: JEU_PRINCIPAL
 		do
-			create l_menu_jeu_principal.make (fenetre, musique, son_click, piste_selectionne, vaisseau_selectionne)
-			l_menu_jeu_principal.execution
-			quitter := l_menu_jeu_principal.quitter
+			if attached vaisseau_selectionne as la_vaisseau_selectionne then
+				create l_menu_jeu_principal.make (fenetre, musique, son_click, piste_selectionne, vaisseau_selectionne)
+				l_menu_jeu_principal.execution
+				quitter := l_menu_jeu_principal.quitter
+			end
 		end
 
 feature {ANY} -- Implementation
@@ -162,9 +165,9 @@ feature {ANY} -- Implementation
 
 	vaisseau3: AFFICHABLE
 
-	piste_selectionne: STRING
+	piste_selectionne: PISTE
 
-	vaisseau_selectionne: STRING
+	vaisseau_selectionne: detachable VAISSEAU
 
 	cadre: AFFICHABLE
 
