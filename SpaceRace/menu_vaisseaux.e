@@ -21,7 +21,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES; a_piste_selectionne: STRING)
+	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES; a_piste_selectionne: PISTE)
 			-- Construit le menu pour choisir le vaisseaux.
 		do
 			make_menu (a_fenetre, a_musique, a_son_click)
@@ -162,7 +162,7 @@ feature {ANY} -- Implementation
 
 	vaisseau3: AFFICHABLE
 
-	piste_selectionne: STRING
+	piste_selectionne: PISTE
 
 	vaisseau_selectionne: STRING
 
