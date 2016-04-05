@@ -40,6 +40,8 @@ feature {NONE} -- Initialization
 			liste_coordonnees.extend ([430, 200, 610, 380]) -- Coordonnées du bouton CADRE_2.
 			liste_coordonnees.extend ([660, 200, 840, 380]) -- Coordonnées du bouton CADRE_3.
 			liste_coordonnees.start
+		ensure
+			Piste_Assigne: piste_selectionne = a_piste_selectionne
 		end
 
 feature -- Access
@@ -104,11 +106,19 @@ feature {NONE}
 
 	actualiser_cadre (a_liste_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER])
 			-- Affiche le cadre en jaune puisqu'il est celui sélectionné et affiche le bouton SUIVANT.
+		require
+			Liste_Vide: not a_liste_coordonnees.is_empty
+			Position_X1_Valide: a_liste_coordonnees.x1 >= 0 and a_liste_coordonnees.x1 <= 1000
+			Position_Y1_Valide: a_liste_coordonnees.y1 >= 0 and a_liste_coordonnees.y1 <= 600
+			Position_X2_Valide: a_liste_coordonnees.x2 >= 0 and a_liste_coordonnees.x2 <= 1000
+			Position_Y2_Valide: a_liste_coordonnees.y2 >= 0 and a_liste_coordonnees.y2 <= 600
 		do
 			cadre_selectionne.afficher (a_liste_coordonnees.x1, a_liste_coordonnees.y1, fenetre.fenetre.renderer)
 			bouton_suivant.afficher (760, 520, fenetre.fenetre.renderer)
 			suivant_est_visible := True
 			fenetre.fenetre.renderer.present
+		ensure
+			Bouton_Suivant_Affiche: suivant_est_visible
 		end
 
 	deselectionner_cadre

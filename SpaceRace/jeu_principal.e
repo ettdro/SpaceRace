@@ -44,6 +44,9 @@ feature {NONE} -- Initialization
 			liste_coordonnees.extend ([760, 420, 966, 476]) -- Coordonnées du bouton PAUSE.
 			liste_coordonnees.extend ([760, 320, 966, 376]) -- Coordonnées du bouton JOUER.
 			liste_coordonnees.extend ([930, 0, 999, 48])	-- Coordonnées du bouton MUET.
+		ensure
+			Piste_Assigne: piste_selectionne = a_piste_selectionne
+			Vaisseau_Assigne: vaisseau_selectionne = a_vaisseau_selectionne
 		end
 
 feature -- Access
@@ -113,10 +116,6 @@ feature {NONE}
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
 			vaisseau_selectionne.vaisseau.afficher (piste_selectionne.x, piste_selectionne.y, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
-		end
-
-	definir_depart
-		do
 		end
 
 feature {ANY} -- Implementation

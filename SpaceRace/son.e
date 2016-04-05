@@ -19,6 +19,7 @@ feature -- Access
 			-- Méthode qui crée le son.
 		require
 			Bon_Format_Audio: a_nom_fichier.ends_with (".wav")
+			Bonne_Taille_Audio: a_nom_fichier.count > 4
 		local
 			l_son: AUDIO_SOUND_FILE
 		do
@@ -63,22 +64,28 @@ feature -- Access
 			-- Coupe le musique du jeu.
 		do
 			source.set_gain (0)
+		ensure
+			source.gain = 0
 		end
 
 	unmute
 			-- Rouvre le son du jeu.
 		do
 			source.set_gain (1)
+		ensure
+			source.gain = 1
 		end
 
 	desactiver_son_click
 			-- Désactive le son lorsqu'on click sur un bouton.
 		do
 			source.stop
+		ensure
+			source.is_stop
 		end
 
 	est_muet: BOOLEAN
-			-- Vérifie si c'est muet pour l'affichage du bon bouton dans le menu des options.
+			-- Vérifie si c'est muet pour l'affichage du bon bouton dans le menu des options et dans le jeu principal.
 		do
 			Result := source.gain = 0
 		end

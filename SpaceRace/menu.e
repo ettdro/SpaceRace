@@ -29,6 +29,8 @@ feature -- Initialization
 			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} liste_coordonnees.make
 		ensure
 			Fenetre_Assigne: fenetre = a_fenetre
+			Musique_Assigne: musique = a_musique
+			Son_Click_Assigne: son_click = a_son_click
 		end
 
 feature -- Access
@@ -64,6 +66,7 @@ feature -- Access
 		end
 
 	verifier_si_muet
+			-- Vérifie si le son du jeu est muet ou non pour le faire jouer si nécessaire.	 	
 		do
 			if not musique.est_muet then
 				son_click.jouer (False)

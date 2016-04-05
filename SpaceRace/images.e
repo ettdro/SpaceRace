@@ -17,6 +17,7 @@ feature -- Access
 			-- Méthode qui crée une image si le fichier est ouvrable.
 		require
 			Bon_Format_Image: a_nom_fichier.ends_with (".png")
+			Bonne_Taille_String: a_nom_fichier.count > 4
 		local
 			l_image: IMG_IMAGE_FILE
 		do

@@ -20,6 +20,7 @@ feature {NONE} -- Initialization
 			-- Méthode pour créer un fichier affichable (une image quelconque, ex.: les boutons, le logo, etc.)
 		require
 			Bon_Format_Image: a_nom_fichier.ends_with (".png")
+			Bonne_Taille_String: a_nom_fichier.count > 4
 		do
 			creer_image (a_renderer, a_nom_fichier)
 		end
