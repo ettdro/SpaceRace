@@ -27,6 +27,8 @@ feature -- Initialization
 			create curseur.make
 			create fond.make_image (fenetre.fenetre.renderer, "background_space.png")
 			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} liste_coordonnees.make
+		ensure
+			Fenetre_Assigne: fenetre = a_fenetre
 		end
 
 feature -- Access
@@ -59,6 +61,13 @@ feature -- Access
 				end)
 			fenetre.fenetre.mouse_button_pressed_actions.extend (agent action_souris(?, ?, ?))
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
+		end
+
+	verifier_si_muet
+		do
+			if not musique.est_muet then
+				son_click.jouer (False)
+			end
 		end
 
 feature {ANY} -- Implementation

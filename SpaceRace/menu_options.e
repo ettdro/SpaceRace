@@ -69,23 +69,17 @@ feature -- Access
 					lancer_fenetre_options
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 199 and a_etat_souris.y < 257 then
 						-- Bouton CRÉDITS
-					if not musique.est_muet then
-						son_click.jouer (False)
-					end
+					verifier_si_muet
 					curseur.reinitialiser_curseur
 					lancer_fenetre_credits
 				elseif a_etat_souris.x > 309 and a_etat_souris.x < 695 and a_etat_souris.y > 299 and a_etat_souris.y < 357 then
 						-- Bouton COMMENT JOUER
-					if not musique.est_muet then
-						son_click.jouer (False)
-					end
+					verifier_si_muet
 					curseur.reinitialiser_curseur
 					lancer_fenetre_comment_jouer
 				elseif a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
 						-- Bouton RETOUR
-					if not musique.est_muet then
-						son_click.jouer (False)
-					end
+					verifier_si_muet
 					curseur.reinitialiser_curseur
 					retour_options := True
 					quitter := False

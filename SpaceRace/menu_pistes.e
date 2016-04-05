@@ -66,9 +66,7 @@ feature -- Access
 			if a_etat_souris.is_left_button_pressed then
 				if a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
 						-- Bouton RETOUR
-					if not musique.est_muet then
-						son_click.jouer (False)
-					end
+					verifier_si_muet
 					curseur.reinitialiser_curseur
 					retour_pistes := True
 					quitter := False
@@ -76,29 +74,31 @@ feature -- Access
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
 						-- Bouton SUIVANT
 					if suivant_est_visible then
-						if not musique.est_muet then
-							son_click.jouer (False)
-						end
+						verifier_si_muet
 						curseur.reinitialiser_curseur
 						lancer_fenetre_vaisseaux
 					end
 				elseif a_etat_souris.x > 200 and a_etat_souris.x < 450 and a_etat_souris.y > 120 and a_etat_souris.y < 270 then
 					create piste.make_vert (fenetre)
+					verifier_si_muet
 					liste_coordonnees.go_i_th (3) -- CADRE 1
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 550 and a_etat_souris.x < 800 and a_etat_souris.y > 120 and a_etat_souris.y < 270 then
 					create piste.make_jaune (fenetre)
+					verifier_si_muet
 					liste_coordonnees.go_i_th (4) -- CADRE 2
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 200 and a_etat_souris.x < 450 and a_etat_souris.y > 300 and a_etat_souris.y < 450 then
 					create piste.make_mauve (fenetre)
+					verifier_si_muet
 					liste_coordonnees.go_i_th (5) -- CADRE 3
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 550 and a_etat_souris.x < 800 and a_etat_souris.y > 300 and a_etat_souris.y < 450 then
 					create piste.make_bleu (fenetre)
+					verifier_si_muet
 					liste_coordonnees.go_i_th (6) -- CADRE 4
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
@@ -125,7 +125,7 @@ feature {NONE}
 			loop
 				if liste_coordonnees.readable then
 					cadre.afficher (liste_coordonnees.item.x1, liste_coordonnees.item.y1, fenetre.fenetre.renderer)
-					liste_coordonnees.move (1)
+					liste_coordonnees.forth
 				end
 			end
 		end

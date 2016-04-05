@@ -73,16 +73,12 @@ feature -- Access
 					quitter_jeu (1)
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 349 and a_etat_souris.y < 407 then
 						-- Bouton OPTIONS
-					if not musique.est_muet then
-						son_click.jouer (False)
-					end
+					verifier_si_muet
 					curseur.reinitialiser_curseur
 					lancer_fenetre_options
 				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 249 and a_etat_souris.y < 307 then
 						-- Bouton JOUER
-					if not musique.est_muet then
-						son_click.jouer (False)
-					end
+					verifier_si_muet
 					curseur.reinitialiser_curseur
 					lancer_fenetre_jouer
 				end

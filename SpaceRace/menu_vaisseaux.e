@@ -66,9 +66,7 @@ feature -- Access
 			if a_etat_souris.is_left_button_pressed then
 				if a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
 						-- Bouton RETOUR
-					if not musique.est_muet then
-						son_click.jouer (False)
-					end
+					verifier_si_muet
 					curseur.reinitialiser_curseur
 					retour_vaisseaux := True
 					quitter := False
@@ -76,24 +74,25 @@ feature -- Access
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
 						-- Bouton SUIVANT
 					if suivant_est_visible then
-						if not musique.est_muet then
-							son_click.jouer (False)
-						end
+						verifier_si_muet
 						curseur.reinitialiser_curseur
 						lancer_fenetre_jeu_principal
 					end
 				elseif a_etat_souris.x > 200 and a_etat_souris.x < 380 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
 					create vaisseau_selectionne.make_1 (fenetre)
+					verifier_si_muet
 					liste_coordonnees.go_i_th (3) -- CADRE 1
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 430 and a_etat_souris.x < 610 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
 					create vaisseau_selectionne.make_2 (fenetre)
+					verifier_si_muet
 					liste_coordonnees.go_i_th (4) -- CADRE 2
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre
 				elseif a_etat_souris.x > 660 and a_etat_souris.x < 840 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
 					create vaisseau_selectionne.make_3 (fenetre)
+					verifier_si_muet
 					liste_coordonnees.go_i_th (5) -- CADRE 3
 					actualiser_cadre (liste_coordonnees.item)
 					deselectionner_cadre

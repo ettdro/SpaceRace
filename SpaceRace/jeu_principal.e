@@ -27,20 +27,23 @@ feature {NONE} -- Initialization
 			piste_selectionne := a_piste_selectionne
 			vaisseau_selectionne := a_vaisseau_selectionne
 			make_menu (a_fenetre, a_musique, a_son_click)
+			if not musique.est_muet then
+				doit_afficher_bouton_muet := False
+			end
+			if musique.est_muet then
+				doit_afficher_bouton_muet := True
+			end
+			create bouton_muet.creer_affichable (fenetre.fenetre.renderer, "bouton_muet_jeu.png")
+			create bouton_non_muet.creer_affichable (fenetre.fenetre.renderer, "bouton_non_muet_jeu.png")
 			create titre_tours.creer_affichable (fenetre.fenetre.renderer, "titre_tours.png")
 			create titre_chrono.creer_affichable (fenetre.fenetre.renderer, "titre_chrono.png")
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create bouton_pause.creer_affichable (fenetre.fenetre.renderer, "bouton_pause.png")
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
-			create {LINKED_LIST [TUPLE [x, y: INTEGER]]} liste_depart.make
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton RETOUR.
 			liste_coordonnees.extend ([760, 420, 966, 476]) -- Coordonnées du bouton PAUSE.
 			liste_coordonnees.extend ([760, 320, 966, 376]) -- Coordonnées du bouton JOUER.
-			liste_depart.extend ([53, 245]) -- Coordonnées piste VERTE
-			liste_depart.extend ([59, 330]) -- Coordonnées piste JAUNE
-			liste_depart.extend ([50, 300]) -- Coordonnées piste MAUVE
-			liste_depart.extend ([42, 260]) -- Coordonnées piste BLEUE
-			liste_depart.start
+			liste_coordonnees.extend ([930, 0, 999, 48])	-- Coordonnées du bouton MUET.
 		end
 
 feature -- Access
@@ -67,27 +70,24 @@ feature -- Access
 			if a_etat_souris.is_left_button_pressed then
 				if a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
 					-- BOUTON RETOUR
-					if not musique.est_muet then
-						son_click.jouer (False)
-					end
+					verifier_si_muet
 					curseur.reinitialiser_curseur
 					retour_jeu_principal := True
 					quitter := False
 					game_library.stop
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 419 and a_etat_souris.y < 477 then
 					-- BOUTON PAUSE
-					if not musique.est_muet then
-						son_click.jouer (False)
-					end
+					verifier_si_muet
 					curseur.reinitialiser_curseur
 						-- STOP LE CHRONO ET LES MOUVEMENTS DU VAISSEAU
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 319 and a_etat_souris.y < 377 then
 					-- BOUTON JOUER
-					if not musique.est_muet then
-						son_click.jouer (False)
-					end
+					verifier_si_muet
 					curseur.reinitialiser_curseur
 						-- DÉMARRE LA PARTIE (LE CHRONO, LE VAISSEAU PEUT BOUGER, REPREND LA PARTIE SI PAUSE IL Y A)
+				elseif a_etat_souris.x > 930 and a_etat_souris.x < 999 and a_etat_souris.y > 0 and a_etat_souris.y < 48 then
+					doit_afficher_bouton_muet := not doit_afficher_bouton_muet
+					lancer_fenetre_jeu_principal
 				end
 			end
 		end
@@ -103,6 +103,13 @@ feature {NONE}
 			bouton_jouer.afficher (760, 320, fenetre.fenetre.renderer)
 			titre_tours.afficher (760, 160, fenetre.fenetre.renderer)
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
+			if doit_afficher_bouton_muet = True then
+				bouton_muet.afficher (935, 0, fenetre.fenetre.renderer)
+				musique.mute
+			else
+				bouton_non_muet.afficher (935, 0, fenetre.fenetre.renderer)
+				musique.unmute
+			end
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
 			vaisseau_selectionne.vaisseau.afficher (piste_selectionne.x, piste_selectionne.y, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
@@ -124,10 +131,14 @@ feature {ANY} -- Implementation
 
 	titre_chrono: AFFICHABLE
 
-	liste_depart: LIST[TUPLE[x, y:INTEGER]]
-
 	piste_selectionne: PISTE
 
 	vaisseau_selectionne: VAISSEAU
+
+	bouton_muet: AFFICHABLE
+
+	bouton_non_muet: AFFICHABLE
+
+	doit_afficher_bouton_muet: BOOLEAN
 
 end
