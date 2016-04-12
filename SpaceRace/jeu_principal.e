@@ -26,6 +26,7 @@ feature {NONE} -- Initialization
 		do
 			piste_selectionne := a_piste_selectionne
 			vaisseau_selectionne := a_vaisseau_selectionne
+			vaisseau_y := piste_selectionne.y
 			make_menu (a_fenetre, a_musique, a_son_click)
 			if not musique.est_muet then
 				doit_afficher_bouton_muet := False
@@ -61,7 +62,10 @@ feature -- Access
 				quitter or retour_jeu_principal
 			loop
 				game_library.clear_all_events
+				deja_afficher := False
 				lancer_fenetre_jeu_principal
+				fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?,?))
+				fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?,?))
 				Precursor {MENU}
 				game_library.launch
 			end
@@ -90,9 +94,32 @@ feature -- Access
 						-- DÉMARRE LA PARTIE (LE CHRONO, LE VAISSEAU PEUT BOUGER, REPREND LA PARTIE SI PAUSE IL Y A)
 				elseif a_etat_souris.x > 930 and a_etat_souris.x < 999 and a_etat_souris.y > 0 and a_etat_souris.y < 48 then
 					doit_afficher_bouton_muet := not doit_afficher_bouton_muet
-					lancer_fenetre_jeu_principal
+					afficher_bouton_son
 				end
 			end
+		end
+
+
+	action_clavier (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
+		do
+			if a_etat_clavier.is_repeat or not a_etat_clavier.is_repeat then
+				if a_etat_clavier.is_up then
+					if vaisseau_y >= 1 then
+						vaisseau_y := vaisseau_y - 10
+						update_vaisseau(x, vaisseau_y, fenetre.fenetre.renderer)
+					end
+				end
+				if a_etat_clavier.is_down then
+					if vaisseau_y <= 560 then
+						vaisseau_y := vaisseau_y + 10
+						update_vaisseau (x, vaisseau_y, fenetre.fenetre.renderer)
+					end
+				end
+			end
+		end
+
+	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
+		do
 		end
 
 feature {NONE}
@@ -106,6 +133,17 @@ feature {NONE}
 			bouton_jouer.afficher (760, 320, fenetre.fenetre.renderer)
 			titre_tours.afficher (760, 160, fenetre.fenetre.renderer)
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
+			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
+			afficher_bouton_son
+			if not deja_afficher then
+				vaisseau_selectionne.vaisseau.afficher (piste_selectionne.x, piste_selectionne.y, fenetre.fenetre.renderer)
+				deja_afficher := True
+			end
+			fenetre.fenetre.renderer.present
+		end
+
+	afficher_bouton_son
+		do
 			if doit_afficher_bouton_muet = True then
 				bouton_muet.afficher (935, 0, fenetre.fenetre.renderer)
 				musique.mute
@@ -113,9 +151,14 @@ feature {NONE}
 				bouton_non_muet.afficher (935, 0, fenetre.fenetre.renderer)
 				musique.unmute
 			end
-			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
-			vaisseau_selectionne.vaisseau.afficher (piste_selectionne.x, piste_selectionne.y, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
+		end
+
+	update_vaisseau (a_x, a_y: INTEGER; a_renderer: GAME_RENDERER)
+		do
+			lancer_fenetre_jeu_principal
+			vaisseau_selectionne.vaisseau.afficher (piste_selectionne.x, a_y, a_renderer)
+			a_renderer.present
 		end
 
 feature {ANY} -- Implementation
@@ -139,5 +182,11 @@ feature {ANY} -- Implementation
 	bouton_non_muet: AFFICHABLE
 
 	doit_afficher_bouton_muet: BOOLEAN
+
+	deja_afficher: BOOLEAN
+
+	x: INTEGER
+
+	vaisseau_y: INTEGER
 
 end
