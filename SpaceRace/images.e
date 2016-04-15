@@ -40,11 +40,10 @@ feature -- Access
 	afficher (a_pos_x, a_pos_y: INTEGER; l_renderer: GAME_RENDERER)
 			-- Affiche l'image à l'endroit voulu.
 		require
-			Position_X_Valide: a_pos_x >= 0 and a_pos_x <= 1000
-			Position_Y_Valide: a_pos_y >= 0 and a_pos_y <= 600
 		do
 			l_renderer.draw_texture (Current, a_pos_x, a_pos_y)
 		end
+
 
 feature {NONE} -- Implementation
 
