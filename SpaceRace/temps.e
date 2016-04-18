@@ -17,37 +17,39 @@ feature {NONE} -- Initialization
 		do
 			temps_debut_milliseconde := a_debut_millisecond
 			temps_milliseconde := 0
+			temps_decompte := 3
 			fenetre := a_fenetre
 			font := a_font
 			color := a_color
-			create liste_texte_str_secondes.make(0)
-			create liste_texte_str_minutes.make(0)
-			liste_texte_str_secondes.extend ("0")
-			liste_texte_str_minutes.extend ("0")
-			liste_texte_str_secondes.start
-			liste_texte_str_minutes.start
 			create text_surface_minutes.make ("00", a_font, a_color)
 			create text_surface_points.make (":", a_font, a_color)
 			create text_surface_secondes.make ("00", a_font, a_color)
+			create text_surface_decompte.make ("3", a_font, a_color)
 			create texture_minutes.make_from_surface (a_fenetre, text_surface_minutes)
 			create texture_points.make_from_surface (a_fenetre, text_surface_points)
 			create texture_secondes.make_from_surface (a_fenetre, text_surface_secondes)
+			create texture_decompte.make_from_surface (a_fenetre, text_surface_decompte)
 		end
 
 
 feature {ANY}
 
 	afficher_temps
+		local
+			temps_secondes : NATURAL
+			temps_minutes : NATURAL
 		do
-			if temps_milliseconde < 10000 then
-				create text_surface_secondes.make ("0" + ((temps_milliseconde // 1000) \\ 60).out, font, color)
+			temps_secondes := ((temps_milliseconde // 1000) \\ 60)
+			temps_minutes := (temps_milliseconde // 60000)
+			if temps_secondes < 10 then
+				create text_surface_secondes.make ("0" + temps_secondes.out, font, color)
 			else
-				create text_surface_secondes.make (((temps_milliseconde // 1000) \\ 60).out, font, color)
+				create text_surface_secondes.make (temps_secondes.out, font, color)
 			end
-			if temps_milliseconde < 600000 then
-				create text_surface_minutes.make ("0" + (temps_milliseconde // 60000).out, font, color)
+			if temps_minutes < 10 then
+				create text_surface_minutes.make ("0" + temps_minutes.out, font, color)
 			else
-				create text_surface_minutes.make ((temps_milliseconde // 60000).out, font, color)
+				create text_surface_minutes.make (temps_minutes.out, font, color)
 			end
 			create texture_secondes.make_from_surface (fenetre, text_surface_secondes)
 			create texture_minutes.make_from_surface (fenetre, text_surface_minutes)
@@ -56,39 +58,47 @@ feature {ANY}
 			fenetre.draw_texture (texture_secondes, 885, 75)
 		end
 
-	chronometre(a_timestamp:NATURAL)
+	afficher_decompte
 		do
-			temps_milliseconde := temps_milliseconde + a_timestamp - temps_debut_milliseconde
-			temps_debut_milliseconde := a_timestamp
---			if temps_milliseconde < 10 then
---				temps_milliseconde := temps_milliseconde + a_timestamp - temps_debut_milliseconde
---			end
---			if temps_secondes = 60 then
---				temps_secondes := 0
---				temps_minutes := temps_minutes + 1
---				liste_texte_str_secondes.put (temps_secondes.out)
---				liste_texte_str_minutes.put (temps_minutes.out)
---			end
+			create text_surface_decompte.make (temps_decompte.out, font, color)
+			create texture_decompte.make_from_surface (fenetre, text_surface_decompte)
+			fenetre.draw_texture (texture_decompte, 500, 300)
 		end
 
+	chronometre(a_timestamp:NATURAL)
+		do
+			arret := False
+			temps_milliseconde := temps_milliseconde + a_timestamp - temps_debut_milliseconde
+			temps_debut_milliseconde := a_timestamp
+		end
+
+	decompte(a_timestamp:NATURAL)
+		do
+			temps_decompte := temps_decompte + a_timestamp - temps_debut_milliseconde
+		end
+
+	arreter
+		do
+			arret := True
+		end
 
 	temps_debut_milliseconde: NATURAL
 
 	temps_milliseconde: NATURAL
 
+	temps_decompte: NATURAL
+
 	font: TEXT_FONT
 
 	color: GAME_COLOR
-
-	liste_texte_str_secondes: ARRAYED_LIST[STRING]
-
-	liste_texte_str_minutes: ARRAYED_LIST[STRING]
 
 	texture_minutes: GAME_TEXTURE
 
 	texture_points: GAME_TEXTURE
 
 	texture_secondes: GAME_TEXTURE
+
+	texture_decompte: GAME_TEXTURE
 
 	fenetre: GAME_RENDERER
 
@@ -97,4 +107,8 @@ feature {ANY}
 	text_surface_points: TEXT_SURFACE_BLENDED
 
 	text_surface_secondes: TEXT_SURFACE_BLENDED
+
+	text_surface_decompte: TEXT_SURFACE_BLENDED
+
+	arret: BOOLEAN
 end

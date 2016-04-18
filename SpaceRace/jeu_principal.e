@@ -69,7 +69,6 @@ feature -- Access
 				game_library.clear_all_events
 				deja_afficher := False
 				lancer_fenetre_jeu_principal
-
 				fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?, ?))
 				fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
 				fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
@@ -92,6 +91,7 @@ feature -- Access
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 419 and a_etat_souris.y < 477 then
 						-- BOUTON PAUSE
 					verifier_si_muet
+					chronometre.arreter
 					curseur.reinitialiser_curseur
 						-- STOP LE CHRONO ET LES MOUVEMENTS DU VAISSEAU
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 319 and a_etat_souris.y < 377 then
@@ -143,8 +143,8 @@ feature -- Access
 
 	sur_iteration (a_timestamp: NATURAL_32; a_fenetre: GAME_RENDERER)
 		do
+			chronometre.decompte(a_timestamp)
 			chronometre.chronometre(a_timestamp)
---			chronometre.afficher_temps
 			lancer_fenetre_jeu_principal
 		end
 
@@ -161,9 +161,9 @@ feature {NONE}
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
 			afficher_bouton_son
+			chronometre.afficher_decompte
 			chronometre.afficher_temps
 			vaisseau_selectionne.vaisseau.afficher (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
-
 			fenetre.fenetre.renderer.present
 		end
 
@@ -210,7 +210,7 @@ feature {ANY} -- Implementation
 	deja_afficher: BOOLEAN -- Détermine si le vaisseau est déjà affiché.
 
 	vaisseau_y: INTEGER -- La position en Y du vaisseau.
-	
+
 	vaisseau_x: INTEGER -- La position en X du vaisseau.
 
 	chronometre: TEMPS -- Le chronomètre du jeu.
@@ -218,5 +218,7 @@ feature {ANY} -- Implementation
 	font: TEXT_FONT -- La police d'écriture du texte (chornomètre et tours).
 
 	couleur: GAME_COLOR -- La couleur du texte (chronomètre et tours).
+
+	partie_commence: BOOLEAN
 
 end
