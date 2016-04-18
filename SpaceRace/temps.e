@@ -114,4 +114,7 @@ feature {NONE} -- Implementation
 	text_surface_decompte: TEXT_SURFACE_BLENDED
 
 	arret: BOOLEAN
+
+	text_surface_decompte: TEXT_SURFACE_BLENDED
+
 end

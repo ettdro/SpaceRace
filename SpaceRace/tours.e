@@ -15,6 +15,13 @@ feature {NONE} -- Initialisation
 	make (a_fenetre: GAME_RENDERER; a_font: TEXT_FONT; a_color: GAME_COLOR)
 			-- Crée le compteur de tours.
 		do
+			fenetre := a_fenetre
+			font := a_font
+			color := a_color
+			create text_surface_total_tours.make ("0", a_font, a_color)
+			create text_surface_tours_execute.make ("/3", a_font, a_color)
+			create texture_total_tours.make_from_surface (a_fenetre, text_surface_total_tours)
+			create texture_tours_execute.make_from_surface (a_fenetre, text_surface_tours_execute)
 		end
 
 feature {ANY}

@@ -22,9 +22,10 @@ feature {NONE} -- Initialization
 			x := 53
 			y := 245
 			create checkpoint_liste.make (3)
-			checkpoint_liste.put (checkpoint1)
-			checkpoint_liste.put (checkpoint2)
-			checkpoint_liste.put (checkpoint3)
+			checkpoint_liste.extend (checkpoint1)
+			checkpoint_liste.extend (checkpoint2)
+			checkpoint_liste.extend (checkpoint3)
+			checkpoint_liste.start
 		end
 
 	make_jaune (a_fenetre: FENETRE)
@@ -34,10 +35,11 @@ feature {NONE} -- Initialization
 			x := 59
 			y := 330
 			create checkpoint_liste.make (4)
-			checkpoint_liste.put (checkpoint1)
-			checkpoint_liste.put (checkpoint2)
-			checkpoint_liste.put (checkpoint3)
-			checkpoint_liste.put (checkpoint4)
+			checkpoint_liste.extend (checkpoint1)
+			checkpoint_liste.extend (checkpoint2)
+			checkpoint_liste.extend (checkpoint3)
+			checkpoint_liste.extend (checkpoint4)
+			checkpoint_liste.start
 		end
 
 	make_mauve (a_fenetre: FENETRE)
@@ -47,13 +49,14 @@ feature {NONE} -- Initialization
 			x := 33
 			y := 330
 			create checkpoint_liste.make (7)
-			checkpoint_liste.put (checkpoint1)
-			checkpoint_liste.put (checkpoint2)
-			checkpoint_liste.put (checkpoint3)
-			checkpoint_liste.put (checkpoint4)
-			checkpoint_liste.put (checkpoint5)
-			checkpoint_liste.put (checkpoint6)
-			checkpoint_liste.put (checkpoint7)
+			checkpoint_liste.extend (checkpoint1)
+			checkpoint_liste.extend (checkpoint2)
+			checkpoint_liste.extend (checkpoint3)
+			checkpoint_liste.extend (checkpoint4)
+			checkpoint_liste.extend (checkpoint5)
+			checkpoint_liste.extend (checkpoint6)
+			checkpoint_liste.extend (checkpoint7)
+			checkpoint_liste.start
 		end
 
 	make_bleu (a_fenetre: FENETRE)
@@ -63,10 +66,11 @@ feature {NONE} -- Initialization
 			x := 42
 			y := 260
 			create checkpoint_liste.make (4)
-			checkpoint_liste.put (checkpoint1)
-			checkpoint_liste.put (checkpoint2)
-			checkpoint_liste.put (checkpoint3)
-			checkpoint_liste.put (checkpoint4)
+			checkpoint_liste.extend (checkpoint1)
+			checkpoint_liste.extend (checkpoint2)
+			checkpoint_liste.extend (checkpoint3)
+			checkpoint_liste.extend (checkpoint4)
+			checkpoint_liste.start
 		end
 
 feature {ANY} -- Implementation
