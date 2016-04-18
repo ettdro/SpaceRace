@@ -21,6 +21,10 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteV.png")
 			x := 53
 			y := 245
+			create checkpoint_liste.make (3)
+			checkpoint_liste.put (checkpoint1)
+			checkpoint_liste.put (checkpoint2)
+			checkpoint_liste.put (checkpoint3)
 		end
 
 	make_jaune (a_fenetre: FENETRE)
@@ -29,6 +33,11 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteJ.png")
 			x := 59
 			y := 330
+			create checkpoint_liste.make (4)
+			checkpoint_liste.put (checkpoint1)
+			checkpoint_liste.put (checkpoint2)
+			checkpoint_liste.put (checkpoint3)
+			checkpoint_liste.put (checkpoint4)
 		end
 
 	make_mauve (a_fenetre: FENETRE)
@@ -37,6 +46,14 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteM.png")
 			x := 33
 			y := 330
+			create checkpoint_liste.make (7)
+			checkpoint_liste.put (checkpoint1)
+			checkpoint_liste.put (checkpoint2)
+			checkpoint_liste.put (checkpoint3)
+			checkpoint_liste.put (checkpoint4)
+			checkpoint_liste.put (checkpoint5)
+			checkpoint_liste.put (checkpoint6)
+			checkpoint_liste.put (checkpoint7)
 		end
 
 	make_bleu (a_fenetre: FENETRE)
@@ -45,6 +62,11 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteB.png")
 			x := 42
 			y := 260
+			create checkpoint_liste.make (4)
+			checkpoint_liste.put (checkpoint1)
+			checkpoint_liste.put (checkpoint2)
+			checkpoint_liste.put (checkpoint3)
+			checkpoint_liste.put (checkpoint4)
 		end
 
 feature {ANY} -- Implementation
@@ -54,5 +76,21 @@ feature {ANY} -- Implementation
 	x: INTEGER -- La position de départ de la piste en X.
 
 	y: INTEGER -- La position de départ de la piste en Y.
+
+	checkpoint_liste: ARRAYED_LIST [BOOLEAN] -- Liste qui contient les variables Boolean des checkpoints.
+
+	checkpoint1: BOOLEAN -- Permet de déterminer si le checkpoint 1 a été passé.
+
+	checkpoint2: BOOLEAN -- Permet de déterminer si le checkpoint 2 a été passé.
+
+	checkpoint3: BOOLEAN -- Permet de déterminer si le checkpoint 3 a été passé.
+
+	checkpoint4: detachable BOOLEAN -- Permet de déterminer si le checkpoint 4 a été passé. "detachable", car une piste  peut ne pas avoir 4 checkpoint.
+
+	checkpoint5: detachable BOOLEAN -- Permet de déterminer si le checkpoint 5 a été passé. "detachable", car une piste  peut ne pas avoir 5 checkpoint.
+
+	checkpoint6: detachable BOOLEAN -- Permet de déterminer si le checkpoint 6 a été passé. "detachable", car une piste  peut ne pas avoir 6 checkpoint.
+
+	checkpoint7: detachable BOOLEAN -- Permet de déterminer si le checkpoint 7 a été passé. "detachable", car une piste  peut ne pas avoir 7 checkpoint.
 
 end

@@ -12,8 +12,8 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: GAME_RENDERER; a_font: TEXT_FONT; a_color: GAME_COLOR; a_debut_millisecond:NATURAL)
-			-- Initialization for `Current'.
+	make (a_fenetre: GAME_RENDERER; a_font: TEXT_FONT; a_color: GAME_COLOR; a_debut_millisecond: NATURAL)
+			-- Crée le chronomètre.
 		do
 			temps_debut_milliseconde := a_debut_millisecond
 			temps_milliseconde := 0
@@ -31,10 +31,10 @@ feature {NONE} -- Initialization
 			create texture_decompte.make_from_surface (a_fenetre, text_surface_decompte)
 		end
 
-
 feature {ANY}
 
 	afficher_temps
+			-- Affiche le chronomètre à l'écran.
 		local
 			temps_secondes : NATURAL
 			temps_minutes : NATURAL
@@ -64,8 +64,9 @@ feature {ANY}
 			create texture_decompte.make_from_surface (fenetre, text_surface_decompte)
 			fenetre.draw_texture (texture_decompte, 500, 300)
 		end
-
-	chronometre(a_timestamp:NATURAL)
+		
+	chronometre (a_timestamp: NATURAL)
+			-- Incrémente le temps du chronomètre.
 		do
 			arret := False
 			temps_milliseconde := temps_milliseconde + a_timestamp - temps_debut_milliseconde
@@ -82,33 +83,33 @@ feature {ANY}
 			arret := True
 		end
 
-	temps_debut_milliseconde: NATURAL
+feature {NONE} -- Implementation
 
-	temps_milliseconde: NATURAL
+	temps_debut_milliseconde: NATURAL -- Le temps depuis la création du chronomètre.
 
 	temps_decompte: NATURAL
+	
+	temps_milliseconde: NATURAL -- Le temps en millisecondes.
 
-	font: TEXT_FONT
+	font: TEXT_FONT -- La police d'écriture du texte.
+	
+	color: GAME_COLOR -- La couleur du texte.
 
-	color: GAME_COLOR
+	texture_minutes: GAME_TEXTURE -- La texture qui signifie le nombre de minutes.
 
-	texture_minutes: GAME_TEXTURE
+	texture_points: GAME_TEXTURE -- La texture qui signifie les points.
 
-	texture_points: GAME_TEXTURE
+	texture_secondes: GAME_TEXTURE -- La texture qui signifie le nombre de secondes.
 
-	texture_secondes: GAME_TEXTURE
+	fenetre: GAME_RENDERER -- La fenêtre de l'application.
 
 	texture_decompte: GAME_TEXTURE
+	
+	text_surface_minutes: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de minutes.
 
-	fenetre: GAME_RENDERER
+	text_surface_points: TEXT_SURFACE_BLENDED -- Une surface pour les points.
 
-	text_surface_minutes: TEXT_SURFACE_BLENDED
-
-	text_surface_points: TEXT_SURFACE_BLENDED
-
-	text_surface_secondes: TEXT_SURFACE_BLENDED
-
-	text_surface_decompte: TEXT_SURFACE_BLENDED
+	text_surface_secondes: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de secondes.
 
 	arret: BOOLEAN
 end
