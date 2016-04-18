@@ -53,9 +53,8 @@ feature -- Access
 			musique.jouer (True)
 			from
 				quitter := False
-				retour_principal := False
 			until
-				quitter or retour_principal
+				quitter
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_principal
@@ -120,12 +119,12 @@ feature {NONE}
 
 feature {ANY} -- Implementation
 
-	bouton_jouer: AFFICHABLE
+	bouton_jouer: AFFICHABLE -- L'image du bouton "JOUER"
 
-	bouton_options: AFFICHABLE
+	bouton_options: AFFICHABLE -- L'image du bouton "OPTIONS"
 
-	bouton_quitter: AFFICHABLE
+	bouton_quitter: AFFICHABLE -- L'image du bouton "QUITTER"
 
-	logo: AFFICHABLE
+	logo: AFFICHABLE -- L'image du titre principal.
 
 end

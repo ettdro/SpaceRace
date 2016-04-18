@@ -105,8 +105,6 @@ feature -- Access
 			end
 		end
 
-		-- BUG POST_CONDITION DE LOUIS QUAND ON JOUE PIS QU'ON BOUGE LA SOURIS!!!
-
 	action_clavier (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie quelle touche est pressée pour pouvoir exécuter la bonne action.
 		do
@@ -118,7 +116,7 @@ feature -- Access
 					end
 				end
 				if a_etat_clavier.is_down then
-					if vaisseau_y <= 560 then
+					if vaisseau_y <= 559 then
 						vaisseau_y := vaisseau_y + 10
 						update_vaisseau (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 					end
@@ -188,40 +186,36 @@ feature {NONE}
 
 feature {ANY} -- Implementation
 
-	bouton_retour: AFFICHABLE
+	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR"
 
-	bouton_pause: AFFICHABLE
+	bouton_pause: AFFICHABLE -- L'image du bouton "PAUSE"
 
-	bouton_jouer: AFFICHABLE
+	bouton_jouer: AFFICHABLE -- L'image du bouton "JOUER"
 
-	titre_tours: AFFICHABLE
+	titre_tours: AFFICHABLE -- L'image du titre "TOURS"
 
-	titre_chrono: AFFICHABLE
+	titre_chrono: AFFICHABLE -- L'image du titre "CHRONO"
 
-	piste_selectionne: PISTE
+	piste_selectionne: PISTE -- La piste qui a été choisie.
 
-	vaisseau_selectionne: VAISSEAU
+	vaisseau_selectionne: VAISSEAU -- Le vaisseau qui a été sélectionné.
 
-	bouton_muet: AFFICHABLE
+	bouton_muet: AFFICHABLE -- L'image du bouton "MUET" lorsque le son est muet.
 
-	bouton_non_muet: AFFICHABLE
+	bouton_non_muet: AFFICHABLE -- L'image du bouton "MUET" lorsque le son est actif.
 
-	doit_afficher_bouton_muet: BOOLEAN
+	doit_afficher_bouton_muet: BOOLEAN -- Détermine lequel des boutons "MUET" sera affiché.
 
-	deja_afficher: BOOLEAN
+	deja_afficher: BOOLEAN -- Détermine si le vaisseau est déjà affiché.
 
-	x: INTEGER
+	vaisseau_y: INTEGER -- La position en Y du vaisseau.
 
-	y: INTEGER
+	vaisseau_x: INTEGER -- La position en X du vaisseau.
 
-	vaisseau_y: INTEGER
-	
-	vaisseau_x: INTEGER
+	chronometre: TEMPS -- Le chronomètre du jeu.
 
-	chronometre: TEMPS
+	font: TEXT_FONT -- La police d'écriture du texte (chornomètre et tours).
 
-	font: TEXT_FONT
-
-	couleur: GAME_COLOR
+	couleur: GAME_COLOR -- La couleur du texte (chronomètre et tours).
 
 end

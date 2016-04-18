@@ -127,16 +127,16 @@ feature -- Access
 
 feature {ANY} -- Implementation
 
-	doit_afficher_bouton_muet: BOOLEAN
+	doit_afficher_bouton_muet: BOOLEAN -- Détermine lequel des boutons "MUET" sera affiché.
 
-	bouton_muet: AFFICHABLE
+	bouton_muet: AFFICHABLE -- L'image du bouton "MUET" lorsque le son est muet.
 
-	bouton_non_muet: AFFICHABLE
+	bouton_non_muet: AFFICHABLE -- L'image du bouton "MUET" lorsque le son est actif.
 
-	bouton_credits: AFFICHABLE
+	bouton_credits: AFFICHABLE -- L'image du bouton "CREDITS".
 
-	bouton_comment_jouer: AFFICHABLE
+	bouton_comment_jouer: AFFICHABLE -- L'image du bouton "COMMENT JOUER".
 
-	bouton_retour: AFFICHABLE
+	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR".
 
 end

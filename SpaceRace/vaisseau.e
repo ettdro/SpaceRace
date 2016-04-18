@@ -34,6 +34,6 @@ feature {NONE} -- Initialization
 
 feature {ANY} -- Implementation
 
-	vaisseau: AFFICHABLE
+	vaisseau: AFFICHABLE -- L'image du vaisseau pour la partie.
 
 end

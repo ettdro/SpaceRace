@@ -25,7 +25,6 @@ feature -- Access
 			if l_image.is_openable then
 				l_image.open
 				if l_image.is_open then
-					image := l_image
 					make_from_image (a_renderer, l_image)
 				else
 					has_error := True
@@ -43,10 +42,5 @@ feature -- Access
 		do
 			l_renderer.draw_texture (Current, a_pos_x, a_pos_y)
 		end
-
-
-feature {NONE} -- Implementation
-
-	image: detachable IMG_IMAGE_FILE
 
 end
