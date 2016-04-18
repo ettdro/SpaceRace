@@ -12,16 +12,16 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: GAME_RENDERER; a_font: TEXT_FONT; a_color: GAME_COLOR; a_debut_millisecond:NATURAL)
-			-- Initialization for `Current'.
+	make (a_fenetre: GAME_RENDERER; a_font: TEXT_FONT; a_color: GAME_COLOR; a_debut_millisecond: NATURAL)
+			-- Crée le chronomètre.
 		do
 			temps_debut_milliseconde := a_debut_millisecond
 			temps_milliseconde := 0
 			fenetre := a_fenetre
 			font := a_font
 			color := a_color
-			create liste_texte_str_secondes.make(0)
-			create liste_texte_str_minutes.make(0)
+			create liste_texte_str_secondes.make (0)
+			create liste_texte_str_minutes.make (0)
 			liste_texte_str_secondes.extend ("0")
 			liste_texte_str_minutes.extend ("0")
 			liste_texte_str_secondes.start
@@ -34,10 +34,10 @@ feature {NONE} -- Initialization
 			create texture_secondes.make_from_surface (a_fenetre, text_surface_secondes)
 		end
 
-
 feature {ANY}
 
 	afficher_temps
+			-- Affiche le chronomètre à l'écran.
 		do
 			if temps_milliseconde < 10000 then
 				create text_surface_secondes.make ("0" + ((temps_milliseconde // 1000) \\ 60).out, font, color)
@@ -56,45 +56,44 @@ feature {ANY}
 			fenetre.draw_texture (texture_secondes, 885, 75)
 		end
 
-	chronometre(a_timestamp:NATURAL)
+	chronometre (a_timestamp: NATURAL)
+			-- Incrémente le temps du chronomètre.
 		do
 			temps_milliseconde := temps_milliseconde + a_timestamp - temps_debut_milliseconde
 			temps_debut_milliseconde := a_timestamp
---			if temps_milliseconde < 10 then
---				temps_milliseconde := temps_milliseconde + a_timestamp - temps_debut_milliseconde
---			end
---			if temps_secondes = 60 then
---				temps_secondes := 0
---				temps_minutes := temps_minutes + 1
---				liste_texte_str_secondes.put (temps_secondes.out)
---				liste_texte_str_minutes.put (temps_minutes.out)
---			end
+				--			if temps_milliseconde < 10 then
+				--				temps_milliseconde := temps_milliseconde + a_timestamp - temps_debut_milliseconde
+				--			end
+				--			if temps_secondes = 60 then
+				--				temps_secondes := 0
+				--				temps_minutes := temps_minutes + 1
+				--				liste_texte_str_secondes.put (temps_secondes.out)
+				--				liste_texte_str_minutes.put (temps_minutes.out)
+				--			end
 		end
 
+feature {NONE} -- Implementation
 
-	temps_debut_milliseconde: NATURAL
+	temps_debut_milliseconde: NATURAL -- Le temps depuis la création du chronomètre.
 
-	temps_milliseconde: NATURAL
+	temps_milliseconde: NATURAL -- Le temps en millisecondes.
 
-	font: TEXT_FONT
+	font: TEXT_FONT -- La police d'écriture du texte.
 
-	color: GAME_COLOR
+	color: GAME_COLOR -- La couleur du texte.
 
-	liste_texte_str_secondes: ARRAYED_LIST[STRING]
+	texture_minutes: GAME_TEXTURE -- La texture qui signifie le nombre de minutes.
 
-	liste_texte_str_minutes: ARRAYED_LIST[STRING]
+	texture_points: GAME_TEXTURE -- La texture qui signifie les points.
 
-	texture_minutes: GAME_TEXTURE
+	texture_secondes: GAME_TEXTURE -- La texture qui signifie le nombre de secondes.
 
-	texture_points: GAME_TEXTURE
+	fenetre: GAME_RENDERER -- La fenêtre de l'application.
 
-	texture_secondes: GAME_TEXTURE
+	text_surface_minutes: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de minutes.
 
-	fenetre: GAME_RENDERER
+	text_surface_points: TEXT_SURFACE_BLENDED -- Une surface pour les points.
 
-	text_surface_minutes: TEXT_SURFACE_BLENDED
+	text_surface_secondes: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de secondes.
 
-	text_surface_points: TEXT_SURFACE_BLENDED
-
-	text_surface_secondes: TEXT_SURFACE_BLENDED
 end

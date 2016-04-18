@@ -21,6 +21,7 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteV.png")
 			x := 53
 			y := 245
+			nombre_checkpoint := 3
 		end
 
 	make_jaune (a_fenetre: FENETRE)
@@ -29,6 +30,7 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteJ.png")
 			x := 59
 			y := 330
+			nombre_checkpoint := 4
 		end
 
 	make_mauve (a_fenetre: FENETRE)
@@ -37,6 +39,7 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteM.png")
 			x := 33
 			y := 330
+			nombre_checkpoint := 7
 		end
 
 	make_bleu (a_fenetre: FENETRE)
@@ -45,6 +48,7 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteB.png")
 			x := 42
 			y := 260
+			nombre_checkpoint := 4
 		end
 
 feature {ANY} -- Implementation
@@ -54,5 +58,7 @@ feature {ANY} -- Implementation
 	x: INTEGER -- La position de départ de la piste en X.
 
 	y: INTEGER -- La position de départ de la piste en Y.
+
+	nombre_checkpoint: INTEGER -- Le nombre de checkpoint que la piste possède.
 
 end
