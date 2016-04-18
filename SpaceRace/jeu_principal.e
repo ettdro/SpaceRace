@@ -27,6 +27,7 @@ feature {NONE} -- Initialization
 			piste_selectionne := a_piste_selectionne
 			vaisseau_selectionne := a_vaisseau_selectionne
 			vaisseau_y := piste_selectionne.y
+			vaisseau_x := piste_selectionne.x
 			make_menu (a_fenetre, a_musique, a_son_click)
 			if not musique.est_muet then
 				doit_afficher_bouton_muet := False
@@ -48,7 +49,7 @@ feature {NONE} -- Initialization
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton RETOUR.
 			liste_coordonnees.extend ([760, 420, 966, 476]) -- Coordonnées du bouton PAUSE.
 			liste_coordonnees.extend ([760, 320, 966, 376]) -- Coordonnées du bouton JOUER.
-			liste_coordonnees.extend ([930, 0, 999, 48])	-- Coordonnées du bouton MUET.
+			liste_coordonnees.extend ([930, 0, 999, 48]) -- Coordonnées du bouton MUET.
 		ensure
 			Piste_Assigne: piste_selectionne = a_piste_selectionne
 			Vaisseau_Assigne: vaisseau_selectionne = a_vaisseau_selectionne
@@ -68,9 +69,9 @@ feature -- Access
 				game_library.clear_all_events
 				deja_afficher := False
 				lancer_fenetre_jeu_principal
---				chronometre.chronometre
-				fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?,?))
-				fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?,?))
+
+				fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?, ?))
+				fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
 				Precursor {MENU}
 				game_library.launch
 			end
@@ -81,19 +82,19 @@ feature -- Access
 		do
 			if a_etat_souris.is_left_button_pressed then
 				if a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
-					-- BOUTON RETOUR
+						-- BOUTON RETOUR
 					verifier_si_muet
 					curseur.reinitialiser_curseur
 					retour_jeu_principal := True
 					quitter := False
 					game_library.stop
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 419 and a_etat_souris.y < 477 then
-					-- BOUTON PAUSE
+						-- BOUTON PAUSE
 					verifier_si_muet
 					curseur.reinitialiser_curseur
 						-- STOP LE CHRONO ET LES MOUVEMENTS DU VAISSEAU
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 319 and a_etat_souris.y < 377 then
-					-- BOUTON JOUER
+						-- BOUTON JOUER
 					verifier_si_muet
 					curseur.reinitialiser_curseur
 						-- DÉMARRE LA PARTIE (LE CHRONO, LE VAISSEAU PEUT BOUGER, REPREND LA PARTIE SI PAUSE IL Y A)
@@ -104,20 +105,38 @@ feature -- Access
 			end
 		end
 
+		-- BUG POST_CONDITION DE LOUIS QUAND ON JOUE PIS QU'ON BOUGE LA SOURIS!!!
 
 	action_clavier (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
+			-- Vérifie quelle touche est pressée pour pouvoir exécuter la bonne action.
 		do
 			if a_etat_clavier.is_repeat or not a_etat_clavier.is_repeat then
 				if a_etat_clavier.is_up then
 					if vaisseau_y >= 1 then
 						vaisseau_y := vaisseau_y - 10
-						update_vaisseau(x, vaisseau_y, fenetre.fenetre.renderer)
+						update_vaisseau (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 					end
 				end
 				if a_etat_clavier.is_down then
 					if vaisseau_y <= 560 then
 						vaisseau_y := vaisseau_y + 10
-						update_vaisseau (x, vaisseau_y, fenetre.fenetre.renderer)
+						update_vaisseau (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
+					end
+				end
+
+					-- draw_sub_texture_scale_rotate() pour rotater la shit
+
+				-- LE MOUVEMENT EN X EST TEMPORAIRE
+				if a_etat_clavier.is_left then
+					if vaisseau_x >= 1 then
+						vaisseau_x := vaisseau_x - 10
+						update_vaisseau (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
+					end
+				end
+				if a_etat_clavier.is_right then
+					if vaisseau_x <= 700 then
+						vaisseau_x := vaisseau_x + 10
+						update_vaisseau (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 					end
 				end
 			end
@@ -163,7 +182,7 @@ feature {NONE}
 	update_vaisseau (a_x, a_y: INTEGER; a_renderer: GAME_RENDERER)
 		do
 			lancer_fenetre_jeu_principal
-			vaisseau_selectionne.vaisseau.afficher (piste_selectionne.x, a_y, a_renderer)
+			vaisseau_selectionne.vaisseau.afficher (a_x, a_y, a_renderer)
 			a_renderer.present
 		end
 
@@ -193,7 +212,11 @@ feature {ANY} -- Implementation
 
 	x: INTEGER
 
+	y: INTEGER
+
 	vaisseau_y: INTEGER
+	
+	vaisseau_x: INTEGER
 
 	chronometre: TEMPS
 
