@@ -45,7 +45,7 @@ feature {NONE} -- Initialization
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create bouton_pause.creer_affichable (fenetre.fenetre.renderer, "bouton_pause.png")
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
-			create chronometre.make (fenetre.fenetre.renderer, font, couleur)
+			create chronometre.make (fenetre.fenetre.renderer, font, couleur, game_library.time_since_create)
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton RETOUR.
 			liste_coordonnees.extend ([760, 420, 966, 476]) -- Coordonnées du bouton PAUSE.
 			liste_coordonnees.extend ([760, 320, 966, 376]) -- Coordonnées du bouton JOUER.
@@ -72,6 +72,7 @@ feature -- Access
 
 				fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?, ?))
 				fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
+				fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
 				Precursor {MENU}
 				game_library.launch
 			end
@@ -114,13 +115,11 @@ feature -- Access
 				if a_etat_clavier.is_up then
 					if vaisseau_y >= 1 then
 						vaisseau_y := vaisseau_y - 10
-						update_vaisseau (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 					end
 				end
 				if a_etat_clavier.is_down then
 					if vaisseau_y <= 560 then
 						vaisseau_y := vaisseau_y + 10
-						update_vaisseau (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 					end
 				end
 
@@ -130,13 +129,11 @@ feature -- Access
 				if a_etat_clavier.is_left then
 					if vaisseau_x >= 1 then
 						vaisseau_x := vaisseau_x - 10
-						update_vaisseau (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 					end
 				end
 				if a_etat_clavier.is_right then
 					if vaisseau_x <= 700 then
 						vaisseau_x := vaisseau_x + 10
-						update_vaisseau (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 					end
 				end
 			end
@@ -144,6 +141,13 @@ feature -- Access
 
 	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 		do
+		end
+
+	sur_iteration (a_timestamp: NATURAL_32; a_fenetre: GAME_RENDERER)
+		do
+			chronometre.chronometre(a_timestamp)
+--			chronometre.afficher_temps
+			lancer_fenetre_jeu_principal
 		end
 
 feature {NONE}
@@ -159,11 +163,9 @@ feature {NONE}
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
 			afficher_bouton_son
-			chronometre.afficher_temps_initial
-			if not deja_afficher then
-				vaisseau_selectionne.vaisseau.afficher (piste_selectionne.x, piste_selectionne.y, fenetre.fenetre.renderer)
-				deja_afficher := True
-			end
+			chronometre.afficher_temps
+			vaisseau_selectionne.vaisseau.afficher (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
+
 			fenetre.fenetre.renderer.present
 		end
 
@@ -176,14 +178,13 @@ feature {NONE}
 				bouton_non_muet.afficher (935, 0, fenetre.fenetre.renderer)
 				musique.unmute
 			end
-			fenetre.fenetre.renderer.present
 		end
 
 	update_vaisseau (a_x, a_y: INTEGER; a_renderer: GAME_RENDERER)
 		do
-			lancer_fenetre_jeu_principal
-			vaisseau_selectionne.vaisseau.afficher (a_x, a_y, a_renderer)
-			a_renderer.present
+--			lancer_fenetre_jeu_principal
+--			vaisseau_selectionne.vaisseau.afficher (a_x, a_y, a_renderer)
+--			a_renderer.present
 		end
 
 feature {ANY} -- Implementation
@@ -215,7 +216,7 @@ feature {ANY} -- Implementation
 	y: INTEGER
 
 	vaisseau_y: INTEGER
-	
+
 	vaisseau_x: INTEGER
 
 	chronometre: TEMPS
