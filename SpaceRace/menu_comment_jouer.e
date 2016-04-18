@@ -75,8 +75,8 @@ feature {NONE}
 
 feature {ANY} -- Implementation
 
-	bouton_retour: AFFICHABLE
+	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR".
 
-	texte: AFFICHABLE
+	texte: AFFICHABLE -- L'image du texte.
 
 end

@@ -29,10 +29,10 @@ feature {NONE} -- Initialization
 			create titre.creer_affichable (fenetre.fenetre.renderer, "choisir_piste.png")
 			create cadre.creer_affichable (fenetre.fenetre.renderer, "bordure_pistes.png")
 			create cadre_selectionne.creer_affichable (fenetre.fenetre.renderer, "bordure_pistes_selectionne.png")
-			create piste_facile.creer_affichable (a_fenetre.fenetre.renderer, "piste_facile_cadre.png")
-			create piste_moyen.creer_affichable (a_fenetre.fenetre.renderer, "piste_moyen_cadre.png")
-			create piste_difficile.creer_affichable (a_fenetre.fenetre.renderer, "piste_difficile_cadre.png")
-			create piste_extreme.creer_affichable (a_fenetre.fenetre.renderer, "piste_extreme_cadre.png")
+			create piste_verte.creer_affichable (a_fenetre.fenetre.renderer, "piste_facile_cadre.png")
+			create piste_jaune.creer_affichable (a_fenetre.fenetre.renderer, "piste_moyen_cadre.png")
+			create piste_mauve.creer_affichable (a_fenetre.fenetre.renderer, "piste_difficile_cadre.png")
+			create piste_bleue.creer_affichable (a_fenetre.fenetre.renderer, "piste_extreme_cadre.png")
 			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR. (position liste = 1)
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton SUIVANT. (position liste = 2)
 			liste_coordonnees.extend ([200, 120, 450, 270]) -- Coordonnées du bouton CADRE_1. (position liste = 3)
@@ -149,10 +149,10 @@ feature {NONE}
 			cadre.afficher (550, 120, fenetre.fenetre.renderer)
 			cadre.afficher (200, 300, fenetre.fenetre.renderer)
 			cadre.afficher (550, 300, fenetre.fenetre.renderer)
-			piste_facile.afficher (230, 130, fenetre.fenetre.renderer)
-			piste_moyen.afficher (580, 130, fenetre.fenetre.renderer)
-			piste_difficile.afficher (230, 310, fenetre.fenetre.renderer)
-			piste_extreme.afficher (580, 310, fenetre.fenetre.renderer)
+			piste_verte.afficher (230, 130, fenetre.fenetre.renderer)
+			piste_jaune.afficher (580, 130, fenetre.fenetre.renderer)
+			piste_mauve.afficher (230, 310, fenetre.fenetre.renderer)
+			piste_bleue.afficher (580, 310, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
 
@@ -172,26 +172,26 @@ feature {NONE}
 
 feature {ANY} -- Implementation
 
-	cadre: AFFICHABLE
+	cadre: AFFICHABLE -- L'image d'un cadre non-sélectionné.
 
-	cadre_selectionne: AFFICHABLE
+	cadre_selectionne: AFFICHABLE -- L'image d'un cadre sélectionné.
 
-	suivant_est_visible: BOOLEAN
+	suivant_est_visible: BOOLEAN -- Détermine si le bouton "SUIVANT" est visible.
 
-	piste: detachable PISTE
+	piste: detachable PISTE -- La piste qui est choisie au final. "detachable" parce qu'au départ, il n'y a pas de piste.
 
-	titre: AFFICHABLE
+	titre: AFFICHABLE -- L'image du titre du menu.
 
-	bouton_suivant: AFFICHABLE
+	bouton_suivant: AFFICHABLE -- L'image du bouton "SUIVANT".
 
-	bouton_retour: AFFICHABLE
+	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR".
 
-	piste_facile: AFFICHABLE
+	piste_verte: AFFICHABLE -- L'image de la piste verte.
 
-	piste_moyen: AFFICHABLE
+	piste_jaune: AFFICHABLE -- L'image de la piste jaune.
 
-	piste_difficile: AFFICHABLE
+	piste_mauve: AFFICHABLE -- L'image de la piste mauve.
 
-	piste_extreme: AFFICHABLE
+	piste_bleue: AFFICHABLE -- L'image de la piste bleue.
 
 end

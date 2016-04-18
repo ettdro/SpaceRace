@@ -50,7 +50,7 @@ feature -- Access
 	mouvements_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_MOTION_STATE; a_x, a_y: INTEGER_32; a_fenetre: GAME_WINDOW_RENDERED)
 			-- Détecte la position du curseur en positions 'a_x' et 'a_y'.
 		do
-			curseur.est_sur_bouton (a_temps, a_etat_souris, a_x, a_y, a_fenetre, liste_coordonnees)
+			curseur.change_curseur (a_temps, a_etat_souris, a_x, a_y, a_fenetre, liste_coordonnees)
 		end
 
 	execution
@@ -66,7 +66,7 @@ feature -- Access
 		end
 
 	verifier_si_muet
-			-- Vérifie si le son du jeu est muet ou non pour le faire jouer si nécessaire.	 	
+			-- Vérifie si le son du jeu est muet ou non pour le faire jouer si nécessaire.
 		do
 			if not musique.est_muet then
 				son_click.jouer (False)
@@ -75,31 +75,29 @@ feature -- Access
 
 feature {ANY} -- Implementation
 
-	quitter: BOOLEAN
+	quitter: BOOLEAN -- Permet de quitter le programme.
 
-	retour_principal: BOOLEAN
+	retour_options: BOOLEAN -- Permet de quitter le menu "OPTIONS".
 
-	retour_options: BOOLEAN
+	retour_credits: BOOLEAN -- Permet de quitter le menu "CREDITS".
 
-	retour_credits: BOOLEAN
+	retour_comment_jouer: BOOLEAN -- Permet de quitter le menu "COMMENT JOUER".
 
-	retour_comment_jouer: BOOLEAN
+	retour_pistes: BOOLEAN -- Permet de quitter le menu "PISTES".
 
-	retour_pistes: BOOLEAN
+	retour_vaisseaux: BOOLEAN -- Permet de quitter le menu "VAISSEAUX".
 
-	retour_vaisseaux: BOOLEAN
+	retour_jeu_principal: BOOLEAN -- Permet de quitter le menu "JEU PRINCIPAL".
 
-	retour_jeu_principal: BOOLEAN
+	fenetre: FENETRE -- La fenêtre de l'application.
 
-	fenetre: FENETRE
+	musique: MUSIQUE -- La musique principale du jeu.
 
-	musique: MUSIQUE
+	son_click: EFFETS_SONORES -- Le son qui est exécuté lors d'un click.
 
-	son_click: EFFETS_SONORES
+	curseur: CURSEUR -- Le curseur de la souris.
 
-	curseur: CURSEUR
-
-	fond: FOND_ECRAN
+	fond: FOND_ECRAN -- L'image de fond.
 
 	liste_coordonnees: LIST [TUPLE [x1, y1, x2, y2: INTEGER]] -- Liste de coordonnées des boutons dans les menus.
 

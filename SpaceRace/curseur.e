@@ -23,7 +23,7 @@ feature -- Initialization
 			create curseur_defaut.make_arrow
 		end
 
-	est_sur_bouton (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_x, a_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED; a_liste_coordonnees: LIST [TUPLE [x1, y1, x2, y2: INTEGER]])
+	change_curseur (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_x, a_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED; a_liste_coordonnees: LIST [TUPLE [x1, y1, x2, y2: INTEGER]])
 			-- Vérifie que le curseur est sur un bouton et change l'image du curseur au besoin.
 		require
 			Liste_Vide: not a_liste_coordonnees.is_empty
@@ -65,10 +65,10 @@ feature -- Initialization
 
 feature {ANY} -- Implementation
 
-	curseur_main: GAME_CURSOR
+	curseur_main: GAME_CURSOR -- Le curseur qui est la main.
 
-	curseur_defaut: GAME_CURSOR
+	curseur_defaut: GAME_CURSOR -- Le curseur qui est la flèche.
 
-	y, x: INTEGER
+	y, x: INTEGER -- La position du curseur dans l'écran.
 
 end

@@ -49,10 +49,10 @@ feature {NONE} -- Initialization
 
 feature {ANY} -- Implementation
 
-	piste: AFFICHABLE
+	piste: AFFICHABLE -- L'image de la piste pour la partie.
 
-	x: INTEGER
+	x: INTEGER -- La position de départ de la piste en X.
 
-	y: INTEGER
+	y: INTEGER -- La position de départ de la piste en Y.
 
 end

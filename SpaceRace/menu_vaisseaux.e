@@ -166,26 +166,26 @@ feature {NONE}
 
 feature {ANY} -- Implementation
 
-	titre: AFFICHABLE
+	titre: AFFICHABLE -- L'image du titre du menu.
 
-	vaisseau1: AFFICHABLE
+	vaisseau1: AFFICHABLE -- L'image du vaisseau 1.
 
-	vaisseau2: AFFICHABLE
+	vaisseau2: AFFICHABLE -- L'image du vaisseau 2.
 
-	vaisseau3: AFFICHABLE
+	vaisseau3: AFFICHABLE -- L'image du vaisseau 3.
 
-	piste_selectionne: PISTE
+	piste_selectionne: PISTE -- La piste qui a été choisie.
 
-	vaisseau_selectionne: detachable VAISSEAU
+	vaisseau_selectionne: detachable VAISSEAU -- Le vaisseau qui est choisi au final. "detachable" parce qu'au départ, il n'y a pas de vaisseau.
 
-	cadre: AFFICHABLE
+	cadre: AFFICHABLE -- L'image d'un cadre non-sélectionné.
 
-	bouton_retour: AFFICHABLE
+	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR"
 
-	bouton_suivant: AFFICHABLE
+	bouton_suivant: AFFICHABLE -- L'image du bouton "SUIVANT"
 
-	cadre_selectionne: AFFICHABLE
+	cadre_selectionne: AFFICHABLE -- L'image d'un cadre sélectionné.
 
-	suivant_est_visible: BOOLEAN
+	suivant_est_visible: BOOLEAN -- Détermine si le bouton "SUIVANT" est visible.
 
 end

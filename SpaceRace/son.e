@@ -29,8 +29,12 @@ feature -- Access
 			if l_son.is_openable then
 				l_son.open
 				if l_son.is_open then
-					son_click := l_son
+					son := l_son
+				else
+					print ("L'audio ne peut s'ouvrir.")
 				end
+			else
+				print ("L'audio n'est pas un fichier ouvrable.")
 			end
 		end
 
@@ -44,13 +48,13 @@ feature -- Access
 			-- Vérifie si le son n'est pas NULL et fait jouer le son (à l'infini si TRUE).
 		do
 			if a_boucle_infini = True then
-				if attached son_click as la_son then
+				if attached son as la_son then
 					source.queue_sound_infinite_loop (la_son)
 					source.set_gain (1)
 					source.play
 				end
 			else
-				if attached son_click as la_son then
+				if attached son as la_son then
 					source.stop
 					la_son.restart
 					source.queue_sound (la_son)
@@ -92,8 +96,8 @@ feature -- Access
 
 feature -- Implementation
 
-	source: AUDIO_SOURCE
+	source: AUDIO_SOURCE -- La source de l'audio.
 
-	son_click: detachable AUDIO_SOUND
+	son: detachable AUDIO_SOUND -- Le son créé.
 
 end
