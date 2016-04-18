@@ -34,6 +34,9 @@ feature {NONE} -- Initialization
 			if musique.est_muet then
 				doit_afficher_bouton_muet := True
 			end
+			create font.make ("impact.ttf", 72)
+			font.open
+			create couleur.make_rgb (255, 51, 153)
 			create bouton_muet.creer_affichable (fenetre.fenetre.renderer, "bouton_muet_jeu.png")
 			create bouton_non_muet.creer_affichable (fenetre.fenetre.renderer, "bouton_non_muet_jeu.png")
 			create titre_tours.creer_affichable (fenetre.fenetre.renderer, "titre_tours.png")
@@ -41,6 +44,7 @@ feature {NONE} -- Initialization
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create bouton_pause.creer_affichable (fenetre.fenetre.renderer, "bouton_pause.png")
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
+			create chronometre.make (fenetre.fenetre.renderer, font, couleur)
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton RETOUR.
 			liste_coordonnees.extend ([760, 420, 966, 476]) -- Coordonnées du bouton PAUSE.
 			liste_coordonnees.extend ([760, 320, 966, 376]) -- Coordonnées du bouton JOUER.
@@ -64,6 +68,7 @@ feature -- Access
 				game_library.clear_all_events
 				deja_afficher := False
 				lancer_fenetre_jeu_principal
+--				chronometre.chronometre
 				fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?,?))
 				fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?,?))
 				Precursor {MENU}
@@ -135,6 +140,7 @@ feature {NONE}
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
 			afficher_bouton_son
+			chronometre.afficher_temps_initial
 			if not deja_afficher then
 				vaisseau_selectionne.vaisseau.afficher (piste_selectionne.x, piste_selectionne.y, fenetre.fenetre.renderer)
 				deja_afficher := True
@@ -188,5 +194,11 @@ feature {ANY} -- Implementation
 	x: INTEGER
 
 	vaisseau_y: INTEGER
+
+	chronometre: TEMPS
+
+	font: TEXT_FONT
+
+	couleur: GAME_COLOR
 
 end
