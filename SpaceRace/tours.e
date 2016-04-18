@@ -19,6 +19,16 @@ feature {NONE} -- Initialisation
 
 feature {ANY}
 
+	afficher_tours
+			-- Affiche le nombre de tours à l'écran.
+		do
+		end
+
+	tours
+			-- Incrémente le nombre de tours
+		do
+		end
+
 feature {NONE} -- Implementation
 
 	font: TEXT_FONT -- La police d'écriture du texte.
