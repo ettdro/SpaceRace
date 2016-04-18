@@ -64,7 +64,7 @@ feature {ANY}
 			create texture_decompte.make_from_surface (fenetre, text_surface_decompte)
 			fenetre.draw_texture (texture_decompte, 500, 300)
 		end
-		
+
 	chronometre (a_timestamp: NATURAL)
 			-- Incrémente le temps du chronomètre.
 		do
@@ -88,11 +88,11 @@ feature {NONE} -- Implementation
 	temps_debut_milliseconde: NATURAL -- Le temps depuis la création du chronomètre.
 
 	temps_decompte: NATURAL
-	
+
 	temps_milliseconde: NATURAL -- Le temps en millisecondes.
 
 	font: TEXT_FONT -- La police d'écriture du texte.
-	
+
 	color: GAME_COLOR -- La couleur du texte.
 
 	texture_minutes: GAME_TEXTURE -- La texture qui signifie le nombre de minutes.
@@ -104,12 +104,14 @@ feature {NONE} -- Implementation
 	fenetre: GAME_RENDERER -- La fenêtre de l'application.
 
 	texture_decompte: GAME_TEXTURE
-	
+
 	text_surface_minutes: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de minutes.
 
 	text_surface_points: TEXT_SURFACE_BLENDED -- Une surface pour les points.
 
 	text_surface_secondes: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de secondes.
+
+	text_surface_decompte: TEXT_SURFACE_BLENDED
 
 	arret: BOOLEAN
 end
