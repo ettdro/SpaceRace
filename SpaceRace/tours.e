@@ -12,14 +12,14 @@ create
 
 feature {NONE} -- Initialisation
 
-	make (a_fenetre: GAME_RENDERER; a_font: TEXT_FONT; a_color: GAME_COLOR)
+	make (a_fenetre: GAME_RENDERER; a_police: TEXT_FONT; a_couleur: GAME_COLOR)
 			-- Crée le compteur de tours.
 		do
 			fenetre := a_fenetre
-			font := a_font
-			color := a_color
-			create text_surface_total_tours.make ("0", a_font, a_color)
-			create text_surface_tours_execute.make ("/3", a_font, a_color)
+			police := a_police
+			couleur := a_couleur
+			create text_surface_total_tours.make ("0", a_police, a_couleur)
+			create text_surface_tours_execute.make ("/3", a_police, a_couleur)
 			create texture_total_tours.make_from_surface (a_fenetre, text_surface_total_tours)
 			create texture_tours_execute.make_from_surface (a_fenetre, text_surface_tours_execute)
 		end
@@ -28,7 +28,16 @@ feature {ANY}
 
 	afficher_tours
 			-- Affiche le nombre de tours à l'écran.
+		local
+			nombre_tour: INTEGER
 		do
+			if tour_complete then
+				nombre_tour := nombre_tour + 1
+				create text_surface_total_tours.make (nombre_tour.to_hex_string, police, couleur)
+			end
+			create texture_tours_execute.make_from_surface (fenetre, text_surface_tours_execute)
+			fenetre.draw_texture (texture_total_tours, 815, 200)
+			fenetre.draw_texture (texture_tours_execute, 855, 200)
 		end
 
 	tours
@@ -38,9 +47,9 @@ feature {ANY}
 
 feature {NONE} -- Implementation
 
-	font: TEXT_FONT -- La police d'écriture du texte.
+	police: TEXT_FONT -- La police d'écriture du texte.
 
-	color: GAME_COLOR -- La couleur du texte.
+	couleur: GAME_COLOR -- La couleur du texte.
 
 	texture_total_tours: GAME_TEXTURE -- La texture du "/3" qui signifie le nombre de tours total.
 
@@ -51,5 +60,7 @@ feature {NONE} -- Implementation
 	text_surface_total_tours: TEXT_SURFACE_BLENDED -- Une surface pour le total des tours.
 
 	text_surface_tours_execute: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de tours exécutés.
+
+	tour_complete: BOOLEAN
 
 end

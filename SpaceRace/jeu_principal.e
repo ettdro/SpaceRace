@@ -46,6 +46,7 @@ feature {NONE} -- Initialization
 			create bouton_pause.creer_affichable (fenetre.fenetre.renderer, "bouton_pause.png")
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
 			create chronometre.make (fenetre.fenetre.renderer, font, couleur, game_library.time_since_create)
+			create tours.make (fenetre.fenetre.renderer, font, couleur)
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton RETOUR.
 			liste_coordonnees.extend ([760, 420, 966, 476]) -- Coordonnées du bouton PAUSE.
 			liste_coordonnees.extend ([760, 320, 966, 376]) -- Coordonnées du bouton JOUER.
@@ -145,6 +146,7 @@ feature -- Access
 		do
 			chronometre.decompte(a_timestamp)
 			chronometre.chronometre(a_timestamp)
+
 			lancer_fenetre_jeu_principal
 		end
 
@@ -163,6 +165,7 @@ feature {NONE}
 			afficher_bouton_son
 			chronometre.afficher_decompte
 			chronometre.afficher_temps
+			tours.afficher_tours
 			vaisseau_selectionne.vaisseau.afficher (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
@@ -220,5 +223,7 @@ feature {ANY} -- Implementation
 	couleur: GAME_COLOR -- La couleur du texte (chronomètre et tours).
 
 	partie_commence: BOOLEAN
+
+	tours: TOURS
 
 end
