@@ -17,7 +17,6 @@ feature {NONE} -- Initialization
 		do
 			temps_debut_milliseconde := a_debut_millisecond
 			temps_milliseconde := 0
-			temps_decompte := 3
 			fenetre := a_fenetre
 			font := a_font
 			color := a_color
@@ -58,12 +57,12 @@ feature {ANY}
 			fenetre.draw_texture (texture_secondes, 885, 75)
 		end
 
-	afficher_decompte
-		do
-			create text_surface_decompte.make (temps_decompte.out, font, color)
-			create texture_decompte.make_from_surface (fenetre, text_surface_decompte)
-			fenetre.draw_texture (texture_decompte, 500, 300)
-		end
+--	afficher_decompte
+--		do
+--			create text_surface_decompte.make (temps_decompte.out, font, color)
+--			create texture_decompte.make_from_surface (fenetre, text_surface_decompte)
+--			fenetre.draw_texture (texture_decompte, 500, 300)
+--		end
 
 	chronometre (a_timestamp: NATURAL)
 			-- Incrémente le temps du chronomètre.
@@ -73,10 +72,10 @@ feature {ANY}
 			temps_debut_milliseconde := a_timestamp
 		end
 
-	decompte(a_timestamp:NATURAL)
-		do
-			temps_decompte := temps_decompte + a_timestamp - temps_debut_milliseconde
-		end
+--	decompte(a_timestamp:NATURAL)
+--		do
+--			temps_decompte := temps_decompte + a_timestamp - temps_debut_milliseconde
+--		end
 
 	arreter
 		do
@@ -114,7 +113,5 @@ feature {NONE} -- Implementation
 	text_surface_decompte: TEXT_SURFACE_BLENDED
 
 	arret: BOOLEAN
-
-	text_surface_decompte: TEXT_SURFACE_BLENDED
 
 end

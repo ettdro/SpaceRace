@@ -91,7 +91,7 @@ feature -- Access
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 419 and a_etat_souris.y < 477 then
 						-- BOUTON PAUSE
 					verifier_si_muet
-					chronometre.arreter
+--					fenetre.game_library.delay (6000)
 					curseur.reinitialiser_curseur
 						-- STOP LE CHRONO ET LES MOUVEMENTS DU VAISSEAU
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 319 and a_etat_souris.y < 377 then
@@ -143,7 +143,7 @@ feature -- Access
 
 	sur_iteration (a_timestamp: NATURAL_32; a_fenetre: GAME_RENDERER)
 		do
-			chronometre.decompte(a_timestamp)
+--			chronometre.decompte(a_timestamp)
 			chronometre.chronometre(a_timestamp)
 			lancer_fenetre_jeu_principal
 		end
@@ -161,7 +161,7 @@ feature {NONE}
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
 			afficher_bouton_son
-			chronometre.afficher_decompte
+--			chronometre.afficher_decompte
 			chronometre.afficher_temps
 			vaisseau_selectionne.vaisseau.afficher (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present

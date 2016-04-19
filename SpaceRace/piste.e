@@ -19,8 +19,8 @@ feature {NONE} -- Initialization
 			-- Construit la piste Verte.
 		do
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteV.png")
-			x := 53
-			y := 245
+			x := 59
+			y := 250
 			create checkpoint_liste.make (3)
 			checkpoint_liste.extend (checkpoint1)
 			checkpoint_liste.extend (checkpoint2)
