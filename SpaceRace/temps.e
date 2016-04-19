@@ -12,18 +12,18 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: GAME_RENDERER; a_font: TEXT_FONT; a_color: GAME_COLOR; a_debut_millisecond: NATURAL)
+	make (a_fenetre: GAME_RENDERER; a_police: TEXT_FONT; a_couleur: GAME_COLOR; a_debut_millisecond: NATURAL)
 			-- Crée le chronomètre.
 		do
 			temps_debut_milliseconde := a_debut_millisecond
 			temps_milliseconde := 0
 			fenetre := a_fenetre
-			font := a_font
-			color := a_color
-			create text_surface_minutes.make ("00", a_font, a_color)
-			create text_surface_points.make (":", a_font, a_color)
-			create text_surface_secondes.make ("00", a_font, a_color)
-			create text_surface_decompte.make ("3", a_font, a_color)
+			police := a_police
+			couleur := a_couleur
+			create text_surface_minutes.make ("00", a_police, a_couleur)
+			create text_surface_points.make (":", a_police, a_couleur)
+			create text_surface_secondes.make ("00", a_police, a_couleur)
+			create text_surface_decompte.make ("3", a_police, a_couleur)
 			create texture_minutes.make_from_surface (a_fenetre, text_surface_minutes)
 			create texture_points.make_from_surface (a_fenetre, text_surface_points)
 			create texture_secondes.make_from_surface (a_fenetre, text_surface_secondes)
@@ -41,14 +41,14 @@ feature {ANY}
 			temps_secondes := ((temps_milliseconde // 1000) \\ 60)
 			temps_minutes := (temps_milliseconde // 60000)
 			if temps_secondes < 10 then
-				create text_surface_secondes.make ("0" + temps_secondes.out, font, color)
+				create text_surface_secondes.make ("0" + temps_secondes.out, police, couleur)
 			else
-				create text_surface_secondes.make (temps_secondes.out, font, color)
+				create text_surface_secondes.make (temps_secondes.out, police, couleur)
 			end
 			if temps_minutes < 10 then
-				create text_surface_minutes.make ("0" + temps_minutes.out, font, color)
+				create text_surface_minutes.make ("0" + temps_minutes.out, police, couleur)
 			else
-				create text_surface_minutes.make (temps_minutes.out, font, color)
+				create text_surface_minutes.make (temps_minutes.out, police, couleur)
 			end
 			create texture_secondes.make_from_surface (fenetre, text_surface_secondes)
 			create texture_minutes.make_from_surface (fenetre, text_surface_minutes)
@@ -56,6 +56,7 @@ feature {ANY}
 			fenetre.draw_texture (texture_points, 865, 75)
 			fenetre.draw_texture (texture_secondes, 885, 75)
 		end
+
 
 --	afficher_decompte
 --		do
@@ -90,9 +91,9 @@ feature {NONE} -- Implementation
 
 	temps_milliseconde: NATURAL -- Le temps en millisecondes.
 
-	font: TEXT_FONT -- La police d'écriture du texte.
+	police: TEXT_FONT -- La police d'écriture du texte.
 
-	color: GAME_COLOR -- La couleur du texte.
+	couleur: GAME_COLOR -- La couleur du texte.
 
 	texture_minutes: GAME_TEXTURE -- La texture qui signifie le nombre de minutes.
 
