@@ -119,11 +119,13 @@ feature -- Access
 				if a_etat_clavier.is_up then
 					if vaisseau_y >= 1 then
 						vaisseau_y := vaisseau_y - 10
+						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
 					end
 				end
 				if a_etat_clavier.is_down then
 					if vaisseau_y <= 559 then
 						vaisseau_y := vaisseau_y + 10
+						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
 					end
 				end
 
@@ -133,11 +135,13 @@ feature -- Access
 				if a_etat_clavier.is_left then
 					if vaisseau_x >= 1 then
 						vaisseau_x := vaisseau_x - 10
+						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
 					end
 				end
 				if a_etat_clavier.is_right then
 					if vaisseau_x <= 700 then
 						vaisseau_x := vaisseau_x + 10
+						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
 					end
 				end
 			end
@@ -169,14 +173,19 @@ feature {NONE}
 			afficher_bouton_son
 --			chronometre.afficher_decompte
 			chronometre.afficher_temps
-			tours.afficher_tours
+			if tour_complete then
+				tours.afficher_tours(True)
+				tour_complete := False
+			else
+				tours.afficher_tours(False)
+			end
 			vaisseau_selectionne.vaisseau.afficher (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
 
 	afficher_bouton_son
 		do
-			if doit_afficher_bouton_muet = True then
+			if doit_afficher_bouton_muet then
 				bouton_muet.afficher (935, 0, fenetre.fenetre.renderer)
 				musique.mute
 			else
@@ -231,5 +240,7 @@ feature {ANY} -- Implementation
 	tours: TOURS
 
 	est_debut: BOOLEAN
+
+	tour_complete: BOOLEAN
 
 end

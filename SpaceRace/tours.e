@@ -18,31 +18,32 @@ feature {NONE} -- Initialisation
 			fenetre := a_fenetre
 			police := a_police
 			couleur := a_couleur
-			create text_surface_total_tours.make ("0", a_police, a_couleur)
-			create text_surface_tours_execute.make ("/3", a_police, a_couleur)
+			nombre_tour := 0
+			create text_surface_tours_execute.make ("0", a_police, a_couleur)
+			create text_surface_total_tours.make ("/3", a_police, a_couleur)
 			create texture_total_tours.make_from_surface (a_fenetre, text_surface_total_tours)
 			create texture_tours_execute.make_from_surface (a_fenetre, text_surface_tours_execute)
 		end
 
 feature {ANY}
 
-	afficher_tours
+	afficher_tours (a_tour_complete: BOOLEAN)
 			-- Affiche le nombre de tours à l'écran.
-		local
-			nombre_tour: INTEGER
 		do
-			if tour_complete then
-				nombre_tour := nombre_tour + 1
-				create text_surface_total_tours.make (nombre_tour.to_hex_string, police, couleur)
+			tour_complete := a_tour_complete
+			if nombre_tour > 2 then
+			else
+				if tour_complete then
+					nombre_tour := nombre_tour + 1
+					if nombre_tour = 3 then
+					end
+				end
 			end
+			create text_surface_tours_execute.make (nombre_tour.out, police, couleur)
 			create texture_tours_execute.make_from_surface (fenetre, text_surface_tours_execute)
-			fenetre.draw_texture (texture_total_tours, 815, 200)
-			fenetre.draw_texture (texture_tours_execute, 855, 200)
-		end
-
-	tours
-			-- Incrémente le nombre de tours
-		do
+			fenetre.draw_texture (texture_tours_execute, 815, 200)
+			fenetre.draw_texture (texture_total_tours, 855, 200)
+			tour_complete := False
 		end
 
 feature {NONE} -- Implementation
@@ -62,5 +63,7 @@ feature {NONE} -- Implementation
 	text_surface_tours_execute: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de tours exécutés.
 
 	tour_complete: BOOLEAN
+
+	nombre_tour: NATURAL
 
 end
