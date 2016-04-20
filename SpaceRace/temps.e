@@ -12,10 +12,10 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: GAME_RENDERER; a_police: TEXT_FONT; a_couleur: GAME_COLOR; a_debut_millisecond: NATURAL)
+	make (a_fenetre: GAME_RENDERER; a_police: TEXT_FONT; a_couleur: GAME_COLOR)
 			-- Crée le chronomètre.
 		do
-			temps_debut_milliseconde := a_debut_millisecond
+			temps_debut_milliseconde := 0
 			temps_milliseconde := 0
 			fenetre := a_fenetre
 			police := a_police
@@ -31,6 +31,11 @@ feature {NONE} -- Initialization
 		end
 
 feature {ANY}
+
+	start(a_debut_millisecond:NATURAL)
+		do
+			temps_debut_milliseconde := a_debut_millisecond
+		end
 
 	afficher_temps
 			-- Affiche le chronomètre à l'écran.
@@ -68,7 +73,7 @@ feature {ANY}
 	chronometre (a_timestamp: NATURAL)
 			-- Incrémente le temps du chronomètre.
 		do
-			arret := False
+			pause := False
 			temps_milliseconde := temps_milliseconde + a_timestamp - temps_debut_milliseconde
 			temps_debut_milliseconde := a_timestamp
 		end
@@ -78,9 +83,10 @@ feature {ANY}
 --			temps_decompte := temps_decompte + a_timestamp - temps_debut_milliseconde
 --		end
 
-	arreter
+	pause_chrono
 		do
-			arret := True
+			pause := True
+			temps_pause := ((temps_milliseconde // 1000) \\ 60)
 		end
 
 feature {NONE} -- Implementation
@@ -90,6 +96,8 @@ feature {NONE} -- Implementation
 	temps_decompte: NATURAL
 
 	temps_milliseconde: NATURAL -- Le temps en millisecondes.
+
+	temps_pause: NATURAL
 
 	police: TEXT_FONT -- La police d'écriture du texte.
 
@@ -113,6 +121,6 @@ feature {NONE} -- Implementation
 
 	text_surface_decompte: TEXT_SURFACE_BLENDED
 
-	arret: BOOLEAN
+	pause: BOOLEAN
 
 end

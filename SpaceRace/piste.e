@@ -63,7 +63,7 @@ feature {NONE} -- Initialization
 			-- Construit la piste Bleue.
 		do
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteB.png")
-			x := 42
+			x := 48
 			y := 260
 			create checkpoint_liste.make (4)
 			checkpoint_liste.extend (checkpoint1)

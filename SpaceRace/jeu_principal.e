@@ -37,7 +37,7 @@ feature {NONE} -- Initialization
 			end
 			create font.make ("impact.ttf", 72)
 			font.open
-			create couleur.make_rgb (255, 51, 153)
+			create couleur.make_rgb (255, 102, 0)
 			create bouton_muet.creer_affichable (fenetre.fenetre.renderer, "bouton_muet_jeu.png")
 			create bouton_non_muet.creer_affichable (fenetre.fenetre.renderer, "bouton_non_muet_jeu.png")
 			create titre_tours.creer_affichable (fenetre.fenetre.renderer, "titre_tours.png")
@@ -45,7 +45,7 @@ feature {NONE} -- Initialization
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create bouton_pause.creer_affichable (fenetre.fenetre.renderer, "bouton_pause.png")
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
-			create chronometre.make (fenetre.fenetre.renderer, font, couleur, game_library.time_since_create)
+			create chronometre.make (fenetre.fenetre.renderer, font, couleur)
 			create tours.make (fenetre.fenetre.renderer, font, couleur)
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton RETOUR.
 			liste_coordonnees.extend ([760, 420, 966, 476]) -- Coordonnées du bouton PAUSE.
@@ -68,12 +68,10 @@ feature -- Access
 				quitter or retour_jeu_principal
 			loop
 				game_library.clear_all_events
+				Precursor {MENU}
+				est_debut := True
 				deja_afficher := False
 				lancer_fenetre_jeu_principal
-				fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?, ?))
-				fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
-				fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
-				Precursor {MENU}
 				game_library.launch
 			end
 		end
@@ -92,14 +90,21 @@ feature -- Access
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 419 and a_etat_souris.y < 477 then
 						-- BOUTON PAUSE
 					verifier_si_muet
---					fenetre.game_library.delay (6000)
+					est_debut := False
+					chronometre.pause_chrono
 					curseur.reinitialiser_curseur
 						-- STOP LE CHRONO ET LES MOUVEMENTS DU VAISSEAU
 				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 319 and a_etat_souris.y < 377 then
 						-- BOUTON JOUER
 					verifier_si_muet
+					if est_debut then
+						chronometre.start (a_temps)
+						fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?, ?))
+						fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
+						fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
+						est_debut := false
+					end
 					curseur.reinitialiser_curseur
-						-- DÉMARRE LA PARTIE (LE CHRONO, LE VAISSEAU PEUT BOUGER, REPREND LA PARTIE SI PAUSE IL Y A)
 				elseif a_etat_souris.x > 930 and a_etat_souris.x < 999 and a_etat_souris.y > 0 and a_etat_souris.y < 48 then
 					doit_afficher_bouton_muet := not doit_afficher_bouton_muet
 					afficher_bouton_son
@@ -146,7 +151,6 @@ feature -- Access
 		do
 --			chronometre.decompte(a_timestamp)
 			chronometre.chronometre(a_timestamp)
-
 			lancer_fenetre_jeu_principal
 		end
 
@@ -225,5 +229,7 @@ feature {ANY} -- Implementation
 	partie_commence: BOOLEAN
 
 	tours: TOURS
+
+	est_debut: BOOLEAN
 
 end
