@@ -38,7 +38,6 @@ feature -- Access
 
 	afficher (a_pos_x, a_pos_y: INTEGER; l_renderer: GAME_RENDERER)
 			-- Affiche l'image à l'endroit voulu.
-		require
 		do
 			l_renderer.draw_texture (Current, a_pos_x, a_pos_y)
 		end

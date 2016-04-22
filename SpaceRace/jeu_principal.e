@@ -1,8 +1,8 @@
 note
 	description: "Classe pour gérer le jeu qui consiste à faire une course pour enregistrer le meilleur temps."
 	author: "Étienne Drolet et Nicolas Bisson"
-	date: "2016-04-03"
-	revision: "1.1"
+	date: "2016-04-22"
+	revision: "1.2"
 
 class
 	JEU_PRINCIPAL
@@ -54,6 +54,8 @@ feature {NONE} -- Initialization
 		ensure
 			Piste_Assigne: piste_selectionne = a_piste_selectionne
 			Vaisseau_Assigne: vaisseau_selectionne = a_vaisseau_selectionne
+			Position_Vaisseau_Y: vaisseau_y = piste_selectionne.y
+			Position_Vaisseau_X: vaisseau_x = piste_selectionne.x
 		end
 
 feature -- Access
@@ -98,11 +100,11 @@ feature -- Access
 						-- BOUTON JOUER
 					verifier_si_muet
 					if est_debut then
-						chronometre.start (a_temps)
+						chronometre.depart_chrono (a_temps)
 						fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?, ?))
-						fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
+							--						fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
 						fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
-						est_debut := false
+						est_debut := False
 					end
 					curseur.reinitialiser_curseur
 				elseif a_etat_souris.x > 930 and a_etat_souris.x < 999 and a_etat_souris.y > 0 and a_etat_souris.y < 48 then
@@ -119,42 +121,43 @@ feature -- Access
 				if a_etat_clavier.is_up then
 					if vaisseau_y >= 1 then
 						vaisseau_y := vaisseau_y - 10
-						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
+							--						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
 					end
 				end
 				if a_etat_clavier.is_down then
 					if vaisseau_y <= 559 then
 						vaisseau_y := vaisseau_y + 10
-						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
+							--						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
 					end
 				end
 
 					-- draw_sub_texture_scale_rotate() pour rotater la shit
 
-				-- LE MOUVEMENT EN X EST TEMPORAIRE
+					-- LE MOUVEMENT EN X EST TEMPORAIRE
 				if a_etat_clavier.is_left then
 					if vaisseau_x >= 1 then
 						vaisseau_x := vaisseau_x - 10
-						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
+							--						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
 					end
 				end
 				if a_etat_clavier.is_right then
 					if vaisseau_x <= 700 then
 						vaisseau_x := vaisseau_x + 10
-						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
+							--						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
 					end
 				end
 			end
 		end
 
-	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
-		do
-		end
+		--	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
+		--		do
+		--		end
 
 	sur_iteration (a_timestamp: NATURAL_32; a_fenetre: GAME_RENDERER)
+			-- Rafraichit la fenêtre du jeu principal à chaque itération.
 		do
---			chronometre.decompte(a_timestamp)
-			chronometre.chronometre(a_timestamp)
+				--			chronometre.decompte(a_timestamp)
+			chronometre.chronometre (a_timestamp)
 			lancer_fenetre_jeu_principal
 		end
 
@@ -171,19 +174,20 @@ feature {NONE}
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
 			afficher_bouton_son
---			chronometre.afficher_decompte
+				--			chronometre.afficher_decompte
 			chronometre.afficher_temps
 			if tour_complete then
-				tours.afficher_tours(True)
+				tours.afficher_tours (True)
 				tour_complete := False
 			else
-				tours.afficher_tours(False)
+				tours.afficher_tours (False)
 			end
 			vaisseau_selectionne.vaisseau.afficher (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
 
 	afficher_bouton_son
+			-- Affiche le bon bouton "MUET" selon l'état du son (s'il avait été changé ou non dans le menu "OPTIONS" et celui-ci).
 		do
 			if doit_afficher_bouton_muet then
 				bouton_muet.afficher (935, 0, fenetre.fenetre.renderer)
@@ -194,12 +198,12 @@ feature {NONE}
 			end
 		end
 
-	update_vaisseau (a_x, a_y: INTEGER; a_renderer: GAME_RENDERER)
-		do
---			lancer_fenetre_jeu_principal
---			vaisseau_selectionne.vaisseau.afficher (a_x, a_y, a_renderer)
---			a_renderer.present
-		end
+		--	update_vaisseau (a_x, a_y: INTEGER; a_renderer: GAME_RENDERER)
+		--		do
+		--			lancer_fenetre_jeu_principal
+		--			vaisseau_selectionne.vaisseau.afficher (a_x, a_y, a_renderer)
+		--			a_renderer.present
+		--		end
 
 feature {ANY} -- Implementation
 
@@ -235,12 +239,10 @@ feature {ANY} -- Implementation
 
 	couleur: GAME_COLOR -- La couleur du texte (chronomètre et tours).
 
-	partie_commence: BOOLEAN
+	tours: TOURS -- Le nombre de tours de la partie.
 
-	tours: TOURS
+	est_debut: BOOLEAN -- Détermine s'il s'agit du début de la partie pour afficher le bon temps du chronomètre.
 
-	est_debut: BOOLEAN
-
-	tour_complete: BOOLEAN
+	tour_complete: BOOLEAN -- Détermine si le nombre de tours completés doit changer.
 
 end

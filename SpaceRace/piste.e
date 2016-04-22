@@ -26,6 +26,9 @@ feature {NONE} -- Initialization
 			checkpoint_liste.extend (checkpoint2)
 			checkpoint_liste.extend (checkpoint3)
 			checkpoint_liste.start
+		ensure
+			Position_Depart_X: x = 59
+			Position_Depart_Y: y = 250
 		end
 
 	make_jaune (a_fenetre: FENETRE)
@@ -40,6 +43,9 @@ feature {NONE} -- Initialization
 			checkpoint_liste.extend (checkpoint3)
 			checkpoint_liste.extend (checkpoint4)
 			checkpoint_liste.start
+		ensure
+			Position_Depart_X: x = 59
+			Position_Depart_Y: y = 330
 		end
 
 	make_mauve (a_fenetre: FENETRE)
@@ -57,6 +63,9 @@ feature {NONE} -- Initialization
 			checkpoint_liste.extend (checkpoint6)
 			checkpoint_liste.extend (checkpoint7)
 			checkpoint_liste.start
+		ensure
+			Position_Depart_X: x = 33
+			Position_Depart_Y: y = 330
 		end
 
 	make_bleu (a_fenetre: FENETRE)
@@ -71,6 +80,9 @@ feature {NONE} -- Initialization
 			checkpoint_liste.extend (checkpoint3)
 			checkpoint_liste.extend (checkpoint4)
 			checkpoint_liste.start
+		ensure
+			Position_Depart_X: x = 48
+			Position_Depart_Y: y = 260
 		end
 
 feature {ANY} -- Implementation

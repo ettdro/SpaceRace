@@ -1,5 +1,5 @@
 note
-	description: "Classe qui va gérer le nombre de tours."
+	description: "Classe qui gére le nombre de tours."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-05-18"
 	revision: "1.0"
@@ -23,6 +23,11 @@ feature {NONE} -- Initialisation
 			create text_surface_total_tours.make ("/3", a_police, a_couleur)
 			create texture_total_tours.make_from_surface (a_fenetre, text_surface_total_tours)
 			create texture_tours_execute.make_from_surface (a_fenetre, text_surface_tours_execute)
+		ensure
+			Fenetre_Assigne: fenetre = a_fenetre
+			Police_Assigne: police = a_police
+			Couleur_Assigne: couleur = a_couleur
+			Nombre_Tour_Assigne: nombre_tour = 0
 		end
 
 feature {ANY}
@@ -44,6 +49,8 @@ feature {ANY}
 			fenetre.draw_texture (texture_tours_execute, 815, 200)
 			fenetre.draw_texture (texture_total_tours, 855, 200)
 			tour_complete := False
+		ensure
+			Tour_Complete_Correct: tour_complete = False
 		end
 
 feature {NONE} -- Implementation
@@ -62,8 +69,8 @@ feature {NONE} -- Implementation
 
 	text_surface_tours_execute: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de tours exécutés.
 
-	tour_complete: BOOLEAN
+	tour_complete: BOOLEAN -- Détermine si le nombre de tours complétés doit augmenter.
 
-	nombre_tour: NATURAL
+	nombre_tour: NATURAL -- La nombre de tours qui sont actuellement complétés.
 
 end

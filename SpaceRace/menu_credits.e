@@ -68,7 +68,7 @@ feature {NONE}
 			-- Dessine les éléments de la fenêtre.
 		do
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
-			texte.afficher (0,0, fenetre.fenetre.renderer)
+			texte.afficher (0, 0, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end

@@ -1,11 +1,11 @@
 note
-	description: "Summary description for {RESEAU}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "Classe qui gère la connexion réseau pour le tableau des temps."
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-04-22"
+	revision: "1.0"
 
 class
-	RESEAU
+	RESEAU -- PAS FINI
 
 create
 	serveur
@@ -13,7 +13,7 @@ create
 feature {NONE} -- Initialization
 
 	serveur
-			-- Initialization for `Current'.
+			-- Crée le socket.
 		local
 			l_socket: NETWORK_DATAGRAM_SOCKET
 			l_port: INTEGER

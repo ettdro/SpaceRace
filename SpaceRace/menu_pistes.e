@@ -154,6 +154,8 @@ feature {NONE}
 			piste_mauve.afficher (230, 310, fenetre.fenetre.renderer)
 			piste_bleue.afficher (580, 310, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
+			ensure
+				Suivant_Visible: suivant_est_visible = False
 		end
 
 	lancer_fenetre_vaisseaux

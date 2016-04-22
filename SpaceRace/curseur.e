@@ -28,16 +28,16 @@ feature -- Initialization
 		require
 			Liste_Vide: not a_liste_coordonnees.is_empty
 			Position_X_Y_Valide:
-			across a_liste_coordonnees as la_liste_coordonnees all
-								la_liste_coordonnees.item.x1 >= 0 and
-								la_liste_coordonnees.item.y1 >= 0 and
-								la_liste_coordonnees.item.x2 >= 0 and
-								la_liste_coordonnees.item.y2 >= 0 and
-								la_liste_coordonnees.item.x1 <= 1000 and
-								la_liste_coordonnees.item.y1 <= 600 and
-								la_liste_coordonnees.item.x2 <= 1000 and
-								la_liste_coordonnees.item.y2 <= 600
-							end
+				across a_liste_coordonnees as la_liste_coordonnees all
+					la_liste_coordonnees.item.x1 >= 0 and
+					la_liste_coordonnees.item.y1 >= 0 and
+					la_liste_coordonnees.item.x2 >= 0 and
+					la_liste_coordonnees.item.y2 >= 0 and
+					la_liste_coordonnees.item.x1 <= 1000 and
+					la_liste_coordonnees.item.y1 <= 600 and
+					la_liste_coordonnees.item.x2 <= 1000 and
+					la_liste_coordonnees.item.y2 <= 600
+				end
 		local
 			est_defaut: BOOLEAN
 		do

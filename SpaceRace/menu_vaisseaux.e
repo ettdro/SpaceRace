@@ -148,6 +148,8 @@ feature {NONE}
 			cadre.afficher (660, 200, fenetre.fenetre.renderer)
 			vaisseau3.afficher (700, 230, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
+			ensure
+				Suivant_Visible: suivant_est_visible = False
 		end
 
 	lancer_fenetre_jeu_principal

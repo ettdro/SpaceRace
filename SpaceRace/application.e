@@ -1,8 +1,8 @@
 note
 	description: "Classe principale de l'application qui crée et lance le jeu."
 	author: "Nicolas Bisson et Étienne Drolet"
-	date: "2016-04-03"
-	revision: "1.1"
+	date: "2016-04-22"
+	revision: "1.2"
 
 class
 	APPLICATION
@@ -42,7 +42,7 @@ feature {NONE} -- Initialization
 		end
 
 	thread
-			-- Méthode qui gère deux threads. Il arrête après 1000 fois.
+			-- Méthode qui gère des threads. Il arrête après 1000 fois.
 		local
 			thread_salut: EX_THREAD
 			thread_louis: EX_THREAD
@@ -60,7 +60,6 @@ feature {NONE} -- Initialization
 				io.put_string (i.out + "%N")
 				i := i + 1
 			end
-			io.put_new_line
 			thread_salut.arret_thread
 			thread_louis.arret_thread
 			thread_salut.join

@@ -1,5 +1,5 @@
 note
-	description: "Classe qui gère le chrono et les tours."
+	description: "Classe qui gère le chronomètre."
 	author: "Nicolas Bisson & Étienne Drolet"
 	date: "2016-04-03"
 	revision: "1.1"
@@ -28,11 +28,18 @@ feature {NONE} -- Initialization
 			create texture_points.make_from_surface (a_fenetre, text_surface_points)
 			create texture_secondes.make_from_surface (a_fenetre, text_surface_secondes)
 			create texture_decompte.make_from_surface (a_fenetre, text_surface_decompte)
+		ensure
+			Temps_Debut_Milliseconde_Assigne: temps_debut_milliseconde = 0
+			Temps_Milliseconde_Assigne: temps_milliseconde = 0
+			Fenetre_Assigne: fenetre = a_fenetre
+			Police_Assigne: police = a_police
+			Couleur_Assigne: couleur = a_couleur
 		end
 
 feature {ANY}
 
-	start(a_debut_millisecond:NATURAL)
+	depart_chrono (a_debut_millisecond: NATURAL)
+			-- Démarre le chronomètre.
 		do
 			temps_debut_milliseconde := a_debut_millisecond
 		end
@@ -40,8 +47,8 @@ feature {ANY}
 	afficher_temps
 			-- Affiche le chronomètre à l'écran.
 		local
-			temps_secondes : NATURAL
-			temps_minutes : NATURAL
+			temps_secondes: NATURAL
+			temps_minutes: NATURAL
 		do
 			temps_secondes := ((temps_milliseconde // 1000) \\ 60)
 			temps_minutes := (temps_milliseconde // 60000)
@@ -62,13 +69,12 @@ feature {ANY}
 			fenetre.draw_texture (texture_secondes, 885, 75)
 		end
 
-
---	afficher_decompte
---		do
---			create text_surface_decompte.make (temps_decompte.out, font, color)
---			create texture_decompte.make_from_surface (fenetre, text_surface_decompte)
---			fenetre.draw_texture (texture_decompte, 500, 300)
---		end
+		--	afficher_decompte
+		--		do
+		--			create text_surface_decompte.make (temps_decompte.out, font, color)
+		--			create texture_decompte.make_from_surface (fenetre, text_surface_decompte)
+		--			fenetre.draw_texture (texture_decompte, 500, 300)
+		--		end
 
 	chronometre (a_timestamp: NATURAL)
 			-- Incrémente le temps du chronomètre.
@@ -78,12 +84,13 @@ feature {ANY}
 			temps_debut_milliseconde := a_timestamp
 		end
 
---	decompte(a_timestamp:NATURAL)
---		do
---			temps_decompte := temps_decompte + a_timestamp - temps_debut_milliseconde
---		end
+		--	decompte(a_timestamp:NATURAL)
+		--		do
+		--			temps_decompte := temps_decompte + a_timestamp - temps_debut_milliseconde
+		--		end
 
 	pause_chrono
+			-- Mets le chronomètre sur pause.
 		do
 			pause := True
 			temps_pause := ((temps_milliseconde // 1000) \\ 60)
@@ -93,11 +100,11 @@ feature {NONE} -- Implementation
 
 	temps_debut_milliseconde: NATURAL -- Le temps depuis la création du chronomètre.
 
-	temps_decompte: NATURAL
+	temps_decompte: NATURAL -- Le temps du décompte
 
 	temps_milliseconde: NATURAL -- Le temps en millisecondes.
 
-	temps_pause: NATURAL
+	temps_pause: NATURAL -- Le temps de la pause.
 
 	police: TEXT_FONT -- La police d'écriture du texte.
 
@@ -111,7 +118,7 @@ feature {NONE} -- Implementation
 
 	fenetre: GAME_RENDERER -- La fenêtre de l'application.
 
-	texture_decompte: GAME_TEXTURE
+	texture_decompte: GAME_TEXTURE -- La texture du décompte.
 
 	text_surface_minutes: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de minutes.
 
@@ -119,8 +126,8 @@ feature {NONE} -- Implementation
 
 	text_surface_secondes: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de secondes.
 
-	text_surface_decompte: TEXT_SURFACE_BLENDED
+	text_surface_decompte: TEXT_SURFACE_BLENDED -- Une surface pour le décompte.
 
-	pause: BOOLEAN
+	pause: BOOLEAN -- Détermine si le jeu est en pause.
 
 end
