@@ -27,6 +27,7 @@ feature {NONE} -- Initialization
 		local
 			l_menu: detachable MENU_PRINCIPAL
 		do
+			thread
 			game_library.enable_video
 			image_file_library.enable_image (True, True, False)
 			audio_library.enable_sound
@@ -38,6 +39,32 @@ feature {NONE} -- Initialization
 			audio_library.quit_library
 			image_file_library.quit_library
 			game_library.quit_library
+		end
+
+	thread
+			-- Méthode qui gère deux threads. Il arrête après 1000 fois.
+		local
+			thread_salut: EX_THREAD
+			thread_louis: EX_THREAD
+			i: INTEGER
+		do
+			create thread_salut.make ("Salut ")
+			create thread_louis.make ("Louis ")
+			thread_salut.launch
+			thread_louis.launch
+			from
+				i := 0
+			until
+				i = 1000
+			loop
+				io.put_string (i.out + "%N")
+				i := i + 1
+			end
+			io.put_new_line
+			thread_salut.arret_thread
+			thread_louis.arret_thread
+			thread_salut.join
+			thread_louis.join
 		end
 
 end

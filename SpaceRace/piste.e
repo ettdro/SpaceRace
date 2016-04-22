@@ -22,7 +22,7 @@ feature {NONE} -- Initialization
 			x := 59
 			y := 250
 			create checkpoint_liste.make (3)
-			checkpoint_liste.extend (checkpoint1)
+			checkpoint_liste.extend (checkpoint1) -- Les checkpoints ne sont pas encore mis, ils le seront prochainement :)
 			checkpoint_liste.extend (checkpoint2)
 			checkpoint_liste.extend (checkpoint3)
 			checkpoint_liste.start

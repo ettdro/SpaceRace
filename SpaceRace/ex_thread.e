@@ -1,13 +1,14 @@
 note
-	description: "Summary description for {EX_THREAD}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "Classe qui contient les méthodes relatives aux threads."
+	author: "Nicolas Bisson et Étienne Drolet"
+	date: "2016-04-22"
+	revision: "1.0"
 
 class
 	EX_THREAD
 
 inherit
+
 	THREAD
 		rename
 			make as make_thread
@@ -18,32 +19,38 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_chaine:STRING)
-			-- Initialization for `Current'.
+	make (a_message: STRING)
+			-- Crée un thread.
 		do
 			make_thread
-			must_stop := false
-			chaine_affiche := a_chaine
+			doit_arreter := False
+			message := a_message
 		end
 
+feature -- Access
+
 	execute
+			-- Boucle du thread pour afficher le message.
 		do
 			from
 			until
-				must_stop
+				doit_arreter
 			loop
-				io.put_string ("Thread - ")
+				io.put_string (message)
 				io.output.flush
 			end
 		end
 
-feature
-	stop_thread
+	arret_thread
+			-- Mets "doit_arreter" à "True" pour quitter le thread.
 		do
-			must_stop := true
+			doit_arreter := True
 		end
 
-	must_stop: BOOLEAN
+feature {NONE} -- Implementation
 
-	chaine_affiche: STRING
+	doit_arreter: BOOLEAN -- Détermine si le thread doit arrêter.
+
+	message: STRING -- Le message qui sera affiché.
+
 end
