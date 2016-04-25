@@ -44,7 +44,7 @@ feature {NONE} -- Initialization
 			Piste_Assigne: piste_selectionne = a_piste_selectionne
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	execution
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.

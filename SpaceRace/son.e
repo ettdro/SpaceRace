@@ -13,7 +13,7 @@ inherit
 
 	AUDIO_LIBRARY_SHARED
 
-feature -- Access
+feature {ANY} -- Access
 
 	creer_audio (a_nom_fichier: STRING)
 			-- Méthode qui crée le son.
@@ -94,7 +94,7 @@ feature -- Access
 			Result := source.gain = 0
 		end
 
-feature -- Implementation
+feature {ANY} -- Implementation
 
 	source: AUDIO_SOURCE -- La source de l'audio.
 

@@ -29,7 +29,7 @@ feature {NONE} -- Initialization
 			fenetre := l_construction_fenetre.generate_window
 		end
 
-feature {ANY}
+feature {ANY} -- Implementation
 
 	fenetre: GAME_WINDOW_RENDERED -- La fenêtre de l'application
 

@@ -29,7 +29,7 @@ feature -- Initialization
 			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	execution
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.

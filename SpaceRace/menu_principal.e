@@ -45,7 +45,7 @@ feature {NONE} -- Initialization
 			liste_coordonnees.extend ([400, 450, 606, 506]) -- Coordonnées du bouton QUITTER.
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	execution
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris et du bouton "X" rouge de la fenêtre pour tous les menus.

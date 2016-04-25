@@ -27,7 +27,7 @@ feature {NONE} -- Initialization
 			message := a_message
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	execute
 			-- Boucle du thread pour afficher le message.

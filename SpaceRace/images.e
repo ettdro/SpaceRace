@@ -11,7 +11,7 @@ inherit
 
 	GAME_TEXTURE
 
-feature -- Access
+feature {ANY} -- Access
 
 	creer_image (a_renderer: GAME_RENDERER; a_nom_fichier: STRING)
 			-- Méthode qui crée une image si le fichier est ouvrable.

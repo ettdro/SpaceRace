@@ -36,7 +36,7 @@ feature {NONE} -- Initialization
 			Couleur_Assigne: couleur = a_couleur
 		end
 
-feature {ANY}
+feature {ANY} -- Access
 
 	depart_chrono (a_debut_millisecond: NATURAL)
 			-- Démarre le chronomètre.

@@ -33,7 +33,7 @@ feature -- Initialization
 			Son_Click_Assigne: son_click = a_son_click
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	quitter_jeu (a_temps: NATURAL_32)
 			-- Méthode qui ferme l'application.
