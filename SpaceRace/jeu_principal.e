@@ -58,7 +58,7 @@ feature {NONE} -- Initialization
 			Position_Vaisseau_X: vaisseau_x = piste_selectionne.x
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	execution
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
@@ -283,7 +283,7 @@ feature {ANY} -- Implementation
 
 	couleur: GAME_COLOR -- La couleur du texte (chronomètre et tours).
 
-	tours: TOURS -- Le nombre de tours de la partie.
+	tours: TOURS_PISTE -- Le nombre de tours de la partie.
 
 	est_debut: BOOLEAN -- Détermine s'il s'agit du début de la partie pour afficher le bon temps du chronomètre.
 

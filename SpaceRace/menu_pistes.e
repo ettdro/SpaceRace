@@ -42,7 +42,7 @@ feature {NONE} -- Initialization
 			liste_coordonnees.start
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	execution
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.

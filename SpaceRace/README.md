@@ -55,3 +55,12 @@ License:
 		
 		- Le fond d'écran n'est pas une création originale (nous n'avons plus
 		la source malheureusement...)
+		
+		- Le son d'un click n'est pas une création originale, mais il a été 
+		quelques peu modifié. Il viens de : https://youtu.be/4GFNjLpdPic
+		
+		- La musique n'est pas une création originale et viens de :
+		https://youtu.be/d64hr3swPLA
+		
+		- Le son de vaisseau n'est pas une création originale et viens de :
+		https://youtu.be/ZMV0GGTbnbU

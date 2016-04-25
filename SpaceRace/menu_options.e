@@ -41,7 +41,7 @@ feature -- Initialization
 			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
 		end
 
-feature -- Access
+feature {ANY} -- Access
 
 	execution
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
@@ -130,6 +130,8 @@ feature -- Access
 				game_library.stop
 			end
 		end
+
+feature {NONE}
 
 	lancer_fenetre_options
 			-- Affiche toutes les images du menu à l'endroit précisé.
