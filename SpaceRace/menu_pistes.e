@@ -64,47 +64,118 @@ feature -- Access
 			-- Méthode qui gère les actions de la souris dans les menus.
 		do
 			if a_etat_souris.is_left_button_pressed then
-				if a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
-						-- Bouton RETOUR
+				valider_bouton_retour(a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_suivant(a_etat_souris.x, a_etat_souris.y)
+				valider_cadre_haut_gauche(a_etat_souris.x, a_etat_souris.y)
+				valider_cadre_haut_droite(a_etat_souris.x, a_etat_souris.y)
+				valider_cadre_bas_gauche(a_etat_souris.x, a_etat_souris.y)
+				valider_cadre_bas_droite(a_etat_souris.x, a_etat_souris.y)
+			end
+		end
+
+
+	valider_bouton_retour(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_retour_coordonnees.x1 and
+				a_x < Bouton_retour_coordonnees.x2 and
+				a_y > Bouton_retour_coordonnees.y1 and
+				a_y < Bouton_retour_coordonnees.y2
+			then
+				verifier_si_muet
+				curseur.reinitialiser_curseur
+				retour_pistes := True
+				quitter := False
+				game_library.stop
+			end
+		end
+
+	valider_bouton_suivant(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton SUIVANT et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_suivant_coordonnees.x1 and
+				a_x < Bouton_suivant_coordonnees.x2 and
+				a_y > Bouton_suivant_coordonnees.y1 and
+				a_y < Bouton_suivant_coordonnees.y2
+			then
+				if suivant_est_visible then
 					verifier_si_muet
 					curseur.reinitialiser_curseur
-					retour_pistes := True
-					quitter := False
-					game_library.stop
-				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
-						-- Bouton SUIVANT
-					if suivant_est_visible then
-						verifier_si_muet
-						curseur.reinitialiser_curseur
-						lancer_fenetre_vaisseaux
-					end
-				elseif a_etat_souris.x > 200 and a_etat_souris.x < 450 and a_etat_souris.y > 120 and a_etat_souris.y < 270 then
-					create piste.make_vert (fenetre)
-					verifier_si_muet
-					liste_coordonnees.go_i_th (3) -- CADRE 1
-					actualiser_cadre (liste_coordonnees.item)
-					deselectionner_cadre
-				elseif a_etat_souris.x > 550 and a_etat_souris.x < 800 and a_etat_souris.y > 120 and a_etat_souris.y < 270 then
-					create piste.make_jaune (fenetre)
-					verifier_si_muet
-					liste_coordonnees.go_i_th (4) -- CADRE 2
-					actualiser_cadre (liste_coordonnees.item)
-					deselectionner_cadre
-				elseif a_etat_souris.x > 200 and a_etat_souris.x < 450 and a_etat_souris.y > 300 and a_etat_souris.y < 450 then
-					create piste.make_mauve (fenetre)
-					verifier_si_muet
-					liste_coordonnees.go_i_th (5) -- CADRE 3
-					actualiser_cadre (liste_coordonnees.item)
-					deselectionner_cadre
-				elseif a_etat_souris.x > 550 and a_etat_souris.x < 800 and a_etat_souris.y > 300 and a_etat_souris.y < 450 then
-					create piste.make_bleu (fenetre)
-					verifier_si_muet
-					liste_coordonnees.go_i_th (6) -- CADRE 4
-					actualiser_cadre (liste_coordonnees.item)
-					deselectionner_cadre
+					lancer_fenetre_vaisseaux
 				end
 			end
 		end
+
+	valider_cadre_haut_gauche(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le cadre en haut à gauche et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_cadre_haut_gauche_coordonnees.x1 and
+				a_x < Bouton_cadre_haut_gauche_coordonnees.x2 and
+				a_y > Bouton_cadre_haut_gauche_coordonnees.y1 and
+				a_y < Bouton_cadre_haut_gauche_coordonnees.y2
+			then
+				create piste.make_vert (fenetre)
+				verifier_si_muet
+				liste_coordonnees.go_i_th (3)
+				actualiser_cadre (liste_coordonnees.item)
+				deselectionner_cadre
+			end
+		end
+
+	valider_cadre_haut_droite(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le cadre en haut à droite et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_cadre_haut_droite_coordonnees.x1 and
+				a_x < Bouton_cadre_haut_droite_coordonnees.x2 and
+				a_y > Bouton_cadre_haut_droite_coordonnees.y1 and
+				a_y < Bouton_cadre_haut_droite_coordonnees.y2
+			then
+				create piste.make_jaune (fenetre)
+				verifier_si_muet
+				liste_coordonnees.go_i_th (4)
+				actualiser_cadre (liste_coordonnees.item)
+				deselectionner_cadre
+			end
+		end
+
+	valider_cadre_bas_gauche(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le cadre en bas à gauche et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_cadre_bas_gauche_coordonnees.x1 and
+				a_x < Bouton_cadre_bas_gauche_coordonnees.x2 and
+				a_y > Bouton_cadre_bas_gauche_coordonnees.y1 and
+				a_y < Bouton_cadre_bas_gauche_coordonnees.y2
+			then
+				create piste.make_mauve (fenetre)
+				verifier_si_muet
+				liste_coordonnees.go_i_th (5)
+				actualiser_cadre (liste_coordonnees.item)
+				deselectionner_cadre
+			end
+		end
+
+	valider_cadre_bas_droite(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le cadre en bas à droite et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_cadre_bas_droite_coordonnees.x1 and
+				a_x < Bouton_cadre_bas_droite_coordonnees.x2 and
+				a_y > Bouton_cadre_bas_droite_coordonnees.y1 and
+				a_y < Bouton_cadre_bas_droite_coordonnees.y2
+			then
+				create piste.make_bleu (fenetre)
+				verifier_si_muet
+				liste_coordonnees.go_i_th (6)
+				actualiser_cadre (liste_coordonnees.item)
+				deselectionner_cadre
+			end
+		end
+
 
 feature {NONE}
 
@@ -195,5 +266,38 @@ feature {ANY} -- Implementation
 	piste_mauve: AFFICHABLE -- L'image de la piste mauve.
 
 	piste_bleue: AFFICHABLE -- L'image de la piste bleue.
+
+feature {NONE}
+
+	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton RETOUR.
+		once
+			Result := [29, 519, 237, 577]
+		end
+
+	Bouton_suivant_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du bouton SUIVANT.
+		once
+			Result := [759, 519, 917, 577]
+		end
+
+	Bouton_cadre_haut_gauche_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du cadre en haut à gauche.
+		once
+			Result := [200, 120, 450, 270]
+		end
+
+	Bouton_cadre_haut_droite_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du cadre en haut à droite.
+		once
+			Result := [550, 120, 800, 270]
+		end
+
+	Bouton_cadre_bas_gauche_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du cadre en bas à gauche.
+		once
+			Result := [200, 300, 450, 450]
+		end
+
+	Bouton_cadre_bas_droite_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du cadre en bas à droite.
+		once
+			Result := [550, 300, 800, 450]
+		end
+
 
 end

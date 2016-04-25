@@ -67,20 +67,52 @@ feature -- Access
 			-- Méthode qui gère les clicks de souris pour permettre la navigation à partir de ce menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
-				if a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 449 and a_etat_souris.y < 507 then
-						-- Bouton QUITTER
-					quitter_jeu (1)
-				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 349 and a_etat_souris.y < 407 then
-						-- Bouton OPTIONS
-					verifier_si_muet
-					curseur.reinitialiser_curseur
-					lancer_fenetre_options
-				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 249 and a_etat_souris.y < 307 then
-						-- Bouton JOUER
-					verifier_si_muet
-					curseur.reinitialiser_curseur
-					lancer_fenetre_jouer
-				end
+				valider_bouton_jouer(a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_options(a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_quitter(a_etat_souris.x, a_etat_souris.y)
+			end
+		end
+
+	valider_bouton_jouer(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton JOUER et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_jouer_coordonnees.x1 and
+				a_x < Bouton_jouer_coordonnees.x2 and
+				a_y > Bouton_jouer_coordonnees.y1 and
+				a_y < Bouton_jouer_coordonnees.y2
+			then
+				verifier_si_muet
+				curseur.reinitialiser_curseur
+				lancer_fenetre_jouer
+			end
+		end
+
+	valider_bouton_options(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton JOUER et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_options_coordonnees.x1 and
+				a_x < Bouton_options_coordonnees.x2 and
+				a_y > Bouton_options_coordonnees.y1 and
+				a_y < Bouton_options_coordonnees.y2
+			then
+				verifier_si_muet
+				curseur.reinitialiser_curseur
+				lancer_fenetre_options
+			end
+		end
+
+	valider_bouton_quitter(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton JOUER et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_quitter_coordonnees.x1 and
+				a_x < Bouton_quitter_coordonnees.x2 and
+				a_y > Bouton_quitter_coordonnees.y1 and
+				a_y < Bouton_quitter_coordonnees.y2
+			then
+				quitter_jeu (1)
 			end
 		end
 
@@ -126,5 +158,22 @@ feature {ANY} -- Implementation
 	bouton_quitter: AFFICHABLE -- L'image du bouton "QUITTER"
 
 	logo: AFFICHABLE -- L'image du titre principal.
+
+feature {NONE}
+
+	Bouton_jouer_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton JOUER.
+		once
+			Result := [399, 249, 607, 307]
+		end
+
+	Bouton_options_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du bouton OPTIONS.
+		once
+			Result := [399, 349, 607, 407]
+		end
+
+	Bouton_quitter_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du bouton QUITTER.
+		once
+			Result := [399, 449, 607, 507]
+		end
 
 end

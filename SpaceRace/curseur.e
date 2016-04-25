@@ -53,7 +53,7 @@ feature -- Initialization
 				end
 			end
 			if est_defaut then
-				game_library.set_cursor (curseur_defaut)
+				reinitialiser_curseur
 			end
 		end
 

@@ -35,6 +35,7 @@ feature {NONE} -- Initialization
 			create l_menu.make
 			l_menu.execution
 			l_menu := Void
+			game_library.clear_all_events
 			text_library.quit_library
 			audio_library.quit_library
 			image_file_library.quit_library

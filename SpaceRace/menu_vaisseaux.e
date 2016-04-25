@@ -36,9 +36,9 @@ feature {NONE} -- Initialization
 			create vaisseau3.creer_affichable (fenetre.fenetre.renderer, "vaisseau3_cadre.png")
 			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
 			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton SUIVANT.
-			liste_coordonnees.extend ([200, 200, 380, 380]) -- Coordonnées du bouton CADRE_1.
-			liste_coordonnees.extend ([430, 200, 610, 380]) -- Coordonnées du bouton CADRE_2.
-			liste_coordonnees.extend ([660, 200, 840, 380]) -- Coordonnées du bouton CADRE_3.
+			liste_coordonnees.extend ([200, 200, 380, 380]) -- Coordonnées du bouton CADRE GAUCHE.
+			liste_coordonnees.extend ([430, 200, 610, 380]) -- Coordonnées du bouton CADRE MILIEU.
+			liste_coordonnees.extend ([660, 200, 840, 380]) -- Coordonnées du bouton CADRE DROITE.
 			liste_coordonnees.start
 		ensure
 			Piste_Assigne: piste_selectionne = a_piste_selectionne
@@ -66,39 +66,97 @@ feature -- Access
 			-- Méthode qui gère les actions de la souris dans le menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
-				if a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
-						-- Bouton RETOUR
+				valider_bouton_retour (a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_suivant (a_etat_souris.x, a_etat_souris.y)
+				valider_cadre_gauche (a_etat_souris.x, a_etat_souris.y)
+				valider_cadre_milieu (a_etat_souris.x, a_etat_souris.y)
+				valider_cadre_droite (a_etat_souris.x, a_etat_souris.y)
+
+			end
+		end
+
+	valider_bouton_retour(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_retour_coordonnees.x1 and
+				a_x < Bouton_retour_coordonnees.x2 and
+				a_y > Bouton_retour_coordonnees.y1 and
+				a_y < Bouton_retour_coordonnees.y2
+			then
+				verifier_si_muet
+				curseur.reinitialiser_curseur
+				retour_vaisseaux := True
+				quitter := False
+				game_library.stop
+			end
+		end
+
+	valider_bouton_suivant(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton SUIVANT et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_suivant_coordonnees.x1 and
+				a_x < Bouton_suivant_coordonnees.x2 and
+				a_y > Bouton_suivant_coordonnees.y1 and
+				a_y < Bouton_suivant_coordonnees.y2
+			then
+				if suivant_est_visible then
 					verifier_si_muet
 					curseur.reinitialiser_curseur
-					retour_vaisseaux := True
-					quitter := False
-					game_library.stop
-				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
-						-- Bouton SUIVANT
-					if suivant_est_visible then
-						verifier_si_muet
-						curseur.reinitialiser_curseur
-						lancer_fenetre_jeu_principal
-					end
-				elseif a_etat_souris.x > 200 and a_etat_souris.x < 380 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
-					create vaisseau_selectionne.make_1 (fenetre)
-					verifier_si_muet
-					liste_coordonnees.go_i_th (3) -- CADRE 1
-					actualiser_cadre (liste_coordonnees.item)
-					deselectionner_cadre
-				elseif a_etat_souris.x > 430 and a_etat_souris.x < 610 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
-					create vaisseau_selectionne.make_2 (fenetre)
-					verifier_si_muet
-					liste_coordonnees.go_i_th (4) -- CADRE 2
-					actualiser_cadre (liste_coordonnees.item)
-					deselectionner_cadre
-				elseif a_etat_souris.x > 660 and a_etat_souris.x < 840 and a_etat_souris.y > 200 and a_etat_souris.y < 380 then
-					create vaisseau_selectionne.make_3 (fenetre)
-					verifier_si_muet
-					liste_coordonnees.go_i_th (5) -- CADRE 3
-					actualiser_cadre (liste_coordonnees.item)
-					deselectionner_cadre
+					lancer_fenetre_jeu_principal
 				end
+			end
+		end
+
+	valider_cadre_gauche(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le cadre en haut à gauche et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_cadre_gauche_coordonnees.x1 and
+				a_x < Bouton_cadre_gauche_coordonnees.x2 and
+				a_y > Bouton_cadre_gauche_coordonnees.y1 and
+				a_y < Bouton_cadre_gauche_coordonnees.y2
+			then
+				create vaisseau_selectionne.make_1 (fenetre)
+				verifier_si_muet
+				liste_coordonnees.go_i_th (3)
+				actualiser_cadre (liste_coordonnees.item)
+				deselectionner_cadre
+			end
+		end
+
+	valider_cadre_milieu(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le cadre en haut à droite et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_cadre_milieu_coordonnees.x1 and
+				a_x < Bouton_cadre_milieu_coordonnees.x2 and
+				a_y > Bouton_cadre_milieu_coordonnees.y1 and
+				a_y < Bouton_cadre_milieu_coordonnees.y2
+			then
+				create vaisseau_selectionne.make_2 (fenetre)
+				verifier_si_muet
+				liste_coordonnees.go_i_th (4)
+				actualiser_cadre (liste_coordonnees.item)
+				deselectionner_cadre
+			end
+		end
+
+	valider_cadre_droite(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le cadre en bas à gauche et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_cadre_droite_coordonnees.x1 and
+				a_x < Bouton_cadre_droite_coordonnees.x2 and
+				a_y > Bouton_cadre_droite_coordonnees.y1 and
+				a_y < Bouton_cadre_droite_coordonnees.y2
+			then
+				create vaisseau_selectionne.make_3 (fenetre)
+				verifier_si_muet
+				liste_coordonnees.go_i_th (5)
+				actualiser_cadre (liste_coordonnees.item)
+				deselectionner_cadre
 			end
 		end
 
@@ -189,5 +247,33 @@ feature {ANY} -- Implementation
 	cadre_selectionne: AFFICHABLE -- L'image d'un cadre sélectionné.
 
 	suivant_est_visible: BOOLEAN -- Détermine si le bouton "SUIVANT" est visible.
+
+
+feature {NONE}
+
+	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton RETOUR.
+		once
+			Result := [29, 519, 237, 577]
+		end
+
+	Bouton_suivant_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du bouton SUIVANT.
+		once
+			Result := [759, 519, 917, 577]
+		end
+
+	Bouton_cadre_gauche_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du cadre de gauche.
+		once
+			Result := [200, 200, 380, 380]
+		end
+
+	Bouton_cadre_milieu_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du cadre du milieu.
+		once
+			Result := [430, 200, 610, 380]
+		end
+
+	Bouton_cadre_droite_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du cadre de droite.
+		once
+			Result := [660, 200, 840, 380]
+		end
 
 end

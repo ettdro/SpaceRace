@@ -63,28 +63,71 @@ feature -- Access
 			-- Méthode qui gère les actions de la souris dans le menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
-				if a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 99 and a_etat_souris.y < 157 then
-						-- Bouton MUET
-					doit_afficher_bouton_muet := not doit_afficher_bouton_muet
-					lancer_fenetre_options
-				elseif a_etat_souris.x > 399 and a_etat_souris.x < 607 and a_etat_souris.y > 199 and a_etat_souris.y < 257 then
-						-- Bouton CRÉDITS
-					verifier_si_muet
-					curseur.reinitialiser_curseur
-					lancer_fenetre_credits
-				elseif a_etat_souris.x > 309 and a_etat_souris.x < 695 and a_etat_souris.y > 299 and a_etat_souris.y < 357 then
-						-- Bouton COMMENT JOUER
-					verifier_si_muet
-					curseur.reinitialiser_curseur
-					lancer_fenetre_comment_jouer
-				elseif a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
-						-- Bouton RETOUR
-					verifier_si_muet
-					curseur.reinitialiser_curseur
-					retour_options := True
-					quitter := False
-					game_library.stop
-				end
+				valider_bouton_muet (a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_credits (a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_comment_jouer (a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_retour(a_etat_souris.x, a_etat_souris.y)
+			end
+		end
+
+	valider_bouton_muet (a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton MUET et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_muet_coordonnees.x1 and
+				a_x < Bouton_muet_coordonnees.x2 and
+				a_y > Bouton_muet_coordonnees.y1 and
+				a_y < Bouton_muet_coordonnees.y2
+			then
+				doit_afficher_bouton_muet := not doit_afficher_bouton_muet
+				lancer_fenetre_options
+			end
+		end
+
+	valider_bouton_credits (a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_credits_coordonnees.x1 and
+				a_x < Bouton_credits_coordonnees.x2 and
+				a_y > Bouton_credits_coordonnees.y1 and
+				a_y < Bouton_credits_coordonnees.y2
+			then
+				verifier_si_muet
+				curseur.reinitialiser_curseur
+				lancer_fenetre_credits
+			end
+		end
+
+	valider_bouton_comment_jouer (a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_comment_jouer_coordonnees.x1 and
+				a_x < Bouton_comment_jouer_coordonnees.x2 and
+				a_y > Bouton_comment_jouer_coordonnees.y1 and
+				a_y < Bouton_comment_jouer_coordonnees.y2
+			then
+				verifier_si_muet
+				curseur.reinitialiser_curseur
+				lancer_fenetre_comment_jouer
+			end
+		end
+
+	valider_bouton_retour (a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_retour_coordonnees.x1 and
+				a_x < Bouton_retour_coordonnees.x2 and
+				a_y > Bouton_retour_coordonnees.y1 and
+				a_y < Bouton_retour_coordonnees.y2
+			then
+				verifier_si_muet
+				curseur.reinitialiser_curseur
+				retour_options := True
+				quitter := False
+				game_library.stop
 			end
 		end
 
@@ -138,5 +181,27 @@ feature {ANY} -- Implementation
 	bouton_comment_jouer: AFFICHABLE -- L'image du bouton "COMMENT JOUER".
 
 	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR".
+
+feature {NONE}
+
+	Bouton_muet_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton MUET.
+		once
+			Result := [399, 99, 607, 157]
+		end
+
+	Bouton_credits_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du bouton CREDITS.
+		once
+			Result := [399, 199, 607, 257]
+		end
+
+	Bouton_comment_jouer_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du bouton COMMENT JOUER.
+		once
+			Result := [309, 299, 695, 357]
+		end
+
+	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton RETOUR.
+		once
+			Result := [29, 519, 237, 577]
+		end
 
 end

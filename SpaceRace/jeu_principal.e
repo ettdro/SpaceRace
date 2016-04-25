@@ -82,35 +82,79 @@ feature -- Access
 			-- Méthode qui gère les actions de la souris dans le menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
-				if a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
-						-- BOUTON RETOUR
-					verifier_si_muet
-					curseur.reinitialiser_curseur
-					retour_jeu_principal := True
-					quitter := False
-					game_library.stop
-				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 419 and a_etat_souris.y < 477 then
-						-- BOUTON PAUSE
+				valider_bouton_muet (a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_jouer(a_temps, a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_pause(a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_retour(a_etat_souris.x, a_etat_souris.y)
+			end
+		end
+
+	valider_bouton_muet(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton MUET et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_muet_coordonnees.x1 and
+				a_x < Bouton_muet_coordonnees.x2 and
+				a_y > Bouton_muet_coordonnees.y1 and
+				a_y < Bouton_muet_coordonnees.y2
+			then
+				doit_afficher_bouton_muet := not doit_afficher_bouton_muet
+				afficher_bouton_son
+				lancer_fenetre_jeu_principal
+			end
+		end
+
+	valider_bouton_jouer(a_temps: NATURAL_32; a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton JOUER et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_jouer_coordonnees.x1 and
+				a_x < Bouton_jouer_coordonnees.x2 and
+				a_y > Bouton_jouer_coordonnees.y1 and
+				a_y < Bouton_jouer_coordonnees.y2
+			then
+				verifier_si_muet
+				if est_debut then
+					chronometre.depart_chrono (a_temps)
+					fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?, ?))
+				--	fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
+					fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
+					est_debut := False
+				end
+				curseur.reinitialiser_curseur
+			end
+		end
+
+	valider_bouton_pause(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton PAUSE et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_pause_coordonnees.x1 and
+				a_x < Bouton_pause_coordonnees.x2 and
+				a_y > Bouton_pause_coordonnees.y1 and
+				a_y < Bouton_pause_coordonnees.y2
+			then
 					verifier_si_muet
 					est_debut := False
 					chronometre.pause_chrono
 					curseur.reinitialiser_curseur
-						-- STOP LE CHRONO ET LES MOUVEMENTS DU VAISSEAU
-				elseif a_etat_souris.x > 759 and a_etat_souris.x < 917 and a_etat_souris.y > 319 and a_etat_souris.y < 377 then
-						-- BOUTON JOUER
-					verifier_si_muet
-					if est_debut then
-						chronometre.depart_chrono (a_temps)
-						fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?, ?))
-							--						fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
-						fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
-						est_debut := False
-					end
-					curseur.reinitialiser_curseur
-				elseif a_etat_souris.x > 930 and a_etat_souris.x < 999 and a_etat_souris.y > 0 and a_etat_souris.y < 48 then
-					doit_afficher_bouton_muet := not doit_afficher_bouton_muet
-					afficher_bouton_son
-				end
+			end
+		end
+
+	valider_bouton_retour(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_retour_coordonnees.x1 and
+				a_x < Bouton_retour_coordonnees.x2 and
+				a_y > Bouton_retour_coordonnees.y1 and
+				a_y < Bouton_retour_coordonnees.y2
+			then
+				verifier_si_muet
+				curseur.reinitialiser_curseur
+				retour_jeu_principal := True
+				quitter := False
+				game_library.stop
 			end
 		end
 
@@ -156,7 +200,7 @@ feature -- Access
 	sur_iteration (a_timestamp: NATURAL_32; a_fenetre: GAME_RENDERER)
 			-- Rafraichit la fenêtre du jeu principal à chaque itération.
 		do
-				--			chronometre.decompte(a_timestamp)
+		--	chronometre.decompte(a_timestamp)
 			chronometre.chronometre (a_timestamp)
 			lancer_fenetre_jeu_principal
 		end
@@ -174,7 +218,7 @@ feature {NONE}
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
 			afficher_bouton_son
-				--			chronometre.afficher_decompte
+		--	chronometre.afficher_decompte
 			chronometre.afficher_temps
 			if tour_complete then
 				tours.afficher_tours (True)
@@ -233,7 +277,7 @@ feature {ANY} -- Implementation
 
 	vaisseau_x: INTEGER -- La position en X du vaisseau.
 
-	chronometre: TEMPS -- Le chronomètre du jeu.
+	chronometre: TEMPS_CHRONOMETRE -- Le chronomètre du jeu.
 
 	font: TEXT_FONT -- La police d'écriture du texte (chornomètre et tours).
 
@@ -244,5 +288,30 @@ feature {ANY} -- Implementation
 	est_debut: BOOLEAN -- Détermine s'il s'agit du début de la partie pour afficher le bon temps du chronomètre.
 
 	tour_complete: BOOLEAN -- Détermine si le nombre de tours completés doit changer.
+
+
+feature {NONE} -- Constantes
+
+	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton RETOUR.
+		once
+			Result := [759, 519, 917, 577]
+		end
+
+	Bouton_pause_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton PAUSE.
+		once
+			Result := [759, 419, 917, 477]
+		end
+
+	Bouton_jouer_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton JOUER.
+		once
+			Result := [759, 319, 917, 377]
+		end
+
+	Bouton_muet_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton MUET.
+		once
+			Result := [930, 0, 999, 48]
+		end
+
+
 
 end

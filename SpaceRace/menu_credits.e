@@ -51,14 +51,24 @@ feature -- Access
 			-- Méthode qui gère les actions de la souris dans les menus.
 		do
 			if a_etat_souris.is_left_button_pressed then
-				if a_etat_souris.x > 29 and a_etat_souris.x < 237 and a_etat_souris.y > 519 and a_etat_souris.y < 577 then
-						-- Bouton RETOUR
-					verifier_si_muet
-					curseur.reinitialiser_curseur
-					retour_credits := True
-					quitter := False
-					game_library.stop
-				end
+				valider_bouton_retour(a_etat_souris.x, a_etat_souris.y)
+			end
+		end
+
+	valider_bouton_retour (a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_retour_coordonnees.x1 and
+				a_x < Bouton_retour_coordonnees.x2 and
+				a_y > Bouton_retour_coordonnees.y1 and
+				a_y < Bouton_retour_coordonnees.y2
+			then
+				verifier_si_muet
+				curseur.reinitialiser_curseur
+				retour_credits := True
+				quitter := False
+				game_library.stop
 			end
 		end
 
@@ -78,5 +88,12 @@ feature {ANY} -- Implementation
 	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR".
 
 	texte: AFFICHABLE -- L'image du texte.
+
+feature {NONE} -- Constantes
+
+	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton RETOUR.
+		once
+			Result := [29, 519, 237, 577]
+		end
 
 end
