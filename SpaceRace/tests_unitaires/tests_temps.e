@@ -65,6 +65,36 @@ feature -- Test routines
 			depart_chrono (temps)
 			assert ("depart_chrono test erroné", temps ~ 1)
 		end
+
+	unpause_normal
+			-- Test normal de la routine `unpause'
+		note
+			testing:  "execution/serial"
+		local
+			temps: NATURAL
+		do
+			temps := 7000
+			temps_milliseconde := 5000
+			temps_pause := 10000
+			unpause (temps)
+			assert ("unpause test normal", temps_milliseconde ~ {NATURAL_32}8000)
+		end
+
+	unpause_limite
+			-- Test limite de la routine `unpause'
+		note
+			testing:  "execution/serial"
+		local
+			temps: NATURAL
+		do
+			temps := 0
+			temps_milliseconde := 0
+			temps_pause := 0
+			unpause (temps)
+			assert ("unpause test limite", temps_milliseconde ~ 0)
+		end
+
+
 end
 
 

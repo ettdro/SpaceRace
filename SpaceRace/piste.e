@@ -21,8 +21,12 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteV.png")
 			x := 59
 			y := 250
+--			limite_gauche := 41
+--			limite_droite := 77
+--			limite_haut := 34
+--			limite_bas := 55
 			create checkpoint_liste.make (3)
-			checkpoint_liste.extend (checkpoint1) -- Les checkpoints ne sont pas encore mis, ils le seront prochainement :)
+			checkpoint_liste.extend (checkpoint1) -- Les checkpoints ne sont pas encore mis, ils le seront prochainement.
 			checkpoint_liste.extend (checkpoint2)
 			checkpoint_liste.extend (checkpoint3)
 			checkpoint_liste.start
@@ -88,6 +92,14 @@ feature {NONE} -- Initialization
 feature {ANY} -- Implementation
 
 	piste: AFFICHABLE -- L'image de la piste pour la partie.
+
+--	limite_gauche: INTEGER
+
+--	limite_droite: INTEGER
+
+--	limite_haut: INTEGER
+
+--	limite_bas: INTEGER
 
 	x: INTEGER -- La position de départ de la piste en X.
 
