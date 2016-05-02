@@ -28,7 +28,7 @@ feature {ANY}
 			temps_debut_milliseconde := a_debut_milliseconde
 		end
 
-	unpause(a_timestamp:NATURAL)
+	unpause (a_timestamp: NATURAL)
 			-- Remets le chronomètre en marche. (Lors de plusieurs click consécutifs sur JOUER, le temps devient bizarre.)
 		do
 			temps_milliseconde := temps_milliseconde - (a_timestamp - temps_pause)

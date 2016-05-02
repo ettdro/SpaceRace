@@ -66,11 +66,11 @@ feature {ANY} -- Access
 				valider_bouton_muet (a_etat_souris.x, a_etat_souris.y)
 				valider_bouton_credits (a_etat_souris.x, a_etat_souris.y)
 				valider_bouton_comment_jouer (a_etat_souris.x, a_etat_souris.y)
-				valider_bouton_retour(a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_retour (a_etat_souris.x, a_etat_souris.y)
 			end
 		end
 
-	valider_bouton_muet (a_x, a_y:INTEGER)
+	valider_bouton_muet (a_x, a_y: INTEGER)
 			-- Méthode vérifiant si la souris est sur le bouton MUET et exécute l'action en conséquence.
 		do
 			if
@@ -84,7 +84,7 @@ feature {ANY} -- Access
 			end
 		end
 
-	valider_bouton_credits (a_x, a_y:INTEGER)
+	valider_bouton_credits (a_x, a_y: INTEGER)
 			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
 		do
 			if
@@ -99,7 +99,7 @@ feature {ANY} -- Access
 			end
 		end
 
-	valider_bouton_comment_jouer (a_x, a_y:INTEGER)
+	valider_bouton_comment_jouer (a_x, a_y: INTEGER)
 			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
 		do
 			if
@@ -114,7 +114,7 @@ feature {ANY} -- Access
 			end
 		end
 
-	valider_bouton_retour (a_x, a_y:INTEGER)
+	valider_bouton_retour (a_x, a_y: INTEGER)
 			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
 		do
 			if
@@ -184,24 +184,24 @@ feature {ANY} -- Implementation
 
 	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR".
 
-feature {NONE}
+feature {NONE} -- Constantes
 
-	Bouton_muet_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton MUET.
+	Bouton_muet_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton MUET.
 		once
 			Result := [399, 99, 607, 157]
 		end
 
-	Bouton_credits_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du bouton CREDITS.
+	Bouton_credits_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton CREDITS.
 		once
 			Result := [399, 199, 607, 257]
 		end
 
-	Bouton_comment_jouer_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du bouton COMMENT JOUER.
+	Bouton_comment_jouer_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton COMMENT JOUER.
 		once
 			Result := [309, 299, 695, 357]
 		end
 
-	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton RETOUR.
+	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton RETOUR.
 		once
 			Result := [29, 519, 237, 577]
 		end

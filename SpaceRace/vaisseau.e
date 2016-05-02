@@ -32,10 +32,6 @@ feature {NONE} -- Initialization
 			create vaisseau.creer_affichable (a_fenetre.fenetre.renderer, "vaisseau3.png")
 		end
 
-feature {ANY}
-
-	
-
 feature {ANY} -- Implementation
 
 	vaisseau: AFFICHABLE -- L'image du vaisseau pour la partie.

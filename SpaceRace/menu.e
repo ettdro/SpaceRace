@@ -18,8 +18,7 @@ inherit
 feature -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
-			-- Constructeur de la classe abstraite MENU qui créer une liste de coordonnées,
-			-- la fenêtre, la musique et le son lors d'un click.
+			-- Constructeur de la classe abstraite MENU qui créer une liste de coordonnées, la fenêtre, la musique et le son lors d'un click.
 		do
 			fenetre := a_fenetre
 			musique := a_musique

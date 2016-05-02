@@ -51,11 +51,11 @@ feature {ANY} -- Access
 			-- Méthode qui gère les actions de la souris dans les menus.
 		do
 			if a_etat_souris.is_left_button_pressed then
-				valider_bouton_retour(a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_retour (a_etat_souris.x, a_etat_souris.y)
 			end
 		end
 
-	valider_bouton_retour (a_x, a_y:INTEGER)
+	valider_bouton_retour (a_x, a_y: INTEGER)
 			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
 		do
 			if
@@ -89,10 +89,9 @@ feature {ANY} -- Implementation
 
 	texte: AFFICHABLE -- L'image du texte.
 
-
 feature {NONE} -- Constantes
 
-	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton RETOUR.
+	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton RETOUR.
 		once
 			Result := [29, 519, 237, 577]
 		end

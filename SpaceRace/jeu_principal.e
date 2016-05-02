@@ -240,7 +240,7 @@ feature {ANY} -- Access
 			lancer_fenetre_jeu_principal
 		end
 
-feature {NONE}
+feature {NONE} -- Affichage
 
 	lancer_fenetre_jeu_principal
 			-- Dessine les éléments de la fenêtre.
