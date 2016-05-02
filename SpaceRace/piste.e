@@ -25,10 +25,11 @@ feature {NONE} -- Initialization
 --			limite_droite := 77
 --			limite_haut := 34
 --			limite_bas := 55
-			create checkpoint_liste.make (3)
-			checkpoint_liste.extend (checkpoint1) -- Les checkpoints ne sont pas encore mis, ils le seront prochainement.
-			checkpoint_liste.extend (checkpoint2)
-			checkpoint_liste.extend (checkpoint3)
+			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} checkpoint_liste.make
+			checkpoint_liste.extend (Depart_verte)
+			checkpoint_liste.extend (Checkpoint_verte_1)
+			checkpoint_liste.extend (Checkpoint_verte_2)
+			checkpoint_liste.extend (Checkpoint_verte_3)
 			checkpoint_liste.start
 		ensure
 			Position_Depart_X: x = 59
@@ -41,11 +42,12 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteJ.png")
 			x := 59
 			y := 330
-			create checkpoint_liste.make (4)
-			checkpoint_liste.extend (checkpoint1)
-			checkpoint_liste.extend (checkpoint2)
-			checkpoint_liste.extend (checkpoint3)
-			checkpoint_liste.extend (checkpoint4)
+			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} checkpoint_liste.make
+			checkpoint_liste.extend (Depart_jaune)
+			checkpoint_liste.extend (Checkpoint_jaune_1)
+			checkpoint_liste.extend (Checkpoint_jaune_2)
+			checkpoint_liste.extend (Checkpoint_jaune_3)
+			checkpoint_liste.extend (Checkpoint_jaune_4)
 			checkpoint_liste.start
 		ensure
 			Position_Depart_X: x = 59
@@ -58,14 +60,15 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteM.png")
 			x := 33
 			y := 330
-			create checkpoint_liste.make (7)
-			checkpoint_liste.extend (checkpoint1)
-			checkpoint_liste.extend (checkpoint2)
-			checkpoint_liste.extend (checkpoint3)
-			checkpoint_liste.extend (checkpoint4)
-			checkpoint_liste.extend (checkpoint5)
-			checkpoint_liste.extend (checkpoint6)
-			checkpoint_liste.extend (checkpoint7)
+			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} checkpoint_liste.make
+			checkpoint_liste.extend (Depart_mauve)
+			checkpoint_liste.extend (Checkpoint_mauve_1)
+			checkpoint_liste.extend (Checkpoint_mauve_2)
+			checkpoint_liste.extend (Checkpoint_mauve_3)
+			checkpoint_liste.extend (Checkpoint_mauve_4)
+			checkpoint_liste.extend (Checkpoint_mauve_5)
+			checkpoint_liste.extend (Checkpoint_mauve_6)
+			checkpoint_liste.extend (Checkpoint_mauve_7)
 			checkpoint_liste.start
 		ensure
 			Position_Depart_X: x = 33
@@ -78,11 +81,12 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteB.png")
 			x := 48
 			y := 260
-			create checkpoint_liste.make (4)
-			checkpoint_liste.extend (checkpoint1)
-			checkpoint_liste.extend (checkpoint2)
-			checkpoint_liste.extend (checkpoint3)
-			checkpoint_liste.extend (checkpoint4)
+			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} checkpoint_liste.make
+			checkpoint_liste.extend (Depart_bleue)
+			checkpoint_liste.extend (Checkpoint_bleue_1)
+			checkpoint_liste.extend (Checkpoint_bleue_2)
+			checkpoint_liste.extend (Checkpoint_bleue_3)
+			checkpoint_liste.extend (Checkpoint_bleue_4)
 			checkpoint_liste.start
 		ensure
 			Position_Depart_X: x = 48
@@ -105,20 +109,118 @@ feature {ANY} -- Implementation
 
 	y: INTEGER -- La position de départ de la piste en Y.
 
-	checkpoint_liste: ARRAYED_LIST [BOOLEAN] -- Liste qui contient les variables Boolean des checkpoints.
+	checkpoint_liste: LIST [TUPLE [x1, y1, x2, y2: INTEGER]] -- Liste qui contient les constantes des coordonnées des checkpoints.
 
-	checkpoint1: BOOLEAN -- Permet de déterminer si le checkpoint 1 a été passé.
+feature {NONE}
 
-	checkpoint2: BOOLEAN -- Permet de déterminer si le checkpoint 2 a été passé.
+	Checkpoint_verte_1:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 1 de la piste verte.
+		once
+			Result := [374, 114, 374, 180]
+		end
 
-	checkpoint3: BOOLEAN -- Permet de déterminer si le checkpoint 3 a été passé.
+	Checkpoint_verte_2:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 2 de la piste verte.
+		once
+			Result := [554, 490, 554, 545]
+		end
 
-	checkpoint4: detachable BOOLEAN -- Permet de déterminer si le checkpoint 4 a été passé. "detachable", car une piste  peut ne pas avoir 4 checkpoint.
+	Checkpoint_verte_3:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 3 de la piste verte.
+		once
+			Result := [193, 395, 193, 455]
+		end
 
-	checkpoint5: detachable BOOLEAN -- Permet de déterminer si le checkpoint 5 a été passé. "detachable", car une piste  peut ne pas avoir 5 checkpoint.
+	Checkpoint_jaune_1:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 1 de la piste jaune.
+		once
+			Result := [315, 28, 315, 90]
+		end
 
-	checkpoint6: detachable BOOLEAN -- Permet de déterminer si le checkpoint 6 a été passé. "detachable", car une piste  peut ne pas avoir 6 checkpoint.
+	Checkpoint_jaune_2:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 2 de la piste jaune.
+		once
+			Result := [500, 167, 500, 225]
+		end
 
-	checkpoint7: detachable BOOLEAN -- Permet de déterminer si le checkpoint 7 a été passé. "detachable", car une piste  peut ne pas avoir 7 checkpoint.
+	Checkpoint_jaune_3:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 3 de la piste jaune.
+		once
+			Result := [580, 433, 645, 433]
+		end
+
+	Checkpoint_jaune_4:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 4 de la piste jaune.
+		once
+			Result := [265, 400, 265, 462]
+		end
+
+	Checkpoint_mauve_1:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 1 de la piste mauve.
+		once
+			Result := [100, 25, 100, 85]
+		end
+
+	Checkpoint_mauve_2:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 2 de la piste mauve.
+		once
+			Result := [360, 125, 360, 180]
+		end
+
+	Checkpoint_mauve_3:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 3 de la piste mauve.
+		once
+			Result := [585, 55, 585, 115]
+		end
+
+	Checkpoint_mauve_4:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 4 de la piste mauve.
+		once
+			Result := [580, 372, 630, 372]
+		end
+
+	Checkpoint_mauve_5:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 5 de la piste mauve.
+		once
+			Result := [375, 525, 375, 575]
+		end
+
+	Checkpoint_mauve_6:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 6 de la piste mauve.
+		once
+			Result := [218, 360, 218, 410]
+		end
+
+	Checkpoint_mauve_7:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 7 de la piste mauve.
+		once
+			Result := [113, 515, 113, 575]
+		end
+
+	Checkpoint_bleue_1:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 1 de la piste bleue.
+		once
+			Result := [405, 20, 405, 80]
+		end
+
+	Checkpoint_bleue_2:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 2 de la piste bleue.
+		once
+			Result := [397, 220, 397, 285]
+		end
+
+	Checkpoint_bleue_3:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 3 de la piste bleue.
+		once
+			Result := [557, 375, 557, 425]
+		end
+
+	Checkpoint_bleue_4:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du checkpoint 4 de la piste bleue.
+		once
+			Result := [452, 530, 452, 585]
+		end
+
+	Depart_verte:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du départ de la piste bleue.
+		once
+			Result := [28, 256, 92, 256]
+		end
+
+	Depart_jaune:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du départ de la piste bleue.
+		once
+			Result := [28, 333, 95, 333]
+		end
+
+	Depart_mauve:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du départ de la piste bleue.
+		once
+			Result := [5, 335, 69, 335]
+		end
+
+	Depart_bleue:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du départ de la piste bleue.
+		once
+			Result := [15, 266, 85, 266]
+		end
 
 end
