@@ -159,7 +159,7 @@ feature {ANY} -- Implementation
 
 	logo: AFFICHABLE -- L'image du titre principal.
 
-feature {NONE}
+feature {NONE}  -- Constantes
 
 	Bouton_jouer_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton JOUER.
 		once

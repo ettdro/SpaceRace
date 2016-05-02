@@ -71,7 +71,6 @@ feature {ANY} -- Access
 				valider_cadre_gauche (a_etat_souris.x, a_etat_souris.y)
 				valider_cadre_milieu (a_etat_souris.x, a_etat_souris.y)
 				valider_cadre_droite (a_etat_souris.x, a_etat_souris.y)
-
 			end
 		end
 
@@ -249,7 +248,7 @@ feature {ANY} -- Implementation
 	suivant_est_visible: BOOLEAN -- Détermine si le bouton "SUIVANT" est visible.
 
 
-feature {NONE}
+feature {NONE}  -- Constantes
 
 	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton RETOUR.
 		once

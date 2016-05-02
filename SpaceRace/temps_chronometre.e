@@ -8,6 +8,7 @@ class
 	TEMPS_CHRONOMETRE
 
 inherit
+
 	TEMPS
 
 create
@@ -61,7 +62,7 @@ feature {ANY}
 			fenetre.draw_texture (texture_secondes, 885, 75)
 		end
 
-	pause_chrono(a_timestamp:NATURAL)
+	pause_chrono (a_timestamp: NATURAL)
 			-- Mets le chronomètre sur pause.
 		do
 			temps_pause := a_timestamp
@@ -70,12 +71,11 @@ feature {ANY}
 			Temps_Pause_Assigne: temps_pause = a_timestamp
 		end
 
-
 feature {NONE} -- Implementation
 
-	temps_secondes: NATURAL	-- Le temps en secondes.
+	temps_secondes: NATURAL -- Le temps en secondes.
 
-	temps_minutes: NATURAL	-- Le temps en minutes.
+	temps_minutes: NATURAL -- Le temps en minutes.
 
 	police: TEXT_FONT -- La police d'écriture du texte.
 

@@ -10,6 +10,7 @@ deferred class
 feature {ANY} -- Access
 
 	incrementer_tour (a_tour_complete: BOOLEAN)
+			-- Augmente le nombre de tour lorsqu'un tour est complété.
 		do
 			tour_complete := a_tour_complete
 			if nombre_tour < 3 then
@@ -21,7 +22,6 @@ feature {ANY} -- Access
 				end
 			end
 		end
-
 
 feature {ANY} -- Implementation
 
