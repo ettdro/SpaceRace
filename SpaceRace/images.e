@@ -42,4 +42,10 @@ feature {ANY} -- Access
 			l_renderer.draw_texture (Current, a_pos_x, a_pos_y)
 		end
 
+	afficher_rotation (a_angle_rotation: REAL_64; a_pos_x, a_pos_y: INTEGER; l_renderer: GAME_RENDERER)
+			-- Affiche l'image à l'endroit voulu.
+		do
+			l_renderer.draw_sub_texture_with_scale_rotation_and_mirror (Current, 0, 0, width, height, a_pos_x, a_pos_y, width, height, width // 2, height // 2, a_angle_rotation, False, False)
+		end
+
 end

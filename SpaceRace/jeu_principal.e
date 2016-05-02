@@ -9,6 +9,8 @@ class
 
 inherit
 
+	DOUBLE_MATH
+
 	MENU
 		rename
 			make as make_menu
@@ -122,8 +124,10 @@ feature {ANY} -- Access
 				--	fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
 					fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
 					est_debut := False
-				else
+				end
+				if etait_pause then
 					chronometre.unpause(a_temps)
+					etait_pause := False
 				end
 				curseur.reinitialiser_curseur
 			end
@@ -139,6 +143,7 @@ feature {ANY} -- Access
 				a_y < Bouton_pause_coordonnees.y2
 			then
 				verifier_si_muet
+				etait_pause := True
 				chronometre.pause_chrono(a_temps)
 				curseur.reinitialiser_curseur
 			end
@@ -167,40 +172,64 @@ feature {ANY} -- Access
 			if not chronometre.pause then
 				if a_etat_clavier.is_repeat or not a_etat_clavier.is_repeat then
 					if a_etat_clavier.is_up then
-						if vaisseau_y >= 1 then
-							vaisseau_y := vaisseau_y - 1
-							print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
+						if vaisseau_y > 0 and vaisseau_y < 600 then
+							if rotation_vaisseau = 0 or rotation_vaisseau = 360 then
+								vaisseau_y := vaisseau_y - 4
+							end
+							if rotation_vaisseau = 90 then
+								vaisseau_x := vaisseau_x + 4
+							end
+							if rotation_vaisseau = 180 then
+								vaisseau_y := vaisseau_y + 4
+							end
+							if rotation_vaisseau = 270 then
+								vaisseau_x := vaisseau_x - 4
+							end
+							if rotation_vaisseau > 0 and rotation_vaisseau < 90 then
+								vaisseau_y := vaisseau_y - cosine(rotation_vaisseau_radiant)
+								vaisseau_x := vaisseau_x + sine(rotation_vaisseau_radiant)
+							end
+							if rotation_vaisseau > 90 and rotation_vaisseau < 180 then
+								vaisseau_y := vaisseau_y - cosine(rotation_vaisseau_radiant)
+								vaisseau_x := vaisseau_x + sine(rotation_vaisseau_radiant)
+							end
+							if rotation_vaisseau > 180 and rotation_vaisseau < 270 then
+								vaisseau_y := vaisseau_y - cosine(rotation_vaisseau_radiant)
+								vaisseau_x := vaisseau_x + sine(rotation_vaisseau_radiant)
+							end
+							if rotation_vaisseau > 270 and rotation_vaisseau < 360 then
+								vaisseau_y := vaisseau_y - cosine(rotation_vaisseau_radiant)
+								vaisseau_x := vaisseau_x + sine(rotation_vaisseau_radiant)
+							end
+							print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
 						end
 					end
-					if a_etat_clavier.is_down then
-						if vaisseau_y <= 559 then
-							vaisseau_y := vaisseau_y + 1
-							print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
-						end
-					end
-
-						-- draw_sub_texture_scale_rotate() pour effectuer une rotation sur le vaisseau
-
-						-- LE MOUVEMENT EN X EST TEMPORAIRE
 					if a_etat_clavier.is_left then
-						if vaisseau_x >= 1 then
-							vaisseau_x := vaisseau_x - 1
-							print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
+						if rotation_vaisseau = 0 then
+							rotation_vaisseau := 360
 						end
+						rotation_vaisseau := rotation_vaisseau - 5
+						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
 					end
 					if a_etat_clavier.is_right then
-						if vaisseau_x <= 700 then
-							vaisseau_x := vaisseau_x + 1
-							print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
+						if rotation_vaisseau = 360 then
+							rotation_vaisseau := 0
 						end
+						rotation_vaisseau := rotation_vaisseau + 5
+						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
 					end
 				end
 			end
 		end
 
-		--	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
-		--		do
-		--		end
+		rotation_vaisseau_radiant:REAL_64
+		do
+			Result := ((2 * pi) * rotation_vaisseau) / 360
+		end
+
+--		action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
+--			do
+--			end
 
 	sur_iteration (a_timestamp: NATURAL_32; a_fenetre: GAME_RENDERER)
 			-- Rafraichit la fenêtre du jeu principal à chaque itération.
@@ -230,6 +259,9 @@ feature {NONE}
 			end
 			if est_debut then
 				image_cliquez_jouer.afficher (100, 250, fenetre.fenetre.renderer)
+				vaisseau_selectionne.vaisseau.afficher (vaisseau_x.rounded, vaisseau_y.rounded, fenetre.fenetre.renderer)
+			else
+				vaisseau_selectionne.vaisseau.afficher_rotation (rotation_vaisseau, vaisseau_x.rounded, vaisseau_y.rounded, fenetre.fenetre.renderer)
 			end
 			if tour_complete then
 				tours.afficher_tours (True)
@@ -237,7 +269,6 @@ feature {NONE}
 			else
 				tours.afficher_tours (False)
 			end
-			vaisseau_selectionne.vaisseau.afficher (vaisseau_x, vaisseau_y, fenetre.fenetre.renderer)
 			fenetre.fenetre.renderer.present
 		end
 
@@ -253,12 +284,16 @@ feature {NONE}
 			end
 		end
 
-	update_vaisseau (a_x, a_y: INTEGER; a_renderer: GAME_RENDERER)
-		do
-			vaisseau_selectionne.vaisseau.afficher (a_x, a_y, a_renderer)
-		end
+--	update_vaisseau (a_x, a_y: INTEGER; a_renderer: GAME_RENDERER)
+--		do
+--			vaisseau_selectionne.vaisseau.afficher (a_x, a_y, a_renderer)
+--		end
 
 feature {ANY} -- Implementation
+
+	rotation_vaisseau: REAL_64
+
+	etait_pause: BOOLEAN	-- Attribut qui donne True si le temps était sur pause. False sinon.
 
 	image_pause: AFFICHABLE	-- L'image du « popup » de pause.
 
@@ -286,9 +321,9 @@ feature {ANY} -- Implementation
 
 	deja_afficher: BOOLEAN -- Détermine si le vaisseau est déjà affiché.
 
-	vaisseau_y: INTEGER -- La position en Y du vaisseau.
+	vaisseau_y: REAL_64 -- La position en Y du vaisseau.
 
-	vaisseau_x: INTEGER -- La position en X du vaisseau.
+	vaisseau_x: REAL_64 -- La position en X du vaisseau.
 
 	chronometre: TEMPS_CHRONOMETRE -- Le chronomètre du jeu.
 
