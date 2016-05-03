@@ -174,16 +174,16 @@ feature {ANY} -- Access
 					if a_etat_clavier.is_up then
 						if vaisseau_y > 0 and vaisseau_y < 600 then
 							if rotation_vaisseau = 0 or rotation_vaisseau = 360 then
-								vaisseau_y := vaisseau_y - 4
+								vaisseau_y := vaisseau_y - 1
 							end
 							if rotation_vaisseau = 90 then
-								vaisseau_x := vaisseau_x + 4
+								vaisseau_x := vaisseau_x + 1
 							end
 							if rotation_vaisseau = 180 then
-								vaisseau_y := vaisseau_y + 4
+								vaisseau_y := vaisseau_y + 1
 							end
 							if rotation_vaisseau = 270 then
-								vaisseau_x := vaisseau_x - 4
+								vaisseau_x := vaisseau_x - 1
 							end
 							if rotation_vaisseau > 0 and rotation_vaisseau < 90 then
 								vaisseau_y := vaisseau_y - cosine(rotation_vaisseau_radiant)
@@ -237,6 +237,7 @@ feature {ANY} -- Access
 			if not chronometre.pause then
 				chronometre.chronometre (a_timestamp)
 			end
+			piste_selectionne.valider_checkpoint(vaisseau_x.rounded, vaisseau_y.rounded)
 			lancer_fenetre_jeu_principal
 		end
 

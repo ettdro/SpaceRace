@@ -93,6 +93,22 @@ feature {NONE} -- Initialization
 			Position_Depart_Y: y = 260
 		end
 
+feature {ANY} -- Access
+
+	valider_checkpoint(position_x, position_y: INTEGER)
+		-- Regarde si le vaisseau a traversé un checkpoint.
+		do
+			checkpoint_liste.start
+			across
+				checkpoint_liste as la_checkpoint_liste
+			loop
+				if position_x > checkpoint_liste.item.x1 and position_x < checkpoint_liste.item.x2 and position_y > checkpoint_liste.item.y1 and position_y < checkpoint_liste.item.y2 then
+					print("checkpoint passé")
+				end
+				checkpoint_liste.move (1)
+			end
+		end
+
 feature {ANY} -- Implementation
 
 	piste: AFFICHABLE -- L'image de la piste pour la partie.
