@@ -172,34 +172,34 @@ feature {ANY} -- Access
 			if not chronometre.pause then
 				if a_etat_clavier.is_repeat or not a_etat_clavier.is_repeat then
 					if a_etat_clavier.is_up then
-						if vaisseau_y > 0 and vaisseau_y < 600 then
+						if vaisseau_y > -1 and vaisseau_y < 601 then
 							if rotation_vaisseau = 0 or rotation_vaisseau = 360 then
-								vaisseau_y := vaisseau_y - 4
+								vaisseau_y := vaisseau_y - 6
 							end
 							if rotation_vaisseau = 90 then
-								vaisseau_x := vaisseau_x + 4
+								vaisseau_x := vaisseau_x + 6
 							end
 							if rotation_vaisseau = 180 then
-								vaisseau_y := vaisseau_y + 4
+								vaisseau_y := vaisseau_y + 6
 							end
 							if rotation_vaisseau = 270 then
-								vaisseau_x := vaisseau_x - 4
+								vaisseau_x := vaisseau_x - 6
 							end
 							if rotation_vaisseau > 0 and rotation_vaisseau < 90 then
-								vaisseau_y := vaisseau_y - cosine(rotation_vaisseau_radiant)
-								vaisseau_x := vaisseau_x + sine(rotation_vaisseau_radiant)
+								vaisseau_y := vaisseau_y - (cosine(rotation_vaisseau_radiant)) * 6
+								vaisseau_x := vaisseau_x + (sine(rotation_vaisseau_radiant)) * 6
 							end
 							if rotation_vaisseau > 90 and rotation_vaisseau < 180 then
-								vaisseau_y := vaisseau_y - cosine(rotation_vaisseau_radiant)
-								vaisseau_x := vaisseau_x + sine(rotation_vaisseau_radiant)
+								vaisseau_y := vaisseau_y - (cosine(rotation_vaisseau_radiant)) * 6
+								vaisseau_x := vaisseau_x + (sine(rotation_vaisseau_radiant)) * 6
 							end
 							if rotation_vaisseau > 180 and rotation_vaisseau < 270 then
-								vaisseau_y := vaisseau_y - cosine(rotation_vaisseau_radiant)
-								vaisseau_x := vaisseau_x + sine(rotation_vaisseau_radiant)
+								vaisseau_y := vaisseau_y - (cosine(rotation_vaisseau_radiant)) * 6
+								vaisseau_x := vaisseau_x + (sine(rotation_vaisseau_radiant)) * 6
 							end
 							if rotation_vaisseau > 270 and rotation_vaisseau < 360 then
-								vaisseau_y := vaisseau_y - cosine(rotation_vaisseau_radiant)
-								vaisseau_x := vaisseau_x + sine(rotation_vaisseau_radiant)
+								vaisseau_y := vaisseau_y - (cosine(rotation_vaisseau_radiant)) * 6
+								vaisseau_x := vaisseau_x + (sine(rotation_vaisseau_radiant)) * 6
 							end
 							print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
 						end
@@ -208,14 +208,14 @@ feature {ANY} -- Access
 						if rotation_vaisseau = 0 then
 							rotation_vaisseau := 360
 						end
-						rotation_vaisseau := rotation_vaisseau - 5
+						rotation_vaisseau := rotation_vaisseau - 3
 						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
 					end
 					if a_etat_clavier.is_right then
 						if rotation_vaisseau = 360 then
 							rotation_vaisseau := 0
 						end
-						rotation_vaisseau := rotation_vaisseau + 5
+						rotation_vaisseau := rotation_vaisseau + 3
 						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
 					end
 				end
@@ -237,6 +237,7 @@ feature {ANY} -- Access
 			if not chronometre.pause then
 				chronometre.chronometre (a_timestamp)
 			end
+
 			lancer_fenetre_jeu_principal
 		end
 

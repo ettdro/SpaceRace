@@ -47,7 +47,12 @@ feature -- Initialization
 			across
 				a_liste_coordonnees as la_liste_coordonnees
 			loop
-				if x > la_liste_coordonnees.item.x1 and x < la_liste_coordonnees.item.x2 and y > la_liste_coordonnees.item.y1 and y < la_liste_coordonnees.item.y2 then
+				if
+					x > la_liste_coordonnees.item.x1 and
+					x < la_liste_coordonnees.item.x2 and
+					y > la_liste_coordonnees.item.y1 and
+					y < la_liste_coordonnees.item.y2
+				then
 					game_library.set_cursor (curseur_main)
 					est_defaut := False
 				end
