@@ -9,6 +9,7 @@ class
 	TESTS_TEMPS
 
 inherit
+
 	EQA_TEST_SET
 
 	TEMPS
@@ -21,7 +22,7 @@ feature -- Test routines
 	chronometre_normal
 			-- Test normal de la routine `chronometre'
 		note
-			testing:  "execution/serial"
+			testing: "execution/serial"
 		local
 			temps: NATURAL
 		do
@@ -33,7 +34,7 @@ feature -- Test routines
 	chronometre_limite
 			-- Test limite de la routine `chronometre'
 		note
-			testing:  "execution/serial"
+			testing: "execution/serial"
 		local
 			temps: NATURAL
 		do
@@ -45,7 +46,7 @@ feature -- Test routines
 	depart_chrono_normal
 			-- Test normal de la routine `depart_chrono'
 		note
-			testing:  "execution/serial"
+			testing: "execution/serial"
 		local
 			temps: NATURAL
 		do
@@ -57,7 +58,7 @@ feature -- Test routines
 	depart_chrono_errone
 			-- Test erroné de la routine `depart_chrono'
 		note
-			testing:  "execution/serial"
+			testing: "execution/serial"
 		local
 			temps: NATURAL
 		do
@@ -69,7 +70,7 @@ feature -- Test routines
 	unpause_normal
 			-- Test normal de la routine `unpause'
 		note
-			testing:  "execution/serial"
+			testing: "execution/serial"
 		local
 			temps: NATURAL
 		do
@@ -77,13 +78,13 @@ feature -- Test routines
 			temps_milliseconde := 5000
 			temps_pause := 10000
 			unpause (temps)
-			assert ("unpause test normal", temps_milliseconde ~ {NATURAL_32}8000)
+			assert ("unpause test normal", temps_milliseconde ~ {NATURAL_32} 8000)
 		end
 
 	unpause_limite
 			-- Test limite de la routine `unpause'
 		note
-			testing:  "execution/serial"
+			testing: "execution/serial"
 		local
 			temps: NATURAL
 		do
@@ -94,7 +95,4 @@ feature -- Test routines
 			assert ("unpause test limite", temps_milliseconde ~ 0)
 		end
 
-
 end
-
-

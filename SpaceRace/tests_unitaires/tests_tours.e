@@ -9,6 +9,7 @@ class
 	TESTS_TOURS
 
 inherit
+
 	EQA_TEST_SET
 
 	TOURS
@@ -21,7 +22,7 @@ feature -- Test routines
 	incrementer_tour_normal
 			-- Test normal de la routine `incrementer_tour'
 		note
-			testing:  "execution/serial"
+			testing: "execution/serial"
 		do
 			incrementer_tour (True)
 			assert ("incrementer_tour test normal", nombre_tour ~ 1)
@@ -30,7 +31,7 @@ feature -- Test routines
 	incrementer_tour_limite
 			-- Test limite de la routine `incrementer_tour'
 		note
-			testing:  "execution/serial"
+			testing: "execution/serial"
 		do
 			incrementer_tour (True)
 			incrementer_tour (True)
@@ -41,7 +42,7 @@ feature -- Test routines
 	incrementer_tour_errone
 			-- Test errone de la routine `incrementer_tour'
 		note
-			testing:  "execution/serial"
+			testing: "execution/serial"
 		do
 			incrementer_tour (True)
 			incrementer_tour (True)
@@ -51,5 +52,3 @@ feature -- Test routines
 		end
 
 end
-
-
