@@ -253,7 +253,7 @@ feature {ANY} -- Access
 				rotation_vaisseau := 360
 			end
 			rotation_vaisseau := rotation_vaisseau - 3
-			print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
+--			print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
 		end
 
 	rotation_droite
@@ -263,7 +263,7 @@ feature {ANY} -- Access
 				rotation_vaisseau := 0
 			end
 			rotation_vaisseau := rotation_vaisseau + 3
-			print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
+--			print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
 		end
 
 	rotation_vaisseau_radiant: REAL_64
@@ -278,7 +278,7 @@ feature {ANY} -- Access
 			if not chronometre.pause then
 				chronometre.chronometre (a_timestamp)
 			end
-			piste_selectionne.valider_checkpoint(vaisseau_x.rounded, vaisseau_y.rounded, rotation_vaisseau_radiant)
+			piste_selectionne.valider_checkpoint(vaisseau_x.rounded, vaisseau_y.rounded)
 			lancer_fenetre_jeu_principal
 		end
 
@@ -294,6 +294,22 @@ feature {NONE} -- Affichage
 			titre_tours.afficher (760, 160, fenetre.fenetre.renderer)
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
+			piste_selectionne.lumiere_liste.start
+			across
+				piste_selectionne.lumiere_liste as la_coord_lumiere
+			loop
+				if checkpoint_passe then
+					if piste_selectionne.lumiere_liste.readable then
+						piste_selectionne.lumiere_verte.afficher (la_coord_lumiere.item.x, la_coord_lumiere.item.y, fenetre.fenetre.renderer)
+						piste_selectionne.lumiere_liste.move (1)
+					end
+				else
+					if piste_selectionne.lumiere_liste.readable then
+						piste_selectionne.lumiere_rouge.afficher (la_coord_lumiere.item.x, la_coord_lumiere.item.y, fenetre.fenetre.renderer)
+						piste_selectionne.lumiere_liste.move (1)
+					end
+				end
+			end
 			afficher_bouton_son
 			chronometre.afficher_temps
 			if chronometre.pause then
@@ -327,6 +343,8 @@ feature {NONE} -- Affichage
 		end
 
 feature {ANY} -- Implementation
+
+	checkpoint_passe: BOOLEAN
 
 	rotation_vaisseau: REAL_64
 			-- L'angle de rotation du vaisseau.
