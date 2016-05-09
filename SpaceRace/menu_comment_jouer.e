@@ -72,7 +72,7 @@ feature {ANY} -- Access
 			end
 		end
 
-feature {NONE}
+feature {NONE} -- Affichage
 
 	lancer_fenetre_comment_jouer
 			-- Dessine les éléments de la fenêtre.

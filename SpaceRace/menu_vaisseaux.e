@@ -159,7 +159,7 @@ feature {ANY} -- Access
 			end
 		end
 
-feature {NONE}
+feature {NONE} -- Affichage
 
 	actualiser_cadre (a_liste_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER])
 			-- Affiche le cadre en jaune puisqu'il est celui sélectionné et affiche le bouton SUIVANT.

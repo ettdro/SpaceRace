@@ -131,7 +131,7 @@ feature {ANY} -- Access
 			end
 		end
 
-feature {NONE}
+feature {NONE} -- Affichage
 
 	lancer_fenetre_options
 			-- Affiche toutes les images du menu à l'endroit précisé.

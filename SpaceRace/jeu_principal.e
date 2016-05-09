@@ -87,13 +87,13 @@ feature {ANY} -- Access
 		do
 			if a_etat_souris.is_left_button_pressed then
 				valider_bouton_muet (a_etat_souris.x, a_etat_souris.y)
-				valider_bouton_jouer(a_temps, a_etat_souris.x, a_etat_souris.y)
-				valider_bouton_pause(a_temps, a_etat_souris.x, a_etat_souris.y)
-				valider_bouton_retour(a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_jouer (a_temps, a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_pause (a_temps, a_etat_souris.x, a_etat_souris.y)
+				valider_bouton_retour (a_etat_souris.x, a_etat_souris.y)
 			end
 		end
 
-	valider_bouton_muet(a_x, a_y:INTEGER)
+	valider_bouton_muet (a_x, a_y: INTEGER)
 			-- Méthode vérifiant si la souris est sur le bouton MUET et exécute l'action en conséquence.
 		do
 			if
@@ -108,7 +108,7 @@ feature {ANY} -- Access
 			end
 		end
 
-	valider_bouton_jouer(a_temps: NATURAL_32; a_x, a_y:INTEGER)
+	valider_bouton_jouer (a_temps: NATURAL_32; a_x, a_y: INTEGER)
 			-- Méthode vérifiant si la souris est sur le bouton JOUER et exécute l'action en conséquence.
 		do
 			if
@@ -121,19 +121,19 @@ feature {ANY} -- Access
 				if est_debut then
 					chronometre.depart_chrono (a_temps)
 					fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?, ?))
-				--	fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
+						--	fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
 					fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
 					est_debut := False
 				end
 				if etait_pause then
-					chronometre.unpause(a_temps)
+					chronometre.unpause (a_temps)
 					etait_pause := False
 				end
 				curseur.reinitialiser_curseur
 			end
 		end
 
-	valider_bouton_pause(a_temps:NATURAL_32; a_x, a_y:INTEGER)
+	valider_bouton_pause (a_temps: NATURAL_32; a_x, a_y: INTEGER)
 			-- Méthode vérifiant si la souris est sur le bouton PAUSE et exécute l'action en conséquence.
 		do
 			if
@@ -144,12 +144,12 @@ feature {ANY} -- Access
 			then
 				verifier_si_muet
 				etait_pause := True
-				chronometre.pause_chrono(a_temps)
+				chronometre.pause_chrono (a_temps)
 				curseur.reinitialiser_curseur
 			end
 		end
 
-	valider_bouton_retour(a_x, a_y:INTEGER)
+	valider_bouton_retour (a_x, a_y: INTEGER)
 			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
 		do
 			if
@@ -167,69 +167,115 @@ feature {ANY} -- Access
 		end
 
 	action_clavier (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
-			-- Vérifie quelle touche est pressée pour pouvoir exécuter la bonne action.
+			-- Vérifie quelle touche est pressée pour pouvoir exécuter la bonne action (déplacement ou rotation).
 		do
 			if not chronometre.pause then
 				if a_etat_clavier.is_repeat or not a_etat_clavier.is_repeat then
 					if a_etat_clavier.is_up then
-						if vaisseau_y > -1 and vaisseau_y < 601 then
-							if rotation_vaisseau = 0 or rotation_vaisseau = 360 then
-								vaisseau_y := vaisseau_y - 6
-							end
-							if rotation_vaisseau = 90 then
-								vaisseau_x := vaisseau_x + 6
-							end
-							if rotation_vaisseau = 180 then
-								vaisseau_y := vaisseau_y + 6
-							end
-							if rotation_vaisseau = 270 then
-								vaisseau_x := vaisseau_x - 6
-							end
-							if rotation_vaisseau > 0 and rotation_vaisseau < 90 then
-								vaisseau_y := vaisseau_y - (cosine(rotation_vaisseau_radiant)) * 6
-								vaisseau_x := vaisseau_x + (sine(rotation_vaisseau_radiant)) * 6
-							end
-							if rotation_vaisseau > 90 and rotation_vaisseau < 180 then
-								vaisseau_y := vaisseau_y - (cosine(rotation_vaisseau_radiant)) * 6
-								vaisseau_x := vaisseau_x + (sine(rotation_vaisseau_radiant)) * 6
-							end
-							if rotation_vaisseau > 180 and rotation_vaisseau < 270 then
-								vaisseau_y := vaisseau_y - (cosine(rotation_vaisseau_radiant)) * 6
-								vaisseau_x := vaisseau_x + (sine(rotation_vaisseau_radiant)) * 6
-							end
-							if rotation_vaisseau > 270 and rotation_vaisseau < 360 then
-								vaisseau_y := vaisseau_y - (cosine(rotation_vaisseau_radiant)) * 6
-								vaisseau_x := vaisseau_x + (sine(rotation_vaisseau_radiant)) * 6
-							end
-							print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
+						acceleration_vaisseau
+						avancer
+					end
+					if not a_etat_clavier.is_up then
+						from
+						until
+							vitesse = 0
+						loop
+							deceleration_vaisseau
 						end
 					end
 					if a_etat_clavier.is_left then
-						if rotation_vaisseau = 0 then
-							rotation_vaisseau := 360
-						end
-						rotation_vaisseau := rotation_vaisseau - 3
-						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
+						rotation_gauche
 					end
 					if a_etat_clavier.is_right then
-						if rotation_vaisseau = 360 then
-							rotation_vaisseau := 0
-						end
-						rotation_vaisseau := rotation_vaisseau + 3
-						print("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
+						rotation_droite
 					end
 				end
 			end
 		end
 
-		rotation_vaisseau_radiant:REAL_64
+	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
+			-- Vérifie que l'accélération (flèche du haut) est relâchée pour décélérer.
+		do
+
+		end
+
+	acceleration_vaisseau
+			-- Gère l'accélération du vaisseau.
+		do
+			if vitesse < 6 then
+				vitesse := vitesse + Acceleration
+			end
+		end
+
+	deceleration_vaisseau
+			-- Gère la décelération du vaisseau.
+		do
+			if vitesse > 0 then
+				vitesse := vitesse - Acceleration
+			end
+		end
+
+	avancer
+			-- Fais avancer le vaisseau
+		do
+			if vaisseau_y > -1 and vaisseau_y < 601 then
+				if rotation_vaisseau = 0 or rotation_vaisseau = 360 then
+					vaisseau_y := vaisseau_y - vitesse
+				end
+				if rotation_vaisseau = 90 then
+					vaisseau_x := vaisseau_x + vitesse
+				end
+				if rotation_vaisseau = 180 then
+					vaisseau_y := vaisseau_y + vitesse
+				end
+				if rotation_vaisseau = 270 then
+					vaisseau_x := vaisseau_x - vitesse
+				end
+				if rotation_vaisseau > 0 and rotation_vaisseau < 90 then
+					vaisseau_y := vaisseau_y - (cosine (rotation_vaisseau_radiant)) * vitesse
+					vaisseau_x := vaisseau_x + (sine (rotation_vaisseau_radiant)) * vitesse
+				end
+				if rotation_vaisseau > 90 and rotation_vaisseau < 180 then
+					vaisseau_y := vaisseau_y - (cosine (rotation_vaisseau_radiant)) * vitesse
+					vaisseau_x := vaisseau_x + (sine (rotation_vaisseau_radiant)) * vitesse
+				end
+				if rotation_vaisseau > 180 and rotation_vaisseau < 270 then
+					vaisseau_y := vaisseau_y - (cosine (rotation_vaisseau_radiant)) * vitesse
+					vaisseau_x := vaisseau_x + (sine (rotation_vaisseau_radiant)) * vitesse
+				end
+				if rotation_vaisseau > 270 and rotation_vaisseau < 360 then
+					vaisseau_y := vaisseau_y - (cosine (rotation_vaisseau_radiant)) * vitesse
+					vaisseau_x := vaisseau_x + (sine (rotation_vaisseau_radiant)) * vitesse
+				end
+				print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
+			end
+		end
+
+	rotation_gauche
+			-- Tourne le vaisseau vers la gauche.
+		do
+			if rotation_vaisseau = 0 then
+				rotation_vaisseau := 360
+			end
+			rotation_vaisseau := rotation_vaisseau - 3
+			print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
+		end
+
+	rotation_droite
+			-- Tourne le vaisseau vers la droite.
+		do
+			if rotation_vaisseau = 360 then
+				rotation_vaisseau := 0
+			end
+			rotation_vaisseau := rotation_vaisseau + 3
+			print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
+		end
+
+	rotation_vaisseau_radiant: REAL_64
+			-- Transforme l'angle qui est en degré en radiant.
 		do
 			Result := ((2 * pi) * rotation_vaisseau) / 360
 		end
-
---		action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
---			do
---			end
 
 	sur_iteration (a_timestamp: NATURAL_32; a_fenetre: GAME_RENDERER)
 			-- Rafraichit la fenêtre du jeu principal à chaque itération.
@@ -285,20 +331,20 @@ feature {NONE} -- Affichage
 			end
 		end
 
---	update_vaisseau (a_x, a_y: INTEGER; a_renderer: GAME_RENDERER)
---		do
---			vaisseau_selectionne.vaisseau.afficher (a_x, a_y, a_renderer)
---		end
+		--	update_vaisseau (a_x, a_y: INTEGER; a_renderer: GAME_RENDERER)
+		--		do
+		--			vaisseau_selectionne.vaisseau.afficher (a_x, a_y, a_renderer)
+		--		end
 
 feature {ANY} -- Implementation
 
-	rotation_vaisseau: REAL_64
+	rotation_vaisseau: REAL_64 -- L'angle de rotation du vaisseau.
 
-	etait_pause: BOOLEAN	-- Attribut qui donne True si le temps était sur pause. False sinon.
+	etait_pause: BOOLEAN -- Attribut qui donne True si le temps était sur pause. False sinon.
 
-	image_pause: AFFICHABLE	-- L'image du « popup » de pause.
+	image_pause: AFFICHABLE -- L'image du « popup » de pause.
 
-	image_cliquez_jouer: AFFICHABLE	-- L'image du « popup » pour jouer.
+	image_cliquez_jouer: AFFICHABLE -- L'image du « popup » pour jouer.
 
 	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR"
 
@@ -338,29 +384,33 @@ feature {ANY} -- Implementation
 
 	tour_complete: BOOLEAN -- Détermine si le nombre de tours completés doit changer.
 
+	vitesse: REAL_64
 
 feature {NONE} -- Constantes
 
-	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton RETOUR.
+	Acceleration: REAL_64
+		once
+			Result := 0.1
+		end
+
+	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton RETOUR.
 		once
 			Result := [759, 519, 917, 577]
 		end
 
-	Bouton_pause_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton PAUSE.
+	Bouton_pause_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton PAUSE.
 		once
 			Result := [759, 419, 917, 477]
 		end
 
-	Bouton_jouer_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton JOUER.
+	Bouton_jouer_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton JOUER.
 		once
 			Result := [759, 319, 917, 377]
 		end
 
-	Bouton_muet_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton MUET.
+	Bouton_muet_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton MUET.
 		once
 			Result := [930, 0, 999, 48]
 		end
-
-
 
 end
