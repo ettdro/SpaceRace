@@ -15,7 +15,8 @@ inherit
 		rename
 			make as make_menu
 		redefine
-			execution
+			execution,
+			valider_bouton_retour
 		end
 
 create
@@ -51,10 +52,10 @@ feature {NONE} -- Initialization
 			create image_cliquez_jouer.creer_affichable (fenetre.fenetre.renderer, "cliquez_jouer.png")
 			create chronometre.make (fenetre.fenetre.renderer, font, couleur)
 			create tours.make (fenetre.fenetre.renderer, font, couleur)
-			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton RETOUR.
-			liste_coordonnees.extend ([760, 420, 966, 476]) -- Coordonnées du bouton PAUSE.
-			liste_coordonnees.extend ([760, 320, 966, 376]) -- Coordonnées du bouton JOUER.
-			liste_coordonnees.extend ([930, 0, 999, 48]) -- Coordonnées du bouton MUET.
+			liste_coordonnees.extend (Bouton_retour_coordonnees)
+			liste_coordonnees.extend (Bouton_pause_coordonnees)
+			liste_coordonnees.extend (Bouton_jouer_coordonnees)
+			liste_coordonnees.extend (Bouton_muet_coordonnees)
 		ensure
 			Piste_Assigne: piste_selectionne = a_piste_selectionne
 			Vaisseau_Assigne: vaisseau_selectionne = a_vaisseau_selectionne
@@ -69,9 +70,9 @@ feature {ANY} -- Access
 		do
 			from
 				quitter := False
-				retour_jeu_principal := False
+				sortir_menu := False
 			until
-				quitter or retour_jeu_principal
+				quitter or sortir_menu
 			loop
 				game_library.clear_all_events
 				Precursor {MENU}
@@ -121,7 +122,7 @@ feature {ANY} -- Access
 				if est_debut then
 					chronometre.depart_chrono (a_temps)
 					fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?, ?))
-						--	fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
+					fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
 					fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
 					est_debut := False
 				end
@@ -153,14 +154,14 @@ feature {ANY} -- Access
 			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
 		do
 			if
-				a_x > Bouton_retour_coordonnees.x1 and
-				a_x < Bouton_retour_coordonnees.x2 and
-				a_y > Bouton_retour_coordonnees.y1 and
-				a_y < Bouton_retour_coordonnees.y2
+				a_x > Bouton_retour_jeu_coordonnees.x1 and
+				a_x < Bouton_retour_jeu_coordonnees.x2 and
+				a_y > Bouton_retour_jeu_coordonnees.y1 and
+				a_y < Bouton_retour_jeu_coordonnees.y2
 			then
 				verifier_si_muet
 				curseur.reinitialiser_curseur
-				retour_jeu_principal := True
+				sortir_menu := True
 				quitter := False
 				game_library.stop
 			end
@@ -175,14 +176,6 @@ feature {ANY} -- Access
 						acceleration_vaisseau
 						avancer
 					end
-					if not a_etat_clavier.is_up then
-						from
-						until
-							vitesse = 0
-						loop
-							deceleration_vaisseau
-						end
-					end
 					if a_etat_clavier.is_left then
 						rotation_gauche
 					end
@@ -196,7 +189,9 @@ feature {ANY} -- Access
 	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie que l'accélération (flèche du haut) est relâchée pour décélérer.
 		do
-
+			if not a_etat_clavier.is_repeat then
+				deceleration_vaisseau
+			end
 		end
 
 	acceleration_vaisseau
@@ -331,11 +326,6 @@ feature {NONE} -- Affichage
 			end
 		end
 
-		--	update_vaisseau (a_x, a_y: INTEGER; a_renderer: GAME_RENDERER)
-		--		do
-		--			vaisseau_selectionne.vaisseau.afficher (a_x, a_y, a_renderer)
-		--		end
-
 feature {ANY} -- Implementation
 
 	rotation_vaisseau: REAL_64
@@ -418,7 +408,7 @@ feature {NONE} -- Constantes
 			Result := 0.1
 		end
 
-	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+	Bouton_retour_jeu_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du bouton RETOUR.
 		once
 			Result := [759, 519, 917, 577]

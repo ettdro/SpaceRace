@@ -9,7 +9,7 @@ class
 
 inherit
 
-	MENU
+	MENU_SELECTION
 		rename
 			make as make_menu
 		redefine
@@ -51,13 +51,13 @@ feature {ANY} -- Access
 		do
 			from
 				quitter := False
-				retour_vaisseaux := False
+				sortir_menu := False
 			until
-				quitter or retour_vaisseaux
+				quitter or sortir_menu
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_vaisseaux
-				Precursor {MENU}
+				Precursor {MENU_SELECTION}
 				game_library.launch
 			end
 		end
@@ -74,38 +74,9 @@ feature {ANY} -- Access
 			end
 		end
 
-	valider_bouton_retour(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+	lancer_menu_suivant
 		do
-			if
-				a_x > Bouton_retour_coordonnees.x1 and
-				a_x < Bouton_retour_coordonnees.x2 and
-				a_y > Bouton_retour_coordonnees.y1 and
-				a_y < Bouton_retour_coordonnees.y2
-			then
-				verifier_si_muet
-				curseur.reinitialiser_curseur
-				retour_vaisseaux := True
-				quitter := False
-				game_library.stop
-			end
-		end
-
-	valider_bouton_suivant(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton SUIVANT et exécute l'action en conséquence.
-		do
-			if
-				a_x > Bouton_suivant_coordonnees.x1 and
-				a_x < Bouton_suivant_coordonnees.x2 and
-				a_y > Bouton_suivant_coordonnees.y1 and
-				a_y < Bouton_suivant_coordonnees.y2
-			then
-				if suivant_est_visible then
-					verifier_si_muet
-					curseur.reinitialiser_curseur
-					lancer_fenetre_jeu_principal
-				end
-			end
+			lancer_fenetre_jeu_principal
 		end
 
 	valider_cadre_gauche(a_x, a_y:INTEGER)
@@ -255,23 +226,8 @@ feature {ANY} -- Implementation
 	cadre_selectionne: AFFICHABLE
 			-- L'image d'un cadre sélectionné.
 
-	suivant_est_visible: BOOLEAN
-			-- Détermine si le bouton "SUIVANT" est visible.
-
 
 feature {NONE}  -- Constantes
-
-	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
-			-- Constante représentant les coordonnées du bouton RETOUR.
-		once
-			Result := [29, 519, 237, 577]
-		end
-
-	Bouton_suivant_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
-			-- Constante représentant les coordonnées du bouton SUIVANT.
-		once
-			Result := [759, 519, 917, 577]
-		end
 
 	Bouton_cadre_gauche_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
 			-- Constante représentant les coordonnées du cadre de gauche.

@@ -40,9 +40,9 @@ feature {NONE} -- Initialization
 			create bouton_options.creer_affichable (fenetre.fenetre.renderer, "bouton_options2.png")
 			create bouton_quitter.creer_affichable (fenetre.fenetre.renderer, "bouton_quitter2.png")
 			create logo.creer_affichable (fenetre.fenetre.renderer, "logo2.png")
-			liste_coordonnees.extend ([400, 250, 606, 306]) -- Coordonnées du bouton JOUER.
-			liste_coordonnees.extend ([400, 350, 606, 406]) -- Coordonnées du bouton OPTIONS.
-			liste_coordonnees.extend ([400, 450, 606, 506]) -- Coordonnées du bouton QUITTER.
+			liste_coordonnees.extend (Bouton_jouer_coordonnees)
+			liste_coordonnees.extend (Bouton_options_coordonnees)
+			liste_coordonnees.extend (Bouton_quitter_coordonnees)
 		end
 
 feature {ANY} -- Access

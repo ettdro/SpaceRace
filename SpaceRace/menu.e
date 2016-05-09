@@ -72,22 +72,30 @@ feature {ANY} -- Access
 			end
 		end
 
+	valider_bouton_retour (a_x, a_y: INTEGER)
+			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_retour_coordonnees.x1 and
+				a_x < Bouton_retour_coordonnees.x2 and
+				a_y > Bouton_retour_coordonnees.y1 and
+				a_y < Bouton_retour_coordonnees.y2
+			then
+				verifier_si_muet
+				curseur.reinitialiser_curseur
+				sortir_menu := True
+				quitter := False
+				game_library.stop
+			end
+		end
+
 feature {ANY} -- Implementation
 
 	quitter: BOOLEAN
 			-- Permet de quitter le programme.
 
-	retour_options: BOOLEAN -- Permet de quitter le menu "OPTIONS".
-
-	retour_credits: BOOLEAN -- Permet de quitter le menu "CREDITS".
-
-	retour_comment_jouer: BOOLEAN -- Permet de quitter le menu "COMMENT JOUER".
-
-	retour_pistes: BOOLEAN -- Permet de quitter le menu "PISTES".
-
-	retour_vaisseaux: BOOLEAN -- Permet de quitter le menu "VAISSEAUX".
-
-	retour_jeu_principal: BOOLEAN -- Permet de quitter le menu "JEU PRINCIPAL".
+	sortir_menu: BOOLEAN
+			-- Permet de sortir du menu actif.
 
 	fenetre: FENETRE
 			-- La fenêtre de l'application.
@@ -106,5 +114,14 @@ feature {ANY} -- Implementation
 
 	liste_coordonnees: LIST [TUPLE [x1, y1, x2, y2: INTEGER]]
 			-- Liste de coordonnées des boutons dans les menus.
+
+
+feature {ANY} -- Constantes
+
+	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton RETOUR.
+		once
+			Result := [29, 519, 237, 577]
+		end
 
 end

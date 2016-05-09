@@ -35,10 +35,10 @@ feature -- Initialization
 			create bouton_credits.creer_affichable (fenetre.fenetre.renderer, "bouton_credits.png")
 			create bouton_comment_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_comment_jouer.png")
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
-			liste_coordonnees.extend ([400, 100, 606, 156]) -- Coordonnées des boutons MUET/NON_MUET.
-			liste_coordonnees.extend ([400, 200, 606, 256]) -- Coordonnées du bouton CREDITS.
-			liste_coordonnees.extend ([310, 300, 695, 356]) -- Coordonnées du bouton COMMENT_JOUER.
-			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
+			liste_coordonnees.extend (Bouton_muet_coordonnees)
+			liste_coordonnees.extend (Bouton_credits_coordonnees)
+			liste_coordonnees.extend (Bouton_comment_jouer_coordonnees)
+			liste_coordonnees.extend (Bouton_retour_coordonnees)
 		end
 
 feature {ANY} -- Access
@@ -48,9 +48,9 @@ feature {ANY} -- Access
 		do
 			from
 				quitter := False
-				retour_options := False
+				sortir_menu := False
 			until
-				quitter or retour_options
+				quitter or sortir_menu
 			loop
 				game_library.clear_all_events
 				lancer_fenetre_options
@@ -111,23 +111,6 @@ feature {ANY} -- Access
 				verifier_si_muet
 				curseur.reinitialiser_curseur
 				lancer_fenetre_comment_jouer
-			end
-		end
-
-	valider_bouton_retour (a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
-		do
-			if
-				a_x > Bouton_retour_coordonnees.x1 and
-				a_x < Bouton_retour_coordonnees.x2 and
-				a_y > Bouton_retour_coordonnees.y1 and
-				a_y < Bouton_retour_coordonnees.y2
-			then
-				verifier_si_muet
-				curseur.reinitialiser_curseur
-				retour_options := True
-				quitter := False
-				game_library.stop
 			end
 		end
 
@@ -208,12 +191,6 @@ feature {NONE} -- Constantes
 			-- Constante représentant les coordonnées du bouton COMMENT JOUER.
 		once
 			Result := [309, 299, 695, 357]
-		end
-
-	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
-			-- Constante représentant les coordonnées du bouton RETOUR.
-		once
-			Result := [29, 519, 237, 577]
 		end
 
 end

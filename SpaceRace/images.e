@@ -8,7 +8,6 @@ deferred class
 	IMAGES
 
 inherit
-
 	GAME_TEXTURE
 
 feature {ANY} -- Access
