@@ -13,10 +13,10 @@ inherit
 
 	AUDIO_LIBRARY_SHARED
 
-feature {ANY} -- Access
+feature {ANY} -- Initialization
 
 	creer_audio (a_nom_fichier: STRING)
-			-- Méthode qui crée le son.
+			-- Méthode qui crée le son (a_nom_fichier).
 		require
 			Bon_Format_Audio: a_nom_fichier.ends_with (".wav")
 			Bonne_Taille_Audio: a_nom_fichier.count > 4
@@ -38,6 +38,8 @@ feature {ANY} -- Access
 			end
 		end
 
+feature {ANY} -- Access
+
 	repeter_son (a_temps: NATURAL)
 			-- Fais jouer le son lorsque voulu.
 		do
@@ -45,7 +47,7 @@ feature {ANY} -- Access
 		end
 
 	jouer (a_boucle_infini: BOOLEAN)
-			-- Vérifie si le son n'est pas NULL et fait jouer le son (à l'infini si TRUE).
+			-- Vérifie si le son n'est pas NULL et fait jouer le son (à l'infini si a_boucle_infini = TRUE).
 		do
 			if a_boucle_infini = True then
 				if attached son as la_son then

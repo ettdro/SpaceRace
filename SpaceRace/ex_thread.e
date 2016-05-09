@@ -20,7 +20,7 @@ create
 feature {NONE} -- Initialization
 
 	make (a_message: STRING)
-			-- Crée `Current'.
+			-- Crée `Current' avec le message (a_message) qu'il affichera.
 		do
 			make_thread
 			doit_arreter := False

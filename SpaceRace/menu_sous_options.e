@@ -1,29 +1,32 @@
 note
-	description: "Summary description for {MENU_SOUS_OPTIONS}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "Contient les éléments générux aux menus qui découlent du menu des options."
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-05-09"
+	revision: "1.0"
 
 deferred class
 	MENU_SOUS_OPTIONS
 
 inherit
-	MENU
-	redefine
-		execution,
-		action_souris,
-		make
-	end
 
-feature
+	MENU
+		redefine
+			execution,
+			action_souris,
+			make
+		end
+
+feature {ANY} -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
-			-- Construit le menu qui explique comment jouer et ses images.
+			-- Construit le menu (a_fenetre), ses sons (a_musique et a_son_click) et ses images.
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			liste_coordonnees.extend (Bouton_retour_coordonnees)
 		end
+
+feature {ANY} -- Access
 
 	execution
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
@@ -42,12 +45,14 @@ feature
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
-			-- Méthode qui gère les actions de la souris dans les menus.
+			-- Méthode qui gère les actions de la souris (a_etat_souris) dans les menus.
 		do
 			if a_etat_souris.is_left_button_pressed then
 				valider_bouton_retour (a_etat_souris.x, a_etat_souris.y)
 			end
 		end
+
+feature {ANY} -- Affichage
 
 	lancer_fenetre
 			-- Dessine les éléments de la fenêtre.

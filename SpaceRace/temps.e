@@ -7,10 +7,10 @@ note
 deferred class
 	TEMPS
 
-feature {ANY}
+feature {ANY} -- Acces
 
 	chronometre (a_timestamp: NATURAL)
-			-- Incrémente le temps du chronomètre.
+			-- Incrémente le temps du chronomètre à l'aide de a_timestamp.
 		do
 			if not pause then
 				pause := False
@@ -23,21 +23,22 @@ feature {ANY}
 		end
 
 	depart_chrono (a_debut_milliseconde: NATURAL)
-			-- Démarre le chronomètre.
+			-- Démarre le chronomètre au temps de a_debut_milliseconde.
 		do
 			temps_debut_milliseconde := a_debut_milliseconde
 		end
 
 	unpause (a_timestamp: NATURAL)
-			-- Remets le chronomètre en marche. (Lors de plusieurs click consécutifs sur JOUER, le temps devient bizarre.)
+			-- Remets le chronomètre en marche au bon temps à l'aide de a_timestamp.
 		do
 			temps_milliseconde := temps_milliseconde - (a_timestamp - temps_pause)
 			pause := False
 		end
 
-feature {ANY}
+feature {ANY} -- Implementation
 
-	pause: BOOLEAN -- Détermine si le jeu est en pause.
+	pause: BOOLEAN
+			-- Détermine si le jeu est en pause.
 
 	temps_pause: NATURAL
 		 	-- Le temps de la pause.

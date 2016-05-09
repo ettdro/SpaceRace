@@ -17,7 +17,7 @@ create
 feature {NONE} -- Initialisation
 
 	make (a_fenetre: GAME_RENDERER; a_police: TEXT_FONT; a_couleur: GAME_COLOR)
-			-- Crée le compteur de tours.
+			-- Crée le compteur de tours, sa police (a_police) et sa couleur (a_couleur) dans la fenêtre (a_fenêtre).
 		do
 			fenetre := a_fenetre
 			police := a_police
@@ -37,7 +37,7 @@ feature {NONE} -- Initialisation
 feature {ANY} -- Access
 
 	afficher_tours (a_tour_complete: BOOLEAN)
-			-- Affiche le nombre de tours à l'écran.
+			-- Affiche le nombre de tours à l'écran (a_tour_complete).
 		do
 			incrementer_tour (a_tour_complete)
 			create text_surface_tours_execute.make (nombre_tour.out, police, couleur)

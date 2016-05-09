@@ -25,7 +25,7 @@ create
 feature {NONE} -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE; a_piste_selectionne: PISTE; a_vaisseau_selectionne: VAISSEAU)
-			-- Construit le menu du jeu et ses images.
+			-- Construit le menu du jeu (a_piste_selectionne et a_vaisseau_selectionne), ses effets sonores (a_musique et a_son_click) dans la fenêtre (a_fenetre).
 		do
 			piste_selectionne := a_piste_selectionne
 			vaisseau_selectionne := a_vaisseau_selectionne
@@ -84,7 +84,7 @@ feature {ANY} -- Access
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
-			-- Méthode qui gère les actions de la souris dans le menu.
+			-- Méthode qui gère les actions de la souris (a_etat_souris) dans le menu et a_temps sert pour le chronomètre.
 		do
 			if a_etat_souris.is_left_button_pressed then
 				valider_bouton_muet (a_etat_souris.x, a_etat_souris.y)
@@ -95,7 +95,7 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_muet (a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton MUET et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton MUET et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_muet_coordonnees.x1 and
@@ -110,7 +110,7 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_jouer (a_temps: NATURAL_32; a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton JOUER et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton JOUER et exécute l'action en conséquence et a_temps sert pour le chronomètre.
 		do
 			if
 				a_x > Bouton_jouer_coordonnees.x1 and
@@ -135,7 +135,7 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_pause (a_temps: NATURAL_32; a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton PAUSE et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton PAUSE et exécute l'action en conséquence et a_temps sert pour le chronomètre.
 		do
 			if
 				a_x > Bouton_pause_coordonnees.x1 and
@@ -151,7 +151,7 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_retour (a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton RETOUR et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_retour_jeu_coordonnees.x1 and
@@ -168,7 +168,7 @@ feature {ANY} -- Access
 		end
 
 	action_clavier (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
-			-- Vérifie quelle touche est pressée pour pouvoir exécuter la bonne action (déplacement ou rotation).
+			-- Vérifie quelle touche (a_etat_clavier) est pressée pour pouvoir exécuter la bonne action (déplacement ou rotation).
 		do
 			if not chronometre.pause then
 				if a_etat_clavier.is_repeat or not a_etat_clavier.is_repeat then
@@ -187,7 +187,7 @@ feature {ANY} -- Access
 		end
 
 	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
-			-- Vérifie que l'accélération (flèche du haut) est relâchée pour décélérer.
+			-- Vérifie que l'accélération (a_etat_clavier) est relâchée pour décélérer.
 		do
 			if not a_etat_clavier.is_repeat then
 				deceleration_vaisseau
@@ -273,7 +273,7 @@ feature {ANY} -- Access
 		end
 
 	sur_iteration (a_timestamp: NATURAL_32; a_fenetre: GAME_RENDERER)
-			-- Rafraichit la fenêtre du jeu principal à chaque itération.
+			-- Rafraichit la fenêtre (a_fenetre) du jeu principal à chaque itération et a_timestamp sert au chronomètre.
 		do
 			if not chronometre.pause then
 				chronometre.chronometre (a_timestamp)

@@ -21,7 +21,7 @@ create
 feature -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
-			-- Construit le menu des options, ses images ainsi que la liste des coordonnées des boutons.
+			-- Construit le menu des options (a_fenetre), ses sons (a_musique et a_son_click), ses images ainsi que la liste des coordonnées des boutons.
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
 			if not musique.est_muet then
@@ -60,7 +60,7 @@ feature {ANY} -- Access
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
-			-- Méthode qui gère les actions de la souris dans le menu.
+			-- Méthode qui gère les actions (a_etat_souris) de la souris dans le menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
 				valider_bouton_muet (a_etat_souris.x, a_etat_souris.y)
@@ -71,7 +71,7 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_muet (a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton MUET et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton MUET et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_muet_coordonnees.x1 and
@@ -85,7 +85,7 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_credits (a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton RETOUR et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_credits_coordonnees.x1 and
@@ -100,7 +100,7 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_comment_jouer (a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton RETOUR et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_comment_jouer_coordonnees.x1 and

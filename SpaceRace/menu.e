@@ -18,13 +18,13 @@ inherit
 feature -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
-			-- Constructeur de la classe abstraite MENU qui créer une liste de coordonnées, la fenêtre, la musique et le son lors d'un click.
+			-- Constructeur de la classe abstraite MENU qui créer une liste de coordonnées, la fenêtre (a_fenetre), la musique (a_musique) et le son lors d'un click (a_son_click).
 		do
 			fenetre := a_fenetre
 			musique := a_musique
 			son_click := a_son_click
 			create curseur.make
-			create fond.make_image (fenetre.fenetre.renderer, "background_space.png")
+			create fond.creer_affichable (fenetre.fenetre.renderer, "background_space.png")
 			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} liste_coordonnees.make
 		ensure
 			Fenetre_Assigne: fenetre = a_fenetre
@@ -42,12 +42,12 @@ feature {ANY} -- Access
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
-			-- Méthode qui gère les actions de la souris dans les menus.
+			-- Méthode qui gère les actions de la souris (a_etat_souris) dans les menus.
 		deferred
 		end
 
 	mouvements_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_MOTION_STATE; a_x, a_y: INTEGER_32; a_fenetre: GAME_WINDOW_RENDERED)
-			-- Détecte la position du curseur en positions 'a_x' et 'a_y'.
+			-- Détecte la position du curseur (a_x, a_y et a_etat_souris) .
 		do
 			curseur.change_curseur (a_temps, a_etat_souris, a_x, a_y, a_fenetre, liste_coordonnees)
 		end
@@ -73,7 +73,7 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_retour (a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton RETOUR et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton RETOUR et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_retour_coordonnees.x1 and
@@ -109,7 +109,7 @@ feature {ANY} -- Implementation
 	curseur: CURSEUR
 			-- Le curseur de la souris.
 
-	fond: FOND_ECRAN
+	fond: AFFICHABLE
 			-- L'image de fond.
 
 	liste_coordonnees: LIST [TUPLE [x1, y1, x2, y2: INTEGER]]

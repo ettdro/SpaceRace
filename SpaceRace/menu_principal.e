@@ -64,7 +64,7 @@ feature {ANY} -- Access
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
-			-- Méthode qui gère les clicks de souris pour permettre la navigation à partir de ce menu.
+			-- Méthode qui gère les clicks de souris (a_etat_souris) pour permettre la navigation à partir de ce menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
 				valider_bouton_jouer(a_etat_souris.x, a_etat_souris.y)
@@ -74,7 +74,7 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_jouer(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton JOUER et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton JOUER et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_jouer_coordonnees.x1 and
@@ -89,7 +89,7 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_options(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton JOUER et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton JOUER et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_options_coordonnees.x1 and
@@ -104,7 +104,7 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_quitter(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris est sur le bouton JOUER et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton JOUER et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_quitter_coordonnees.x1 and

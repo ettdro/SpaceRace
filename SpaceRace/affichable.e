@@ -17,7 +17,7 @@ create
 feature {NONE} -- Initialization
 
 	creer_affichable (a_renderer: GAME_RENDERER; a_nom_fichier: STRING)
-			-- Méthode qui lance la création d'un fichier affichable (a_nom_fichier).
+			-- Méthode qui lance la création du fichier affichable (a_nom_fichier) dans la fenêtre (a_renderer).
 		require
 			Bon_Format_Image: a_nom_fichier.ends_with (".png")
 			Bonne_Taille_String: a_nom_fichier.count > 4

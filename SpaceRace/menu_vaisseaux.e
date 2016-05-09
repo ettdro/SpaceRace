@@ -21,11 +21,11 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE; a_piste_selectionne: PISTE)
-			-- Construit le menu pour choisir le vaisseaux.
+	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE; a_piste_selectionnee: PISTE)
+			-- Construit le menu pour choisir le vaisseaux (a_fenetre), ses sons (a_musique et a_son_click) et ses images. a_pite_selectionnee sert à être passé au menu de jeu.
 		do
 			make_menu (a_fenetre, a_musique, a_son_click)
-			piste_selectionne := a_piste_selectionne
+			piste_selectionnee := a_piste_selectionnee
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
 			create titre.creer_affichable (fenetre.fenetre.renderer, "choisir_vaisseau.png")
@@ -41,7 +41,7 @@ feature {NONE} -- Initialization
 			liste_coordonnees.extend ([660, 200, 840, 380]) -- Coordonnées du bouton CADRE DROITE.
 			liste_coordonnees.start
 		ensure
-			Piste_Assigne: piste_selectionne = a_piste_selectionne
+			Piste_Assigne: piste_selectionnee = a_piste_selectionnee
 		end
 
 feature {ANY} -- Access
@@ -63,7 +63,7 @@ feature {ANY} -- Access
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
-			-- Méthode qui gère les actions de la souris dans le menu.
+			-- Méthode qui gère les actions de la souris (a_etat_souris) dans le menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
 				valider_bouton_retour (a_etat_souris.x, a_etat_souris.y)
@@ -75,12 +75,13 @@ feature {ANY} -- Access
 		end
 
 	lancer_menu_suivant
+			-- Lance le menu du jeu principal.
 		do
 			lancer_fenetre_jeu_principal
 		end
 
 	valider_cadre_gauche(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris est sur le cadre en haut à gauche et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le cadre en haut à gauche et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_cadre_gauche_coordonnees.x1 and
@@ -97,7 +98,7 @@ feature {ANY} -- Access
 		end
 
 	valider_cadre_milieu(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris est sur le cadre en haut à droite et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le cadre en haut à droite et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_cadre_milieu_coordonnees.x1 and
@@ -114,7 +115,7 @@ feature {ANY} -- Access
 		end
 
 	valider_cadre_droite(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris est sur le cadre en bas à gauche et exécute l'action en conséquence.
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le cadre en bas à gauche et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_cadre_droite_coordonnees.x1 and
@@ -133,7 +134,7 @@ feature {ANY} -- Access
 feature {NONE} -- Affichage
 
 	actualiser_cadre (a_liste_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER])
-			-- Affiche le cadre en jaune puisqu'il est celui sélectionné et affiche le bouton SUIVANT.
+			-- Affiche le cadre en jaune (a_liste_coordonnes) puisqu'il est celui sélectionné et affiche le bouton SUIVANT.
 		require
 			Liste_Vide: not a_liste_coordonnees.is_empty
 			Position_X1_Valide: a_liste_coordonnees.x1 >= 0 and a_liste_coordonnees.x1 <= 1000
@@ -188,7 +189,7 @@ feature {NONE} -- Affichage
 			l_menu_jeu_principal: JEU_PRINCIPAL
 		do
 			if attached vaisseau_selectionne as la_vaisseau_selectionne then
-				create l_menu_jeu_principal.make (fenetre, musique, son_click, piste_selectionne, la_vaisseau_selectionne)
+				create l_menu_jeu_principal.make (fenetre, musique, son_click, piste_selectionnee, la_vaisseau_selectionne)
 				l_menu_jeu_principal.execution
 				quitter := l_menu_jeu_principal.quitter
 			end
@@ -208,7 +209,7 @@ feature {ANY} -- Implementation
 	vaisseau3: AFFICHABLE
 			-- L'image du vaisseau 3.
 
-	piste_selectionne: PISTE
+	piste_selectionnee: PISTE
 			-- La piste qui a été choisie.
 
 	vaisseau_selectionne: detachable VAISSEAU
@@ -225,7 +226,6 @@ feature {ANY} -- Implementation
 
 	cadre_selectionne: AFFICHABLE
 			-- L'image d'un cadre sélectionné.
-
 
 feature {NONE}  -- Constantes
 
