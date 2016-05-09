@@ -21,10 +21,6 @@ feature {NONE} -- Initialization
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteV.png")
 			x := 59
 			y := 250
-				--			limite_gauche := 41
-				--			limite_droite := 77
-				--			limite_haut := 34
-				--			limite_bas := 55
 			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} checkpoint_liste.make
 			checkpoint_liste.extend (Depart_verte)
 			checkpoint_liste.extend (Checkpoint_verte_1)
@@ -95,15 +91,40 @@ feature {NONE} -- Initialization
 
 feature {ANY} -- Access
 
-	valider_checkpoint(position_x, position_y: INTEGER)
+	valider_checkpoint(position_x, position_y: INTEGER; a_rotation: REAL_64)
 		-- Regarde si le vaisseau a traversé un checkpoint.
 		do
 			checkpoint_liste.start
 			across
 				checkpoint_liste as la_checkpoint_liste
 			loop
-				if position_x > checkpoint_liste.item.x1 and position_x < checkpoint_liste.item.x2 and position_y > checkpoint_liste.item.y1 and position_y < checkpoint_liste.item.y2 then
-					print("checkpoint passé")
+				if checkpoint_liste.index = 1 then
+					if position_x > checkpoint_liste.item.x1 and position_x < checkpoint_liste.item.x2 then
+						if position_y < checkpoint_liste.item.y1 and position_y > checkpoint_liste.item.y2 then
+							print("départ passé")
+						end
+					end
+				end
+				if checkpoint_liste.index = 2 then
+					if position_x > checkpoint_liste.item.x1 and position_x < checkpoint_liste.item.x2 then
+						if position_y > checkpoint_liste.item.y1 and position_y < checkpoint_liste.item.y2 then
+							print("checkpoint 1 passé")
+						end
+					end
+				end
+				if checkpoint_liste.index = 3 then
+					if position_x > checkpoint_liste.item.x1 and position_x < checkpoint_liste.item.x2 then
+						if position_y > checkpoint_liste.item.y1 and position_y < checkpoint_liste.item.y2 then
+							print("checkpoint 2 passé")
+						end
+					end
+				end
+				if checkpoint_liste.index = 4 then
+					if position_x > checkpoint_liste.item.x1 and position_x < checkpoint_liste.item.x2 then
+						if position_y < checkpoint_liste.item.y1 and position_y > checkpoint_liste.item.y2 then
+							print("checkpoint 3 passé")
+						end
+					end
 				end
 				checkpoint_liste.move (1)
 			end
@@ -123,48 +144,50 @@ feature {ANY} -- Implementation
 	checkpoint_liste: LIST [TUPLE [x1, y1, x2, y2: INTEGER]]
 			-- Liste qui contient les constantes des coordonnées des checkpoints.
 
+	checkpoint_is_passed: BOOLEAN
+
 feature {NONE} -- Constantes
 
 	Checkpoint_verte_1: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 1 de la piste verte.
 		once
-			Result := [374, 114, 374, 180]
+			Result := [374, 114, 380, 180]
 		end
 
 	Checkpoint_verte_2: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 2 de la piste verte.
 		once
-			Result := [554, 490, 554, 545]
+			Result := [554, 490, 560, 545]
 		end
 
 	Checkpoint_verte_3: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 3 de la piste verte.
 		once
-			Result := [193, 395, 193, 455]
+			Result := [193, 395, 200, 455]
 		end
 
 	Checkpoint_jaune_1: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 1 de la piste jaune.
 		once
-			Result := [315, 28, 315, 90]
+			Result := [315, 28, 325, 90]
 		end
 
 	Checkpoint_jaune_2: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 2 de la piste jaune.
 		once
-			Result := [500, 167, 500, 225]
+			Result := [500, 167, 510, 225]
 		end
 
 	Checkpoint_jaune_3: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 3 de la piste jaune.
 		once
-			Result := [580, 433, 645, 433]
+			Result := [580, 433, 645, 423]
 		end
 
 	Checkpoint_jaune_4: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 4 de la piste jaune.
 		once
-			Result := [265, 400, 265, 462]
+			Result := [265, 400, 275, 462]
 		end
 
 	Checkpoint_mauve_1: TUPLE [x1, y1, x2, y2: INTEGER]
@@ -236,13 +259,13 @@ feature {NONE} -- Constantes
 	Depart_verte: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du départ de la piste bleue.
 		once
-			Result := [28, 256, 92, 256]
+			Result := [28, 256, 92, 246]
 		end
 
 	Depart_jaune: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du départ de la piste bleue.
 		once
-			Result := [28, 333, 95, 333]
+			Result := [28, 333, 95, 323]
 		end
 
 	Depart_mauve: TUPLE [x1, y1, x2, y2: INTEGER]
