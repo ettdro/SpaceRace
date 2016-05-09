@@ -14,7 +14,7 @@ inherit
 feature {ANY} -- Access
 
 	creer_image (a_renderer: GAME_RENDERER; a_nom_fichier: STRING)
-			-- Méthode qui crée une image si le fichier est ouvrable.
+			-- Méthode qui crée une image si le fichier est ouvrable (a_nom_fichier).
 		require
 			Bon_Format_Image: a_nom_fichier.ends_with (".png")
 			Bonne_Taille_String: a_nom_fichier.count > 4

@@ -96,8 +96,10 @@ feature {ANY} -- Access
 
 feature {ANY} -- Implementation
 
-	source: AUDIO_SOURCE -- La source de l'audio.
+	source: AUDIO_SOURCE
+			-- La source de l'audio.
 
-	son: detachable AUDIO_SOUND -- Le son créé.
+	son: detachable AUDIO_SOUND
+			-- Le son créé.
 
 end

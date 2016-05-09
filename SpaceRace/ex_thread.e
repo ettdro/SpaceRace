@@ -20,7 +20,7 @@ create
 feature {NONE} -- Initialization
 
 	make (a_message: STRING)
-			-- Crée un thread.
+			-- Crée `Current'.
 		do
 			make_thread
 			doit_arreter := False
@@ -49,8 +49,10 @@ feature {ANY} -- Access
 
 feature {NONE} -- Implementation
 
-	doit_arreter: BOOLEAN -- Détermine si le thread doit arrêter.
+	doit_arreter: BOOLEAN
+			-- Détermine si le thread doit arrêter.
 
-	message: STRING -- Le message qui sera affiché.
+	message: STRING
+			-- Le message qui sera affiché.
 
 end

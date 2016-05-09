@@ -51,18 +51,25 @@ feature {ANY} -- Access
 
 feature {NONE} -- Implementation
 
-	police: TEXT_FONT -- La police d'écriture du texte.
+	police: TEXT_FONT
+			-- La police d'écriture du texte.
 
-	couleur: GAME_COLOR -- La couleur du texte.
+	couleur: GAME_COLOR
+			-- La couleur du texte.
 
-	texture_total_tours: GAME_TEXTURE -- La texture du "/3" qui signifie le nombre de tours total.
+	texture_total_tours: GAME_TEXTURE
+			-- La texture du "/3" qui signifie le nombre de tours total.
 
-	texture_tours_execute: GAME_TEXTURE -- La texture qui signifie le nombre de tours exécutés.
+	texture_tours_execute: GAME_TEXTURE
+			-- La texture qui signifie le nombre de tours exécutés.
 
-	fenetre: GAME_RENDERER -- La fenêtre de l'application.
+	fenetre: GAME_RENDERER
+			-- La fenêtre de l'application.
 
-	text_surface_total_tours: TEXT_SURFACE_BLENDED -- Une surface pour le total des tours.
+	text_surface_total_tours: TEXT_SURFACE_BLENDED
+			-- Une surface pour le total des tours.
 
-	text_surface_tours_execute: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de tours exécutés.
+	text_surface_tours_execute: TEXT_SURFACE_BLENDED
+			-- Une surface pour le nombre de tours exécutés.
 
 end

@@ -111,130 +111,148 @@ feature {ANY} -- Access
 
 feature {ANY} -- Implementation
 
-	piste: AFFICHABLE -- L'image de la piste pour la partie.
+	piste: AFFICHABLE
+			-- L'image de la piste pour la partie.
 
-		--	limite_gauche: INTEGER
+	x: INTEGER
+			-- La position de départ de la piste en X.
 
-		--	limite_droite: INTEGER
+	y: INTEGER
+			-- La position de départ de la piste en Y.
 
-		--	limite_haut: INTEGER
-
-		--	limite_bas: INTEGER
-
-	x: INTEGER -- La position de départ de la piste en X.
-
-	y: INTEGER -- La position de départ de la piste en Y.
-
-	checkpoint_liste: LIST [TUPLE [x1, y1, x2, y2: INTEGER]] -- Liste qui contient les constantes des coordonnées des checkpoints.
+	checkpoint_liste: LIST [TUPLE [x1, y1, x2, y2: INTEGER]]
+			-- Liste qui contient les constantes des coordonnées des checkpoints.
 
 feature {NONE} -- Constantes
 
-	Checkpoint_verte_1: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 1 de la piste verte.
+	Checkpoint_verte_1: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 1 de la piste verte.
 		once
 			Result := [374, 114, 374, 180]
 		end
 
-	Checkpoint_verte_2: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 2 de la piste verte.
+	Checkpoint_verte_2: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 2 de la piste verte.
 		once
 			Result := [554, 490, 554, 545]
 		end
 
-	Checkpoint_verte_3: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 3 de la piste verte.
+	Checkpoint_verte_3: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 3 de la piste verte.
 		once
 			Result := [193, 395, 193, 455]
 		end
 
-	Checkpoint_jaune_1: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 1 de la piste jaune.
+	Checkpoint_jaune_1: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 1 de la piste jaune.
 		once
 			Result := [315, 28, 315, 90]
 		end
 
-	Checkpoint_jaune_2: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 2 de la piste jaune.
+	Checkpoint_jaune_2: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 2 de la piste jaune.
 		once
 			Result := [500, 167, 500, 225]
 		end
 
-	Checkpoint_jaune_3: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 3 de la piste jaune.
+	Checkpoint_jaune_3: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 3 de la piste jaune.
 		once
 			Result := [580, 433, 645, 433]
 		end
 
-	Checkpoint_jaune_4: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 4 de la piste jaune.
+	Checkpoint_jaune_4: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 4 de la piste jaune.
 		once
 			Result := [265, 400, 265, 462]
 		end
 
-	Checkpoint_mauve_1: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 1 de la piste mauve.
+	Checkpoint_mauve_1: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 1 de la piste mauve.
 		once
 			Result := [100, 25, 100, 85]
 		end
 
-	Checkpoint_mauve_2: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 2 de la piste mauve.
+	Checkpoint_mauve_2: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 2 de la piste mauve.
 		once
 			Result := [360, 125, 360, 180]
 		end
 
-	Checkpoint_mauve_3: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 3 de la piste mauve.
+	Checkpoint_mauve_3: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 3 de la piste mauve.
 		once
 			Result := [585, 55, 585, 115]
 		end
 
-	Checkpoint_mauve_4: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 4 de la piste mauve.
+	Checkpoint_mauve_4: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 4 de la piste mauve.
 		once
 			Result := [580, 372, 630, 372]
 		end
 
-	Checkpoint_mauve_5: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 5 de la piste mauve.
+	Checkpoint_mauve_5: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 5 de la piste mauve.
 		once
 			Result := [375, 525, 375, 575]
 		end
 
-	Checkpoint_mauve_6: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 6 de la piste mauve.
+	Checkpoint_mauve_6: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 6 de la piste mauve.
 		once
 			Result := [218, 360, 218, 410]
 		end
 
-	Checkpoint_mauve_7: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 7 de la piste mauve.
+	Checkpoint_mauve_7: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 7 de la piste mauve.
 		once
 			Result := [113, 515, 113, 575]
 		end
 
-	Checkpoint_bleue_1: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 1 de la piste bleue.
+	Checkpoint_bleue_1: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 1 de la piste bleue.
 		once
 			Result := [405, 20, 405, 80]
 		end
 
-	Checkpoint_bleue_2: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 2 de la piste bleue.
+	Checkpoint_bleue_2: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 2 de la piste bleue.
 		once
 			Result := [397, 220, 397, 285]
 		end
 
-	Checkpoint_bleue_3: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 3 de la piste bleue.
+	Checkpoint_bleue_3: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 3 de la piste bleue.
 		once
 			Result := [557, 375, 557, 425]
 		end
 
-	Checkpoint_bleue_4: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du checkpoint 4 de la piste bleue.
+	Checkpoint_bleue_4: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du checkpoint 4 de la piste bleue.
 		once
 			Result := [452, 530, 452, 585]
 		end
 
-	Depart_verte: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du départ de la piste bleue.
+	Depart_verte: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du départ de la piste bleue.
 		once
 			Result := [28, 256, 92, 256]
 		end
 
-	Depart_jaune: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du départ de la piste bleue.
+	Depart_jaune: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du départ de la piste bleue.
 		once
 			Result := [28, 333, 95, 333]
 		end
 
-	Depart_mauve: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du départ de la piste bleue.
+	Depart_mauve: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du départ de la piste bleue.
 		once
 			Result := [5, 335, 69, 335]
 		end
 
-	Depart_bleue: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du départ de la piste bleue.
+	Depart_bleue: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du départ de la piste bleue.
 		once
 			Result := [15, 266, 85, 266]
 		end

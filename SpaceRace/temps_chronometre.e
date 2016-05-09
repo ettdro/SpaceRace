@@ -73,26 +73,37 @@ feature {ANY}
 
 feature {NONE} -- Implementation
 
-	temps_secondes: NATURAL -- Le temps en secondes.
+	temps_secondes: NATURAL
+			-- Le temps en secondes.
 
-	temps_minutes: NATURAL -- Le temps en minutes.
+	temps_minutes: NATURAL
+			-- Le temps en minutes.
 
-	police: TEXT_FONT -- La police d'écriture du texte.
+	police: TEXT_FONT
+			-- La police d'écriture du texte.
 
-	couleur: GAME_COLOR -- La couleur du texte.
+	couleur: GAME_COLOR
+			-- La couleur du texte.
 
-	texture_minutes: GAME_TEXTURE -- La texture qui signifie le nombre de minutes.
+	texture_minutes: GAME_TEXTURE
+			-- La texture qui signifie le nombre de minutes.
 
-	texture_points: GAME_TEXTURE -- La texture qui signifie les points.
+	texture_points: GAME_TEXTURE
+			-- La texture qui signifie les points.
 
-	texture_secondes: GAME_TEXTURE -- La texture qui signifie le nombre de secondes.
+	texture_secondes: GAME_TEXTURE
+			-- La texture qui signifie le nombre de secondes.
 
-	fenetre: GAME_RENDERER -- La fenêtre de l'application.
+	fenetre: GAME_RENDERER
+			-- La fenêtre de l'application.
 
-	text_surface_minutes: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de minutes.
+	text_surface_minutes: TEXT_SURFACE_BLENDED
+			-- Une surface pour le nombre de minutes.
 
-	text_surface_points: TEXT_SURFACE_BLENDED -- Une surface pour les points.
+	text_surface_points: TEXT_SURFACE_BLENDED
+			-- Une surface pour les points.
 
-	text_surface_secondes: TEXT_SURFACE_BLENDED -- Une surface pour le nombre de secondes.
+	text_surface_secondes: TEXT_SURFACE_BLENDED
+			-- Une surface pour le nombre de secondes.
 
 end

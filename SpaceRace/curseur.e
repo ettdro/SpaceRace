@@ -70,10 +70,13 @@ feature -- Initialization
 
 feature {ANY} -- Implementation
 
-	curseur_main: GAME_CURSOR -- Le curseur qui est la main.
+	curseur_main: GAME_CURSOR
+			-- Le curseur qui est la main.
 
-	curseur_defaut: GAME_CURSOR -- Le curseur qui est la flèche.
+	curseur_defaut: GAME_CURSOR
+			-- Le curseur qui est la flèche.
 
-	y, x: INTEGER -- La position du curseur dans l'écran.
+	y, x: INTEGER
+			-- La position du curseur dans l'écran.
 
 end

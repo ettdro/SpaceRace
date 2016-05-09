@@ -29,12 +29,12 @@ feature {NONE} -- Initialization
 			-- Construit le menu principal, ses images ainsi que la liste des coordonnées des boutons.
 		local
 			l_fenetre: FENETRE
-			l_musique: MUSIQUE
-			l_son_click: EFFETS_SONORES
+			l_musique: EFFET_SONORE
+			l_son_click: EFFET_SONORE
 		do
 			create l_fenetre.make
 			create l_son_click.creer_son ("click_sound.wav")
-			create l_musique.creer ("MusiqueMenu.wav")
+			create l_musique.creer_son ("MusiqueMenu.wav")
 			make_menu (l_fenetre, l_musique, l_son_click)
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
 			create bouton_options.creer_affichable (fenetre.fenetre.renderer, "bouton_options2.png")
@@ -151,27 +151,34 @@ feature {NONE} -- Affichage
 
 feature {ANY} -- Implementation
 
-	bouton_jouer: AFFICHABLE -- L'image du bouton "JOUER"
+	bouton_jouer: AFFICHABLE
+			-- L'image du bouton "JOUER"
 
-	bouton_options: AFFICHABLE -- L'image du bouton "OPTIONS"
+	bouton_options: AFFICHABLE
+			-- L'image du bouton "OPTIONS"
 
-	bouton_quitter: AFFICHABLE -- L'image du bouton "QUITTER"
+	bouton_quitter: AFFICHABLE
+			-- L'image du bouton "QUITTER"
 
-	logo: AFFICHABLE -- L'image du titre principal.
+	logo: AFFICHABLE
+			-- L'image du titre principal.
 
 feature {NONE}  -- Constantes
 
-	Bouton_jouer_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton JOUER.
+	Bouton_jouer_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
+			-- Constante représentant les coordonnées du bouton JOUER.
 		once
 			Result := [399, 249, 607, 307]
 		end
 
-	Bouton_options_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du bouton OPTIONS.
+	Bouton_options_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
+			-- Constante représentant les coordonnées du bouton OPTIONS.
 		once
 			Result := [399, 349, 607, 407]
 		end
 
-	Bouton_quitter_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du bouton QUITTER.
+	Bouton_quitter_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
+			-- Constante représentant les coordonnées du bouton QUITTER.
 		once
 			Result := [399, 449, 607, 507]
 		end

@@ -25,8 +25,10 @@ feature {ANY} -- Access
 
 feature {ANY} -- Implementation
 
-	tour_complete: BOOLEAN -- Détermine si le nombre de tours complétés doit augmenter.
+	tour_complete: BOOLEAN
+			-- Détermine si le nombre de tours complétés doit augmenter.
 
-	nombre_tour: NATURAL -- La nombre de tours qui sont actuellement complétés.
+	nombre_tour: NATURAL
+			-- La nombre de tours qui sont actuellement complétés.
 
 end

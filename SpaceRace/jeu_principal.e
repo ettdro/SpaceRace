@@ -23,7 +23,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES; a_piste_selectionne: PISTE; a_vaisseau_selectionne: VAISSEAU)
+	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE; a_piste_selectionne: PISTE; a_vaisseau_selectionne: VAISSEAU)
 			-- Construit le menu du jeu et ses images.
 		do
 			piste_selectionne := a_piste_selectionne
@@ -338,77 +338,106 @@ feature {NONE} -- Affichage
 
 feature {ANY} -- Implementation
 
-	rotation_vaisseau: REAL_64 -- L'angle de rotation du vaisseau.
+	rotation_vaisseau: REAL_64
+			-- L'angle de rotation du vaisseau.
 
-	etait_pause: BOOLEAN -- Attribut qui donne True si le temps était sur pause. False sinon.
+	etait_pause: BOOLEAN
+			-- Attribut qui donne True si le temps était sur pause. False sinon.
 
-	image_pause: AFFICHABLE -- L'image du « popup » de pause.
+	image_pause: AFFICHABLE
+			-- L'image du « popup » de pause.
 
-	image_cliquez_jouer: AFFICHABLE -- L'image du « popup » pour jouer.
+	image_cliquez_jouer: AFFICHABLE
+			-- L'image du « popup » pour jouer.
 
-	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR"
+	bouton_retour: AFFICHABLE
+			-- L'image du bouton "RETOUR"
 
-	bouton_pause: AFFICHABLE -- L'image du bouton "PAUSE"
+	bouton_pause: AFFICHABLE
+			-- L'image du bouton "PAUSE"
 
-	bouton_jouer: AFFICHABLE -- L'image du bouton "JOUER"
+	bouton_jouer: AFFICHABLE
+			-- L'image du bouton "JOUER"
 
-	titre_tours: AFFICHABLE -- L'image du titre "TOURS"
+	titre_tours: AFFICHABLE
+			-- L'image du titre "TOURS"
 
-	titre_chrono: AFFICHABLE -- L'image du titre "CHRONO"
+	titre_chrono: AFFICHABLE
+			-- L'image du titre "CHRONO"
 
-	piste_selectionne: PISTE -- La piste qui a été choisie.
+	piste_selectionne: PISTE
+			-- La piste qui a été choisie.
 
-	vaisseau_selectionne: VAISSEAU -- Le vaisseau qui a été sélectionné.
+	vaisseau_selectionne: VAISSEAU
+			-- Le vaisseau qui a été sélectionné.
 
-	bouton_muet: AFFICHABLE -- L'image du bouton "MUET" lorsque le son est muet.
+	bouton_muet: AFFICHABLE
+			-- L'image du bouton "MUET" lorsque le son est muet.
 
-	bouton_non_muet: AFFICHABLE -- L'image du bouton "MUET" lorsque le son est actif.
+	bouton_non_muet: AFFICHABLE
+			-- L'image du bouton "MUET" lorsque le son est actif.
 
-	doit_afficher_bouton_muet: BOOLEAN -- Détermine lequel des boutons "MUET" sera affiché.
+	doit_afficher_bouton_muet: BOOLEAN
+			-- Détermine lequel des boutons "MUET" sera affiché.
 
-	deja_afficher: BOOLEAN -- Détermine si le vaisseau est déjà affiché.
+	deja_afficher: BOOLEAN
+			-- Détermine si le vaisseau est déjà affiché.
 
-	vaisseau_y: REAL_64 -- La position en Y du vaisseau.
+	vaisseau_y: REAL_64
+			-- La position en Y du vaisseau.
 
-	vaisseau_x: REAL_64 -- La position en X du vaisseau.
+	vaisseau_x: REAL_64
+			-- La position en X du vaisseau.
 
-	chronometre: TEMPS_CHRONOMETRE -- Le chronomètre du jeu.
+	chronometre: TEMPS_CHRONOMETRE
+			-- Le chronomètre du jeu.
 
-	font: TEXT_FONT -- La police d'écriture du texte (chornomètre et tours).
+	font: TEXT_FONT
+			-- La police d'écriture du texte (chornomètre et tours).
 
-	couleur: GAME_COLOR -- La couleur du texte (chronomètre et tours).
+	couleur: GAME_COLOR
+			-- La couleur du texte (chronomètre et tours).
 
-	tours: TOURS_PISTE -- Le nombre de tours de la partie.
+	tours: TOURS_PISTE
+			-- Le nombre de tours de la partie.
 
-	est_debut: BOOLEAN -- Détermine s'il s'agit du début de la partie pour afficher le bon temps du chronomètre.
+	est_debut: BOOLEAN
+			-- Détermine s'il s'agit du début de la partie pour afficher le bon temps du chronomètre.
 
-	tour_complete: BOOLEAN -- Détermine si le nombre de tours completés doit changer.
+	tour_complete: BOOLEAN
+			-- Détermine si le nombre de tours completés doit changer.
 
 	vitesse: REAL_64
+			-- La vitesse du vaisseau.
 
 feature {NONE} -- Constantes
 
 	Acceleration: REAL_64
+		-- Constante qui représente la vitesse d'accélération.
 		once
 			Result := 0.1
 		end
 
-	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton RETOUR.
+	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton RETOUR.
 		once
 			Result := [759, 519, 917, 577]
 		end
 
-	Bouton_pause_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton PAUSE.
+	Bouton_pause_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton PAUSE.
 		once
 			Result := [759, 419, 917, 477]
 		end
 
-	Bouton_jouer_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton JOUER.
+	Bouton_jouer_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton JOUER.
 		once
 			Result := [759, 319, 917, 377]
 		end
 
-	Bouton_muet_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton MUET.
+	Bouton_muet_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton MUET.
 		once
 			Result := [930, 0, 999, 48]
 		end

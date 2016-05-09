@@ -20,7 +20,7 @@ create
 
 feature -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
+	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
 			-- Construit le menu des crédits et ses images.
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
@@ -85,13 +85,16 @@ feature {NONE} -- Affichage
 
 feature {ANY} -- Implementation
 
-	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR".
+	bouton_retour: AFFICHABLE
+			-- L'image du bouton "RETOUR".
 
-	texte: AFFICHABLE -- L'image du texte.
+	texte: AFFICHABLE
+			-- L'image du texte.
 
 feature {NONE} -- Constantes
 
-	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton RETOUR.
+	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton RETOUR.
 		once
 			Result := [29, 519, 237, 577]
 		end

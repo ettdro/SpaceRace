@@ -39,10 +39,13 @@ feature {ANY}
 
 	pause: BOOLEAN -- Détermine si le jeu est en pause.
 
-	temps_pause: NATURAL -- Le temps de la pause.
+	temps_pause: NATURAL
+		 	-- Le temps de la pause.
 
-	temps_debut_milliseconde: NATURAL -- Le temps depuis la création du chronomètre.
+	temps_debut_milliseconde: NATURAL
+			-- Le temps depuis la création du chronomètre.
 
-	temps_milliseconde: NATURAL -- Le temps en millisecondes.
+	temps_milliseconde: NATURAL
+			-- Le temps en millisecondes.
 
 end

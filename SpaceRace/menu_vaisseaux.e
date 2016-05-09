@@ -21,7 +21,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES; a_piste_selectionne: PISTE)
+	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE; a_piste_selectionne: PISTE)
 			-- Construit le menu pour choisir le vaisseaux.
 		do
 			make_menu (a_fenetre, a_musique, a_son_click)
@@ -225,52 +225,68 @@ feature {NONE} -- Affichage
 
 feature {ANY} -- Implementation
 
-	titre: AFFICHABLE -- L'image du titre du menu.
+	titre: AFFICHABLE
+			-- L'image du titre du menu.
 
-	vaisseau1: AFFICHABLE -- L'image du vaisseau 1.
+	vaisseau1: AFFICHABLE
+			-- L'image du vaisseau 1.
 
-	vaisseau2: AFFICHABLE -- L'image du vaisseau 2.
+	vaisseau2: AFFICHABLE
+			-- L'image du vaisseau 2.
 
-	vaisseau3: AFFICHABLE -- L'image du vaisseau 3.
+	vaisseau3: AFFICHABLE
+			-- L'image du vaisseau 3.
 
-	piste_selectionne: PISTE -- La piste qui a été choisie.
+	piste_selectionne: PISTE
+			-- La piste qui a été choisie.
 
-	vaisseau_selectionne: detachable VAISSEAU -- Le vaisseau qui est choisi au final. "detachable" parce qu'au départ, il n'y a pas de vaisseau.
+	vaisseau_selectionne: detachable VAISSEAU
+			-- Le vaisseau qui est choisi au final. "detachable" parce qu'au départ, il n'y a pas de vaisseau.
 
-	cadre: AFFICHABLE -- L'image d'un cadre non-sélectionné.
+	cadre: AFFICHABLE
+			-- L'image d'un cadre non-sélectionné.
 
-	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR"
+	bouton_retour: AFFICHABLE
+			-- L'image du bouton "RETOUR"
 
-	bouton_suivant: AFFICHABLE -- L'image du bouton "SUIVANT"
+	bouton_suivant: AFFICHABLE
+			-- L'image du bouton "SUIVANT"
 
-	cadre_selectionne: AFFICHABLE -- L'image d'un cadre sélectionné.
+	cadre_selectionne: AFFICHABLE
+			-- L'image d'un cadre sélectionné.
 
-	suivant_est_visible: BOOLEAN -- Détermine si le bouton "SUIVANT" est visible.
+	suivant_est_visible: BOOLEAN
+			-- Détermine si le bouton "SUIVANT" est visible.
 
 
 feature {NONE}  -- Constantes
 
-	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]		-- Constante représentant les coordonnées du bouton RETOUR.
+	Bouton_retour_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
+			-- Constante représentant les coordonnées du bouton RETOUR.
 		once
 			Result := [29, 519, 237, 577]
 		end
 
-	Bouton_suivant_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du bouton SUIVANT.
+	Bouton_suivant_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
+			-- Constante représentant les coordonnées du bouton SUIVANT.
 		once
 			Result := [759, 519, 917, 577]
 		end
 
-	Bouton_cadre_gauche_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du cadre de gauche.
+	Bouton_cadre_gauche_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
+			-- Constante représentant les coordonnées du cadre de gauche.
 		once
 			Result := [200, 200, 380, 380]
 		end
 
-	Bouton_cadre_milieu_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du cadre du milieu.
+	Bouton_cadre_milieu_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
+			-- Constante représentant les coordonnées du cadre du milieu.
 		once
 			Result := [430, 200, 610, 380]
 		end
 
-	Bouton_cadre_droite_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]	-- Constante représentant les coordonnées du cadre de droite.
+	Bouton_cadre_droite_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
+			-- Constante représentant les coordonnées du cadre de droite.
 		once
 			Result := [660, 200, 840, 380]
 		end

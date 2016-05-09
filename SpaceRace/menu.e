@@ -17,7 +17,7 @@ inherit
 
 feature -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
+	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
 			-- Constructeur de la classe abstraite MENU qui créer une liste de coordonnées, la fenêtre, la musique et le son lors d'un click.
 		do
 			fenetre := a_fenetre
@@ -74,7 +74,8 @@ feature {ANY} -- Access
 
 feature {ANY} -- Implementation
 
-	quitter: BOOLEAN -- Permet de quitter le programme.
+	quitter: BOOLEAN
+			-- Permet de quitter le programme.
 
 	retour_options: BOOLEAN -- Permet de quitter le menu "OPTIONS".
 
@@ -88,16 +89,22 @@ feature {ANY} -- Implementation
 
 	retour_jeu_principal: BOOLEAN -- Permet de quitter le menu "JEU PRINCIPAL".
 
-	fenetre: FENETRE -- La fenêtre de l'application.
+	fenetre: FENETRE
+			-- La fenêtre de l'application.
 
-	musique: MUSIQUE -- La musique principale du jeu.
+	musique: EFFET_SONORE
+			-- La musique principale du jeu.
 
-	son_click: EFFETS_SONORES -- Le son qui est exécuté lors d'un click.
+	son_click: EFFET_SONORE
+			-- Le son qui est exécuté lors d'un click.
 
-	curseur: CURSEUR -- Le curseur de la souris.
+	curseur: CURSEUR
+			-- Le curseur de la souris.
 
-	fond: FOND_ECRAN -- L'image de fond.
+	fond: FOND_ECRAN
+			-- L'image de fond.
 
-	liste_coordonnees: LIST [TUPLE [x1, y1, x2, y2: INTEGER]] -- Liste de coordonnées des boutons dans les menus.
+	liste_coordonnees: LIST [TUPLE [x1, y1, x2, y2: INTEGER]]
+			-- Liste de coordonnées des boutons dans les menus.
 
 end

@@ -20,7 +20,7 @@ create
 
 feature -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
+	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
 			-- Construit le menu des options, ses images ainsi que la liste des coordonnées des boutons.
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
@@ -172,36 +172,46 @@ feature {NONE} -- Affichage
 
 feature {ANY} -- Implementation
 
-	doit_afficher_bouton_muet: BOOLEAN -- Détermine lequel des boutons "MUET" sera affiché.
+	doit_afficher_bouton_muet: BOOLEAN
+			-- Détermine lequel des boutons "MUET" sera affiché.
 
-	bouton_muet: AFFICHABLE -- L'image du bouton "MUET" lorsque le son est muet.
+	bouton_muet: AFFICHABLE
+			-- L'image du bouton "MUET" lorsque le son est muet.
 
-	bouton_non_muet: AFFICHABLE -- L'image du bouton "MUET" lorsque le son est actif.
+	bouton_non_muet: AFFICHABLE
+			-- L'image du bouton "MUET" lorsque le son est actif.
 
-	bouton_credits: AFFICHABLE -- L'image du bouton "CREDITS".
+	bouton_credits: AFFICHABLE
+			-- L'image du bouton "CREDITS".
 
-	bouton_comment_jouer: AFFICHABLE -- L'image du bouton "COMMENT JOUER".
+	bouton_comment_jouer: AFFICHABLE
+			-- L'image du bouton "COMMENT JOUER".
 
-	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR".
+	bouton_retour: AFFICHABLE
+			-- L'image du bouton "RETOUR".
 
 feature {NONE} -- Constantes
 
-	Bouton_muet_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton MUET.
+	Bouton_muet_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton MUET.
 		once
 			Result := [399, 99, 607, 157]
 		end
 
-	Bouton_credits_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton CREDITS.
+	Bouton_credits_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton CREDITS.
 		once
 			Result := [399, 199, 607, 257]
 		end
 
-	Bouton_comment_jouer_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton COMMENT JOUER.
+	Bouton_comment_jouer_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton COMMENT JOUER.
 		once
 			Result := [309, 299, 695, 357]
 		end
 
-	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton RETOUR.
+	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton RETOUR.
 		once
 			Result := [29, 519, 237, 577]
 		end

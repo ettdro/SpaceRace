@@ -20,7 +20,7 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: MUSIQUE; a_son_click: EFFETS_SONORES)
+	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
 			-- Construit le menu pour choisir la piste.
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
@@ -33,12 +33,12 @@ feature {NONE} -- Initialization
 			create piste_jaune.creer_affichable (a_fenetre.fenetre.renderer, "piste_moyen_cadre.png")
 			create piste_mauve.creer_affichable (a_fenetre.fenetre.renderer, "piste_difficile_cadre.png")
 			create piste_bleue.creer_affichable (a_fenetre.fenetre.renderer, "piste_extreme_cadre.png")
-			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR. (position liste = 1)
-			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton SUIVANT. (position liste = 2)
-			liste_coordonnees.extend ([200, 120, 450, 270]) -- Coordonnées du bouton CADRE_1. (position liste = 3)
-			liste_coordonnees.extend ([550, 120, 800, 270]) -- Coordonnées du bouton CADRE_2. (position liste = 4)
-			liste_coordonnees.extend ([200, 300, 450, 450]) -- Coordonnées du bouton CADRE_3. (position liste = 5)
-			liste_coordonnees.extend ([550, 300, 800, 450]) -- Coordonnées du bouton CADRE_4. (position liste = 6)
+			liste_coordonnees.extend (Bouton_retour_coordonnees)
+			liste_coordonnees.extend (Bouton_suivant_coordonnees)
+			liste_coordonnees.extend (Bouton_cadre_haut_gauche_coordonnees)
+			liste_coordonnees.extend (Bouton_cadre_haut_droite_coordonnees)
+			liste_coordonnees.extend (Bouton_cadre_bas_gauche_coordonnees)
+			liste_coordonnees.extend (Bouton_cadre_bas_droite_coordonnees)
 			liste_coordonnees.start
 		end
 
@@ -243,56 +243,73 @@ feature {NONE} -- Affichage
 
 feature {ANY} -- Implementation
 
-	cadre: AFFICHABLE -- L'image d'un cadre non-sélectionné.
+	cadre: AFFICHABLE
+			-- L'image d'un cadre non-sélectionné.
 
-	cadre_selectionne: AFFICHABLE -- L'image d'un cadre sélectionné.
+	cadre_selectionne: AFFICHABLE
+			-- L'image d'un cadre sélectionné.
 
-	suivant_est_visible: BOOLEAN -- Détermine si le bouton "SUIVANT" est visible.
+	suivant_est_visible: BOOLEAN
+			-- Détermine si le bouton "SUIVANT" est visible.
 
-	piste: detachable PISTE -- La piste qui est choisie au final. "detachable" parce qu'au départ, il n'y a pas de piste.
+	piste: detachable PISTE
+			-- La piste qui est choisie au final. "detachable" parce qu'au départ, il n'y a pas de piste.
 
-	titre: AFFICHABLE -- L'image du titre du menu.
+	titre: AFFICHABLE
+			-- L'image du titre du menu.
 
-	bouton_suivant: AFFICHABLE -- L'image du bouton "SUIVANT".
+	bouton_suivant: AFFICHABLE
+			-- L'image du bouton "SUIVANT".
 
-	bouton_retour: AFFICHABLE -- L'image du bouton "RETOUR".
+	bouton_retour: AFFICHABLE
+			-- L'image du bouton "RETOUR".
 
-	piste_verte: AFFICHABLE -- L'image de la piste verte.
+	piste_verte: AFFICHABLE
+			-- L'image de la piste verte.
 
-	piste_jaune: AFFICHABLE -- L'image de la piste jaune.
+	piste_jaune: AFFICHABLE
+			-- L'image de la piste jaune.
 
-	piste_mauve: AFFICHABLE -- L'image de la piste mauve.
+	piste_mauve: AFFICHABLE
+			-- L'image de la piste mauve.
 
-	piste_bleue: AFFICHABLE -- L'image de la piste bleue.
+	piste_bleue: AFFICHABLE
+			-- L'image de la piste bleue.
 
 feature {NONE} -- Constantes
 
-	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton RETOUR.
+	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton RETOUR.
 		once
 			Result := [29, 519, 237, 577]
 		end
 
-	Bouton_suivant_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du bouton SUIVANT.
+	Bouton_suivant_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du bouton SUIVANT.
 		once
 			Result := [759, 519, 917, 577]
 		end
 
-	Bouton_cadre_haut_gauche_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du cadre en haut à gauche.
+	Bouton_cadre_haut_gauche_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du cadre en haut à gauche.
 		once
 			Result := [200, 120, 450, 270]
 		end
 
-	Bouton_cadre_haut_droite_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du cadre en haut à droite.
+	Bouton_cadre_haut_droite_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du cadre en haut à droite.
 		once
 			Result := [550, 120, 800, 270]
 		end
 
-	Bouton_cadre_bas_gauche_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du cadre en bas à gauche.
+	Bouton_cadre_bas_gauche_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du cadre en bas à gauche.
 		once
 			Result := [200, 300, 450, 450]
 		end
 
-	Bouton_cadre_bas_droite_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER] -- Constante représentant les coordonnées du cadre en bas à droite.
+	Bouton_cadre_bas_droite_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
+			-- Constante représentant les coordonnées du cadre en bas à droite.
 		once
 			Result := [550, 300, 800, 450]
 		end

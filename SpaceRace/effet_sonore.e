@@ -5,7 +5,7 @@ note
 	revision: "1.1"
 
 class
-	EFFETS_SONORES
+	EFFET_SONORE
 
 inherit
 
@@ -17,7 +17,7 @@ create
 feature {NONE} -- Initialization
 
 	creer_son (a_nom_fichier: STRING)
-			-- Lance la création d'un effet sonore.
+			-- Lance la création d'un fichier audio (a_nom_fichier).
 		require
 			Bon_Format_Audio: a_nom_fichier.ends_with (".wav")
 			Bonne_Taille_Audio: a_nom_fichier.count > 4

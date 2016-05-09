@@ -31,6 +31,7 @@ feature {NONE} -- Initialization
 
 feature {ANY} -- Implementation
 
-	fenetre: GAME_WINDOW_RENDERED -- La fenêtre de l'application
+	fenetre: GAME_WINDOW_RENDERED
+			-- La fenêtre de l'application
 
 end
