@@ -292,7 +292,7 @@ feature {NONE} -- Constantes
 			Result := [15, 266, 85, 286]
 		end
 
-feature {ANY}
+		-- CHANGER LA DOC QUI EST EN DESSOUS
 
 	lumiere_piste_verte_1: TUPLE [x1, y1: INTEGER]
 			-- Constante représentant les coordonnées du départ de la piste bleue.

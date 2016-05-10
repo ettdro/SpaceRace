@@ -172,15 +172,23 @@ feature {ANY} -- Access
 		do
 			if not chronometre.pause then
 				if a_etat_clavier.is_repeat or not a_etat_clavier.is_repeat then
-					if a_etat_clavier.is_up then
+					if a_etat_clavier.is_w then
 						acceleration_vaisseau
 						avancer
 					end
-					if a_etat_clavier.is_left then
-						rotation_gauche
+					if a_etat_clavier.is_s then
+						deceleration_vaisseau
+						avancer
 					end
-					if a_etat_clavier.is_right then
+					if a_etat_clavier.is_a then
+						rotation_gauche
+						deceleration_vaisseau
+						avancer
+					end
+					if a_etat_clavier.is_d then
 						rotation_droite
+						deceleration_vaisseau
+						avancer
 					end
 				end
 			end
@@ -189,9 +197,8 @@ feature {ANY} -- Access
 	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie que l'accélération (a_etat_clavier) est relâchée pour décélérer.
 		do
-			if not a_etat_clavier.is_repeat then
-				deceleration_vaisseau
-			end
+			deceleration_vaisseau
+			avancer
 		end
 
 	acceleration_vaisseau
@@ -205,8 +212,8 @@ feature {ANY} -- Access
 	deceleration_vaisseau
 			-- Gère la décelération du vaisseau.
 		do
-			if vitesse > 0 then
-				vitesse := vitesse - Acceleration
+			if vitesse > 0.05 then
+				vitesse := vitesse - Deceleration
 			end
 		end
 
@@ -242,7 +249,7 @@ feature {ANY} -- Access
 					vaisseau_y := vaisseau_y - (cosine (rotation_vaisseau_radiant)) * vitesse
 					vaisseau_x := vaisseau_x + (sine (rotation_vaisseau_radiant)) * vitesse
 				end
-				print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
+--				print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
 			end
 		end
 
@@ -421,6 +428,12 @@ feature {ANY} -- Implementation
 feature {NONE} -- Constantes
 
 	Acceleration: REAL_64
+		-- Constante qui représente la vitesse d'accélération.
+		once
+			Result := 0.05
+		end
+
+	Deceleration: REAL_64
 		-- Constante qui représente la vitesse d'accélération.
 		once
 			Result := 0.1
