@@ -220,7 +220,7 @@ feature {ANY} -- Access
 	avancer
 			-- Fais avancer le vaisseau
 		do
-			if vaisseau_y > -1 and vaisseau_y < 601 then
+			if vaisseau_y > 0 and vaisseau_y < 600 and vaisseau_x > 0 and vaisseau_x < 715 then
 				if rotation_vaisseau = 0 or rotation_vaisseau = 360 then
 					vaisseau_y := vaisseau_y - vitesse
 				end
