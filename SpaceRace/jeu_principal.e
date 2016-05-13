@@ -52,7 +52,7 @@ feature {NONE} -- Initialization
 			create image_cliquez_jouer.creer_affichable (fenetre.fenetre.renderer, "cliquez_jouer.png")
 			create chronometre.make (fenetre.fenetre.renderer, font, couleur)
 			create tours.make (fenetre.fenetre.renderer, font, couleur)
---			create reseau.make
+			create reseau.make
 			liste_coordonnees.extend (Bouton_retour_jeu_coordonnees)
 			liste_coordonnees.extend (Bouton_pause_coordonnees)
 			liste_coordonnees.extend (Bouton_jouer_coordonnees)
@@ -376,7 +376,7 @@ feature {NONE} -- Affichage
 
 feature {ANY} -- Implementation
 
---	reseau: RESEAU
+	reseau: RESEAU
 
 	rotation_vaisseau: REAL_64
 			-- L'angle de rotation du vaisseau.
