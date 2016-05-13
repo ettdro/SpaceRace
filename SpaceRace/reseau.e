@@ -8,19 +8,18 @@ class
 	RESEAU -- PAS FINI
 
 create
-	serveur
+	make
 
 feature {NONE} -- Initialization
 
-	serveur
+	make
 			-- Crée le socket.
-		local
-			l_socket: NETWORK_DATAGRAM_SOCKET
-			l_port: INTEGER
 		do
-			l_port := 2767
-			create l_socket.make_bound (l_port)
-			l_socket.read_integer
+
 		end
+
+feature -- Access
+
+	
 
 end

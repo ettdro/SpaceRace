@@ -17,9 +17,7 @@ feature {NONE} -- Initialization
 	make (a_fenetre: FENETRE)
 		do
 			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} checkpoint_liste.make
-			create {LINKED_LIST [TUPLE [x, y: INTEGER]]} lumiere_liste.make
-			create lumiere_verte.creer_affichable (a_fenetre.fenetre.renderer, "checkpointOui.png")
-			create lumiere_rouge.creer_affichable (a_fenetre.fenetre.renderer, "checkpointNon.png")
+			create lumiere_checkpoint.make (a_fenetre)
 			index_suivant_checkpoint := 2
 		end
 
@@ -28,12 +26,9 @@ feature {NONE} -- Initialization
 		do
 			make(a_fenetre)
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteV.png")
+			lumiere_checkpoint.make_lumiere_piste_verte (a_fenetre)
 			x := 59
 			y := 250
-			lumiere_liste.extend (lumiere_piste_verte_1)
-			lumiere_liste.extend (lumiere_piste_verte_2)
-			lumiere_liste.extend (lumiere_piste_verte_3)
-			lumiere_liste.start
 			checkpoint_liste.extend (Depart_verte)
 			checkpoint_liste.extend (Checkpoint_verte_1)
 			checkpoint_liste.extend (Checkpoint_verte_2)
@@ -49,13 +44,9 @@ feature {NONE} -- Initialization
 		do
 			make(a_fenetre)
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteJ.png")
+			lumiere_checkpoint.make_lumiere_piste_jaune (a_fenetre)
 			x := 59
 			y := 330
-			lumiere_liste.extend (lumiere_piste_jaune_1)
-			lumiere_liste.extend (lumiere_piste_jaune_2)
-			lumiere_liste.extend (lumiere_piste_jaune_3)
-			lumiere_liste.extend (lumiere_piste_jaune_4)
-			lumiere_liste.start
 			checkpoint_liste.extend (Depart_jaune)
 			checkpoint_liste.extend (Checkpoint_jaune_1)
 			checkpoint_liste.extend (Checkpoint_jaune_2)
@@ -72,16 +63,9 @@ feature {NONE} -- Initialization
 		do
 			make(a_fenetre)
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteM.png")
+			lumiere_checkpoint.make_lumiere_piste_mauve (a_fenetre)
 			x := 33
 			y := 330
-			lumiere_liste.extend (lumiere_piste_mauve_1)
-			lumiere_liste.extend (lumiere_piste_mauve_2)
-			lumiere_liste.extend (lumiere_piste_mauve_3)
-			lumiere_liste.extend (lumiere_piste_mauve_4)
-			lumiere_liste.extend (lumiere_piste_mauve_5)
-			lumiere_liste.extend (lumiere_piste_mauve_6)
-			lumiere_liste.extend (lumiere_piste_mauve_7)
-			lumiere_liste.start
 			checkpoint_liste.extend (Depart_mauve)
 			checkpoint_liste.extend (Checkpoint_mauve_1)
 			checkpoint_liste.extend (Checkpoint_mauve_2)
@@ -101,13 +85,9 @@ feature {NONE} -- Initialization
 		do
 			make(a_fenetre)
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteB.png")
+			lumiere_checkpoint.make_lumiere_piste_bleue (a_fenetre)
 			x := 48
 			y := 260
-			lumiere_liste.extend (lumiere_piste_bleue_1)
-			lumiere_liste.extend (lumiere_piste_bleue_2)
-			lumiere_liste.extend (lumiere_piste_bleue_3)
-			lumiere_liste.extend (lumiere_piste_bleue_4)
-			lumiere_liste.start
 			checkpoint_liste.extend (Depart_bleue)
 			checkpoint_liste.extend (Checkpoint_bleue_1)
 			checkpoint_liste.extend (Checkpoint_bleue_2)
@@ -121,7 +101,7 @@ feature {NONE} -- Initialization
 
 feature {ANY} -- Access
 
-	valider_checkpoint(position_x, position_y: INTEGER)
+	valider_checkpoint(position_x, position_y: INTEGER; a_fenetre: GAME_RENDERER)
 		-- Regarde si le vaisseau a traversé un checkpoint.
 		local
 			checkpoint_valeurs: like checkpoint_liste.item
@@ -132,7 +112,9 @@ feature {ANY} -- Access
 				position_y > checkpoint_valeurs.y1 and position_y < checkpoint_valeurs.y2
 			then
 				print("Checkpoint!%N")
-				index_suivant_checkpoint := (index_suivant_checkpoint\\ checkpoint_liste.count) + 1
+				checkpoint_passe := True
+--				lumiere_checkpoint.lumiere_verte.afficher (checkpoint_valeurs.x1, checkpoint_valeurs.y1, a_fenetre)
+				index_suivant_checkpoint := (index_suivant_checkpoint \\ checkpoint_liste.count) + 1
 			end
 		end
 
@@ -152,11 +134,9 @@ feature {ANY} -- Implementation
 	checkpoint_liste: LIST [TUPLE [x1, y1, x2, y2: INTEGER]]
 			-- Liste qui contient les constantes des coordonnées des checkpoints.
 
-	lumiere_liste: LIST [TUPLE [x, y: INTEGER]]
+	checkpoint_passe: BOOLEAN
 
-	lumiere_verte: AFFICHABLE
-
-	lumiere_rouge: AFFICHABLE
+	lumiere_checkpoint: LUMIERE_CHECKPOINT
 
 feature {NONE} -- Constantes
 
@@ -169,13 +149,13 @@ feature {NONE} -- Constantes
 	Checkpoint_verte_2: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 2 de la piste verte.
 		once
-			Result := [554, 490, 560, 545]
+			Result := [554, 451, 560, 536]
 		end
 
 	Checkpoint_verte_3: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 3 de la piste verte.
 		once
-			Result := [193, 395, 200, 455]
+			Result := [193, 356, 200, 417]
 		end
 
 	Checkpoint_jaune_1: TUPLE [x1, y1, x2, y2: INTEGER]
@@ -187,19 +167,19 @@ feature {NONE} -- Constantes
 	Checkpoint_jaune_2: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 2 de la piste jaune.
 		once
-			Result := [500, 167, 510, 225]
+			Result := [500, 126, 510, 192]
 		end
 
 	Checkpoint_jaune_3: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 3 de la piste jaune.
 		once
-			Result := [580, 423, 645, 443]
+			Result := [531, 423, 631, 443]
 		end
 
 	Checkpoint_jaune_4: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du checkpoint 4 de la piste jaune.
 		once
-			Result := [265, 400, 275, 462]
+			Result := [265, 358, 275, 425]
 		end
 
 	Checkpoint_mauve_1: TUPLE [x1, y1, x2, y2: INTEGER]
@@ -291,115 +271,4 @@ feature {NONE} -- Constantes
 		once
 			Result := [15, 266, 85, 286]
 		end
-
-feature {ANY}
-
-	lumiere_piste_verte_1: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [373, 105]
-		end
-
-	lumiere_piste_verte_2: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [552, 465]
-		end
-
-	lumiere_piste_verte_3: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [191, 370]
-		end
-
-	lumiere_piste_jaune_1: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [312, 18]
-		end
-
-	lumiere_piste_jaune_2: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [489, 142]
-		end
-
-	lumiere_piste_jaune_3: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [538, 430]
-		end
-
-	lumiere_piste_jaune_4: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [253, 375]
-		end
-
-	lumiere_piste_mauve_1: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [97, 15]
-		end
-
-	lumiere_piste_mauve_2: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [357, 115]
-		end
-
-	lumiere_piste_mauve_3: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [582, 45]
-		end
-
-	lumiere_piste_mauve_4: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [510, 369]
-		end
-
-	lumiere_piste_mauve_5: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [367, 498]
-		end
-
-	lumiere_piste_mauve_6: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [208, 330]
-		end
-
-	lumiere_piste_mauve_7: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [102, 488]
-		end
-
-	lumiere_piste_bleue_1: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [405, 6]
-		end
-
-	lumiere_piste_bleue_2: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [383, 198]
-		end
-
-	lumiere_piste_bleue_3: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [556, 363]
-		end
-
-	lumiere_piste_bleue_4: TUPLE [x1, y1: INTEGER]
-			-- Constante représentant les coordonnées du départ de la piste bleue.
-		once
-			Result := [440, 505]
-		end
-
 end

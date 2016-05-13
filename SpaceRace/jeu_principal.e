@@ -52,7 +52,8 @@ feature {NONE} -- Initialization
 			create image_cliquez_jouer.creer_affichable (fenetre.fenetre.renderer, "cliquez_jouer.png")
 			create chronometre.make (fenetre.fenetre.renderer, font, couleur)
 			create tours.make (fenetre.fenetre.renderer, font, couleur)
-			liste_coordonnees.extend (Bouton_retour_coordonnees)
+--			create reseau.make
+			liste_coordonnees.extend (Bouton_retour_jeu_coordonnees)
 			liste_coordonnees.extend (Bouton_pause_coordonnees)
 			liste_coordonnees.extend (Bouton_jouer_coordonnees)
 			liste_coordonnees.extend (Bouton_muet_coordonnees)
@@ -144,8 +145,10 @@ feature {ANY} -- Access
 				a_y < Bouton_pause_coordonnees.y2
 			then
 				verifier_si_muet
-				etait_pause := True
-				chronometre.pause_chrono (a_temps)
+				if not etait_pause and not est_debut then
+					etait_pause := True
+					chronometre.pause_chrono (a_temps)
+				end
 				curseur.reinitialiser_curseur
 			end
 		end
@@ -242,7 +245,7 @@ feature {ANY} -- Access
 					vaisseau_y := vaisseau_y - (cosine (rotation_vaisseau_radiant)) * vitesse
 					vaisseau_x := vaisseau_x + (sine (rotation_vaisseau_radiant)) * vitesse
 				end
-				print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
+--				print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
 			end
 		end
 
@@ -278,7 +281,6 @@ feature {ANY} -- Access
 			if not chronometre.pause then
 				chronometre.chronometre (a_timestamp)
 			end
-			piste_selectionne.valider_checkpoint(vaisseau_x.rounded, vaisseau_y.rounded)
 			lancer_fenetre_jeu_principal
 		end
 
@@ -294,20 +296,18 @@ feature {NONE} -- Affichage
 			titre_tours.afficher (760, 160, fenetre.fenetre.renderer)
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
-			piste_selectionne.lumiere_liste.start
+			piste_selectionne.valider_checkpoint(vaisseau_x.rounded, vaisseau_y.rounded, fenetre.fenetre.renderer)
 			across
-				piste_selectionne.lumiere_liste as la_coord_lumiere
+				piste_selectionne.lumiere_checkpoint.lumiere_liste as la_coord_lumiere
 			loop
-				if checkpoint_passe then
-					if piste_selectionne.lumiere_liste.readable then
-						piste_selectionne.lumiere_verte.afficher (la_coord_lumiere.item.x, la_coord_lumiere.item.y, fenetre.fenetre.renderer)
-						piste_selectionne.lumiere_liste.move (1)
-					end
-				else
-					if piste_selectionne.lumiere_liste.readable then
-						piste_selectionne.lumiere_rouge.afficher (la_coord_lumiere.item.x, la_coord_lumiere.item.y, fenetre.fenetre.renderer)
-						piste_selectionne.lumiere_liste.move (1)
-					end
+				if piste_selectionne.lumiere_checkpoint.lumiere_liste.readable and not piste_selectionne.checkpoint_passe then
+					piste_selectionne.lumiere_checkpoint.lumiere_rouge.afficher (la_coord_lumiere.item.x, la_coord_lumiere.item.y, fenetre.fenetre.renderer)
+				else if
+					piste_selectionne.lumiere_checkpoint.lumiere_liste.readable and piste_selectionne.checkpoint_passe
+				then
+					piste_selectionne.lumiere_checkpoint.lumiere_verte.afficher (piste_selectionne.lumiere_checkpoint.lumiere_liste.item.x, piste_selectionne.lumiere_checkpoint.lumiere_liste.item.y, fenetre.fenetre.renderer)
+					piste_selectionne.lumiere_checkpoint.lumiere_rouge.afficher (la_coord_lumiere.item.x, la_coord_lumiere.item.y, fenetre.fenetre.renderer)
+				end
 				end
 			end
 			afficher_bouton_son
@@ -344,7 +344,7 @@ feature {NONE} -- Affichage
 
 feature {ANY} -- Implementation
 
-	checkpoint_passe: BOOLEAN
+--	reseau: RESEAU
 
 	rotation_vaisseau: REAL_64
 			-- L'angle de rotation du vaisseau.
@@ -429,19 +429,19 @@ feature {NONE} -- Constantes
 	Bouton_retour_jeu_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du bouton RETOUR.
 		once
-			Result := [759, 519, 917, 577]
+			Result := [759, 519, 965, 577]
 		end
 
 	Bouton_pause_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du bouton PAUSE.
 		once
-			Result := [759, 419, 917, 477]
+			Result := [759, 419, 965, 477]
 		end
 
 	Bouton_jouer_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du bouton JOUER.
 		once
-			Result := [759, 319, 917, 377]
+			Result := [759, 319, 965, 377]
 		end
 
 	Bouton_muet_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]

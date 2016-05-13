@@ -192,6 +192,7 @@ feature {NONE} -- Affichage
 				create l_menu_jeu_principal.make (fenetre, musique, son_click, piste_selectionnee, la_vaisseau_selectionne)
 				l_menu_jeu_principal.execution
 				quitter := l_menu_jeu_principal.quitter
+				sortir_menu := l_menu_jeu_principal.sortir_menu
 			end
 		end
 
