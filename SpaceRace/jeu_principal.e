@@ -175,15 +175,23 @@ feature {ANY} -- Access
 		do
 			if not chronometre.pause then
 				if a_etat_clavier.is_repeat or not a_etat_clavier.is_repeat then
-					if a_etat_clavier.is_up then
+					if a_etat_clavier.is_w then
 						acceleration_vaisseau
 						avancer
 					end
-					if a_etat_clavier.is_left then
-						rotation_gauche
+					if a_etat_clavier.is_s then
+						deceleration_vaisseau
+						avancer
 					end
-					if a_etat_clavier.is_right then
+					if a_etat_clavier.is_a then
+						rotation_gauche
+						deceleration_vaisseau
+						avancer
+					end
+					if a_etat_clavier.is_d then
 						rotation_droite
+						deceleration_vaisseau
+						avancer
 					end
 				end
 			end
@@ -192,9 +200,8 @@ feature {ANY} -- Access
 	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie que l'accélération (a_etat_clavier) est relâchée pour décélérer.
 		do
-			if not a_etat_clavier.is_repeat then
-				deceleration_vaisseau
-			end
+			deceleration_vaisseau
+			avancer
 		end
 
 	acceleration_vaisseau
@@ -208,15 +215,15 @@ feature {ANY} -- Access
 	deceleration_vaisseau
 			-- Gère la décelération du vaisseau.
 		do
-			if vitesse > 0 then
-				vitesse := vitesse - Acceleration
+			if vitesse > 0.05 then
+				vitesse := vitesse - Deceleration
 			end
 		end
 
 	avancer
 			-- Fais avancer le vaisseau
 		do
-			if vaisseau_y > -1 and vaisseau_y < 601 then
+			if vaisseau_y > 0 and vaisseau_y < 600 and vaisseau_x > 0 and vaisseau_x < 715 then
 				if rotation_vaisseau = 0 or rotation_vaisseau = 360 then
 					vaisseau_y := vaisseau_y - vitesse
 				end
@@ -246,6 +253,7 @@ feature {ANY} -- Access
 					vaisseau_x := vaisseau_x + (sine (rotation_vaisseau_radiant)) * vitesse
 				end
 --				print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
+
 			end
 		end
 
@@ -421,6 +429,12 @@ feature {ANY} -- Implementation
 feature {NONE} -- Constantes
 
 	Acceleration: REAL_64
+		-- Constante qui représente la vitesse d'accélération.
+		once
+			Result := 0.05
+		end
+
+	Deceleration: REAL_64
 		-- Constante qui représente la vitesse d'accélération.
 		once
 			Result := 0.1
