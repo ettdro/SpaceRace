@@ -210,6 +210,9 @@ feature {ANY} -- Access
 			if vitesse < 6 then
 				vitesse := vitesse + Acceleration
 			end
+			if vitesse > 6 then
+				vitesse := 6
+			end
 		end
 
 	deceleration_vaisseau
@@ -218,12 +221,15 @@ feature {ANY} -- Access
 			if vitesse > 0.05 then
 				vitesse := vitesse - Deceleration
 			end
+			if vitesse < 0 then
+				vitesse := 0
+			end
 		end
 
 	avancer
 			-- Fais avancer le vaisseau
 		do
-			if vaisseau_y > 0 and vaisseau_y < 600 and vaisseau_x > 0 and vaisseau_x < 715 then
+			if vaisseau_y > 0 and vaisseau_y < 563 and vaisseau_x > 0 and vaisseau_x < 715 then
 				if rotation_vaisseau = 0 or rotation_vaisseau = 360 then
 					vaisseau_y := vaisseau_y - vitesse
 				end
@@ -283,12 +289,30 @@ feature {ANY} -- Access
 			Result := ((2 * pi) * rotation_vaisseau) / 360
 		end
 
+	verification_position_vaisseau
+			-- Vérifie la position du vaisseau pour le remettre dans la zone de jeu s'il en sort.
+		do
+			if vaisseau_x > 715 then
+				vaisseau_x := vaisseau_x - 40
+			end
+			if vaisseau_x < 0 then
+				vaisseau_x := vaisseau_x + 40
+			end
+			if vaisseau_y > 563 then
+				vaisseau_y := vaisseau_y - 40
+			end
+			if vaisseau_y < 0 then
+				vaisseau_y := vaisseau_y + 40
+			end
+		end
+
 	sur_iteration (a_timestamp: NATURAL_32; a_fenetre: GAME_RENDERER)
 			-- Rafraichit la fenêtre (a_fenetre) du jeu principal à chaque itération et a_timestamp sert au chronomètre.
 		do
 			if not chronometre.pause then
 				chronometre.chronometre (a_timestamp)
 			end
+			verification_position_vaisseau
 			lancer_fenetre_jeu_principal
 		end
 
