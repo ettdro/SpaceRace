@@ -36,6 +36,7 @@ feature {NONE} -- Initialization
 			create l_son_click.creer_son ("click_sound.wav")
 			create l_musique.creer_son ("MusiqueMenu.wav")
 			make_menu (l_fenetre, l_musique, l_son_click)
+			create bouton_classement.creer_affichable (fenetre.fenetre.renderer, "bouton_classement.png")
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
 			create bouton_options.creer_affichable (fenetre.fenetre.renderer, "bouton_options2.png")
 			create bouton_quitter.creer_affichable (fenetre.fenetre.renderer, "bouton_quitter2.png")
@@ -43,6 +44,7 @@ feature {NONE} -- Initialization
 			liste_coordonnees.extend (Bouton_jouer_coordonnees)
 			liste_coordonnees.extend (Bouton_options_coordonnees)
 			liste_coordonnees.extend (Bouton_quitter_coordonnees)
+			liste_coordonnees.extend (Bouton_classement_coordonnees)
 		end
 
 feature {ANY} -- Access
@@ -67,9 +69,25 @@ feature {ANY} -- Access
 			-- Méthode qui gère les clicks de souris (a_etat_souris) pour permettre la navigation à partir de ce menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
+				valider_bouton_classement(a_etat_souris.x, a_etat_souris.y)
 				valider_bouton_jouer(a_etat_souris.x, a_etat_souris.y)
 				valider_bouton_options(a_etat_souris.x, a_etat_souris.y)
 				valider_bouton_quitter(a_etat_souris.x, a_etat_souris.y)
+			end
+		end
+
+	valider_bouton_classement(a_x, a_y:INTEGER)
+			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton JOUER et exécute l'action en conséquence.
+		do
+			if
+				a_x > Bouton_classement_coordonnees.x1 and
+				a_x < Bouton_classement_coordonnees.x2 and
+				a_y > Bouton_classement_coordonnees.y1 and
+				a_y < Bouton_classement_coordonnees.y2
+			then
+				verifier_si_muet
+				curseur.reinitialiser_curseur
+				lancer_fenetre_classement
 			end
 		end
 
@@ -122,6 +140,7 @@ feature {NONE} -- Affichage
 			-- Dessine les éléments de la fenêtre du MENU_PRINCIPAL.
 		do
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
+			bouton_classement.afficher (20, 10, fenetre.fenetre.renderer)
 			bouton_jouer.afficher (400, 250, fenetre.fenetre.renderer)
 			bouton_options.afficher (400, 350, fenetre.fenetre.renderer)
 			bouton_quitter.afficher (400, 450, fenetre.fenetre.renderer)
@@ -149,7 +168,20 @@ feature {NONE} -- Affichage
 			quitter := l_menu_piste.quitter
 		end
 
+	lancer_fenetre_classement
+			-- Lance le classement du jeu.
+		local
+			l_menu_classement: MENU_CLASSEMENT
+		do
+			create l_menu_classement.make (fenetre, musique, son_click)
+			l_menu_classement.execution
+			quitter := l_menu_classement.quitter
+		end
+
 feature {ANY} -- Implementation
+
+	bouton_classement: AFFICHABLE
+			-- L'image du bouton "CLASSEMENT"
 
 	bouton_jouer: AFFICHABLE
 			-- L'image du bouton "JOUER"
@@ -164,6 +196,12 @@ feature {ANY} -- Implementation
 			-- L'image du titre principal.
 
 feature {NONE}  -- Constantes
+
+	Bouton_classement_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
+			-- Constante représentant les coordonnées du bouton CLASSEMENT.
+		once
+			Result := [20, 10, 60, 60]
+		end
 
 	Bouton_jouer_coordonnees:TUPLE[x1, y1, x2, y2:INTEGER]
 			-- Constante représentant les coordonnées du bouton JOUER.

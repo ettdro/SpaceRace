@@ -126,11 +126,13 @@ feature {ANY} -- Access
 					fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
 					fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
 					est_debut := False
+					reseau.inserer_record
 				end
 				if etait_pause then
 					chronometre.unpause (a_temps)
 					etait_pause := False
 				end
+
 				curseur.reinitialiser_curseur
 			end
 		end

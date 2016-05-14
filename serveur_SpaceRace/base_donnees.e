@@ -34,7 +34,8 @@ feature {ANY}
 			across
 				l_requete as la_requete
 			loop
-				io.put_string (la_requete.item.out)
+				io.put_string (la_requete.item.nom_joueur.out)
+				io.put_string (la_requete.item.temps_joueur.out)
 				io.put_new_line
 			end
 			l_requete.close
@@ -56,6 +57,11 @@ feature {ANY}
 --			print(a_nom)
 --			print(" - ")
 --			print(a_temps)
+		end
+
+	supprimer_donnees
+		do
+			print("Les données de la base de données ont été supprimés!")
 		end
 
 feature -- Access

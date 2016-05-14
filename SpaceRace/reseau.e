@@ -15,23 +15,39 @@ feature {NONE} -- Initialization
 	make
 			-- Crée le socket.
 		local
-			l_socket: NETWORK_DATAGRAM_SOCKET
 			l_port: INTEGER
 			l_host: STRING
-			l_message: STRING
 		do
 			l_port := 2767
 			l_host := "localhost"
-			l_message := "ettbelette 2min45%N"
-			create l_socket.make_targeted (l_host, l_port)
-			l_socket.put_integer (l_message.count)
-			l_socket.put_string (l_message)
-			l_socket.close
-
+			create socket.make_targeted (l_host, l_port)
+			create message.make_empty
 		end
 
-feature -- Access
+feature {ANY}
 
+	inserer_record
+		do
+			create message.make_empty					--P-e à enlever
+			message := "nicbiss 1min12%N"
+			socket.put_integer (message.count)
+			socket.put_string (message)
+			socket.close
+		end
 
+	supprimer_donnees
+		do
+			create message.make_empty					--P-e à enlever
+			message := "supprimer"
+			socket.put_integer (message.count)
+			socket.put_string (message)
+			socket.close
+		end
+
+feature {NONE}
+
+	socket: NETWORK_DATAGRAM_SOCKET
+
+	message: STRING
 
 end
