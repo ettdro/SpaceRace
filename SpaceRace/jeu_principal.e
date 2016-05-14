@@ -193,6 +193,16 @@ feature {ANY} -- Access
 						deceleration_vaisseau
 						avancer
 					end
+--					if a_etat_clavier.is_w and a_etat_clavier.is_a then
+--						acceleration_vaisseau
+--						rotation_gauche
+--						avancer
+--					end
+--					if a_etat_clavier.is_w and a_etat_clavier.is_d then
+--						acceleration_vaisseau
+--						rotation_droite
+--						avancer
+--					end
 				end
 			end
 		end
@@ -200,8 +210,16 @@ feature {ANY} -- Access
 	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie que l'accélération (a_etat_clavier) est relâchée pour décélérer.
 		do
-			deceleration_vaisseau
-			avancer
+--			if a_etat_clavier.is_w then
+--				from
+--					deceleration_vaisseau
+--				until
+--					vitesse = 0
+--				loop
+--					deceleration_vaisseau
+--					avancer
+--				end
+--			end
 		end
 
 	acceleration_vaisseau
@@ -210,7 +228,7 @@ feature {ANY} -- Access
 			if vitesse < 6 then
 				vitesse := vitesse + Acceleration
 			end
-			if vitesse > 6 then
+			if vitesse >= 6 then
 				vitesse := 6
 			end
 		end
@@ -221,7 +239,7 @@ feature {ANY} -- Access
 			if vitesse > 0.05 then
 				vitesse := vitesse - Deceleration
 			end
-			if vitesse < 0 then
+			if vitesse <= 0 then
 				vitesse := 0
 			end
 		end
@@ -293,16 +311,16 @@ feature {ANY} -- Access
 			-- Vérifie la position du vaisseau pour le remettre dans la zone de jeu s'il en sort.
 		do
 			if vaisseau_x > 715 then
-				vaisseau_x := vaisseau_x - 40
+				vaisseau_x := vaisseau_x - 1
 			end
 			if vaisseau_x < 0 then
-				vaisseau_x := vaisseau_x + 40
+				vaisseau_x := vaisseau_x + 1
 			end
 			if vaisseau_y > 563 then
-				vaisseau_y := vaisseau_y - 40
+				vaisseau_y := vaisseau_y - 1
 			end
 			if vaisseau_y < 0 then
-				vaisseau_y := vaisseau_y + 40
+				vaisseau_y := vaisseau_y + 1
 			end
 		end
 
