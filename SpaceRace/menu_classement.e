@@ -70,7 +70,7 @@ feature {ANY}
 				a_y > Bouton_reinitialiser_coordonnees.y1 and
 				a_y < Bouton_reinitialiser_coordonnees.y2
 			then
-				verifier_si_muet
+				verifier_son_click_muet
 				curseur.reinitialiser_curseur
 				create reseau.make
 				reseau.supprimer_donnees

@@ -35,18 +35,4 @@ feature {ANY} -- Initialization
 			end
 		end
 
-feature {ANY} -- Access
-
-	afficher (a_pos_x, a_pos_y: INTEGER; a_renderer: GAME_RENDERER)
-			-- Affiche l'image aux coordonnées a_pos_x et a_pos_y dans la fenêtre (a_renderer).
-		do
-			a_renderer.draw_texture (Current, a_pos_x, a_pos_y)
-		end
-
-	afficher_rotation (a_angle_rotation: REAL_64; a_pos_x, a_pos_y: INTEGER; a_renderer: GAME_RENDERER)
-			-- Affiche l'image aux coordonnées a_pos_x et a_pos_y dans la fenêtre (a_renderer) selon l'angle de rotation (a_angle_rotation).
-		do
-			a_renderer.draw_sub_texture_with_scale_rotation_and_mirror (Current, 0, 0, width, height, a_pos_x, a_pos_y, width, height, width // 2, height // 2, a_angle_rotation, False, False)
-		end
-
 end

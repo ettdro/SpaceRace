@@ -5,7 +5,7 @@ note
 	revision: "1.0"
 
 class
-	EX_THREAD
+	SR_THREAD
 
 inherit
 
