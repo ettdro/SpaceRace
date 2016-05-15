@@ -73,7 +73,8 @@ feature {ANY}
 				verifier_si_muet
 				curseur.reinitialiser_curseur
 				create reseau.make
-				reseau.supprimer_donnees
+				reseau.lire_donnees
+				reseau.ecouter
 			end
 		end
 

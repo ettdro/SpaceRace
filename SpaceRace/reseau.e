@@ -5,7 +5,7 @@ note
 	revision: "1.0"
 
 class
-	RESEAU -- PAS FINI
+	RESEAU
 
 create
 	make
@@ -22,23 +22,39 @@ feature {NONE} -- Initialization
 			l_host := "localhost"
 			create socket.make_targeted (l_host, l_port)
 			create message.make_empty
+			create {LINKED_LIST[STRING]}joueurs.make
 		end
 
 feature {ANY}
 
+	ecouter
+		local
+			l_socket: NETWORK_DATAGRAM_SOCKET
+			l_longueur_message: INTEGER
+			l_message: STRING
+			l_nom_joueur: STRING
+		do
+			create l_socket.make_bound (2767)
+			l_socket.read_integer
+			l_longueur_message := l_socket.last_integer
+			l_socket.read_stream (l_longueur_message)
+			l_nom_joueur := l_socket.last_string
+			print(l_nom_joueur)
+		end
+
 	inserer_record
 		do
 			create message.make_empty					--P-e à enlever
-			message := "nicbiss 1min12%N"
+			message := "marc 3min42%N"
 			socket.put_integer (message.count)
 			socket.put_string (message)
 			socket.close
 		end
 
-	supprimer_donnees
+	lire_donnees
 		do
 			create message.make_empty					--P-e à enlever
-			message := "supprimer"
+			message := "lire"
 			socket.put_integer (message.count)
 			socket.put_string (message)
 			socket.close
@@ -49,5 +65,7 @@ feature {NONE}
 	socket: NETWORK_DATAGRAM_SOCKET
 
 	message: STRING
+
+	joueurs: LIST[STRING]
 
 end

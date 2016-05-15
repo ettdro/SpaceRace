@@ -25,7 +25,7 @@ feature {NONE} -- Initialization
 
 feature {ANY}
 
-	afficher_classement
+	remplir_liste_classement
 		local
 			l_requete: PS_QUERY[JOUEUR]
 		do
@@ -34,9 +34,7 @@ feature {ANY}
 			across
 				l_requete as la_requete
 			loop
-				io.put_string (la_requete.item.nom_joueur.out)
-				io.put_string (la_requete.item.temps_joueur.out)
-				io.put_new_line
+				joueurs.extend (la_requete.item)
 			end
 			l_requete.close
 		end
@@ -54,14 +52,11 @@ feature {ANY}
 					l_transaction.commit
 				end
 			end
---			print(a_nom)
---			print(" - ")
---			print(a_temps)
 		end
 
-	supprimer_donnees
+	lire_donnees_serveur
 		do
-			print("Les données de la base de données ont été supprimés!")
+			
 		end
 
 feature -- Access
