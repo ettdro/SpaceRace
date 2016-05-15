@@ -241,7 +241,11 @@ feature {ANY} -- Access
 
 	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie que l'accélération (a_etat_clavier) est relâchée pour décélérer.
+		local
+			l_touche_repete: BOOLEAN
 		do
+			l_touche_repete := False
+			verifier_son_vaisseau_fin_muet (l_touche_repete)
 			vitesse := 0
 		end
 
