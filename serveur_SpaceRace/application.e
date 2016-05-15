@@ -29,7 +29,11 @@ feature {NONE} -- Initialization
 			l_socket.read_stream (l_longueur_message)
 			l_nom_joueur := l_socket.last_string
 			liste_commande := l_nom_joueur.split (' ')
-			base_donnees.ajouter_joueur(liste_commande.i_th (1), liste_commande.i_th (2))
+			if liste_commande.i_th (1).has_substring ("supprimer") then
+				base_donnees.supprimer_donnees
+			else
+				base_donnees.ajouter_joueur(liste_commande.i_th (1), liste_commande.i_th (2))
+			end
 			base_donnees.afficher_classement
 			l_socket.close
 		end
