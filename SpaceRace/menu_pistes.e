@@ -89,7 +89,7 @@ feature {ANY} -- Access
 				a_y < Bouton_cadre_haut_gauche_coordonnees.y2
 			then
 				create piste.make_vert (fenetre)
-				verifier_si_muet
+				verifier_son_click_muet
 				liste_coordonnees.go_i_th (3)
 				actualiser_cadre (liste_coordonnees.item)
 				deselectionner_cadre
@@ -106,7 +106,7 @@ feature {ANY} -- Access
 				a_y < Bouton_cadre_haut_droite_coordonnees.y2
 			then
 				create piste.make_jaune (fenetre)
-				verifier_si_muet
+				verifier_son_click_muet
 				liste_coordonnees.go_i_th (4)
 				actualiser_cadre (liste_coordonnees.item)
 				deselectionner_cadre
@@ -123,7 +123,7 @@ feature {ANY} -- Access
 				a_y < Bouton_cadre_bas_gauche_coordonnees.y2
 			then
 				create piste.make_mauve (fenetre)
-				verifier_si_muet
+				verifier_son_click_muet
 				liste_coordonnees.go_i_th (5)
 				actualiser_cadre (liste_coordonnees.item)
 				deselectionner_cadre
@@ -140,7 +140,7 @@ feature {ANY} -- Access
 				a_y < Bouton_cadre_bas_droite_coordonnees.y2
 			then
 				create piste.make_bleu (fenetre)
-				verifier_si_muet
+				verifier_son_click_muet
 				liste_coordonnees.go_i_th (6)
 				actualiser_cadre (liste_coordonnees.item)
 				deselectionner_cadre

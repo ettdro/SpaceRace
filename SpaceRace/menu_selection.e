@@ -18,7 +18,7 @@ feature {ANY} -- Access
 		do
 			if a_x > Bouton_suivant_coordonnees.x1 and a_x < Bouton_suivant_coordonnees.x2 and a_y > Bouton_suivant_coordonnees.y1 and a_y < Bouton_suivant_coordonnees.y2 then
 				if suivant_est_visible then
-					verifier_si_muet
+					verifier_son_click_muet
 					curseur.reinitialiser_curseur
 					lancer_menu_suivant
 				end
