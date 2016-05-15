@@ -85,7 +85,7 @@ feature {ANY} -- Access
 				a_y > Bouton_classement_coordonnees.y1 and
 				a_y < Bouton_classement_coordonnees.y2
 			then
-				verifier_si_muet
+				verifier_son_click_muet
 				curseur.reinitialiser_curseur
 				lancer_fenetre_classement
 			end
@@ -100,7 +100,7 @@ feature {ANY} -- Access
 				a_y > Bouton_jouer_coordonnees.y1 and
 				a_y < Bouton_jouer_coordonnees.y2
 			then
-				verifier_si_muet
+				verifier_son_click_muet
 				curseur.reinitialiser_curseur
 				lancer_fenetre_jouer
 			end
@@ -115,7 +115,7 @@ feature {ANY} -- Access
 				a_y > Bouton_options_coordonnees.y1 and
 				a_y < Bouton_options_coordonnees.y2
 			then
-				verifier_si_muet
+				verifier_son_click_muet
 				curseur.reinitialiser_curseur
 				lancer_fenetre_options
 			end

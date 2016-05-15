@@ -50,6 +50,8 @@ feature {NONE} -- Initialization
 			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
 			create image_pause.creer_affichable (fenetre.fenetre.renderer, "popup_pause.png")
 			create image_cliquez_jouer.creer_affichable (fenetre.fenetre.renderer, "cliquez_jouer.png")
+			create son_vaisseau.creer_son ("Vaisseau.wav")
+			create son_vaisseau_fin.creer_son ("Vaisseau_Fin.wav")
 			create chronometre.make (fenetre.fenetre.renderer, font, couleur)
 			create tours.make (fenetre.fenetre.renderer, font, couleur)
 			create reseau.make
@@ -119,7 +121,7 @@ feature {ANY} -- Access
 				a_y > Bouton_jouer_coordonnees.y1 and
 				a_y < Bouton_jouer_coordonnees.y2
 			then
-				verifier_si_muet
+				verifier_son_click_muet
 				if est_debut then
 					chronometre.depart_chrono (a_temps)
 					fenetre.fenetre.key_pressed_actions.extend (agent action_clavier(?, ?))
@@ -146,7 +148,7 @@ feature {ANY} -- Access
 				a_y > Bouton_pause_coordonnees.y1 and
 				a_y < Bouton_pause_coordonnees.y2
 			then
-				verifier_si_muet
+				verifier_son_click_muet
 				if not etait_pause and not est_debut then
 					etait_pause := True
 					chronometre.pause_chrono (a_temps)
@@ -164,7 +166,7 @@ feature {ANY} -- Access
 				a_y > Bouton_retour_jeu_coordonnees.y1 and
 				a_y < Bouton_retour_jeu_coordonnees.y2
 			then
-				verifier_si_muet
+				verifier_son_click_muet
 				curseur.reinitialiser_curseur
 				sortir_menu := True
 				quitter := False
@@ -174,54 +176,79 @@ feature {ANY} -- Access
 
 	action_clavier (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie quelle touche (a_etat_clavier) est pressée pour pouvoir exécuter la bonne action (déplacement ou rotation).
+		local
+			l_touche_repete: BOOLEAN
 		do
 			if not chronometre.pause then
-				if a_etat_clavier.is_repeat or not a_etat_clavier.is_repeat then
+				if a_etat_clavier.is_repeat then
+					l_touche_repete := True
 					if a_etat_clavier.is_w then
 						acceleration_vaisseau
+						verifier_son_vaisseau_muet
 						avancer
 					end
 					if a_etat_clavier.is_s then
 						deceleration_vaisseau
+						verifier_son_vaisseau_fin_muet (l_touche_repete)
 						avancer
 					end
 					if a_etat_clavier.is_a then
 						rotation_gauche
 						deceleration_vaisseau
+						verifier_son_vaisseau_fin_muet (l_touche_repete)
 						avancer
 					end
 					if a_etat_clavier.is_d then
 						rotation_droite
 						deceleration_vaisseau
+						verifier_son_vaisseau_fin_muet (l_touche_repete)
 						avancer
 					end
---					if a_etat_clavier.is_w and a_etat_clavier.is_a then
---						acceleration_vaisseau
---						rotation_gauche
---						avancer
---					end
---					if a_etat_clavier.is_w and a_etat_clavier.is_d then
---						acceleration_vaisseau
---						rotation_droite
---						avancer
---					end
+				end
+				if not a_etat_clavier.is_repeat then
+					l_touche_repete := False
+					if a_etat_clavier.is_w then
+						acceleration_vaisseau
+						verifier_son_vaisseau_muet
+						avancer
+					end
+					if a_etat_clavier.is_s then
+						deceleration_vaisseau
+						verifier_son_vaisseau_fin_muet (l_touche_repete)
+						avancer
+					end
+					if a_etat_clavier.is_a then
+						rotation_gauche
+						deceleration_vaisseau
+						if vitesse = 0 then
+							verifier_son_vaisseau_muet
+						end
+						else
+							verifier_son_vaisseau_fin_muet (l_touche_repete)
+						avancer
+					end
+					if a_etat_clavier.is_d then
+						rotation_droite
+						deceleration_vaisseau
+						if vitesse = 0 then
+							verifier_son_vaisseau_muet
+						end
+						else
+							verifier_son_vaisseau_fin_muet (l_touche_repete)
+						avancer
+					end
 				end
 			end
 		end
 
 	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie que l'accélération (a_etat_clavier) est relâchée pour décélérer.
+		local
+			l_touche_repete: BOOLEAN
 		do
---			if a_etat_clavier.is_w then
---				from
---					deceleration_vaisseau
---				until
---					vitesse = 0
---				loop
---					deceleration_vaisseau
---					avancer
---				end
---			end
+			l_touche_repete := False
+			verifier_son_vaisseau_fin_muet (l_touche_repete)
+			vitesse := 0
 		end
 
 	acceleration_vaisseau
@@ -238,7 +265,7 @@ feature {ANY} -- Access
 	deceleration_vaisseau
 			-- Gère la décelération du vaisseau.
 		do
-			if vitesse > 0.05 then
+			if vitesse > 0 then
 				vitesse := vitesse - Deceleration
 			end
 			if vitesse <= 0 then
@@ -323,6 +350,20 @@ feature {ANY} -- Access
 			end
 			if vaisseau_y < 0 then
 				vaisseau_y := vaisseau_y + 1
+			end
+		end
+
+	verifier_son_vaisseau_muet
+		do
+			if not musique.est_muet then
+				son_vaisseau.jouer (False)
+			end
+		end
+
+	verifier_son_vaisseau_fin_muet (a_touche_repete: BOOLEAN)
+		do
+			if not musique.est_muet and not a_touche_repete and vitesse > 0 then
+				son_vaisseau_fin.jouer (False)
 			end
 		end
 
@@ -469,6 +510,10 @@ feature {ANY} -- Implementation
 
 	vitesse: REAL_64
 			-- La vitesse du vaisseau.
+
+	son_vaisseau: EFFET_SONORE
+
+	son_vaisseau_fin: EFFET_SONORE
 
 feature {NONE} -- Constantes
 

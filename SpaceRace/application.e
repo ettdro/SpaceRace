@@ -45,8 +45,8 @@ feature {NONE} -- Initialization
 	thread
 			-- Méthode qui gère des threads. Il arrête après 1000 fois.
 		local
-			thread_salut: EX_THREAD
-			thread_louis: EX_THREAD
+			thread_salut: SR_THREAD
+			thread_louis: SR_THREAD
 			i: INTEGER
 		do
 			create thread_salut.make ("Salut ")

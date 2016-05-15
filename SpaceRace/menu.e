@@ -64,8 +64,8 @@ feature {ANY} -- Access
 			game_library.quit_signal_actions.extend (agent quitter_jeu)
 		end
 
-	verifier_si_muet
-			-- Vérifie si le son du jeu est muet ou non pour le faire jouer si nécessaire.
+	verifier_son_click_muet
+			-- Vérifie si le son du jeu est muet ou non pour faire jouer le son d'un click si nécessaire.
 		do
 			if not musique.est_muet then
 				son_click.jouer (False)
@@ -81,7 +81,7 @@ feature {ANY} -- Access
 				a_y > Bouton_retour_coordonnees.y1 and
 				a_y < Bouton_retour_coordonnees.y2
 			then
-				verifier_si_muet
+				verifier_son_click_muet
 				curseur.reinitialiser_curseur
 				sortir_menu := True
 				quitter := False
