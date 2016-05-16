@@ -2,7 +2,7 @@ note
 	description: "Classe qui gère le menu qui explique comment jouer au jeu SpaceRace."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-05-09"
-	revision: "1.2"
+	revision: "1.3"
 
 class
 	MENU_COMMENT_JOUER

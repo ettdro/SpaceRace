@@ -2,7 +2,7 @@ note
 	description: "Classe qui gére le nombre de tours."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-05-18"
-	revision: "1.0"
+	revision: "1.4"
 
 class
 	TOURS_PISTE

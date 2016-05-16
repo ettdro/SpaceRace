@@ -1,8 +1,8 @@
 note
 	description: "Classe qui crée les pistes."
 	author: "Étienne Drolet et Nicolas Bisson"
-	date: "2016-04-04"
-	revision: "1.0"
+	date: "2016-05-15"
+	revision: "1.4"
 
 class
 	PISTE
@@ -14,7 +14,9 @@ create
 	make_mauve
 
 feature {NONE} -- Initialization
+
 	make (a_fenetre: FENETRE)
+			-- Crée la liste des checkpoints pour les pistes.
 		do
 			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} checkpoint_liste.make
 			create lumiere_checkpoint.make (a_fenetre)
@@ -22,7 +24,7 @@ feature {NONE} -- Initialization
 		end
 
 	make_vert (a_fenetre: FENETRE)
-			-- Construit la piste Verte.
+			-- Construit la piste Verte dans la fenêtre (a_fenetre).
 		do
 			make(a_fenetre)
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteV.png")
@@ -40,7 +42,7 @@ feature {NONE} -- Initialization
 		end
 
 	make_jaune (a_fenetre: FENETRE)
-			-- Construit la piste Jaune.
+			-- Construit la piste Jaune dans la fenêtre (a_fenetre).
 		do
 			make(a_fenetre)
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteJ.png")
@@ -59,7 +61,7 @@ feature {NONE} -- Initialization
 		end
 
 	make_mauve (a_fenetre: FENETRE)
-			-- Construit la piste Mauve.
+			-- Construit la piste Mauve dans la fenêtre (a_fenetre).
 		do
 			make(a_fenetre)
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteM.png")
@@ -81,7 +83,7 @@ feature {NONE} -- Initialization
 		end
 
 	make_bleu (a_fenetre: FENETRE)
-			-- Construit la piste Bleue.
+			-- Construit la piste Bleue dans la fenêtre (a_fenetre).
 		do
 			make(a_fenetre)
 			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteB.png")
@@ -101,15 +103,15 @@ feature {NONE} -- Initialization
 
 feature {ANY} -- Access
 
-	valider_checkpoint(position_x, position_y: INTEGER; a_fenetre: GAME_RENDERER)
-		-- Regarde si le vaisseau a traversé un checkpoint.
+	valider_checkpoint(a_position_x, a_position_y: INTEGER; a_fenetre: GAME_RENDERER)
+			-- Regarde si le vaisseau a traversé un checkpoint (a_position_x et a_position_y) dans la fenêtre (a_fenetre).
 		local
 			checkpoint_valeurs: like checkpoint_liste.item
 		do
 			checkpoint_valeurs := checkpoint_liste.at (index_suivant_checkpoint)
 			if
-				position_x > checkpoint_valeurs.x1 and position_x < checkpoint_valeurs.x2 and
-				position_y > checkpoint_valeurs.y1 and position_y < checkpoint_valeurs.y2
+				a_position_x > checkpoint_valeurs.x1 and a_position_x < checkpoint_valeurs.x2 and
+				a_position_y > checkpoint_valeurs.y1 and a_position_y < checkpoint_valeurs.y2
 			then
 				print("Checkpoint!%N")
 				checkpoint_passe := True
@@ -121,6 +123,7 @@ feature {ANY} -- Access
 feature {ANY} -- Implementation
 
 	index_suivant_checkpoint: INTEGER
+			-- L'index du prochain checkpoint dans la liste.
 
 	piste: AFFICHABLE
 			-- L'image de la piste pour la partie.
@@ -135,8 +138,10 @@ feature {ANY} -- Implementation
 			-- Liste qui contient les constantes des coordonnées des checkpoints.
 
 	checkpoint_passe: BOOLEAN
+			-- Détermine si le checkpoint est passé ou non.
 
 	lumiere_checkpoint: LUMIERE_CHECKPOINT
+			-- La lumière d'un checkpoint.
 
 feature {NONE} -- Constantes
 

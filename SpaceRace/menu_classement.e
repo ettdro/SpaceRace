@@ -1,8 +1,8 @@
 note
-	description: "Summary description for {MENU_CLASSEMENT}."
-	author: ""
-	date: "$Date$"
-	revision: "$Revision$"
+	description: "Classe qui gère le menu du classement."
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-05-15"
+	revision: "1.4"
 
 class
 	MENU_CLASSEMENT
@@ -20,7 +20,7 @@ create
 feature {NONE} -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
-			-- Initialization for `Current'.
+			-- Construit le menu du classement (a_fenetre), ses sons (a_musique et a_son_click), ses images ainsi que la liste des coordonnées des boutons.
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
@@ -34,7 +34,7 @@ feature {NONE} -- Initialization
 			create reseau.make
 		end
 
-feature {ANY}
+feature {ANY} -- Access
 
 	execution
 			-- Faire afficher le menu et ses images et lancer la gestion de la souris.
@@ -79,6 +79,7 @@ feature {ANY}
 		end
 
 	lancer_fenetre_classement
+			-- Affiche toutes les images du menu à l'endroit précisé.
 		do
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
@@ -87,9 +88,10 @@ feature {ANY}
 			fenetre.fenetre.renderer.present
 		end
 
-feature {ANY} -- Access
+feature {ANY} -- Implementation
 
 	bouton_retour: AFFICHABLE
+			-- L'image du bouton "RETOUR"
 
 	text_surface_numeros: TEXT_SURFACE_BLENDED
 			-- Une surface pour les numéros.
@@ -98,10 +100,13 @@ feature {ANY} -- Access
 			-- La texture pour les numéros.
 
 	font: TEXT_FONT
+			-- La police d'écriture du texte.
 
 	couleur: GAME_COLOR
+			-- La couleur du texte.
 
 	reseau: RESEAU
+			-- La connexion à la BD du serveur.
 
 feature {ANY} -- Constantes
 
@@ -110,6 +115,5 @@ feature {ANY} -- Constantes
 		once
 			Result := [0, 0, 30, 30]
 		end
-
 
 end

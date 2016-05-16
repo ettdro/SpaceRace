@@ -1,8 +1,8 @@
 note
-	description: "Contient les éléments généraux aux menus de sélection."
+	description: "Contient les éléments généraux aux menus de sélection (piste et vaisseau)."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-05-09"
-	revision: "1.0"
+	revision: "1.4"
 
 deferred class
 	MENU_SELECTION

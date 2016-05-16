@@ -1,8 +1,8 @@
 note
 	description: "Classe qui gère la connexion réseau pour le tableau des temps."
 	author: "Étienne Drolet et Nicolas Bisson"
-	date: "2016-04-22"
-	revision: "1.0"
+	date: "2016-05-15"
+	revision: "1.4"
 
 class
 	RESEAU
@@ -25,9 +25,10 @@ feature {NONE} -- Initialization
 			create {LINKED_LIST[STRING]}joueurs.make
 		end
 
-feature {ANY}
+feature {ANY} -- Access
 
 	ecouter
+			-- Écoute sur le port pour interpréter les commandes.
 		local
 			l_socket: NETWORK_DATAGRAM_SOCKET
 			l_longueur_message: INTEGER
@@ -42,6 +43,7 @@ feature {ANY}
 		end
 
 	inserer_record
+			-- Enregistre le record dans la base de données.
 		do
 			create message.make_empty					--P-e à enlever
 			message := "marc 3min42%N"
@@ -50,7 +52,15 @@ feature {ANY}
 			socket.close
 		end
 
+	supprimer_donnees
+			-- Supprime les données de la base de données.
+		do
+			create message.make_empty					-- P-e à enlever
+			message := "supprimer"
+		end
+
 	lire_donnees
+			-- Lis les données pour les affichées à l'écran.
 		do
 			create message.make_empty					--P-e à enlever
 			message := "lire"
@@ -59,11 +69,13 @@ feature {ANY}
 			socket.close
 		end
 
-feature {NONE}
+feature {NONE} -- Implementation
 
 	socket: NETWORK_DATAGRAM_SOCKET
+			-- Le socket du réseau.
 
 	message: STRING
+			-- Le message a envoyé sur le port.
 
 	joueurs: LIST[STRING]
 

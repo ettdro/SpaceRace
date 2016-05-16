@@ -1,8 +1,8 @@
 note
 	description: "Contient les méthodes de gestion que tous les menus se doivent d'avoir."
 	author: "Étienne Drolet & Nicolas Bisson"
-	date: "2016-04-03"
-	revision: "1.1"
+	date: "2016-05-15"
+	revision: "1.4"
 
 deferred class
 	MENU
@@ -18,7 +18,7 @@ inherit
 feature -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
-			-- Constructeur de la classe abstraite MENU qui créer une liste de coordonnées, la fenêtre (a_fenetre), la musique (a_musique) et le son lors d'un click (a_son_click).
+			-- Constructeur de la classe abstraite MENU qui crée une liste de coordonnées, la fenêtre (a_fenetre), la musique (a_musique) et le son lors d'un click (a_son_click).
 		do
 			fenetre := a_fenetre
 			musique := a_musique

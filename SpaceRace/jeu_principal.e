@@ -1,8 +1,8 @@
 note
 	description: "Classe pour gérer le jeu qui consiste à faire une course pour enregistrer le meilleur temps."
 	author: "Étienne Drolet et Nicolas Bisson"
-	date: "2016-04-22"
-	revision: "1.2"
+	date: "2016-05-15"
+	revision: "1.4"
 
 class
 	JEU_PRINCIPAL
@@ -134,7 +134,6 @@ feature {ANY} -- Access
 					chronometre.unpause (a_temps)
 					etait_pause := False
 				end
-
 				curseur.reinitialiser_curseur
 			end
 		end
@@ -174,7 +173,7 @@ feature {ANY} -- Access
 			end
 		end
 
-	action_clavier (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
+	action_clavier (a_temps: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie quelle touche (a_etat_clavier) est pressée pour pouvoir exécuter la bonne action (déplacement ou rotation).
 		local
 			l_touche_repete: BOOLEAN
@@ -241,7 +240,7 @@ feature {ANY} -- Access
 			end
 		end
 
-	action_clavier_relache (a_timestamp: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
+	action_clavier_relache (a_temps: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie que l'accélération (a_etat_clavier) est relâchée pour décélérer.
 		local
 			l_touche_repete: BOOLEAN
@@ -305,7 +304,6 @@ feature {ANY} -- Access
 					vaisseau_y := vaisseau_y - (cosine (rotation_vaisseau_radiant)) * vitesse
 					vaisseau_x := vaisseau_x + (sine (rotation_vaisseau_radiant)) * vitesse
 				end
---				print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N")
 
 			end
 		end
@@ -317,7 +315,6 @@ feature {ANY} -- Access
 				rotation_vaisseau := 360
 			end
 			rotation_vaisseau := rotation_vaisseau - 3
---			print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
 		end
 
 	rotation_droite
@@ -327,7 +324,6 @@ feature {ANY} -- Access
 				rotation_vaisseau := 0
 			end
 			rotation_vaisseau := rotation_vaisseau + 3
---			print ("X:" + vaisseau_x.out + " Y:" + vaisseau_y.out + "%N" + rotation_vaisseau.out + "%N")
 		end
 
 	rotation_vaisseau_radiant: REAL_64
@@ -354,6 +350,7 @@ feature {ANY} -- Access
 		end
 
 	verifier_son_vaisseau_muet
+			-- Vérifie si le son est muet pour jouer ou non le son du vaisseau.
 		do
 			if not musique.est_muet then
 				son_vaisseau.jouer (False)
@@ -361,6 +358,7 @@ feature {ANY} -- Access
 		end
 
 	verifier_son_vaisseau_fin_muet (a_touche_repete: BOOLEAN)
+			-- Vérifie si le son est muet pour jouer ou non le son du vaisseau qui ralenti et seulement une fois si a_touche_repete est False.
 		do
 			if not musique.est_muet and not a_touche_repete and vitesse > 0 then
 				son_vaisseau_fin.jouer (False)
@@ -424,7 +422,7 @@ feature {NONE} -- Affichage
 		end
 
 	afficher_bouton_son
-			-- Affiche le bon bouton "MUET" selon l'état du son (s'il avait été changé ou non dans le menu "OPTIONS" et celui-ci).
+			-- Affiche le bon bouton "MUET" selon l'état du son (s'il avait été changé ou non dans le menu "OPTIONS" ou celui-ci).
 		do
 			if doit_afficher_bouton_muet then
 				bouton_muet.afficher (935, 0, fenetre.fenetre.renderer)
@@ -438,6 +436,7 @@ feature {NONE} -- Affichage
 feature {ANY} -- Implementation
 
 	reseau: RESEAU
+			-- La connexion à la BD du serveur.
 
 	rotation_vaisseau: REAL_64
 			-- L'angle de rotation du vaisseau.
@@ -512,8 +511,10 @@ feature {ANY} -- Implementation
 			-- La vitesse du vaisseau.
 
 	son_vaisseau: EFFET_SONORE
+			-- Le son du vaisseau qui accélère.
 
 	son_vaisseau_fin: EFFET_SONORE
+			-- Le son du vaisseau qui décélère.
 
 feature {NONE} -- Constantes
 

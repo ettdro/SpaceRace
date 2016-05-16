@@ -2,7 +2,7 @@ note
 	description: "Contient ce qui est général aux tours."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-04-25"
-	revision: "1.0"
+	revision: "1.3"
 
 deferred class
 	TOURS

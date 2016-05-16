@@ -2,7 +2,7 @@ note
 	description: "Classe qui fait la gestion de la position du curseur pour pouvoir le changer si nécessaire."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-04-03"
-	revision: "1.0"
+	revision: "1.2"
 
 class
 	CURSEUR

@@ -1,8 +1,8 @@
 note
-	description: "Tests pour la classe TOURS"
+	description: "Classe contenant les tests de la classe TOURS."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-04-25"
-	revision: "1.0"
+	revision: "1.3"
 	testing: "type/manual"
 
 class
@@ -20,7 +20,7 @@ inherit
 feature -- Test routines
 
 	incrementer_tour_normal
-			-- Test normal de la routine `incrementer_tour'
+			-- Test normal de la routine `incrementer_tour'.
 		note
 			testing: "execution/serial"
 		do
@@ -29,7 +29,7 @@ feature -- Test routines
 		end
 
 	incrementer_tour_limite
-			-- Test limite de la routine `incrementer_tour'
+			-- Test limite de la routine `incrementer_tour'.
 		note
 			testing: "execution/serial"
 		do
@@ -40,7 +40,7 @@ feature -- Test routines
 		end
 
 	incrementer_tour_errone
-			-- Test errone de la routine `incrementer_tour'
+			-- Test errone de la routine `incrementer_tour'.
 		note
 			testing: "execution/serial"
 		do

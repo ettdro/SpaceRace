@@ -2,7 +2,7 @@ note
 	description: "Contient les méthodes générales liées à la création et à l'affichage d'images."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-04-03"
-	revision: "1.1"
+	revision: "1.2"
 
 deferred class
 	IMAGES

@@ -2,7 +2,7 @@ note
 	description: "Gère le menu où l'on choisi le modèle du vaisseau avec lequel courser."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-04-03"
-	revision: "1.1"
+	revision: "1.2"
 
 class
 	MENU_VAISSEAUX

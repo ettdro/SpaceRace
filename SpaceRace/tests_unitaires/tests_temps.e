@@ -2,7 +2,7 @@ note
 	description: "Classe contenant les tests de la classe TEMPS."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-04-25"
-	revision: "1.0"
+	revision: "1.3"
 	testing: "type/manual"
 
 class
@@ -17,10 +17,10 @@ inherit
 			default_create
 		end
 
-feature -- Test routines
+feature {NONE} -- Test routines
 
 	chronometre_normal
-			-- Test normal de la routine `chronometre'
+			-- Test normal de la routine `chronometre'.
 		note
 			testing: "execution/serial"
 		local
@@ -32,7 +32,7 @@ feature -- Test routines
 		end
 
 	chronometre_limite
-			-- Test limite de la routine `chronometre'
+			-- Test limite de la routine `chronometre'.
 		note
 			testing: "execution/serial"
 		local
@@ -44,7 +44,7 @@ feature -- Test routines
 		end
 
 	depart_chrono_normal
-			-- Test normal de la routine `depart_chrono'
+			-- Test normal de la routine `depart_chrono'.
 		note
 			testing: "execution/serial"
 		local
@@ -56,7 +56,7 @@ feature -- Test routines
 		end
 
 	depart_chrono_errone
-			-- Test erroné de la routine `depart_chrono'
+			-- Test erroné de la routine `depart_chrono'.
 		note
 			testing: "execution/serial"
 		local
@@ -68,7 +68,7 @@ feature -- Test routines
 		end
 
 	unpause_normal
-			-- Test normal de la routine `unpause'
+			-- Test normal de la routine `unpause'.
 		note
 			testing: "execution/serial"
 		local
@@ -82,7 +82,7 @@ feature -- Test routines
 		end
 
 	unpause_limite
-			-- Test limite de la routine `unpause'
+			-- Test limite de la routine `unpause'.
 		note
 			testing: "execution/serial"
 		local
