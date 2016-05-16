@@ -17,7 +17,6 @@ feature {NONE} -- Initialization
 			l_socket: NETWORK_DATAGRAM_SOCKET
 			l_port: INTEGER
 			l_longueur_message: INTEGER
-			l_message: STRING
 			l_nom_joueur: STRING
 		do
 			l_port := 2767
@@ -41,15 +40,20 @@ feature {NONE} -- Initialization
 	envoyer_classement
 		local
 			l_socket: NETWORK_DATAGRAM_SOCKET
-			l_message: STRING
 		do
-			create l_socket.make_targeted ("localhost", 2767)
+			create l_socket.make_targeted ("localhost", 2768)
 			across
 				base_donnees.joueurs as la_liste_joueurs
 			loop
-				l_socket.put_integer (la_liste_joueurs.item.nom_joueur.count)
-				l_socket.put_string (la_liste_joueurs.item.nom_joueur)
+				if la_liste_joueurs.item.nom_joueur.count > 0 then
+					l_socket.put_integer (1)
+				else
+					l_socket.put_integer (0)
+				end
+				l_socket.put_integer (la_liste_joueurs.item.nom_joueur.count + la_liste_joueurs.item.temps_joueur.count + 3)
+				l_socket.put_string (la_liste_joueurs.item.nom_joueur + " - " + la_liste_joueurs.item.temps_joueur)
 			end
+			l_socket.put_integer (0)
 			l_socket.close
 		end
 

@@ -34,29 +34,34 @@ feature {ANY} -- Access
 			l_longueur_message: INTEGER
 			l_message: STRING
 			l_nom_joueur: STRING
+			l_quit : INTEGER
 		do
-			socket.read_integer
-			l_longueur_message := socket.last_integer
-			socket.read_stream (l_longueur_message)
-			l_nom_joueur := socket.last_string
-			print(l_nom_joueur)
+			create l_socket.make_bound (2768)
+			l_socket.read_integer
+			l_quit := l_socket.last_integer
+			from
+			until
+				l_quit = 0
+			loop
+				l_socket.read_integer
+				l_longueur_message := l_socket.last_integer
+				l_socket.read_stream (l_longueur_message)
+				l_nom_joueur := l_socket.last_string
+				l_socket.read_integer
+				l_quit := l_socket.last_integer
+				joueurs.extend (l_nom_joueur)
+			end
+			l_socket.close
 		end
 
 	inserer_record
 			-- Enregistre le record dans la base de données.
 		do
 			create message.make_empty					--P-e à enlever
-			message := "marc 3min42%N"
+			message := "marc 3:42%N"
 			socket.put_integer (message.count)
 			socket.put_string (message)
 			socket.close
-		end
-
-	supprimer_donnees
-			-- Supprime les données de la base de données.
-		do
-			create message.make_empty					-- P-e à enlever
-			message := "supprimer"
 		end
 
 	lire_donnees
@@ -77,6 +82,7 @@ feature {NONE} -- Implementation
 	message: STRING
 			-- Le message a envoyé sur le port.
 
+feature {ANY}
 	joueurs: LIST[STRING]
 
 end

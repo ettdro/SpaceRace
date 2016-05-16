@@ -54,11 +54,6 @@ feature {ANY}
 			end
 		end
 
-	lire_donnees_serveur
-		do
-			
-		end
-
 feature -- Access
 
 	base_donnee: PS_REPOSITORY

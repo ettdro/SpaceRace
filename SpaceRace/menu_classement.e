@@ -30,7 +30,9 @@ feature {NONE} -- Initialization
 			font.open
 			create couleur.make_rgb (255, 102, 0)
 			create text_surface_numeros.make ("1. ", font, couleur)
+			create text_surface_noms.make ("NOM - 0:00", font, couleur)
 			create texture_numeros.make_from_surface (a_fenetre.fenetre.renderer, text_surface_numeros)
+			create texture_noms.make_from_surface (a_fenetre.fenetre.renderer, text_surface_noms)
 			create reseau.make
 		end
 
@@ -75,6 +77,15 @@ feature {ANY} -- Access
 				create reseau.make
 				reseau.lire_donnees
 				reseau.ecouter
+				across
+					reseau.joueurs as la_liste_joueurs
+				loop
+					create text_surface_noms.make (la_liste_joueurs.item, font, couleur)
+					create text_surface_numeros.make (la_liste_joueurs.cursor_index.out, font, couleur)
+					create texture_noms.make_from_surface (fenetre.fenetre.renderer, text_surface_noms)
+					create texture_numeros.make_from_surface (fenetre.fenetre.renderer, text_surface_numeros)
+					lancer_fenetre_classement
+				end
 			end
 		end
 
@@ -84,7 +95,16 @@ feature {ANY} -- Access
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
-			fenetre.fenetre.renderer.draw_texture (texture_numeros, 300, 200)
+			fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, 50)
+			fenetre.fenetre.renderer.draw_texture (texture_noms, 450, 50)
+			fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, 100)
+			fenetre.fenetre.renderer.draw_texture (texture_noms, 450, 100)
+			fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, 150)
+			fenetre.fenetre.renderer.draw_texture (texture_noms, 450, 150)
+			fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, 200)
+			fenetre.fenetre.renderer.draw_texture (texture_noms, 450, 200)
+			fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, 250)
+			fenetre.fenetre.renderer.draw_texture (texture_noms, 450, 250)
 			fenetre.fenetre.renderer.present
 		end
 
@@ -93,11 +113,17 @@ feature {ANY} -- Implementation
 	bouton_retour: AFFICHABLE
 			-- L'image du bouton "RETOUR"
 
+	textures_numeros: LIST[]
+
 	text_surface_numeros: TEXT_SURFACE_BLENDED
 			-- Une surface pour les numéros.
 
 	texture_numeros: GAME_TEXTURE
 			-- La texture pour les numéros.
+
+	text_surface_noms: TEXT_SURFACE_BLENDED
+
+	texture_noms: GAME_TEXTURE
 
 	font: TEXT_FONT
 			-- La police d'écriture du texte.
@@ -107,6 +133,7 @@ feature {ANY} -- Implementation
 
 	reseau: RESEAU
 			-- La connexion à la BD du serveur.
+
 
 feature {ANY} -- Constantes
 
