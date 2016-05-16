@@ -113,7 +113,7 @@ feature {ANY} -- Implementation
 	bouton_retour: AFFICHABLE
 			-- L'image du bouton "RETOUR"
 
-	textures_numeros: LIST[]
+--	textures_numeros: LIST[]
 
 	text_surface_numeros: TEXT_SURFACE_BLENDED
 			-- Une surface pour les numéros.

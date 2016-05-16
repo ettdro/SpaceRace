@@ -387,16 +387,18 @@ feature {ANY} -- Access
 			end
 			verification_position_vaisseau
 			lancer_fenetre_jeu_principal
-			if accelerer then
-				acceleration_vaisseau
+			if not etait_pause then
+				if accelerer then
+					acceleration_vaisseau
+				end
+				if decelerer then
+					deceleration_vaisseau
+				end
+				if freiner then
+					freiner_vaisseau
+				end
+				avancer
 			end
-			if decelerer then
-				deceleration_vaisseau
-			end
-			if freiner then
-				freiner_vaisseau
-			end
-			avancer
 		end
 
 feature {NONE} -- Affichage
