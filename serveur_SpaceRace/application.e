@@ -41,13 +41,14 @@ feature {NONE} -- Initialization
 	envoyer_classement
 		local
 			l_socket: NETWORK_DATAGRAM_SOCKET
+			l_message: STRING
 		do
 			create l_socket.make_targeted ("localhost", 2767)
-			l_socket.put_integer (base_donnees.joueurs.count)
 			across
 				base_donnees.joueurs as la_liste_joueurs
 			loop
-				l_socket.put_string (la_liste_joueurs.item.nom_joueur + la_liste_joueurs.item.temps_joueur)
+				l_socket.put_integer (la_liste_joueurs.item.nom_joueur.count)
+				l_socket.put_string (la_liste_joueurs.item.nom_joueur)
 			end
 			l_socket.close
 		end

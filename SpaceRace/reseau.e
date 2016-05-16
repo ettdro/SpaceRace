@@ -34,11 +34,10 @@ feature {ANY}
 			l_message: STRING
 			l_nom_joueur: STRING
 		do
-			create l_socket.make_bound (2767)
-			l_socket.read_integer
-			l_longueur_message := l_socket.last_integer
-			l_socket.read_stream (l_longueur_message)
-			l_nom_joueur := l_socket.last_string
+			socket.read_integer
+			l_longueur_message := socket.last_integer
+			socket.read_stream (l_longueur_message)
+			l_nom_joueur := socket.last_string
 			print(l_nom_joueur)
 		end
 
