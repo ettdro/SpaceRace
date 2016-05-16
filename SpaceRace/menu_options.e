@@ -2,7 +2,7 @@ note
 	description: "Classe qui gére le menu des options du jeu."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-04-03"
-	revision: "1.1"
+	revision: "1.2"
 
 class
 	MENU_OPTIONS

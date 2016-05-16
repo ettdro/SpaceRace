@@ -1,8 +1,8 @@
 note
 	description: "Contient les méthodes générales liées aux sons, autant pour la musique que pour les effets sonores."
 	author: "Nicolas Bisson & Étienne Drolet"
-	date: "2016-04-03"
-	revision: "1.1"
+	date: "2016-05-15"
+	revision: "1.4"
 
 deferred class
 	SON
@@ -82,20 +82,6 @@ feature {ANY} -- Access
 			source.gain = 1
 		end
 
-	desactiver_son_click
-			-- Désactive le son lorsqu'on click sur un bouton.
-		do
-			source.stop
-		ensure
-			source.is_stop
-		end
-
-	est_muet: BOOLEAN
-			-- Vérifie si c'est muet pour l'affichage du bon bouton dans le menu des options et dans le jeu principal.
-		do
-			Result := source.gain = 0
-		end
-
 feature {ANY} -- Implementation
 
 	source: AUDIO_SOURCE
@@ -103,5 +89,13 @@ feature {ANY} -- Implementation
 
 	son: detachable AUDIO_SOUND
 			-- Le son créé.
+
+feature {ANY} -- Constantes
+
+	est_muet: BOOLEAN
+			-- Sert à vérifier si c'est muet pour l'affichage du bon bouton dans le menu des options et dans le jeu principal.
+		do
+			Result := source.gain = 0
+		end
 
 end

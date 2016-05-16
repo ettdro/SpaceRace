@@ -2,7 +2,7 @@ note
 	description: "Classe qui crée et gère les mouvements du vaisseau."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-04-04"
-	revision: "1.1"
+	revision: "1.2"
 
 class
 	VAISSEAU

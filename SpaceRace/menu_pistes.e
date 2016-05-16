@@ -2,7 +2,7 @@ note
 	description: "Gère le menu où l'on choisi la piste sur laquelle courser."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-04-03"
-	revision: "1.1"
+	revision: "1.2"
 
 class
 	MENU_PISTES

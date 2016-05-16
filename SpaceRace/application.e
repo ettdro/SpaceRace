@@ -1,8 +1,8 @@
 note
 	description: "Classe principale de l'application qui crée et lance le jeu."
 	author: "Nicolas Bisson et Étienne Drolet"
-	date: "2016-04-22"
-	revision: "1.2"
+	date: "2016-05-15"
+	revision: "1.4"
 
 class
 	APPLICATION
@@ -27,7 +27,6 @@ feature {NONE} -- Initialization
 		local
 			l_menu: detachable MENU_PRINCIPAL
 		do
-			thread
 			game_library.enable_video
 			image_file_library.enable_image (True, True, False)
 			audio_library.enable_sound
@@ -40,31 +39,6 @@ feature {NONE} -- Initialization
 			audio_library.quit_library
 			image_file_library.quit_library
 			game_library.quit_library
-		end
-
-	thread
-			-- Méthode qui gère des threads. Il arrête après 1000 fois.
-		local
-			thread_salut: SR_THREAD
-			thread_louis: SR_THREAD
-			i: INTEGER
-		do
-			create thread_salut.make ("Salut ")
-			create thread_louis.make ("Louis ")
-			thread_salut.launch
-			thread_louis.launch
-			from
-				i := 0
-			until
-				i = 1000
-			loop
-				io.put_string (i.out + "%N")
-				i := i + 1
-			end
-			thread_salut.arret_thread
-			thread_louis.arret_thread
-			thread_salut.join
-			thread_louis.join
 		end
 
 end

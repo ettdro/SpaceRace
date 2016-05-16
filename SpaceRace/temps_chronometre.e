@@ -1,8 +1,8 @@
 note
 	description: "Classe qui gère le chronomètre."
 	author: "Nicolas Bisson & Étienne Drolet"
-	date: "2016-04-03"
-	revision: "1.1"
+	date: "2016-04-25"
+	revision: "1.3"
 
 class
 	TEMPS_CHRONOMETRE
@@ -60,15 +60,19 @@ feature {ANY} -- Access
 			fenetre.draw_texture (texture_minutes, 780, 75)
 			fenetre.draw_texture (texture_points, 865, 75)
 			fenetre.draw_texture (texture_secondes, 885, 75)
+		ensure
+			Bon_Temps_Secondes: temps_secondes = ((temps_milliseconde // 1000) \\ 60)
+			Bon_Temps_Minutes: temps_minutes = (temps_milliseconde // 60000)
 		end
 
-	pause_chrono (a_timestamp: NATURAL)
-			-- Mets le chronomètre sur pause en retenant a_timestamp.
+	pause_chrono (a_temps: NATURAL)
+			-- Mets le chronomètre sur pause en retenant a_temps.
 		do
-			temps_pause := a_timestamp
+			temps_pause := a_temps
 			pause := True
 		ensure
-			Temps_Pause_Assigne: temps_pause = a_timestamp
+			Temps_Pause_Assigne: temps_pause = a_temps
+			Est_Pause: pause = True
 		end
 
 feature {NONE} -- Implementation

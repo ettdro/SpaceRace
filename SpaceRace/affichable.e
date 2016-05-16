@@ -1,8 +1,8 @@
 note
 	description: "Classe qui lance la création de toutes les images du jeux."
 	author: "Nicolas Bisson et Étienne Drolet"
-	date: "2016-04-03"
-	revision: "1.1"
+	date: "2016-05-15"
+	revision: "1.4"
 
 class
 	AFFICHABLE
@@ -25,7 +25,7 @@ feature {NONE} -- Initialization
 			creer_image (a_renderer, a_nom_fichier)
 		end
 
-feature {ANY}
+feature {ANY} -- Access
 
 	afficher (a_pos_x, a_pos_y: INTEGER; a_renderer: GAME_RENDERER)
 			-- Affiche l'image aux coordonnées a_pos_x et a_pos_y dans la fenêtre (a_renderer).

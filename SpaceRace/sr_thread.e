@@ -2,7 +2,7 @@ note
 	description: "Classe qui contient les méthodes relatives aux threads."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-04-22"
-	revision: "1.0"
+	revision: "1.3"
 
 class
 	SR_THREAD

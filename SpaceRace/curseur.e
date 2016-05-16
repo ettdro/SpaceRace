@@ -2,7 +2,7 @@ note
 	description: "Classe qui fait la gestion de la position du curseur pour pouvoir le changer si nécessaire."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-04-03"
-	revision: "1.0"
+	revision: "1.2"
 
 class
 	CURSEUR
@@ -26,7 +26,7 @@ feature -- Initialization
 	change_curseur (a_timestamp: NATURAL_32; a_mouse_state: GAME_MOUSE_MOTION_STATE; a_x, a_y: INTEGER_32; a_window: GAME_WINDOW_RENDERED; a_liste_coordonnees: LIST [TUPLE [x1, y1, x2, y2: INTEGER]])
 			-- Vérifie que le curseur (a_mouse_state, a_x et a_y) est sur un bouton (a_liste_coordonnees) et change l'image du curseur au besoin dans la fenêtre (a_window).
 		require
-			-- Liste_Vide: not a_liste_coordonnees.is_empty
+			Liste_Vide: not a_liste_coordonnees.is_empty
 			Position_X_Y_Valide:
 				across a_liste_coordonnees as la_liste_coordonnees all
 					la_liste_coordonnees.item.x1 >= 0 and

@@ -1,8 +1,8 @@
 note
 	description: "Affiche le menu de démarrage où l'on peut choisir de jouer ou d'aller dans les options."
 	author: "Étienne Drolet & Nicolas Bisson"
-	date: "2016-04-03"
-	revision: "1.1"
+	date: "2016-05-15"
+	revision: "1.4"
 
 class
 	MENU_PRINCIPAL

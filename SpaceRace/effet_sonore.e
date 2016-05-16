@@ -2,7 +2,7 @@ note
 	description: "Classe qui lance la création de tous les effets sonores."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-04-03"
-	revision: "1.1"
+	revision: "1.2"
 
 class
 	EFFET_SONORE
