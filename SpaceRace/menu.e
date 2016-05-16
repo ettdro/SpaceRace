@@ -56,7 +56,7 @@ feature {ANY} -- Access
 			-- Méthode d'exécution des menus qui gère la boucle du menu.
 		do
 			fenetre.fenetre.mouse_motion_actions.extend (agent mouvements_souris(?, ?, ?, ?, fenetre.fenetre))
-			game_library.iteration_actions.extend (agent  (a_timestamp: NATURAL)
+			game_library.iteration_actions.extend (agent  (a_temps: NATURAL)
 				do
 					audio_library.update
 				end)

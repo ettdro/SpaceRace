@@ -182,59 +182,53 @@ feature {ANY} -- Access
 				if a_etat_clavier.is_repeat then
 					l_touche_repete := True
 					if a_etat_clavier.is_w then
-						acceleration_vaisseau
+						accelerer := True
+						decelerer := False
 						verifier_son_vaisseau_muet
-						avancer
 					end
 					if a_etat_clavier.is_s then
-						deceleration_vaisseau
+						decelerer := False
+						accelerer := False
+						freiner := True
 						verifier_son_vaisseau_fin_muet (l_touche_repete)
-						avancer
 					end
 					if a_etat_clavier.is_a then
 						rotation_gauche
-						deceleration_vaisseau
 						verifier_son_vaisseau_fin_muet (l_touche_repete)
-						avancer
 					end
 					if a_etat_clavier.is_d then
 						rotation_droite
-						deceleration_vaisseau
 						verifier_son_vaisseau_fin_muet (l_touche_repete)
-						avancer
 					end
 				end
 				if not a_etat_clavier.is_repeat then
 					l_touche_repete := False
 					if a_etat_clavier.is_w then
-						acceleration_vaisseau
+						accelerer := True
+						decelerer := False
 						verifier_son_vaisseau_muet
-						avancer
 					end
 					if a_etat_clavier.is_s then
-						deceleration_vaisseau
+						decelerer := False
+						accelerer := False
+						freiner := True
 						verifier_son_vaisseau_fin_muet (l_touche_repete)
-						avancer
 					end
 					if a_etat_clavier.is_a then
 						rotation_gauche
-						deceleration_vaisseau
 						if vitesse = 0 then
 							verifier_son_vaisseau_muet
 						end
 						else
 							verifier_son_vaisseau_fin_muet (l_touche_repete)
-						avancer
 					end
 					if a_etat_clavier.is_d then
 						rotation_droite
-						deceleration_vaisseau
 						if vitesse = 0 then
 							verifier_son_vaisseau_muet
 						end
 						else
 							verifier_son_vaisseau_fin_muet (l_touche_repete)
-						avancer
 					end
 				end
 			end
@@ -245,19 +239,28 @@ feature {ANY} -- Access
 		local
 			l_touche_repete: BOOLEAN
 		do
-			l_touche_repete := False
-			verifier_son_vaisseau_fin_muet (l_touche_repete)
-			vitesse := 0
+			if a_etat_clavier.is_w then
+				l_touche_repete := False
+				verifier_son_vaisseau_fin_muet (l_touche_repete)
+				decelerer := True
+				accelerer := False
+			end
+			if a_etat_clavier.is_s then
+				freiner := False
+				if not accelerer then
+					decelerer := True
+				end
+			end
 		end
 
 	acceleration_vaisseau
 			-- Gère l'accélération du vaisseau.
 		do
-			if vitesse < 6 then
+			if vitesse < 2 then
 				vitesse := vitesse + Acceleration
 			end
-			if vitesse >= 6 then
-				vitesse := 6
+			if vitesse >= 2 then
+				vitesse := 2
 			end
 		end
 
@@ -266,6 +269,17 @@ feature {ANY} -- Access
 		do
 			if vitesse > 0 then
 				vitesse := vitesse - Deceleration
+			end
+			if vitesse <= 0 then
+				vitesse := 0
+			end
+		end
+
+	freiner_vaisseau
+			-- Ralenti le vaisseau plus rapidement que deceleration_vaisseau.
+		do
+			if vitesse > 0 then
+				vitesse := vitesse - (Deceleration * 2)
 			end
 			if vitesse <= 0 then
 				vitesse := 0
@@ -314,7 +328,7 @@ feature {ANY} -- Access
 			if rotation_vaisseau = 0 then
 				rotation_vaisseau := 360
 			end
-			rotation_vaisseau := rotation_vaisseau - 3
+			rotation_vaisseau := rotation_vaisseau - 5
 		end
 
 	rotation_droite
@@ -323,7 +337,7 @@ feature {ANY} -- Access
 			if rotation_vaisseau = 360 then
 				rotation_vaisseau := 0
 			end
-			rotation_vaisseau := rotation_vaisseau + 3
+			rotation_vaisseau := rotation_vaisseau + 5
 		end
 
 	rotation_vaisseau_radiant: REAL_64
@@ -373,6 +387,16 @@ feature {ANY} -- Access
 			end
 			verification_position_vaisseau
 			lancer_fenetre_jeu_principal
+			if accelerer then
+				acceleration_vaisseau
+			end
+			if decelerer then
+				deceleration_vaisseau
+			end
+			if freiner then
+				freiner_vaisseau
+			end
+			avancer
 		end
 
 feature {NONE} -- Affichage
@@ -516,18 +540,27 @@ feature {ANY} -- Implementation
 	son_vaisseau_fin: EFFET_SONORE
 			-- Le son du vaisseau qui décélère.
 
+	accelerer: BOOLEAN
+			-- Détermine si le vaisseau est en train d'accélérer.
+
+	decelerer: BOOLEAN
+			-- Détermine si le vaisseau est en train de décélérer.
+
+	freiner: BOOLEAN
+			-- Détermine si le vaisseau est en train de ralentir.
+
 feature {NONE} -- Constantes
 
 	Acceleration: REAL_64
 		-- Constante qui représente la vitesse d'accélération.
 		once
-			Result := 0.05
+			Result := 0.02
 		end
 
 	Deceleration: REAL_64
 		-- Constante qui représente la vitesse d'accélération.
 		once
-			Result := 0.1
+			Result := 0.02
 		end
 
 	Bouton_retour_jeu_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
