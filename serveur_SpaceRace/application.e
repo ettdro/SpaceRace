@@ -29,12 +29,26 @@ feature {NONE} -- Initialization
 			l_socket.read_stream (l_longueur_message)
 			l_nom_joueur := l_socket.last_string
 			liste_commande := l_nom_joueur.split (' ')
-			if liste_commande.i_th (1).has_substring ("supprimer") then
-				base_donnees.supprimer_donnees
+			base_donnees.remplir_liste_classement
+			if liste_commande.i_th (1).has_substring ("lire") then
+				envoyer_classement
 			else
 				base_donnees.ajouter_joueur(liste_commande.i_th (1), liste_commande.i_th (2))
 			end
-			base_donnees.afficher_classement
+			l_socket.close
+		end
+
+	envoyer_classement
+		local
+			l_socket: NETWORK_DATAGRAM_SOCKET
+		do
+			create l_socket.make_targeted ("localhost", 2767)
+			l_socket.put_integer (base_donnees.joueurs.count)
+			across
+				base_donnees.joueurs as la_liste_joueurs
+			loop
+				l_socket.put_string (la_liste_joueurs.item.nom_joueur + la_liste_joueurs.item.temps_joueur)
+			end
 			l_socket.close
 		end
 

@@ -73,7 +73,8 @@ feature {ANY} -- Access
 				verifier_son_click_muet
 				curseur.reinitialiser_curseur
 				create reseau.make
-				reseau.supprimer_donnees
+				reseau.lire_donnees
+				reseau.ecouter
 			end
 		end
 
