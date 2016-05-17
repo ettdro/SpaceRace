@@ -28,7 +28,6 @@ feature {NONE} -- Initialization
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
 			create image_classement.creer_affichable (fenetre.fenetre.renderer, "classement.png")
 			liste_coordonnees.extend (Bouton_retour_coordonnees)
-			liste_coordonnees.extend (Bouton_reinitialiser_coordonnees)
 			create font.make ("impact.ttf", 30)
 			font.open
 			create couleur.make_rgb (255, 102, 0)
@@ -154,14 +153,5 @@ feature {ANY} -- Implementation
 
 	image_classement: AFFICHABLE
 			-- L'image représentant le titre du classement.
-
-
-feature {ANY} -- Constantes
-
-	Bouton_reinitialiser_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
-			-- Constante représentant les coordonnées du bouton RETOUR.
-		once
-			Result := [0, 0, 30, 30]
-		end
 
 end
