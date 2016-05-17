@@ -1,7 +1,8 @@
 note
-	description : "serveur_SpaceRace application root class"
-	date        : "$Date$"
-	revision    : "$Revision$"
+	description: "Classe qui lance et gère le serveur pour le classement du jeu SpaceRace."
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-05-17"
+	revision: "1.4"
 
 class
 	APPLICATION
@@ -12,7 +13,7 @@ create
 feature {NONE} -- Initialization
 
 	serveur
-			-- Run application.
+			-- Crée le serveur.
 		local
 			l_socket: NETWORK_DATAGRAM_SOCKET
 			l_port: INTEGER
@@ -21,7 +22,7 @@ feature {NONE} -- Initialization
 		do
 			l_port := 2767
 			create l_socket.make_bound (2767)
-			create {ARRAYED_LIST[STRING]}liste_commande.make (0)
+			create {ARRAYED_LIST [STRING]} liste_commande.make (0)
 			create base_donnees.make
 			l_socket.read_integer
 			l_longueur_message := l_socket.last_integer
@@ -32,12 +33,13 @@ feature {NONE} -- Initialization
 			if liste_commande.i_th (1).has_substring ("lire") then
 				envoyer_classement
 			else
-				base_donnees.ajouter_joueur(liste_commande.i_th (1), liste_commande.i_th (2))
+				base_donnees.ajouter_joueur (liste_commande.i_th (1), liste_commande.i_th (2))
 			end
 			l_socket.close
 		end
 
 	envoyer_classement
+			-- Envoie le classement à l'application pour l'afficher.
 		local
 			l_socket: NETWORK_DATAGRAM_SOCKET
 		do
@@ -57,10 +59,12 @@ feature {NONE} -- Initialization
 			l_socket.close
 		end
 
-feature -- Access
+feature {NONE} -- Implementation
 
 	base_donnees: BASE_DONNEES
+			-- La base de données contenant les noms et temps des joueurs.
 
-	liste_commande: LIST[STRING]
+	liste_commande: LIST [STRING]
+			-- Liste contenant les champs des commandes reçues.
 
 end
