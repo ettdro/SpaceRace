@@ -26,6 +26,7 @@ feature {NONE} -- Initialization
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
+			create image_classement.creer_affichable (fenetre.fenetre.renderer, "classement.png")
 			liste_coordonnees.extend (Bouton_retour_coordonnees)
 			liste_coordonnees.extend (Bouton_reinitialiser_coordonnees)
 			create font.make ("impact.ttf", 30)
@@ -69,32 +70,23 @@ feature {ANY} -- Access
 			-- Méthode qui gère les actions de la souris (a_etat_souris) dans les menus.
 		do
 			if a_etat_souris.is_left_button_pressed then
-				valider_bouton_reinitialiser (a_etat_souris.x, a_etat_souris.y)
 				valider_bouton_retour (a_etat_souris.x, a_etat_souris.y)
 			end
 		end
 
-	valider_bouton_reinitialiser (a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton RETOUR et exécute l'action en conséquence.
+	creer_texture_noms
+			-- Crée les textures de noms en allant chercher les données sur le réseau.
 		do
-			if
-				a_x > Bouton_reinitialiser_coordonnees.x1 and
-				a_x < Bouton_reinitialiser_coordonnees.x2 and
-				a_y > Bouton_reinitialiser_coordonnees.y1 and
-				a_y < Bouton_reinitialiser_coordonnees.y2
-			then
-				verifier_son_click_muet
-				curseur.reinitialiser_curseur
-				create reseau.make
-				reseau.lire_donnees
-				reseau.ecouter
-				across
-					reseau.joueurs as la_liste_joueurs
-				loop
+			create reseau.make
+			reseau.lire_donnees
+			reseau.ecouter
+			across
+				reseau.joueurs as la_liste_joueurs
+			loop
+				if la_liste_joueurs.cursor_index < 6 then
 					create text_surface_noms.make (la_liste_joueurs.item, font, couleur)
 					create texture_noms.make_from_surface (fenetre.fenetre.renderer, text_surface_noms)
 					liste_textures_noms.extend (texture_noms)
-					lancer_fenetre_classement
 				end
 			end
 		end
@@ -104,24 +96,26 @@ feature {ANY} -- Access
 		local
 			texture_y: INTEGER
 		do
-			texture_y := 100
+			creer_texture_noms
+			texture_y := 150
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
+			image_classement.afficher (310, 70, fenetre.fenetre.renderer)
 			across
 				liste_textures_numeros as la_liste_textures_numeros
 			loop
 				create text_surface_numeros.make (la_liste_textures_numeros.cursor_index.out + ".", font, couleur)
 				create texture_numeros.make_from_surface (fenetre.fenetre.renderer, text_surface_numeros)
 				fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, texture_y)
-				fenetre.fenetre.renderer.draw_texture (texture_noms, 450, texture_y)
 				texture_y := texture_y + 50
 			end
+			texture_y := 150
 			across
 				liste_textures_noms as la_liste_textures_noms
 			loop
-				create text_surface_noms.make (la_liste_textures_noms.item.out, font, couleur)
-				create texture_noms.make_from_surface (fenetre.fenetre.renderer, text_surface_noms)
+				fenetre.fenetre.renderer.draw_texture (la_liste_textures_noms.item, 430, texture_y)
+				texture_y := texture_y + 50
 			end
 			fenetre.fenetre.renderer.present
 		end
@@ -138,12 +132,16 @@ feature {ANY} -- Implementation
 			-- La texture pour les numéros.
 
 	text_surface_noms: TEXT_SURFACE_BLENDED
+			-- Texture pour les numéros.
 
 	texture_noms: GAME_TEXTURE
+			-- Texture pour les noms.
 
 	liste_textures_numeros: LIST[GAME_TEXTURE]
+			-- Liste de textures pour les noms.
 
 	liste_textures_noms: LIST[GAME_TEXTURE]
+			-- Liste de textures pour les noms.
 
 	font: TEXT_FONT
 			-- La police d'écriture du texte.
@@ -153,6 +151,9 @@ feature {ANY} -- Implementation
 
 	reseau: RESEAU
 			-- La connexion à la BD du serveur.
+
+	image_classement: AFFICHABLE
+			-- L'image représentant le titre du classement.
 
 
 feature {ANY} -- Constantes

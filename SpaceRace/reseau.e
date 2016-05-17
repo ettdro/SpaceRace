@@ -49,6 +49,7 @@ feature {ANY} -- Access
 				l_socket.read_integer
 				l_quit := l_socket.last_integer
 				joueurs.extend (l_infos_joueur)
+				classer_joueurs
 			end
 			l_socket.close
 		end
@@ -57,7 +58,7 @@ feature {ANY} -- Access
 			-- Enregistre le record dans la base de données.
 		do
 			create message.make_empty					--P-e à enlever
-			message := "emilio 2:45%N"
+			message := "sanic 0:30%N"
 			socket.put_integer (message.count)
 			socket.put_string (message)
 			socket.close
@@ -71,6 +72,11 @@ feature {ANY} -- Access
 			socket.put_integer (message.count)
 			socket.put_string (message)
 			socket.close
+		end
+
+	classer_joueurs
+		do
+
 		end
 
 feature {NONE} -- Implementation

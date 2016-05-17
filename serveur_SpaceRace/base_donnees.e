@@ -20,7 +20,7 @@ feature {NONE} -- Initialization
 			create l_fabrique.make
 			l_fabrique.set_database ("classement.db")
 			base_donnee := l_fabrique.new_repository
-			create {LINKED_LIST[JOUEUR]}joueurs.make
+			create {SORTED_TWO_WAY_LIST[JOUEUR]}joueurs.make
 		end
 
 feature {ANY}
