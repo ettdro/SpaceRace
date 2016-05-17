@@ -537,7 +537,7 @@ feature {ANY} -- Implementation
 
 	jouer_son_vaisseau_fin: BOOLEAN
 			-- Détermine si le son doit être jouer ou non.
-			
+
 	son_vaisseau: EFFET_SONORE
 			-- Le son du vaisseau qui accélère.
 
