@@ -32,8 +32,7 @@ feature {ANY} -- Access
 		local
 			l_socket: NETWORK_DATAGRAM_SOCKET
 			l_longueur_message: INTEGER
-			l_message: STRING
-			l_nom_joueur: STRING
+			l_infos_joueur: STRING
 			l_quit : INTEGER
 		do
 			create l_socket.make_bound (2768)
@@ -46,10 +45,10 @@ feature {ANY} -- Access
 				l_socket.read_integer
 				l_longueur_message := l_socket.last_integer
 				l_socket.read_stream (l_longueur_message)
-				l_nom_joueur := l_socket.last_string
+				l_infos_joueur := l_socket.last_string
 				l_socket.read_integer
 				l_quit := l_socket.last_integer
-				joueurs.extend (l_nom_joueur)
+				joueurs.extend (l_infos_joueur)
 			end
 			l_socket.close
 		end
@@ -58,7 +57,7 @@ feature {ANY} -- Access
 			-- Enregistre le record dans la base de données.
 		do
 			create message.make_empty					--P-e à enlever
-			message := "marc 3:42%N"
+			message := "emilio 2:45%N"
 			socket.put_integer (message.count)
 			socket.put_string (message)
 			socket.close
@@ -83,6 +82,7 @@ feature {NONE} -- Implementation
 			-- Le message a envoyé sur le port.
 
 feature {ANY}
+
 	joueurs: LIST[STRING]
 
 end

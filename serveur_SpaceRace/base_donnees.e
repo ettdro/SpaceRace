@@ -25,7 +25,7 @@ feature {NONE} -- Initialization
 
 feature {ANY}
 
-	remplir_liste_classement
+	remplir_liste_joueurs
 		local
 			l_requete: PS_QUERY[JOUEUR]
 		do
@@ -48,6 +48,7 @@ feature {ANY}
 			l_transaction := base_donnee.new_transaction
 			if not l_transaction.has_error then
 				l_transaction.insert (l_un_joueur)
+				print(l_un_joueur.nom_joueur.out + " - " + l_un_joueur.temps_joueur.out + " a ete ajoute a la BD!")
 				if not l_transaction.has_error then
 					l_transaction.commit
 				end

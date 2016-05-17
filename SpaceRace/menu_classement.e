@@ -21,6 +21,8 @@ feature {NONE} -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
 			-- Construit le menu du classement (a_fenetre), ses sons (a_musique et a_son_click), ses images ainsi que la liste des coordonnées des boutons.
+		local
+			l_ajouter_texture: INTEGER
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
@@ -29,11 +31,20 @@ feature {NONE} -- Initialization
 			create font.make ("impact.ttf", 30)
 			font.open
 			create couleur.make_rgb (255, 102, 0)
+			create {LINKED_LIST[GAME_TEXTURE]}liste_textures_numeros.make
+			create {LINKED_LIST[GAME_TEXTURE]}liste_textures_noms.make
 			create text_surface_numeros.make ("1. ", font, couleur)
 			create text_surface_noms.make ("NOM - 0:00", font, couleur)
 			create texture_numeros.make_from_surface (a_fenetre.fenetre.renderer, text_surface_numeros)
 			create texture_noms.make_from_surface (a_fenetre.fenetre.renderer, text_surface_noms)
 			create reseau.make
+			from
+			until
+				l_ajouter_texture = 5
+			loop
+				liste_textures_numeros.extend (texture_numeros)
+				l_ajouter_texture := l_ajouter_texture + 1
+			end
 		end
 
 feature {ANY} -- Access
@@ -81,9 +92,8 @@ feature {ANY} -- Access
 					reseau.joueurs as la_liste_joueurs
 				loop
 					create text_surface_noms.make (la_liste_joueurs.item, font, couleur)
-					create text_surface_numeros.make (la_liste_joueurs.cursor_index.out, font, couleur)
 					create texture_noms.make_from_surface (fenetre.fenetre.renderer, text_surface_noms)
-					create texture_numeros.make_from_surface (fenetre.fenetre.renderer, text_surface_numeros)
+					liste_textures_noms.extend (texture_noms)
 					lancer_fenetre_classement
 				end
 			end
@@ -91,20 +101,28 @@ feature {ANY} -- Access
 
 	lancer_fenetre_classement
 			-- Affiche toutes les images du menu à l'endroit précisé.
+		local
+			texture_y: INTEGER
 		do
+			texture_y := 100
 			fond.afficher (0, 0, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
 			bouton_retour.afficher (30, 520, fenetre.fenetre.renderer)
-			fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, 50)
-			fenetre.fenetre.renderer.draw_texture (texture_noms, 450, 50)
-			fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, 100)
-			fenetre.fenetre.renderer.draw_texture (texture_noms, 450, 100)
-			fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, 150)
-			fenetre.fenetre.renderer.draw_texture (texture_noms, 450, 150)
-			fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, 200)
-			fenetre.fenetre.renderer.draw_texture (texture_noms, 450, 200)
-			fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, 250)
-			fenetre.fenetre.renderer.draw_texture (texture_noms, 450, 250)
+			across
+				liste_textures_numeros as la_liste_textures_numeros
+			loop
+				create text_surface_numeros.make (la_liste_textures_numeros.cursor_index.out + ".", font, couleur)
+				create texture_numeros.make_from_surface (fenetre.fenetre.renderer, text_surface_numeros)
+				fenetre.fenetre.renderer.draw_texture (texture_numeros, 400, texture_y)
+				fenetre.fenetre.renderer.draw_texture (texture_noms, 450, texture_y)
+				texture_y := texture_y + 50
+			end
+			across
+				liste_textures_noms as la_liste_textures_noms
+			loop
+				create text_surface_noms.make (la_liste_textures_noms.item.out, font, couleur)
+				create texture_noms.make_from_surface (fenetre.fenetre.renderer, text_surface_noms)
+			end
 			fenetre.fenetre.renderer.present
 		end
 
@@ -112,8 +130,6 @@ feature {ANY} -- Implementation
 
 	bouton_retour: AFFICHABLE
 			-- L'image du bouton "RETOUR"
-
-	textures_numeros: LIST[]
 
 	text_surface_numeros: TEXT_SURFACE_BLENDED
 			-- Une surface pour les numéros.
@@ -124,6 +140,10 @@ feature {ANY} -- Implementation
 	text_surface_noms: TEXT_SURFACE_BLENDED
 
 	texture_noms: GAME_TEXTURE
+
+	liste_textures_numeros: LIST[GAME_TEXTURE]
+
+	liste_textures_noms: LIST[GAME_TEXTURE]
 
 	font: TEXT_FONT
 			-- La police d'écriture du texte.

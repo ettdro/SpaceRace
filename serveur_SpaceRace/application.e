@@ -28,7 +28,7 @@ feature {NONE} -- Initialization
 			l_socket.read_stream (l_longueur_message)
 			l_nom_joueur := l_socket.last_string
 			liste_commande := l_nom_joueur.split (' ')
-			base_donnees.remplir_liste_classement
+			base_donnees.remplir_liste_joueurs
 			if liste_commande.i_th (1).has_substring ("lire") then
 				envoyer_classement
 			else
