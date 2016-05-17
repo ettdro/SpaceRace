@@ -9,3 +9,5 @@ anciennes_images
 test
 SpaceRace.vpp~*
 ServeurSpaceRace.vpp~*
+*.vpp.bak
+*.vux

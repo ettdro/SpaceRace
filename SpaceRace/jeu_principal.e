@@ -175,12 +175,10 @@ feature {ANY} -- Access
 
 	action_clavier (a_temps: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie quelle touche (a_etat_clavier) est pressée pour pouvoir exécuter la bonne action (déplacement ou rotation).
-		local
-			l_touche_repete: BOOLEAN
 		do
 			if not chronometre.pause then
 				if a_etat_clavier.is_repeat then
-					l_touche_repete := True
+					touche_repetee := True
 					if a_etat_clavier.is_w then
 						accelerer := True
 						decelerer := False
@@ -190,19 +188,19 @@ feature {ANY} -- Access
 						decelerer := False
 						accelerer := False
 						freiner := True
-						verifier_son_vaisseau_fin_muet (l_touche_repete)
+						verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 					if a_etat_clavier.is_a then
 						rotation_gauche
-						verifier_son_vaisseau_fin_muet (l_touche_repete)
+						verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 					if a_etat_clavier.is_d then
 						rotation_droite
-						verifier_son_vaisseau_fin_muet (l_touche_repete)
+						verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 				end
 				if not a_etat_clavier.is_repeat then
-					l_touche_repete := False
+					touche_repetee := False
 					if a_etat_clavier.is_w then
 						accelerer := True
 						decelerer := False
@@ -212,7 +210,7 @@ feature {ANY} -- Access
 						decelerer := False
 						accelerer := False
 						freiner := True
-						verifier_son_vaisseau_fin_muet (l_touche_repete)
+						verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 					if a_etat_clavier.is_a then
 						rotation_gauche
@@ -220,7 +218,7 @@ feature {ANY} -- Access
 							verifier_son_vaisseau_muet
 						end
 						else
-							verifier_son_vaisseau_fin_muet (l_touche_repete)
+							verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 					if a_etat_clavier.is_d then
 						rotation_droite
@@ -228,7 +226,7 @@ feature {ANY} -- Access
 							verifier_son_vaisseau_muet
 						end
 						else
-							verifier_son_vaisseau_fin_muet (l_touche_repete)
+							verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 				end
 			end
@@ -236,12 +234,10 @@ feature {ANY} -- Access
 
 	action_clavier_relache (a_temps: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Vérifie que l'accélération (a_etat_clavier) est relâchée pour décélérer.
-		local
-			l_touche_repete: BOOLEAN
 		do
 			if a_etat_clavier.is_w then
-				l_touche_repete := False
-				verifier_son_vaisseau_fin_muet (l_touche_repete)
+				touche_repetee := False
+				verifier_son_vaisseau_fin_muet (touche_repetee)
 				decelerer := True
 				accelerer := False
 			end
@@ -371,19 +367,19 @@ feature {ANY} -- Access
 			end
 		end
 
-	verifier_son_vaisseau_fin_muet (a_touche_repete: BOOLEAN)
+	verifier_son_vaisseau_fin_muet (a_touche_repetee: BOOLEAN)
 			-- Vérifie si le son est muet pour jouer ou non le son du vaisseau qui ralenti et seulement une fois si a_touche_repete est False.
 		do
-			if not musique.est_muet and not a_touche_repete and vitesse > 0 then
+			if not musique.est_muet and not a_touche_repetee and vitesse > 0 then
 				son_vaisseau_fin.jouer (False)
 			end
 		end
 
-	sur_iteration (a_timestamp: NATURAL_32; a_fenetre: GAME_RENDERER)
+	sur_iteration (a_temps: NATURAL_32; a_fenetre: GAME_RENDERER)
 			-- Rafraichit la fenêtre (a_fenetre) du jeu principal à chaque itération et a_timestamp sert au chronomètre.
 		do
 			if not chronometre.pause then
-				chronometre.chronometre (a_timestamp)
+				chronometre.chronometre (a_temps)
 			end
 			verification_position_vaisseau
 			lancer_fenetre_jeu_principal
@@ -536,6 +532,12 @@ feature {ANY} -- Implementation
 	vitesse: REAL_64
 			-- La vitesse du vaisseau.
 
+	jouer_son_vaisseau: BOOLEAN
+			-- Détermine si le son doit être jouer ou non.
+
+	jouer_son_vaisseau_fin: BOOLEAN
+			-- Détermine si le son doit être jouer ou non.
+			
 	son_vaisseau: EFFET_SONORE
 			-- Le son du vaisseau qui accélère.
 
@@ -550,6 +552,9 @@ feature {ANY} -- Implementation
 
 	freiner: BOOLEAN
 			-- Détermine si le vaisseau est en train de ralentir.
+
+	touche_repetee: BOOLEAN
+			-- Détermine si une touche est maintenue enfoncée.
 
 feature {NONE} -- Constantes
 
