@@ -6,13 +6,11 @@
 			<assertions precondition="true" postcondition="true" check="true" invariant="true" loop="true" supplier_precondition="true"/>
 		</option>
 		<setting name="console_application" value="true"/>
-		<setting name="concurrency" value="thread"/>
-		<precompile name="base_pre" location="$ISE_PRECOMP\base-mt-safe.ecf"/>
+		<precompile name="base_pre" location="$ISE_PRECOMP\base-safe.ecf"/>
 		<library name="abel_connector_sqlite" location="..\connector_sqlite-safe.ecf"/>
 		<library name="abel_core" location="$ISE_LIBRARY\unstable\library\persistency\abel\core\core.ecf"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
 		<library name="net" location="$ISE_LIBRARY\library\net\net-safe.ecf"/>
-		<library name="thread" location="$ISE_LIBRARY\library\thread\thread-safe.ecf"/>
 		<cluster name="serveur_spacerace" location=".\" recursive="true">
 			<file_rule>
 				<exclude>/EIFGENs$</exclude>
