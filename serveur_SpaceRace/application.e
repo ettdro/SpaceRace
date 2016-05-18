@@ -74,4 +74,6 @@ feature {NONE} -- Implementation
 	liste_commande: LIST [STRING]
 			-- Liste contenant les champs des commandes reçues.
 
+	doit_quitter: BOOLEAN
+
 end
