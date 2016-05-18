@@ -61,7 +61,9 @@ feature {ANY} -- Access
 				game_library.clear_all_events
 				lancer_fenetre_classement
 				Precursor {MENU}
-				game_library.launch
+				if not sortir_menu then
+					game_library.launch
+				end
 			end
 		end
 
@@ -79,15 +81,22 @@ feature {ANY} -- Access
 			create reseau.make
 			reseau.lire_donnees
 			reseau.ecouter
-			across
-				reseau.joueurs as la_liste_joueurs
-			loop
-				if la_liste_joueurs.cursor_index < 6 then
-					create text_surface_noms.make (la_liste_joueurs.item, font, couleur)
-					create texture_noms.make_from_surface (fenetre.fenetre.renderer, text_surface_noms)
-					liste_textures_noms.extend (texture_noms)
+			if reseau.a_erreur then
+				sortir_menu := True
+				io.put_string ("Acces au serveur impossible.")
+				game_library.stop
+			else
+				across
+					reseau.joueurs as la_liste_joueurs
+				loop
+					if la_liste_joueurs.cursor_index < 6 then
+						create text_surface_noms.make (la_liste_joueurs.item, font, couleur)
+						create texture_noms.make_from_surface (fenetre.fenetre.renderer, text_surface_noms)
+						liste_textures_noms.extend (texture_noms)
+					end
 				end
 			end
+
 		end
 
 	lancer_fenetre_classement

@@ -24,16 +24,22 @@ feature {NONE} -- Initialization
 			create l_socket.make_bound (2767)
 			create {ARRAYED_LIST [STRING]} liste_commande.make (0)
 			create base_donnees.make
-			l_socket.read_integer
-			l_longueur_message := l_socket.last_integer
-			l_socket.read_stream (l_longueur_message)
-			l_nom_joueur := l_socket.last_string
-			liste_commande := l_nom_joueur.split (' ')
-			base_donnees.remplir_liste_joueurs
-			if liste_commande.i_th (1).has_substring ("lire") then
-				envoyer_classement
-			else
-				base_donnees.ajouter_joueur (liste_commande.i_th (1), liste_commande.i_th (2))
+			from
+			until
+				doit_quitter
+			loop
+				base_donnees.joueurs.wipe_out
+				l_socket.read_integer
+				l_longueur_message := l_socket.last_integer
+				l_socket.read_stream (l_longueur_message)
+				l_nom_joueur := l_socket.last_string
+				liste_commande := l_nom_joueur.split (' ')
+				base_donnees.remplir_liste_joueurs
+				if liste_commande.i_th (1).has_substring ("lire") then
+					envoyer_classement
+				else
+					base_donnees.ajouter_joueur (liste_commande.i_th (1), liste_commande.i_th (2))
+				end
 			end
 			l_socket.close
 		end
@@ -66,5 +72,7 @@ feature {NONE} -- Implementation
 
 	liste_commande: LIST [STRING]
 			-- Liste contenant les champs des commandes reçues.
+
+	doit_quitter: BOOLEAN
 
 end
