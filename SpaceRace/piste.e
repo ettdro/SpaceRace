@@ -1,8 +1,8 @@
 note
 	description: "Classe qui crée les pistes."
 	author: "Étienne Drolet et Nicolas Bisson"
-	date: "2016-05-15"
-	revision: "1.4"
+	date: "2016-05-21"
+	revision: "1.5"
 
 class
 	PISTE
@@ -129,6 +129,7 @@ feature {ANY} -- Access
 		end
 
 	allumer_lumiere(a_fenetre: GAME_RENDERER)
+			-- Permet d'allumer les lumières des checkpoints dans la fenêtre (a_fenetre) si nécessaire.
 		do
 			from
 				lumiere_checkpoint.lumiere_liste.start

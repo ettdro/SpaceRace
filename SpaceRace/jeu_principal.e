@@ -425,7 +425,21 @@ feature {NONE} -- Affichage
 			else
 				vaisseau_selectionne.vaisseau.afficher_rotation (rotation_vaisseau, vaisseau_x.rounded, vaisseau_y.rounded, fenetre.fenetre.renderer)
 			end
+			if piste_selectionne.tours.nombre_tour = 3 then
+				lancer_fenetre_inscription
+			end
 			fenetre.fenetre.renderer.present
+		end
+
+	lancer_fenetre_inscription
+			-- Lance le menu d'inscription pour la base de données.
+		local
+			l_menu_inscription: MENU_INSCRIPTION
+		do
+			create l_menu_inscription.make (fenetre, musique, son_click)
+			l_menu_inscription.execution
+			quitter := l_menu_inscription.quitter
+			sortir_menu := l_menu_inscription.sortir_menu
 		end
 
 	afficher_bouton_son
