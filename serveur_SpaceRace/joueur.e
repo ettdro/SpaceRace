@@ -19,6 +19,8 @@ feature {NONE} -- Initialization
 	make (a_nom: STRING; a_temps: STRING)
 			-- Création d'un joueur (a_nom et a_temps) dont les données sont dans la base de données.
 		do
+			a_nom.keep_head (10)
+			a_nom.append ("...")
 			nom_joueur := a_nom
 			temps_joueur := a_temps
 			nom_joueur.prune_all_trailing ('%N')

@@ -41,7 +41,7 @@ feature {ANY} -- Access
 		end
 
 	ajouter_joueur (a_nom: STRING; a_temps: STRING)
-			-- Ajout d'un joueur (a_nom et a_temps) dans la base de données.
+			-- Ajout des informations d'un joueur (`a_nom' et `a_temps') dans la base de données.
 		local
 			l_un_joueur: JOUEUR
 			l_transaction: PS_TRANSACTION

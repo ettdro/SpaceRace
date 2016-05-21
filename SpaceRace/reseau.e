@@ -62,7 +62,7 @@ feature {ANY} -- Access
 			-- Enregistre le record dans la base de données.
 		do
 			create message.make_empty
-			message := "sanic 0:30%N"
+			message := "abcdefghijklm 0:30%N"
 			socket.put_integer (message.count)
 			socket.put_string (message)
 			socket.close
