@@ -18,8 +18,12 @@ feature {NONE} -- Initialization
 	make (a_fenetre: FENETRE)
 			-- Crée la liste des checkpoints pour les pistes.
 		do
+			create font.make ("impact.ttf", 72)
+			font.open
+			create couleur.make_rgb (255, 102, 0)
 			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} checkpoint_liste.make
 			create lumiere_checkpoint.make (a_fenetre)
+			create tours.make (a_fenetre.fenetre.renderer, font, couleur)
 			index_suivant_checkpoint := 1
 		end
 
@@ -113,12 +117,15 @@ feature {ANY} -- Access
 				a_position_x > checkpoint_valeurs.x1 and a_position_x < checkpoint_valeurs.x2 and
 				a_position_y > checkpoint_valeurs.y1 and a_position_y < checkpoint_valeurs.y2
 			then
-				print("Checkpoint!%N")
-				checkpoint_passe := True
-				index_suivant_checkpoint := (index_suivant_checkpoint \\ checkpoint_liste.count) + 1
-			else
-				checkpoint_passe := False
+				if index_suivant_checkpoint = checkpoint_liste.count then
+					tours.incrementer_tour (True)
+					index_suivant_checkpoint := (index_suivant_checkpoint \\ checkpoint_liste.count) + 1
+				else
+					print("Checkpoint!%N")
+					index_suivant_checkpoint := (index_suivant_checkpoint \\ checkpoint_liste.count) + 1
+				end
 			end
+			tours.afficher_tours (True)
 		end
 
 	allumer_lumiere(a_fenetre: GAME_RENDERER)
@@ -167,6 +174,13 @@ feature {ANY} -- Implementation
 
 	lumiere_checkpoint: LUMIERE_CHECKPOINT
 			-- La lumière d'un checkpoint.
+
+	tours: TOURS_PISTE
+			-- Le nombre de tours de la partie.
+
+	font: TEXT_FONT
+
+	couleur: GAME_COLOR
 
 feature {NONE} -- Constantes
 

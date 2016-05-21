@@ -83,8 +83,9 @@ feature {ANY} -- Access
 			reseau.ecouter
 			if reseau.a_erreur then
 				sortir_menu := True
-				io.put_string ("Acces au serveur impossible.")
+				io.put_string ("Acces au serveur impossible.%N")
 				game_library.stop
+				musique.jouer (True)
 			else
 				across
 					reseau.joueurs as la_liste_joueurs

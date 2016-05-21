@@ -39,7 +39,6 @@ feature {ANY} -- Access
 	afficher_tours (a_tour_complete: BOOLEAN)
 			-- Affiche le nombre de tours à l'écran (a_tour_complete).
 		do
-			incrementer_tour (a_tour_complete)
 			create text_surface_tours_execute.make (nombre_tour.out, police, couleur)
 			create texture_tours_execute.make_from_surface (fenetre, text_surface_tours_execute)
 			fenetre.draw_texture (texture_tours_execute, 815, 200)

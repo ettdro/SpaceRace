@@ -16,9 +16,7 @@ feature {ANY} -- Access
 			if nombre_tour < 3 then
 				if tour_complete then
 					nombre_tour := nombre_tour + 1
-					if nombre_tour = 3 then
-						print ("Tu as gagné!!!") -- TEMPORAIRE
-					end
+					print ("Tour complete!%N") -- TEMPORAIRE
 				end
 			end
 		end

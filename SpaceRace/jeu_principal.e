@@ -53,7 +53,6 @@ feature {NONE} -- Initialization
 			create son_vaisseau.creer_son ("Vaisseau.wav")
 			create son_vaisseau_fin.creer_son ("Vaisseau_Fin.wav")
 			create chronometre.make (fenetre.fenetre.renderer, font, couleur)
-			create tours.make (fenetre.fenetre.renderer, font, couleur)
 			create reseau.make
 			liste_coordonnees.extend (Bouton_retour_jeu_coordonnees)
 			liste_coordonnees.extend (Bouton_pause_coordonnees)
@@ -108,6 +107,7 @@ feature {ANY} -- Access
 			then
 				doit_afficher_bouton_muet := not doit_afficher_bouton_muet
 				afficher_bouton_son
+				verifier_son_vaisseau_muet
 				lancer_fenetre_jeu_principal
 			end
 		end
@@ -364,6 +364,9 @@ feature {ANY} -- Access
 		do
 			if not musique.est_muet then
 				son_vaisseau.jouer (False)
+			else
+				son_vaisseau.mute
+				son_vaisseau_fin.mute
 			end
 		end
 
@@ -421,12 +424,6 @@ feature {NONE} -- Affichage
 				vaisseau_selectionne.vaisseau.afficher (vaisseau_x.rounded, vaisseau_y.rounded, fenetre.fenetre.renderer)
 			else
 				vaisseau_selectionne.vaisseau.afficher_rotation (rotation_vaisseau, vaisseau_x.rounded, vaisseau_y.rounded, fenetre.fenetre.renderer)
-			end
-			if tour_complete then
-				tours.afficher_tours (True)
-				tour_complete := False
-			else
-				tours.afficher_tours (False)
 			end
 			fenetre.fenetre.renderer.present
 		end
@@ -507,9 +504,6 @@ feature {ANY} -- Implementation
 
 	couleur: GAME_COLOR
 			-- La couleur du texte (chronomètre et tours).
-
-	tours: TOURS_PISTE
-			-- Le nombre de tours de la partie.
 
 	est_debut: BOOLEAN
 			-- Détermine s'il s'agit du début de la partie pour afficher le bon temps du chronomètre.
