@@ -19,7 +19,6 @@ feature {NONE} -- Initialization
 			l_port: INTEGER
 			l_longueur_message: INTEGER
 			l_nom_joueur: STRING
-			doit_quitter: BOOLEAN
 		do
 			l_port := 2767
 			create l_socket.make_bound (2767)

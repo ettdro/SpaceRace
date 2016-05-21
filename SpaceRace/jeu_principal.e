@@ -410,19 +410,7 @@ feature {NONE} -- Affichage
 			titre_chrono.afficher (760, 40, fenetre.fenetre.renderer)
 			piste_selectionne.piste.afficher (0, 0, fenetre.fenetre.renderer)
 			piste_selectionne.valider_checkpoint(vaisseau_x.rounded, vaisseau_y.rounded, fenetre.fenetre.renderer)
-			across
-				piste_selectionne.lumiere_checkpoint.lumiere_liste as la_coord_lumiere
-			loop
-				if piste_selectionne.lumiere_checkpoint.lumiere_liste.readable and not piste_selectionne.checkpoint_passe then
-					piste_selectionne.lumiere_checkpoint.lumiere_rouge.afficher (la_coord_lumiere.item.x, la_coord_lumiere.item.y, fenetre.fenetre.renderer)
-				else if
-					piste_selectionne.lumiere_checkpoint.lumiere_liste.readable and piste_selectionne.checkpoint_passe
-				then
-					piste_selectionne.lumiere_checkpoint.lumiere_verte.afficher (piste_selectionne.lumiere_checkpoint.lumiere_liste.item.x, piste_selectionne.lumiere_checkpoint.lumiere_liste.item.y, fenetre.fenetre.renderer)
-					piste_selectionne.lumiere_checkpoint.lumiere_rouge.afficher (la_coord_lumiere.item.x, la_coord_lumiere.item.y, fenetre.fenetre.renderer)
-				end
-				end
-			end
+			piste_selectionne.allumer_lumiere(fenetre.fenetre.renderer)
 			afficher_bouton_son
 			chronometre.afficher_temps
 			if chronometre.pause then
@@ -593,5 +581,4 @@ feature {NONE} -- Constantes
 		once
 			Result := [930, 0, 999, 48]
 		end
-
 end

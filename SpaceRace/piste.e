@@ -20,7 +20,7 @@ feature {NONE} -- Initialization
 		do
 			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} checkpoint_liste.make
 			create lumiere_checkpoint.make (a_fenetre)
-			index_suivant_checkpoint := 2
+			index_suivant_checkpoint := 1
 		end
 
 	make_vert (a_fenetre: FENETRE)
@@ -31,10 +31,10 @@ feature {NONE} -- Initialization
 			lumiere_checkpoint.make_lumiere_piste_verte (a_fenetre)
 			x := 59
 			y := 250
-			checkpoint_liste.extend (Depart_verte)
 			checkpoint_liste.extend (Checkpoint_verte_1)
 			checkpoint_liste.extend (Checkpoint_verte_2)
 			checkpoint_liste.extend (Checkpoint_verte_3)
+			checkpoint_liste.extend (Depart_verte)
 			checkpoint_liste.start
 		ensure
 			Position_Depart_X: x = 59
@@ -49,11 +49,11 @@ feature {NONE} -- Initialization
 			lumiere_checkpoint.make_lumiere_piste_jaune (a_fenetre)
 			x := 59
 			y := 330
-			checkpoint_liste.extend (Depart_jaune)
 			checkpoint_liste.extend (Checkpoint_jaune_1)
 			checkpoint_liste.extend (Checkpoint_jaune_2)
 			checkpoint_liste.extend (Checkpoint_jaune_3)
 			checkpoint_liste.extend (Checkpoint_jaune_4)
+			checkpoint_liste.extend (Depart_jaune)
 			checkpoint_liste.start
 		ensure
 			Position_Depart_X: x = 59
@@ -68,7 +68,6 @@ feature {NONE} -- Initialization
 			lumiere_checkpoint.make_lumiere_piste_mauve (a_fenetre)
 			x := 33
 			y := 330
-			checkpoint_liste.extend (Depart_mauve)
 			checkpoint_liste.extend (Checkpoint_mauve_1)
 			checkpoint_liste.extend (Checkpoint_mauve_2)
 			checkpoint_liste.extend (Checkpoint_mauve_3)
@@ -76,6 +75,7 @@ feature {NONE} -- Initialization
 			checkpoint_liste.extend (Checkpoint_mauve_5)
 			checkpoint_liste.extend (Checkpoint_mauve_6)
 			checkpoint_liste.extend (Checkpoint_mauve_7)
+			checkpoint_liste.extend (Depart_mauve)
 			checkpoint_liste.start
 		ensure
 			Position_Depart_X: x = 33
@@ -90,11 +90,11 @@ feature {NONE} -- Initialization
 			lumiere_checkpoint.make_lumiere_piste_bleue (a_fenetre)
 			x := 48
 			y := 260
-			checkpoint_liste.extend (Depart_bleue)
 			checkpoint_liste.extend (Checkpoint_bleue_1)
 			checkpoint_liste.extend (Checkpoint_bleue_2)
 			checkpoint_liste.extend (Checkpoint_bleue_3)
 			checkpoint_liste.extend (Checkpoint_bleue_4)
+			checkpoint_liste.extend (Depart_bleue)
 			checkpoint_liste.start
 		ensure
 			Position_Depart_X: x = 48
@@ -115,8 +115,33 @@ feature {ANY} -- Access
 			then
 				print("Checkpoint!%N")
 				checkpoint_passe := True
---				lumiere_checkpoint.lumiere_verte.afficher (checkpoint_valeurs.x1, checkpoint_valeurs.y1, a_fenetre)
 				index_suivant_checkpoint := (index_suivant_checkpoint \\ checkpoint_liste.count) + 1
+			else
+				checkpoint_passe := False
+			end
+		end
+
+	allumer_lumiere(a_fenetre: GAME_RENDERER)
+		do
+			from
+				lumiere_checkpoint.lumiere_liste.start
+			until
+				lumiere_checkpoint.lumiere_liste.exhausted
+			loop
+				if lumiere_checkpoint.lumiere_liste.index < index_suivant_checkpoint then
+					lumiere_checkpoint.lumiere_verte.afficher (
+															lumiere_checkpoint.lumiere_liste.item.x,
+															lumiere_checkpoint.lumiere_liste.item.y,
+															a_fenetre
+															)
+				else
+					lumiere_checkpoint.lumiere_rouge.afficher (
+															lumiere_checkpoint.lumiere_liste.item.x,
+															lumiere_checkpoint.lumiere_liste.item.y,
+															a_fenetre
+															)
+				end
+				lumiere_checkpoint.lumiere_liste.forth
 			end
 		end
 
