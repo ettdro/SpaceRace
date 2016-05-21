@@ -97,7 +97,6 @@ feature {ANY} -- Access
 					end
 				end
 			end
-
 		end
 
 	lancer_fenetre_classement

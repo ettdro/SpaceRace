@@ -16,7 +16,12 @@ feature {ANY} -- Access
 	valider_bouton_suivant (a_x, a_y: INTEGER)
 			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton SUIVANT et exécute l'action en conséquence.
 		do
-			if a_x > Bouton_suivant_coordonnees.x1 and a_x < Bouton_suivant_coordonnees.x2 and a_y > Bouton_suivant_coordonnees.y1 and a_y < Bouton_suivant_coordonnees.y2 then
+			if
+				a_x > Bouton_suivant_coordonnees.x1 and
+				a_x < Bouton_suivant_coordonnees.x2 and
+				a_y > Bouton_suivant_coordonnees.y1 and
+				a_y < Bouton_suivant_coordonnees.y2
+			then
 				if suivant_est_visible then
 					verifier_son_click_muet
 					curseur.reinitialiser_curseur
