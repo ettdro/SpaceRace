@@ -182,21 +182,23 @@ feature {ANY} -- Access
 					if a_etat_clavier.is_w then
 						accelerer := True
 						decelerer := False
-						verifier_son_vaisseau_muet
+--						verifier_son_vaisseau_muet
 					end
 					if a_etat_clavier.is_s then
 						decelerer := False
 						accelerer := False
 						freiner := True
-						verifier_son_vaisseau_fin_muet (touche_repetee)
+--						verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 					if a_etat_clavier.is_a then
-						rotation_gauche
-						verifier_son_vaisseau_fin_muet (touche_repetee)
+						tourne_gauche := True
+						tourne_droite := False
+--						verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 					if a_etat_clavier.is_d then
-						rotation_droite
-						verifier_son_vaisseau_fin_muet (touche_repetee)
+						tourne_gauche := False
+						tourne_droite := True
+--						verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 				end
 				if not a_etat_clavier.is_repeat then
@@ -204,29 +206,31 @@ feature {ANY} -- Access
 					if a_etat_clavier.is_w then
 						accelerer := True
 						decelerer := False
-						verifier_son_vaisseau_muet
+--						verifier_son_vaisseau_muet
 					end
 					if a_etat_clavier.is_s then
 						decelerer := False
 						accelerer := False
 						freiner := True
-						verifier_son_vaisseau_fin_muet (touche_repetee)
+--						verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 					if a_etat_clavier.is_a then
-						rotation_gauche
-						if vitesse = 0 then
-							verifier_son_vaisseau_muet
-						end
-						else
-							verifier_son_vaisseau_fin_muet (touche_repetee)
+						tourne_gauche := True
+						tourne_droite := False
+--						if vitesse = 0 then
+--							verifier_son_vaisseau_muet
+--						else
+--							verifier_son_vaisseau_fin_muet (touche_repetee)
+--						end
 					end
 					if a_etat_clavier.is_d then
-						rotation_droite
-						if vitesse = 0 then
-							verifier_son_vaisseau_muet
-						end
-						else
-							verifier_son_vaisseau_fin_muet (touche_repetee)
+						tourne_gauche := False
+						tourne_droite := True
+--						if vitesse = 0 then
+--							verifier_son_vaisseau_muet
+--						else
+--							verifier_son_vaisseau_fin_muet (touche_repetee)
+--						end
 					end
 				end
 			end
@@ -237,7 +241,7 @@ feature {ANY} -- Access
 		do
 			if a_etat_clavier.is_w then
 				touche_repetee := False
-				verifier_son_vaisseau_fin_muet (touche_repetee)
+--				verifier_son_vaisseau_fin_muet (touche_repetee)
 				decelerer := True
 				accelerer := False
 			end
@@ -246,6 +250,12 @@ feature {ANY} -- Access
 				if not accelerer then
 					decelerer := True
 				end
+			end
+			if a_etat_clavier.is_a then
+				tourne_gauche := False
+			end
+			if a_etat_clavier.is_d then
+				tourne_droite := False
 			end
 		end
 
@@ -314,7 +324,6 @@ feature {ANY} -- Access
 					vaisseau_y := vaisseau_y - (cosine (rotation_vaisseau_radiant)) * vitesse
 					vaisseau_x := vaisseau_x + (sine (rotation_vaisseau_radiant)) * vitesse
 				end
-
 			end
 		end
 
@@ -324,7 +333,7 @@ feature {ANY} -- Access
 			if rotation_vaisseau = 0 then
 				rotation_vaisseau := 360
 			end
-			rotation_vaisseau := rotation_vaisseau - 5
+			rotation_vaisseau := rotation_vaisseau - 3
 		end
 
 	rotation_droite
@@ -333,7 +342,7 @@ feature {ANY} -- Access
 			if rotation_vaisseau = 360 then
 				rotation_vaisseau := 0
 			end
-			rotation_vaisseau := rotation_vaisseau + 5
+			rotation_vaisseau := rotation_vaisseau + 3
 		end
 
 	rotation_vaisseau_radiant: REAL_64
@@ -366,7 +375,6 @@ feature {ANY} -- Access
 				son_vaisseau.jouer (False)
 			else
 				son_vaisseau.mute
-				son_vaisseau_fin.mute
 			end
 		end
 
@@ -375,6 +383,8 @@ feature {ANY} -- Access
 		do
 			if not musique.est_muet and not a_touche_repetee and vitesse > 0 then
 				son_vaisseau_fin.jouer (False)
+			else
+				son_vaisseau_fin.mute
 			end
 		end
 
@@ -395,6 +405,12 @@ feature {ANY} -- Access
 				end
 				if freiner then
 					freiner_vaisseau
+				end
+				if tourne_gauche then
+					rotation_gauche
+				end
+				if tourne_droite then
+					rotation_droite
 				end
 				avancer
 			end
@@ -528,12 +544,6 @@ feature {ANY} -- Implementation
 	vitesse: REAL_64
 			-- La vitesse du vaisseau.
 
-	jouer_son_vaisseau: BOOLEAN
-			-- Détermine si le son doit être jouer ou non.
-
-	jouer_son_vaisseau_fin: BOOLEAN
-			-- Détermine si le son doit être jouer ou non.
-
 	son_vaisseau: EFFET_SONORE
 			-- Le son du vaisseau qui accélère.
 
@@ -551,6 +561,12 @@ feature {ANY} -- Implementation
 
 	touche_repetee: BOOLEAN
 			-- Détermine si une touche est maintenue enfoncée.
+
+	tourne_gauche: BOOLEAN
+			-- Détermine si le vaisseau tourne à gauche.
+
+	tourne_droite: BOOLEAN
+			-- Détermine si le vaisseau tourne à droite.
 
 feature {NONE} -- Constantes
 
