@@ -40,12 +40,6 @@ feature {ANY} -- Initialization
 
 feature {ANY} -- Access
 
-	repeter_son (a_temps: NATURAL)
-			-- Fais jouer le son lorsque voulu.
-		do
-			audio_library.update
-		end
-
 	jouer (a_boucle_infini: BOOLEAN)
 			-- Vérifie si le son n'est pas NULL et fait jouer le son (à l'infini si a_boucle_infini = TRUE).
 		do

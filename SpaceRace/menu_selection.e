@@ -45,7 +45,7 @@ feature {ANY} -- Constantes
 	Bouton_suivant_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du bouton SUIVANT.
 		once
-			Result := [759, 519, 917, 577]
+			Result := [759, 519, 965, 577]
 		end
 
 end

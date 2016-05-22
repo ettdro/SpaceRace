@@ -182,23 +182,22 @@ feature {ANY} -- Access
 					if a_etat_clavier.is_w then
 						accelerer := True
 						decelerer := False
---						verifier_son_vaisseau_muet
+						son_vaisseau_fin.source.stop
 					end
 					if a_etat_clavier.is_s then
 						decelerer := False
 						accelerer := False
 						freiner := True
---						verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 					if a_etat_clavier.is_a then
 						tourne_gauche := True
 						tourne_droite := False
---						verifier_son_vaisseau_fin_muet (touche_repetee)
+						son_vaisseau_fin.source.stop
 					end
 					if a_etat_clavier.is_d then
 						tourne_gauche := False
 						tourne_droite := True
---						verifier_son_vaisseau_fin_muet (touche_repetee)
+						son_vaisseau_fin.source.stop
 					end
 				end
 				if not a_etat_clavier.is_repeat then
@@ -206,31 +205,26 @@ feature {ANY} -- Access
 					if a_etat_clavier.is_w then
 						accelerer := True
 						decelerer := False
---						verifier_son_vaisseau_muet
+						son_vaisseau.jouer (True)
 					end
 					if a_etat_clavier.is_s then
 						decelerer := False
 						accelerer := False
 						freiner := True
---						verifier_son_vaisseau_fin_muet (touche_repetee)
 					end
 					if a_etat_clavier.is_a then
 						tourne_gauche := True
 						tourne_droite := False
---						if vitesse = 0 then
---							verifier_son_vaisseau_muet
---						else
---							verifier_son_vaisseau_fin_muet (touche_repetee)
---						end
+						if not a_etat_clavier.is_w then
+							son_vaisseau.jouer (True)
+						end
 					end
 					if a_etat_clavier.is_d then
 						tourne_gauche := False
 						tourne_droite := True
---						if vitesse = 0 then
---							verifier_son_vaisseau_muet
---						else
---							verifier_son_vaisseau_fin_muet (touche_repetee)
---						end
+						if not a_etat_clavier.is_w then
+							son_vaisseau.jouer (True)
+						end
 					end
 				end
 			end
@@ -241,9 +235,10 @@ feature {ANY} -- Access
 		do
 			if a_etat_clavier.is_w then
 				touche_repetee := False
---				verifier_son_vaisseau_fin_muet (touche_repetee)
 				decelerer := True
 				accelerer := False
+				son_vaisseau.source.stop
+				son_vaisseau_fin.jouer (False)
 			end
 			if a_etat_clavier.is_s then
 				freiner := False
@@ -253,9 +248,21 @@ feature {ANY} -- Access
 			end
 			if a_etat_clavier.is_a then
 				tourne_gauche := False
+				if a_etat_clavier.is_w then
+					son_vaisseau.source.stop
+				else
+					son_vaisseau.jouer (True)
+				end
+				son_vaisseau_fin.jouer (False)
 			end
 			if a_etat_clavier.is_d then
 				tourne_droite := False
+				if a_etat_clavier.is_w then
+					son_vaisseau.source.stop
+				else
+					son_vaisseau.jouer (True)
+				end
+				son_vaisseau_fin.jouer (False)
 			end
 		end
 
@@ -333,7 +340,7 @@ feature {ANY} -- Access
 			if rotation_vaisseau = 0 then
 				rotation_vaisseau := 360
 			end
-			rotation_vaisseau := rotation_vaisseau - 3
+			rotation_vaisseau := rotation_vaisseau - 2.5
 		end
 
 	rotation_droite
@@ -342,7 +349,7 @@ feature {ANY} -- Access
 			if rotation_vaisseau = 360 then
 				rotation_vaisseau := 0
 			end
-			rotation_vaisseau := rotation_vaisseau + 3
+			rotation_vaisseau := rotation_vaisseau + 2.5
 		end
 
 	rotation_vaisseau_radiant: REAL_64
@@ -382,7 +389,7 @@ feature {ANY} -- Access
 			-- Vérifie si le son est muet pour jouer ou non le son du vaisseau qui ralenti et seulement une fois si a_touche_repete est False.
 		do
 			if not musique.est_muet and not a_touche_repetee and vitesse > 0 then
-				son_vaisseau_fin.jouer (False)
+				son_vaisseau_fin.jouer (True)
 			else
 				son_vaisseau_fin.mute
 			end
