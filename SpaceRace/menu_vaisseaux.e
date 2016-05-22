@@ -34,11 +34,11 @@ feature {NONE} -- Initialization
 			create vaisseau1.creer_affichable (fenetre.fenetre.renderer, "vaisseau1_cadre.png")
 			create vaisseau2.creer_affichable (fenetre.fenetre.renderer, "vaisseau2_cadre.png")
 			create vaisseau3.creer_affichable (fenetre.fenetre.renderer, "vaisseau3_cadre.png")
-			liste_coordonnees.extend ([30, 520, 236, 576]) -- Coordonnées du bouton RETOUR.
-			liste_coordonnees.extend ([760, 520, 966, 576]) -- Coordonnées du bouton SUIVANT.
-			liste_coordonnees.extend ([200, 200, 380, 380]) -- Coordonnées du bouton CADRE GAUCHE.
-			liste_coordonnees.extend ([430, 200, 610, 380]) -- Coordonnées du bouton CADRE MILIEU.
-			liste_coordonnees.extend ([660, 200, 840, 380]) -- Coordonnées du bouton CADRE DROITE.
+			liste_coordonnees.extend (Bouton_retour_coordonnees) -- Coordonnées du bouton RETOUR.
+			liste_coordonnees.extend (Bouton_suivant_coordonnees) -- Coordonnées du bouton SUIVANT.
+			liste_coordonnees.extend (Bouton_cadre_gauche_coordonnees) -- Coordonnées du bouton CADRE GAUCHE.
+			liste_coordonnees.extend (Bouton_cadre_milieu_coordonnees) -- Coordonnées du bouton CADRE MILIEU.
+			liste_coordonnees.extend (Bouton_cadre_droite_coordonnees) -- Coordonnées du bouton CADRE DROITE.
 			liste_coordonnees.start
 		ensure
 			Piste_Assigne: piste_selectionnee = a_piste_selectionnee
