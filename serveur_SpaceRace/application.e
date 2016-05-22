@@ -74,5 +74,6 @@ feature {NONE} -- Implementation
 			-- Liste contenant les champs des commandes reçues.
 
 	doit_quitter: BOOLEAN
+			-- Détermine si le serveur doit arrêter.
 
 end

@@ -40,7 +40,7 @@ feature -- Test routines
 		end
 
 	incrementer_tour_errone
-			-- Test errone de la routine `incrementer_tour'.
+			-- Test erroné de la routine `incrementer_tour'.
 		note
 			testing: "execution/serial"
 		do
@@ -48,7 +48,7 @@ feature -- Test routines
 			incrementer_tour (True)
 			incrementer_tour (True)
 			incrementer_tour (True)
-			assert ("incrementer_tour test errone", nombre_tour ~ 3)
+			assert ("incrementer_tour test erroné", nombre_tour ~ 3)
 		end
 
 end
