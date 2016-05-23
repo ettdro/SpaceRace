@@ -53,7 +53,6 @@ feature {NONE} -- Initialization
 			create son_vaisseau.creer_son ("Vaisseau.wav")
 			create son_vaisseau_fin.creer_son ("Vaisseau_Fin.wav")
 			create chronometre.make (fenetre.fenetre.renderer, font, couleur)
-			create reseau.make
 			liste_coordonnees.extend (Bouton_retour_jeu_coordonnees)
 			liste_coordonnees.extend (Bouton_pause_coordonnees)
 			liste_coordonnees.extend (Bouton_jouer_coordonnees)
@@ -128,7 +127,6 @@ feature {ANY} -- Access
 					fenetre.fenetre.key_released_actions.extend (agent action_clavier_relache(?, ?))
 					fenetre.game_library.iteration_actions.extend (agent sur_iteration(?, fenetre.fenetre.renderer))
 					est_debut := False
-					reseau.inserer_record
 				end
 				if etait_pause then
 					chronometre.unpause (a_temps)
@@ -341,7 +339,7 @@ feature {NONE} -- Affichage
 		local
 			l_menu_inscription: MENU_INSCRIPTION
 		do
-			create l_menu_inscription.make (fenetre, musique, son_click)
+			create l_menu_inscription.make (fenetre, musique, son_click, chronometre)
 			l_menu_inscription.execution
 			quitter := l_menu_inscription.quitter
 			sortir_menu := l_menu_inscription.sortir_menu
@@ -360,9 +358,6 @@ feature {NONE} -- Affichage
 		end
 
 feature {ANY} -- Implementation
-
-	reseau: RESEAU
-			-- La connexion à la BD du serveur.
 
 	etait_pause: BOOLEAN
 			-- Attribut qui donne True si le temps était sur pause. False sinon.
