@@ -10,9 +10,10 @@ class
 inherit
 
 	MENU
+		rename
+			make as make_menu
 		redefine
-			execution,
-			make
+			execution
 		end
 
 create
@@ -20,12 +21,21 @@ create
 
 feature {NONE} -- Initialization
 
-	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
+	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE; a_chronometre: TEMPS_CHRONOMETRE)
 			-- Construit le menu d'inscription (a_fenetre), ses sons (a_musique et a_son_click), ses images ainsi que la liste des coordonnées des boutons.
 		do
-			Precursor (a_fenetre, a_musique, a_son_click)
+			make_menu (a_fenetre, a_musique, a_son_click)
+			chronometre := a_chronometre
 			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
 			create titre_inscription.creer_affichable (fenetre.fenetre.renderer, "inscription2.png")
+			create font.make ("impact.ttf", 35)
+			create couleur.make_rgb (255, 255, 255)
+			create nom.make_empty
+			create reseau.make
+			create text_surface_titre_temps.make ("Temps :", font, couleur)
+			create text_surface_temps.make (chronometre.out, font, couleur)
+			create text_surface_titre_nom.make ("Nom : ", font, couleur)
+			create text_surface_nom.make (nom.out, font, couleur)
 			liste_coordonnees.extend (Bouton_suivant_coordonnees)
 		end
 
@@ -66,6 +76,7 @@ feature {ANY} -- Access
 			then
 				verifier_son_click_muet
 				curseur.reinitialiser_curseur
+				reseau.inserer_record
 				lancer_fenetre_classement
 				sortir_menu := True
 			end
@@ -94,11 +105,38 @@ feature {ANY} -- Affichage
 
 feature {NONE} -- Implementation
 
+	reseau: RESEAU
+			-- La connexion à la BD du serveur.
+
 	bouton_suivant: AFFICHABLE
 			-- L'image du bouton "RETOUR".
 
 	titre_inscription: AFFICHABLE
 			-- L'image du titre "INSCRIPTION".
+
+	font: TEXT_FONT
+			-- Police d'écriture du texte.
+
+	couleur: GAME_COLOR
+			-- Couleur de l'écriture
+
+	chronometre: TEMPS_CHRONOMETRE
+			-- Le chronomètre du jeu.
+
+	nom: STRING
+			-- Le nom du joueur.
+
+	text_surface_titre_temps: TEXT_SURFACE_BLENDED
+			-- Une surface pour le titre "TEMPS".
+
+	text_surface_temps: TEXT_SURFACE_BLENDED
+			-- Une surface pour le temps réalisés.
+
+	text_surface_titre_nom: TEXT_SURFACE_BLENDED
+			-- Une surface pour le titre "NOM".
+
+	text_surface_nom: TEXT_SURFACE_BLENDED
+			-- Une surface pour le nom du joueur.
 
 feature {ANY} -- Constantes
 
