@@ -177,29 +177,29 @@ feature {ANY} -- Access
 			-- Vérifie quelle touche (a_etat_clavier) est pressée pour pouvoir exécuter la bonne action (déplacement ou rotation).
 		do
 			if not chronometre.pause then
-				if a_etat_clavier.is_repeat then
-					touche_repetee := True
-					if a_etat_clavier.is_w then
-						accelerer := True
-						decelerer := False
-						son_vaisseau_fin.source.stop
-					end
-					if a_etat_clavier.is_s then
-						decelerer := False
-						accelerer := False
-						freiner := True
-					end
-					if a_etat_clavier.is_a then
-						tourne_gauche := True
-						tourne_droite := False
-						son_vaisseau_fin.source.stop
-					end
-					if a_etat_clavier.is_d then
-						tourne_gauche := False
-						tourne_droite := True
-						son_vaisseau_fin.source.stop
-					end
-				end
+--				if a_etat_clavier.is_repeat then
+--					touche_repetee := True
+--					if a_etat_clavier.is_w then
+--						accelerer := True
+--						decelerer := False
+----						son_vaisseau_fin.source.stop
+--					end
+--					if a_etat_clavier.is_s then
+--						decelerer := False
+--						accelerer := False
+--						freiner := True
+--					end
+--					if a_etat_clavier.is_a then
+--						tourne_gauche := True
+--						tourne_droite := False
+----						son_vaisseau_fin.source.stop
+--					end
+--					if a_etat_clavier.is_d then
+--						tourne_gauche := False
+--						tourne_droite := True
+----						son_vaisseau_fin.source.stop
+--					end
+--				end
 				if not a_etat_clavier.is_repeat then
 					touche_repetee := False
 					if a_etat_clavier.is_w then
@@ -215,16 +215,12 @@ feature {ANY} -- Access
 					if a_etat_clavier.is_a then
 						tourne_gauche := True
 						tourne_droite := False
-						if not a_etat_clavier.is_w then
-							son_vaisseau.jouer (True)
-						end
+						son_vaisseau.jouer (True)
 					end
 					if a_etat_clavier.is_d then
 						tourne_gauche := False
 						tourne_droite := True
-						if not a_etat_clavier.is_w then
-							son_vaisseau.jouer (True)
-						end
+						son_vaisseau.jouer (True)
 					end
 				end
 			end
@@ -248,20 +244,15 @@ feature {ANY} -- Access
 			end
 			if a_etat_clavier.is_a then
 				tourne_gauche := False
+				son_vaisseau.source.stop
+				son_vaisseau_fin.jouer (False)
 				if a_etat_clavier.is_w then
-					son_vaisseau.source.stop
-				else
 					son_vaisseau.jouer (True)
 				end
-				son_vaisseau_fin.jouer (False)
 			end
 			if a_etat_clavier.is_d then
 				tourne_droite := False
-				if a_etat_clavier.is_w then
-					son_vaisseau.source.stop
-				else
-					son_vaisseau.jouer (True)
-				end
+				son_vaisseau.source.stop
 				son_vaisseau_fin.jouer (False)
 			end
 		end

@@ -8,7 +8,7 @@ class
 	MENU_VAISSEAUX
 
 inherit
-
+	
 	MENU_SELECTION
 		rename
 			make as make_menu
