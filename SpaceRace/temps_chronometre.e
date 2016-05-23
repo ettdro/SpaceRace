@@ -75,7 +75,7 @@ feature {ANY} -- Access
 			Est_Pause: pause = True
 		end
 
-feature {NONE} -- Implementation
+feature {ANY} -- Implementation
 
 	temps_secondes: NATURAL
 			-- Le temps en secondes.
@@ -83,6 +83,7 @@ feature {NONE} -- Implementation
 	temps_minutes: NATURAL
 			-- Le temps en minutes.
 
+feature {NONE}
 	police: TEXT_FONT
 			-- La police d'écriture du texte.
 
