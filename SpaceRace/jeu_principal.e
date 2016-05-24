@@ -180,7 +180,6 @@ feature {ANY} -- Access
 					if a_etat_clavier.is_w then
 						accelerer := True
 						decelerer := False
---						son_vaisseau.jouer (True)
 						verifier_son_vaisseau_muet
 					end
 					if a_etat_clavier.is_s then
@@ -193,13 +192,11 @@ feature {ANY} -- Access
 						tourne_gauche := True
 						tourne_droite := False
 						verifier_son_vaisseau_muet
---						son_vaisseau.jouer (True)
 					end
 					if a_etat_clavier.is_d then
 						tourne_gauche := False
 						tourne_droite := True
 						verifier_son_vaisseau_muet
---						son_vaisseau.jouer (True)
 					end
 				end
 			end
@@ -213,8 +210,6 @@ feature {ANY} -- Access
 				decelerer := True
 				accelerer := False
 				verifier_son_vaisseau_muet
---				son_vaisseau.source.stop
---				son_vaisseau_fin.jouer (False)
 			end
 			if a_etat_clavier.is_s then
 				freiner := False
@@ -225,17 +220,10 @@ feature {ANY} -- Access
 			end
 			if a_etat_clavier.is_a then
 				tourne_gauche := False
---				son_vaisseau.source.stop
---				son_vaisseau_fin.jouer (False)
---				if a_etat_clavier.is_w then
---					son_vaisseau.jouer (True)
---				end
 				verifier_son_vaisseau_muet
 			end
 			if a_etat_clavier.is_d then
 				tourne_droite := False
---				son_vaisseau.source.stop
---				son_vaisseau_fin.jouer (False)
 				verifier_son_vaisseau_muet
 			end
 		end
@@ -243,7 +231,7 @@ feature {ANY} -- Access
 	verifier_son_vaisseau_muet
 			-- Vérifie si le son est muet pour jouer ou non le son du vaisseau.
 		do
-			if not musique.est_muet then
+			if not musique.est_muet or not chronometre.pause then
 				if accelerer then
 					son_vaisseau.jouer (True)
 				end
