@@ -121,7 +121,6 @@ feature {ANY} -- Access
 					tours.incrementer_tour (True)
 					index_suivant_checkpoint := (index_suivant_checkpoint \\ checkpoint_liste.count) + 1
 				else
-					print("Checkpoint!%N")
 					index_suivant_checkpoint := (index_suivant_checkpoint \\ checkpoint_liste.count) + 1
 				end
 			end
@@ -180,8 +179,10 @@ feature {ANY} -- Implementation
 			-- Le nombre de tours de la partie.
 
 	font: TEXT_FONT
+			-- Police d'écriture du texte.
 
 	couleur: GAME_COLOR
+			-- Couleur de l'écriture.
 
 feature {NONE} -- Constantes
 

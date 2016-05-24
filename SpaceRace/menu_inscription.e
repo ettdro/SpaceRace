@@ -31,16 +31,15 @@ feature {NONE} -- Initialization
 			create font.make ("impact.ttf", 35)
 			font.open
 			create couleur.make_rgb (255, 255, 255)
-			create nom.make_empty
 			create reseau.make
 			create text_surface_titre_temps.make ("Temps :", font, couleur)
 			create text_surface_temps.make ((chronometre.temps_minutes).out + ":" + (chronometre.temps_secondes).out, font, couleur)
 			create text_surface_titre_nom.make ("Nom : ", font, couleur)
---			create text_surface_nom.make (nom.out, font, couleur)
+			create text_surface_nom.make (" ", font, couleur)
 			create texture_titre_temps.make_from_surface (fenetre.fenetre.renderer, text_surface_titre_temps)
 			create texture_temps.make_from_surface (fenetre.fenetre.renderer, text_surface_temps)
 			create texture_titre_nom.make_from_surface (fenetre.fenetre.renderer, text_surface_titre_nom)
---			create texture_nom.make_from_surface (fenetre.fenetre.renderer, text_surface_nom)
+			create texture_nom.make_from_surface (fenetre.fenetre.renderer, text_surface_nom)
 			liste_coordonnees.extend (Bouton_suivant_coordonnees)
 		ensure
 			Chronometre_Assigne: chronometre = a_chronometre
@@ -74,6 +73,9 @@ feature {ANY} -- Access
 
 	valider_bouton_suivant (a_x, a_y: INTEGER)
 			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton SUIVANT et exécute l'action en conséquence.
+		local
+			l_nom_string: STRING
+			l_temps_string: STRING
 		do
 			if
 				a_x > Bouton_suivant_coordonnees.x1 and
@@ -83,7 +85,9 @@ feature {ANY} -- Access
 			then
 				verifier_son_click_muet
 				curseur.reinitialiser_curseur
-				reseau.inserer_record
+				l_nom_string := text_surface_nom.text.as_string_32
+				l_temps_string := text_surface_temps.text.as_string_32
+				reseau.inserer_record (l_nom_string, l_temps_string)
 				lancer_fenetre_classement
 				sortir_menu := True
 			end
@@ -114,10 +118,10 @@ feature {ANY} -- Affichage
 	afficher_texte
 			-- Affiche le texte à l'écran
 		do
-			fenetre.fenetre.renderer.draw_texture (texture_titre_temps, 50, 125)
-			fenetre.fenetre.renderer.draw_texture (texture_temps, 150, 125)
-			fenetre.fenetre.renderer.draw_texture (texture_titre_nom, 50, 325)
---			fenetre.fenetre.renderer.draw_texture (texture_nom, 150, 325)
+			fenetre.fenetre.renderer.draw_texture (texture_titre_temps, 150, 225)
+			fenetre.fenetre.renderer.draw_texture (texture_temps, 275, 225)
+			fenetre.fenetre.renderer.draw_texture (texture_titre_nom, 150, 325)
+			fenetre.fenetre.renderer.draw_texture (texture_nom, 275, 325)
 		end
 
 feature {NONE} -- Implementation
@@ -135,37 +139,34 @@ feature {NONE} -- Implementation
 			-- Police d'écriture du texte.
 
 	couleur: GAME_COLOR
-			-- Couleur de l'écriture
+			-- Couleur de l'écriture.
 
 	chronometre: TEMPS_CHRONOMETRE
 			-- Le chronomètre du jeu.
-
-	nom: STRING
-			-- Le nom du joueur.
 
 	text_surface_titre_temps: TEXT_SURFACE_BLENDED
 			-- Une surface pour le titre "TEMPS".
 
 	text_surface_temps: TEXT_SURFACE_BLENDED
---			-- Une surface pour le temps réalisés.
+			-- Une surface pour le temps réalisés.
 
 	text_surface_titre_nom: TEXT_SURFACE_BLENDED
---			-- Une surface pour le titre "NOM".
+			-- Une surface pour le titre "NOM".
 
---	text_surface_nom: TEXT_SURFACE_BLENDED
---			-- Une surface pour le nom du joueur.
+	text_surface_nom: TEXT_SURFACE_BLENDED
+			-- Une surface pour le nom du joueur.
 
 	texture_titre_temps: GAME_TEXTURE
 			-- Une texture pour le titre "TEMPS".
 
 	texture_temps: GAME_TEXTURE
---			-- Une texture pour le temps réalisés.
+			-- Une texture pour le temps réalisés.
 
 	texture_titre_nom: GAME_TEXTURE
---			-- Une texture pour le titre "NOM".
+			-- Une texture pour le titre "NOM".
 
---	texture_nom: GAME_TEXTURE
---			-- Une texture pour le nom du joueur.
+	texture_nom: GAME_TEXTURE
+			-- Une texture pour le nom du joueur.
 
 feature {ANY} -- Constantes
 

@@ -58,11 +58,11 @@ feature {ANY} -- Access
 			joueurs := l_thread.joueurs
 		end
 
-	inserer_record
-			-- Enregistre le record dans la base de données.
+	inserer_record (a_nom: STRING; a_temps: STRING)
+			-- Enregistre le record (a_nom et a_temps) dans la base de données.
 		do
 			create message.make_empty
-			message := "je|2:12%N"
+			message := a_nom + "|" + a_temps
 			socket.put_integer (message.count)
 			socket.put_string (message)
 			socket.close
