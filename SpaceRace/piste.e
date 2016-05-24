@@ -179,8 +179,10 @@ feature {ANY} -- Implementation
 			-- Le nombre de tours de la partie.
 
 	font: TEXT_FONT
+			-- Police d'écriture du texte.
 
 	couleur: GAME_COLOR
+			-- Couleur de l'écriture.
 
 feature {NONE} -- Constantes
 
