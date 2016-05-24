@@ -119,6 +119,10 @@ feature {ANY} -- Affichage
 			-- Affiche le texte à l'écran
 		do
 			fenetre.fenetre.renderer.draw_texture (texture_titre_temps, 150, 225)
+			if chronometre.temps_secondes < 10 then
+				create text_surface_temps.make ((chronometre.temps_minutes).out + ":" + "0" + (chronometre.temps_secondes).out, font, couleur)
+				create texture_temps.make_from_surface (fenetre.fenetre.renderer, text_surface_temps)
+			end
 			fenetre.fenetre.renderer.draw_texture (texture_temps, 275, 225)
 			fenetre.fenetre.renderer.draw_texture (texture_titre_nom, 150, 325)
 			fenetre.fenetre.renderer.draw_texture (texture_nom, 275, 325)
