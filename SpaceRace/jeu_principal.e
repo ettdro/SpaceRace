@@ -203,22 +203,26 @@ feature {ANY} -- Access
 					if a_etat_clavier.is_w then
 						accelerer := True
 						decelerer := False
-						son_vaisseau.jouer (True)
+--						son_vaisseau.jouer (True)
+						verifier_son_vaisseau_muet
 					end
 					if a_etat_clavier.is_s then
 						decelerer := False
 						accelerer := False
 						freiner := True
+						verifier_son_vaisseau_muet
 					end
 					if a_etat_clavier.is_a then
 						tourne_gauche := True
 						tourne_droite := False
-						son_vaisseau.jouer (True)
+						verifier_son_vaisseau_muet
+--						son_vaisseau.jouer (True)
 					end
 					if a_etat_clavier.is_d then
 						tourne_gauche := False
 						tourne_droite := True
-						son_vaisseau.jouer (True)
+						verifier_son_vaisseau_muet
+--						son_vaisseau.jouer (True)
 					end
 				end
 			end
@@ -231,27 +235,31 @@ feature {ANY} -- Access
 				touche_repetee := False
 				decelerer := True
 				accelerer := False
-				son_vaisseau.source.stop
-				son_vaisseau_fin.jouer (False)
+				verifier_son_vaisseau_muet
+--				son_vaisseau.source.stop
+--				son_vaisseau_fin.jouer (False)
 			end
 			if a_etat_clavier.is_s then
 				freiner := False
 				if not accelerer then
 					decelerer := True
 				end
+				verifier_son_vaisseau_muet
 			end
 			if a_etat_clavier.is_a then
 				tourne_gauche := False
-				son_vaisseau.source.stop
-				son_vaisseau_fin.jouer (False)
-				if a_etat_clavier.is_w then
-					son_vaisseau.jouer (True)
-				end
+--				son_vaisseau.source.stop
+--				son_vaisseau_fin.jouer (False)
+--				if a_etat_clavier.is_w then
+--					son_vaisseau.jouer (True)
+--				end
+				verifier_son_vaisseau_muet
 			end
 			if a_etat_clavier.is_d then
 				tourne_droite := False
-				son_vaisseau.source.stop
-				son_vaisseau_fin.jouer (False)
+--				son_vaisseau.source.stop
+--				son_vaisseau_fin.jouer (False)
+				verifier_son_vaisseau_muet
 			end
 		end
 
@@ -259,19 +267,18 @@ feature {ANY} -- Access
 			-- Vérifie si le son est muet pour jouer ou non le son du vaisseau.
 		do
 			if not musique.est_muet then
-				son_vaisseau.jouer (False)
+				if accelerer then
+					son_vaisseau.jouer (True)
+				end
+				if not accelerer then
+					son_vaisseau.source.stop
+					son_vaisseau_fin.jouer (False)
+				end
+				if tourne_droite or tourne_gauche and not accelerer then
+					son_vaisseau.jouer (True)
+				end
 			else
 				son_vaisseau.mute
-			end
-		end
-
-	verifier_son_vaisseau_fin_muet (a_touche_repetee: BOOLEAN)
-			-- Vérifie si le son est muet pour jouer ou non le son du vaisseau qui ralenti et seulement une fois si a_touche_repete est False.
-		do
-			if not musique.est_muet and not a_touche_repetee and vitesse > 0 then
-				son_vaisseau_fin.jouer (True)
-			else
-				son_vaisseau_fin.mute
 			end
 		end
 
@@ -339,6 +346,8 @@ feature {NONE} -- Affichage
 		local
 			l_menu_inscription: MENU_INSCRIPTION
 		do
+			son_vaisseau.source.stop
+			son_vaisseau_fin.source.stop
 			create l_menu_inscription.make (fenetre, musique, son_click, chronometre)
 			l_menu_inscription.execution
 			quitter := l_menu_inscription.quitter
