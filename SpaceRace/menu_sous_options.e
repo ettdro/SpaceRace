@@ -22,7 +22,7 @@ feature {ANY} -- Initialization
 			-- Construit le menu (a_fenetre), ses sons (a_musique et a_son_click) et ses images.
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
-			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
+			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_retour.png")
 			liste_coordonnees.extend (Bouton_retour_coordonnees)
 		end
 

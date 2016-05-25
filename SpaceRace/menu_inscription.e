@@ -26,9 +26,9 @@ feature {NONE} -- Initialization
 		do
 			make_menu (a_fenetre, a_musique, a_son_click)
 			chronometre := a_chronometre
-			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
-			create titre_inscription.creer_affichable (fenetre.fenetre.renderer, "inscription2.png")
-			create font.make ("impact.ttf", 35)
+			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_suivant.png")
+			create titre_inscription.creer_affichable (fenetre.fenetre.renderer, "./images/inscription.png")
+			create font.make ("./font/impact.ttf", 35)
 			font.open
 			create couleur.make_rgb (255, 255, 255)
 			create reseau.make

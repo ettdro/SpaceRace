@@ -24,7 +24,7 @@ feature -- Initialization
 			musique := a_musique
 			son_click := a_son_click
 			create curseur.make
-			create fond.creer_affichable (fenetre.fenetre.renderer, "background_space.png")
+			create fond.creer_affichable (fenetre.fenetre.renderer, "./images/background_space.png")
 			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} liste_coordonnees.make
 		ensure
 			Fenetre_Assigne: fenetre = a_fenetre

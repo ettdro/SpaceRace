@@ -30,11 +30,11 @@ feature {NONE} -- Initialization
 			if musique.est_muet then
 				doit_afficher_bouton_muet := True
 			end
-			create bouton_muet.creer_affichable (fenetre.fenetre.renderer, "bouton_muet.png")
-			create bouton_non_muet.creer_affichable (fenetre.fenetre.renderer, "bouton_non_muet.png")
-			create bouton_credits.creer_affichable (fenetre.fenetre.renderer, "bouton_credits.png")
-			create bouton_comment_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_comment_jouer.png")
-			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
+			create bouton_muet.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_muet.png")
+			create bouton_non_muet.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_non_muet.png")
+			create bouton_credits.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_credits.png")
+			create bouton_comment_jouer.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_comment_jouer.png")
+			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_retour.png")
 			liste_coordonnees.extend (Bouton_muet_coordonnees)
 			liste_coordonnees.extend (Bouton_credits_coordonnees)
 			liste_coordonnees.extend (Bouton_comment_jouer_coordonnees)

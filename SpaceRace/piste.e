@@ -18,7 +18,7 @@ feature {NONE} -- Initialization
 	make (a_fenetre: FENETRE)
 			-- Crée la liste des checkpoints pour les pistes.
 		do
-			create font.make ("impact.ttf", 72)
+			create font.make ("./font/impact.ttf", 72)
 			font.open
 			create couleur.make_rgb (255, 102, 0)
 			create {LINKED_LIST [TUPLE [x1, y1, x2, y2: INTEGER]]} checkpoint_liste.make
@@ -31,7 +31,7 @@ feature {NONE} -- Initialization
 			-- Construit la piste Verte dans la fenêtre (a_fenetre).
 		do
 			make(a_fenetre)
-			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteV.png")
+			create piste.creer_affichable (a_fenetre.fenetre.renderer, "./images/pisteV.png")
 			lumiere_checkpoint.make_lumiere_piste_verte (a_fenetre)
 			x := 59
 			y := 250
@@ -49,7 +49,7 @@ feature {NONE} -- Initialization
 			-- Construit la piste Jaune dans la fenêtre (a_fenetre).
 		do
 			make(a_fenetre)
-			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteJ.png")
+			create piste.creer_affichable (a_fenetre.fenetre.renderer, "./images/pisteJ.png")
 			lumiere_checkpoint.make_lumiere_piste_jaune (a_fenetre)
 			x := 59
 			y := 330
@@ -68,7 +68,7 @@ feature {NONE} -- Initialization
 			-- Construit la piste Mauve dans la fenêtre (a_fenetre).
 		do
 			make(a_fenetre)
-			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteM.png")
+			create piste.creer_affichable (a_fenetre.fenetre.renderer, "./images/pisteM.png")
 			lumiere_checkpoint.make_lumiere_piste_mauve (a_fenetre)
 			x := 33
 			y := 330
@@ -90,7 +90,7 @@ feature {NONE} -- Initialization
 			-- Construit la piste Bleue dans la fenêtre (a_fenetre).
 		do
 			make(a_fenetre)
-			create piste.creer_affichable (a_fenetre.fenetre.renderer, "pisteB.png")
+			create piste.creer_affichable (a_fenetre.fenetre.renderer, "./images/pisteB.png")
 			lumiere_checkpoint.make_lumiere_piste_bleue (a_fenetre)
 			x := 48
 			y := 260

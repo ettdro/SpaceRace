@@ -20,8 +20,8 @@ feature {ANY} -- Initialization
 			-- Création des images et de la liste des checkpoints dans la fenetre (a_fenetre).
 		do
 			create {LINKED_LIST [TUPLE [x, y: INTEGER]]} lumiere_liste.make
-			create lumiere_verte.creer_affichable (a_fenetre.fenetre.renderer, "checkpointOui.png")
-			create lumiere_rouge.creer_affichable (a_fenetre.fenetre.renderer, "checkpointNon.png")
+			create lumiere_verte.creer_affichable (a_fenetre.fenetre.renderer, "./images/checkpointOui.png")
+			create lumiere_rouge.creer_affichable (a_fenetre.fenetre.renderer, "./images/checkpointNon.png")
 		end
 
 	make_lumiere_piste_verte (a_fenetre: FENETRE)

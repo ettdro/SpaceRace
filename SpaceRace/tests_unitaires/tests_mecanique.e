@@ -3,6 +3,7 @@ note
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-05-22"
 	revision: "1.5"
+	testing: "type/manual"
 
 class
 	TESTS_MECANIQUE

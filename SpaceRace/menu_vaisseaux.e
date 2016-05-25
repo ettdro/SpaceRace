@@ -8,7 +8,7 @@ class
 	MENU_VAISSEAUX
 
 inherit
-	
+
 	MENU_SELECTION
 		rename
 			make as make_menu
@@ -26,19 +26,19 @@ feature {NONE} -- Initialization
 		do
 			make_menu (a_fenetre, a_musique, a_son_click)
 			piste_selectionnee := a_piste_selectionnee
-			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
-			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "bouton_suivant.png")
-			create titre.creer_affichable (fenetre.fenetre.renderer, "choisir_vaisseau.png")
-			create cadre.creer_affichable (fenetre.fenetre.renderer, "bordure_vaisseaux.png")
-			create cadre_selectionne.creer_affichable (fenetre.fenetre.renderer, "bordure_vaisseaux_selectionne.png")
-			create vaisseau1.creer_affichable (fenetre.fenetre.renderer, "vaisseau1_cadre.png")
-			create vaisseau2.creer_affichable (fenetre.fenetre.renderer, "vaisseau2_cadre.png")
-			create vaisseau3.creer_affichable (fenetre.fenetre.renderer, "vaisseau3_cadre.png")
-			liste_coordonnees.extend (Bouton_retour_coordonnees) -- Coordonnées du bouton RETOUR.
-			liste_coordonnees.extend (Bouton_suivant_coordonnees) -- Coordonnées du bouton SUIVANT.
-			liste_coordonnees.extend (Bouton_cadre_gauche_coordonnees) -- Coordonnées du bouton CADRE GAUCHE.
-			liste_coordonnees.extend (Bouton_cadre_milieu_coordonnees) -- Coordonnées du bouton CADRE MILIEU.
-			liste_coordonnees.extend (Bouton_cadre_droite_coordonnees) -- Coordonnées du bouton CADRE DROITE.
+			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_retour.png")
+			create bouton_suivant.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_suivant.png")
+			create titre.creer_affichable (fenetre.fenetre.renderer, "./images/choisir_vaisseau.png")
+			create cadre.creer_affichable (fenetre.fenetre.renderer, "./images/bordure_vaisseaux.png")
+			create cadre_selectionne.creer_affichable (fenetre.fenetre.renderer, "./images/bordure_vaisseaux_selectionne.png")
+			create vaisseau1.creer_affichable (fenetre.fenetre.renderer, "./images/vaisseau1_cadre.png")
+			create vaisseau2.creer_affichable (fenetre.fenetre.renderer, "./images/vaisseau2_cadre.png")
+			create vaisseau3.creer_affichable (fenetre.fenetre.renderer, "./images/vaisseau3_cadre.png")
+			liste_coordonnees.extend (Bouton_retour_coordonnees)
+			liste_coordonnees.extend (Bouton_suivant_coordonnees)
+			liste_coordonnees.extend (Bouton_cadre_gauche_coordonnees)
+			liste_coordonnees.extend (Bouton_cadre_milieu_coordonnees)
+			liste_coordonnees.extend (Bouton_cadre_droite_coordonnees)
 			liste_coordonnees.start
 		ensure
 			Piste_Assigne: piste_selectionnee = a_piste_selectionnee
