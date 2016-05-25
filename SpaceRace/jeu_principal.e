@@ -231,7 +231,7 @@ feature {ANY} -- Access
 	verifier_son_vaisseau_muet
 			-- Vérifie si le son est muet pour jouer ou non le son du vaisseau.
 		do
-			if not musique.est_muet or not chronometre.pause then
+			if not musique.est_muet then
 				if accelerer then
 					son_vaisseau.jouer (True)
 				end
@@ -291,14 +291,14 @@ feature {NONE} -- Affichage
 			piste_selectionne.allumer_lumiere(fenetre.fenetre.renderer)
 			afficher_bouton_son
 			chronometre.afficher_temps
-			if chronometre.pause then
-				image_pause.afficher (380, 250, fenetre.fenetre.renderer)
-			end
 			if est_debut then
 				image_cliquez_jouer.afficher (100, 250, fenetre.fenetre.renderer)
 				vaisseau_selectionne.vaisseau.afficher (vaisseau_x.rounded, vaisseau_y.rounded, fenetre.fenetre.renderer)
 			else
 				vaisseau_selectionne.vaisseau.afficher_rotation (rotation_vaisseau, vaisseau_x.rounded, vaisseau_y.rounded, fenetre.fenetre.renderer)
+			end
+			if chronometre.pause then
+				image_pause.afficher (380, 250, fenetre.fenetre.renderer)
 			end
 			if piste_selectionne.tours.nombre_tour = 3 then
 				lancer_fenetre_inscription

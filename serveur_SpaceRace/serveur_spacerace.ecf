@@ -11,12 +11,20 @@
 		<library name="abel_core" location="$ISE_LIBRARY\unstable\library\persistency\abel\core\core.ecf"/>
 		<library name="base" location="$ISE_LIBRARY\library\base\base-safe.ecf"/>
 		<library name="net" location="$ISE_LIBRARY\library\net\net-safe.ecf"/>
+		<library name="testing" location="$ISE_LIBRARY\library\testing\testing-safe.ecf"/>
 		<cluster name="serveur_spacerace" location=".\" recursive="true">
 			<file_rule>
 				<exclude>/EIFGENs$</exclude>
 				<exclude>/CVS$</exclude>
 				<exclude>/.svn$</exclude>
 			</file_rule>
+			<file_rule>
+				<exclude>^tests_unitaires$</exclude>
+			</file_rule>
+			<file_rule>
+				<exclude>^tests_unitaires$</exclude>
+			</file_rule>
+			<tests name="tests_unitaires" location="C:\Users\Proprietaire\Documents\Eiffel User Files\15.08\projects\serveur_SpaceRace\tests_unitaires\"/>
 		</cluster>
 	</target>
 </system>
