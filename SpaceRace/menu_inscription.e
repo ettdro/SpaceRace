@@ -32,10 +32,11 @@ feature {NONE} -- Initialization
 			font.open
 			create couleur.make_rgb (255, 255, 255)
 			create reseau.make
+			create {LINKED_LIST [TUPLE [lettre: STRING_32]]} nom.make
 			create text_surface_titre_temps.make ("Temps :", font, couleur)
 			create text_surface_temps.make ((chronometre.temps_minutes).out + ":" + (chronometre.temps_secondes).out, font, couleur)
 			create text_surface_titre_nom.make ("Nom : ", font, couleur)
-			create text_surface_nom.make (" ", font, couleur)
+			create text_surface_nom.make ("Écrivez votre nom!", font, couleur)
 			create texture_titre_temps.make_from_surface (fenetre.fenetre.renderer, text_surface_titre_temps)
 			create texture_temps.make_from_surface (fenetre.fenetre.renderer, text_surface_temps)
 			create texture_titre_nom.make_from_surface (fenetre.fenetre.renderer, text_surface_titre_nom)
@@ -59,6 +60,10 @@ feature {ANY} -- Access
 				game_library.clear_all_events
 				lancer_fenetre_inscription
 				Precursor {MENU}
+				fenetre.fenetre.start_text_input
+				fenetre.fenetre.text_input_actions.extend (agent ecriture (?, ?))
+				game_library.iteration_actions.extend (agent sur_iteration (?))
+				fenetre.fenetre.key_pressed_actions.extend (agent effacer (?, ?))
 				game_library.launch
 			end
 		end
@@ -93,6 +98,39 @@ feature {ANY} -- Access
 			end
 		end
 
+	effacer (a_temps: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
+			-- Efface des lettres.
+		do
+			if a_etat_clavier.is_backspace then
+				nom.last.lettre := nom.last.lettre.substring (1, nom.last.lettre.count - 1)
+			end
+		end
+
+	ecriture (a_temps: NATURAL_32; a_lettre: STRING_32)
+			-- Prend la lettre écrite (a_lettre) et la mets dans une liste.
+		do
+			if nom.count < 15 then
+				if not nom.is_empty then
+					nom.last.lettre := nom.last.lettre + a_lettre
+					nom.extend (nom.last.lettre)
+				else
+					nom.extend (a_lettre)
+				end
+			end
+		end
+
+	sur_iteration (a_temps: NATURAL_32)
+			-- Boucle pour afficher le nom comme il se doit.
+		do
+			across
+				nom as la_nom
+			loop
+				create text_surface_nom.make (la_nom.item.lettre, font, couleur)
+				create texture_nom.make_from_surface (fenetre.fenetre.renderer, text_surface_nom)
+			end
+			lancer_fenetre_inscription
+		end
+
 feature {ANY} -- Affichage
 
 	lancer_fenetre_inscription
@@ -116,7 +154,7 @@ feature {ANY} -- Affichage
 		end
 
 	afficher_texte
-			-- Affiche le texte à l'écran
+			-- Affiche le texte à l'écran.
 		do
 			fenetre.fenetre.renderer.draw_texture (texture_titre_temps, 150, 225)
 			if chronometre.temps_secondes < 10 then
@@ -126,6 +164,7 @@ feature {ANY} -- Affichage
 			fenetre.fenetre.renderer.draw_texture (texture_temps, 275, 225)
 			fenetre.fenetre.renderer.draw_texture (texture_titre_nom, 150, 325)
 			fenetre.fenetre.renderer.draw_texture (texture_nom, 275, 325)
+			fenetre.fenetre.renderer.present
 		end
 
 feature {NONE} -- Implementation
@@ -171,6 +210,9 @@ feature {NONE} -- Implementation
 
 	texture_nom: GAME_TEXTURE
 			-- Une texture pour le nom du joueur.
+
+	nom: LINKED_LIST [TUPLE [lettre: STRING_32]]
+			-- La liste qui contient les lettres du nom.
 
 feature {ANY} -- Constantes
 

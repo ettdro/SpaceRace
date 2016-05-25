@@ -98,6 +98,8 @@ feature {ANY} -- Access
 			end
 		end
 
+feature {ANY} -- Affichage
+
 	lancer_fenetre_classement
 			-- Affiche toutes les images du menu à l'endroit précisé.
 		local
