@@ -33,14 +33,14 @@ feature {NONE} -- Initialization
 			l_son_click: EFFET_SONORE
 		do
 			create l_fenetre.make
-			create l_son_click.creer_son ("click_sound.wav")
-			create l_musique.creer_son ("MusiqueMenu.wav")
+			create l_son_click.creer_son ("./sons/click_sound.wav")
+			create l_musique.creer_son ("./sons/MusiqueMenu.wav")
 			make_menu (l_fenetre, l_musique, l_son_click)
-			create bouton_classement.creer_affichable (fenetre.fenetre.renderer, "bouton_classement.png")
-			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "bouton_jouer2.png")
-			create bouton_options.creer_affichable (fenetre.fenetre.renderer, "bouton_options2.png")
-			create bouton_quitter.creer_affichable (fenetre.fenetre.renderer, "bouton_quitter2.png")
-			create logo.creer_affichable (fenetre.fenetre.renderer, "logo2.png")
+			create bouton_classement.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_classement.png")
+			create bouton_jouer.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_jouer2.png")
+			create bouton_options.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_options2.png")
+			create bouton_quitter.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_quitter2.png")
+			create logo.creer_affichable (fenetre.fenetre.renderer, "./images/logo.png")
 			liste_coordonnees.extend (Bouton_jouer_coordonnees)
 			liste_coordonnees.extend (Bouton_options_coordonnees)
 			liste_coordonnees.extend (Bouton_quitter_coordonnees)

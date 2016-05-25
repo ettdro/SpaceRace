@@ -23,7 +23,7 @@ feature -- Initialization
 			-- Construit le menu qui explique comment jouer (a_fenetre), ses sons (a_musique et a_son_click) et ses images.
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
-			create texte.creer_affichable (fenetre.fenetre.renderer, "texte_instructions.png")
+			create texte.creer_affichable (fenetre.fenetre.renderer, "./images/texte_instructions.png")
 		end
 
 end

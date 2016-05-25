@@ -25,8 +25,8 @@ feature {NONE} -- Initialization
 			l_ajouter_texture: INTEGER
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
-			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "bouton_retour.png")
-			create image_classement.creer_affichable (fenetre.fenetre.renderer, "classement.png")
+			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_retour.png")
+			create image_classement.creer_affichable (fenetre.fenetre.renderer, "./images/classement.png")
 			liste_coordonnees.extend (Bouton_retour_coordonnees)
 			create font.make ("impact.ttf", 30)
 			font.open

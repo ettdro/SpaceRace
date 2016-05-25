@@ -23,7 +23,7 @@ feature -- Initialization
 			-- Construit le menu des crédits (a_fenetre), ses sons (a_musique et a_son_click) et ses images.
 		do
 			Precursor (a_fenetre, a_musique, a_son_click)
-			create texte.creer_affichable (fenetre.fenetre.renderer, "texte_credits.png")
+			create texte.creer_affichable (fenetre.fenetre.renderer, "./images/texte_credits.png")
 		end
 
 end

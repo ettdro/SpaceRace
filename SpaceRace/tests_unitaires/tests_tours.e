@@ -17,7 +17,7 @@ inherit
 			default_create
 		end
 
-feature -- Test routines
+feature {NONE} -- Test routines
 
 	incrementer_tour_normal
 			-- Test normal de la routine `incrementer_tour'.

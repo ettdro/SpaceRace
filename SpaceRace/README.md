@@ -67,5 +67,5 @@ License:
 		- La musique n'est pas une création originale et viens de :
 		https://youtu.be/d64hr3swPLA
 		
-		- Le son de vaisseau n'est pas une création originale et viens de :
-		https://youtu.be/ZMV0GGTbnbU
+		- Le son de vaisseau n'est pas une création originale, mais il a été
+		quelques peu modifié. Il viens de :	https://youtu.be/ZMV0GGTbnbU (il a été modifié)
