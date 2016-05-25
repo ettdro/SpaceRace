@@ -106,7 +106,8 @@ feature {ANY} -- Access
 			then
 				doit_afficher_bouton_muet := not doit_afficher_bouton_muet
 				afficher_bouton_son
-				verifier_son_vaisseau_muet
+				son_vaisseau.mute
+				son_vaisseau_fin.mute
 				lancer_fenetre_jeu_principal
 			end
 		end
