@@ -13,7 +13,7 @@ inherit
 
 	AUDIO_LIBRARY_SHARED
 
-feature {ANY} -- Initialization
+feature {NONE} -- Initialization
 
 	creer_audio (a_nom_fichier: STRING)
 			-- Méthode qui crée le son (a_nom_fichier).

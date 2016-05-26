@@ -36,7 +36,7 @@ feature {ANY} -- Access
 		end
 
 	freiner_vaisseau
-			-- Ralenti le vaisseau plus rapidement que deceleration_vaisseau.
+			-- Ralenti le vaisseau plus rapidement que `deceleration_vaisseau'.
 		do
 			if vitesse > 0 then
 				vitesse := vitesse - (Deceleration * 2)
@@ -71,7 +71,7 @@ feature {ANY} -- Access
 		end
 
 	avancer
-			-- Fais avancer le vaisseau
+			-- Fais avancer le vaisseau selon sa vitesse.
 		do
 			if vaisseau_y > 0 and vaisseau_y < 563 and vaisseau_x > 0 and vaisseau_x < 715 then
 				if rotation_vaisseau = 0 or rotation_vaisseau = 360 then

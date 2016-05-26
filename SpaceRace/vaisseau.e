@@ -1,5 +1,5 @@
 note
-	description: "Classe qui crée et gère les mouvements du vaisseau."
+	description: "Classe qui crée les vaisseaux."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-04-04"
 	revision: "1.2"

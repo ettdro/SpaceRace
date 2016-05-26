@@ -1,7 +1,5 @@
 note
-	description: "[
-		Classe effectuant des tests sur les méthodes testables de la classe TEMPS.
-	]"
+	description: "Classe effectuant des tests sur les méthodes testables de la classe TEMPS."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-04-25"
 	revision: "1.3"

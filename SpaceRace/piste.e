@@ -16,7 +16,7 @@ create
 feature {NONE} -- Initialization
 
 	make (a_fenetre: FENETRE)
-			-- Crée la liste des checkpoints pour les pistes.
+			-- Crée la liste des checkpoints pour les pistes dans la fenêtre (a_fenetre).
 		do
 			create font.make ("./font/impact.ttf", 72)
 			font.open
@@ -317,4 +317,5 @@ feature {NONE} -- Constantes
 		once
 			Result := [15, 266, 85, 286]
 		end
+		
 end

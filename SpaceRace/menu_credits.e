@@ -17,7 +17,7 @@ inherit
 create
 	make
 
-feature -- Initialization
+feature {NONE} -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE)
 			-- Construit le menu des crédits (a_fenetre), ses sons (a_musique et a_son_click) et ses images.

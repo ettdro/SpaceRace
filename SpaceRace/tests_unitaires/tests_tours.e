@@ -1,7 +1,5 @@
 note
-	description: "[
-		Classe effectuant des tests sur les méthodes testables de la classe TOURS.
-	]"
+	description: "Classe effectuant des tests sur les méthodes testables de la classe TOURS."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-04-25"
 	revision: "1.3"
@@ -19,7 +17,7 @@ inherit
 			default_create
 		end
 
-feature -- Test routines
+feature {ANY} -- Test routines
 
 	incrementer_tour_normal
 			-- Test normal de la routine `incrementer_tour'.

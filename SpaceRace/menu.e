@@ -115,7 +115,6 @@ feature {ANY} -- Implementation
 	liste_coordonnees: LIST [TUPLE [x1, y1, x2, y2: INTEGER]]
 			-- Liste de coordonnées des boutons dans les menus.
 
-
 feature {ANY} -- Constantes
 
 	Bouton_retour_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]

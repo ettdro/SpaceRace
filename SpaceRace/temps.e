@@ -26,6 +26,8 @@ feature {ANY} -- Acces
 			-- Démarre le chronomètre au temps de a_debut_milliseconde.
 		do
 			temps_debut_milliseconde := a_debut_milliseconde
+		ensure
+			Temps_Debut_Assigne: temps_debut_milliseconde = a_debut_milliseconde
 		end
 
 	unpause (a_temps: NATURAL)
@@ -35,6 +37,7 @@ feature {ANY} -- Acces
 			pause := False
 		ensure
 			Est_Pas_Pause: pause = False
+			Temps_Assigne: temps_milliseconde = temps_milliseconde - (a_temps - temps_pause)
 		end
 
 feature {ANY} -- Implementation

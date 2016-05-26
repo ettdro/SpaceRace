@@ -23,10 +23,8 @@ feature {NONE} -- Initialisation
 			police := a_police
 			couleur := a_couleur
 			nombre_tour := 0
-			create text_surface_tours_execute.make ("0", a_police, a_couleur)
 			create text_surface_total_tours.make ("/3", a_police, a_couleur)
 			create texture_total_tours.make_from_surface (a_fenetre, text_surface_total_tours)
-			create texture_tours_execute.make_from_surface (a_fenetre, text_surface_tours_execute)
 		ensure
 			Fenetre_Assigne: fenetre = a_fenetre
 			Police_Assigne: police = a_police
@@ -38,10 +36,13 @@ feature {ANY} -- Access
 
 	afficher_tours (a_tour_complete: BOOLEAN)
 			-- Affiche le nombre de tours à l'écran (a_tour_complete).
+		local
+			l_text_surface_tours_execute: TEXT_SURFACE_BLENDED
+			l_texture_tours_execute: GAME_TEXTURE
 		do
-			create text_surface_tours_execute.make (nombre_tour.out, police, couleur)
-			create texture_tours_execute.make_from_surface (fenetre, text_surface_tours_execute)
-			fenetre.draw_texture (texture_tours_execute, 815, 200)
+			create l_text_surface_tours_execute.make (nombre_tour.out, police, couleur)
+			create l_texture_tours_execute.make_from_surface (fenetre, l_text_surface_tours_execute)
+			fenetre.draw_texture (l_texture_tours_execute, 815, 200)
 			fenetre.draw_texture (texture_total_tours, 855, 200)
 			tour_complete := False
 		ensure
@@ -59,16 +60,10 @@ feature {NONE} -- Implementation
 	texture_total_tours: GAME_TEXTURE
 			-- La texture du "/3" qui signifie le nombre de tours total.
 
-	texture_tours_execute: GAME_TEXTURE
-			-- La texture qui signifie le nombre de tours exécutés.
-
 	fenetre: GAME_RENDERER
 			-- La fenêtre de l'application.
 
 	text_surface_total_tours: TEXT_SURFACE_BLENDED
 			-- Une surface pour le total des tours.
-
-	text_surface_tours_execute: TEXT_SURFACE_BLENDED
-			-- Une surface pour le nombre de tours exécutés.
 
 end

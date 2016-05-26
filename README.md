@@ -2,8 +2,8 @@ Jeux SpaceRace
 ==============
 
 Auteur : Nicolas Bisson et Étienne Drolet
-Date : 2016-04-03
-Version : 1.1
+Date : 2016-05-26
+Version : 1.6
 Langage : Eiffel
 IDE : EiffelStudio
 
@@ -20,13 +20,51 @@ Résumé:
 --------------------------------------------------------------------------------
 
 Instructions:
+	Pour pouvoir avoir accès au classement des scores ou pour s'y inscrire, 
+	le serveur doit être ouvert. Il suffit de lancer l'application 
+	serveur_spacerace à l'aide d'EiffelStudio pour le démarrer.
+
+	La navigation des menus se fait avec la souris.
+	
 	Les touches W, A, S et D sont les touches pour avancer, pivoter et freiner.
 
 --------------------------------------------------------------------------------
 
 Installation:
-	Indisponible pour l'instant.
-
+	Windows
+		1.	Installer EiffelStudio
+			a.	Télécharger EiffelStudio à l’adresse suivante : 
+				https://sourceforge.net/projects/eiffelstudio/files/EiffelStudio%2015.12/Build_98308/
+			b.	Exécuter l’installation du logiciel.
+		2.	Installer Eiffel Game 2
+			a.	Télécharger Eiffel Game 2 à l’adresse suivante : 
+				https://github.com/tioui/Eiffel_Game2/tree/windows_build 
+			b.	Copier le répertoire nommé « game2 » dans le sous-répertoire 
+				d’EiffelStudio contrib/library/
+		3.	Copier les fichiers .dll du fichier .zip dans le répertoire du projet. 
+			Prenez les .dll correspondant à votre version d’EiffelStudio (DLL32.zip ou DLL64.zip).
+		4.	Copier le répertoire « mingw » dans le répertoire 
+			EiffelStudio/EiffelStudio 15.11 GPL/unstable/library/persistency/database/sqlite3/spec
+		5.	Lancer l’application à l’aide d’EiffelStudio
+		
+	Linux
+		1.	Installer EiffelStudio
+			a.	# sudo add-apt-repository ppa:eiffelstudio-team/ppa
+			b.	# sudo apt-get update
+			c.	# sudo apt-get install eiffelstudio
+		2.	Installer les librairies C
+			a.	# sudo apt-get install git libopenal-dev libsndfile1-dev libgles2-mesa-dev
+			b.	# sudo apt-get install git libsdl2-dev libsdl2-gfx-dev libsdl2-image-dev libsdl2-ttf-dev
+			c.	# sudo apt-get install libepoxy-dev libgl1-mesa-dev libglu1-mesa-dev
+		3.	Télécharger Eiffel Game 2
+			a.	# git clone https://github.com/tioui/Eiffel_Game2.git
+		4.	Créer un lien entre le répertoire EiffelStudio et Eiffel_Game2
+			a.	# sudo ln –s `pwd`/Eiffel_Game2/usr/lib/eiffelstudio-15.12/contrib/library
+		5.	Compiler la librairie
+			a.	# cd Eiffel_Game2
+			b.	# ./compile_c_library.sh
+		6.	Lancer l’application à l’aide d’EiffelStudio
+			
 --------------------------------------------------------------------------------
 
 License:
@@ -68,4 +106,4 @@ License:
 		https://youtu.be/d64hr3swPLA
 		
 		- Le son de vaisseau n'est pas une création originale, mais il a été
-		quelques peu modifié. Il viens de :	https://youtu.be/ZMV0GGTbnbU (il a été modifié)
+		quelques peu modifié. Il viens de :	https://youtu.be/ZMV0GGTbnbU

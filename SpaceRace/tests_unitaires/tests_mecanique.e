@@ -1,7 +1,5 @@
 note
-	description: "[
-		Classe effectuant des tests sur les méthodes testables de la classe MECANIQUE.
-	]"
+	description: "Classe effectuant des tests sur les méthodes testables de la classe MECANIQUE."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-05-17"
 	revision: "1.4"
@@ -40,23 +38,6 @@ feature -- Test routines
 			assert ("acceleration_vaisseau test limite", vitesse ~ 0.02)
 		end
 
---	acceleration_vaisseau_errone
---			-- Test erroné de la routine `acceleration_vaisseau'.
---		note
---			testing: "execution/serial"
---		do
---			from
---				vitesse := 0
---			until
---				vitesse = 6
---			loop
---				acceleration_vaisseau
---			end
---			vitesse :=
---			acceleration_vaisseau
---			assert ("acceleration_vaisseau test erroné", vitesse ~ 6)
---		end
-
 	deceleration_vaisseau_normal
 			-- Test normal de la routine `deceleration_vaisseau'.
 		note
@@ -82,22 +63,6 @@ feature -- Test routines
 			assert ("deceleration_vaisseau test limite", vitesse ~ 0)
 		end
 
---	deceleration_vaisseau_errone
---			-- Test erroné de la routine `deceleration_vaisseau'.
---		note
---			testing: "execution/serial"
---		do
---			from
---				vitesse := 6
---			until
---				vitesse = 0
---			loop
---				deceleration_vaisseau
---			end
---			deceleration_vaisseau
---			assert ("deceleration_vaisseau test erroné", vitesse ~ 0)
---		end
-
 	freiner_vaisseau_normal
 			-- Test normal de la routine `freiner_vaisseau'.
 		note
@@ -122,22 +87,6 @@ feature -- Test routines
 			end
 			assert ("freiner_vaisseau test limite", vitesse ~ 0)
 		end
-
---	freiner_vaisseau_errone
---			-- Test erroné de la routine `freiner_vaisseau'.
---		note
---			testing: "execution/serial"
---		do
---			from
---				vitesse := 6
---			until
---				vitesse = 0
---			loop
---				freiner_vaisseau
---			end
---			freiner_vaisseau
---			assert ("freiner_vaisseau test erroné", vitesse ~ 0)
---		end
 
 	rotation_gauche_normal
 			-- Test normal de la routine `rotation_gauche'.
@@ -188,6 +137,7 @@ feature -- Test routines
 			rotation_droite
 			assert ("rotation_droite test limite", rotation_vaisseau ~ 2.5)
 		end
+		
 end
 
 

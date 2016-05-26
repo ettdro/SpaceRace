@@ -1,5 +1,5 @@
 note
-	description: "Classe qui contient les méthodes relatives aux threads."
+	description: "Classe qui contient les méthodes pour gérer le threads."
 	author: "Nicolas Bisson et Étienne Drolet"
 	date: "2016-05-17"
 	revision: "1.4"
