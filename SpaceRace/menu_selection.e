@@ -1,5 +1,5 @@
 note
-	description: "Contient les éléments généraux aux menus de sélection (piste et vaisseau)."
+	description: "Contient les éléments généraux aux menus de sélection (PISTE et VAISSEAU)."
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-05-09"
 	revision: "1.4"
@@ -14,7 +14,8 @@ inherit
 feature {ANY} -- Access
 
 	valider_bouton_suivant (a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton SUIVANT et exécute l'action en conséquence.
+			-- Méthode vérifiant si les coordonnées de la souris `a_x' et `a_y' sont égales aux coordonnées du bouton
+			-- `Bouton_suivant_coordonnees' et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_suivant_coordonnees.x1 and

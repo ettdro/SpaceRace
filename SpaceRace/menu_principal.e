@@ -1,5 +1,5 @@
 note
-	description: "Affiche le menu de démarrage où l'on peut choisir de jouer ou d'aller dans les options."
+	description: "Affiche le menu de démarrage où l'on peut choisir de jouer, d'aller dans les options ou quitter."
 	author: "Étienne Drolet & Nicolas Bisson"
 	date: "2016-05-15"
 	revision: "1.4"
@@ -66,7 +66,7 @@ feature {ANY} -- Access
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
-			-- Méthode qui gère les clicks de souris (a_etat_souris) pour permettre la navigation à partir de ce menu.
+			-- Méthode qui gère les clicks de souris `a_etat_souris' pour permettre la navigation à partir de ce menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
 				valider_bouton_classement(a_etat_souris.x, a_etat_souris.y)
@@ -77,7 +77,8 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_classement(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton JOUER et exécute l'action en conséquence.
+			-- Méthode vérifiant si les coordonnées de la souris `a_x' et `a_y' sont égales aux coordonnées du bouton
+			-- `Bouton_classement_coordonnees' et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_classement_coordonnees.x1 and
@@ -92,7 +93,8 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_jouer(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton JOUER et exécute l'action en conséquence.
+			-- Méthode vérifiant si les coordonnées de la souris `a_x' et `a_y' sont égales aux coordonnées du bouton
+			-- `Bouton_jouer_coordonnees' et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_jouer_coordonnees.x1 and
@@ -107,7 +109,8 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_options(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton JOUER et exécute l'action en conséquence.
+			-- Méthode vérifiant si les coordonnées de la souris `a_x' et `a_y' sont égales aux coordonnées du bouton
+			-- `Bouton_options_coordonnees' et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_options_coordonnees.x1 and
@@ -122,7 +125,8 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_quitter(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton JOUER et exécute l'action en conséquence.
+			-- Méthode vérifiant si les coordonnées de la souris `a_x' et `a_y' sont égales aux coordonnées du bouton
+			-- `Bouton_quitter_coordonnees' et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_quitter_coordonnees.x1 and

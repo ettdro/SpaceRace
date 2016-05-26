@@ -22,7 +22,10 @@ create
 feature {NONE} -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE; a_chronometre: TEMPS_CHRONOMETRE)
-			-- Construit le menu d'inscription (a_fenetre), ses sons (a_musique et a_son_click), ses images ainsi que la liste des coordonnées des boutons.
+			-- Construit le menu d'inscription `a_fenetre', ses sons (`a_musique' et `a_son_click'), ses images ainsi que la liste des coordonnées des boutons.
+		local
+			l_text_surface_titre_temps: TEXT_SURFACE_BLENDED
+			l_text_surface_titre_nom: TEXT_SURFACE_BLENDED
 		do
 			make_menu (a_fenetre, a_musique, a_son_click)
 			chronometre := a_chronometre
@@ -31,16 +34,16 @@ feature {NONE} -- Initialization
 			create font.make ("./font/impact.ttf", 35)
 			font.open
 			create couleur.make_rgb (255, 255, 255)
-			create couleur_temps_nom.make_rgb (230, 12, 64)
+			create couleur_temps_nom.make_rgb (51, 204, 51)
 			create reseau.make
 			create {LINKED_LIST [TUPLE [lettre: STRING_32]]} nom.make
-			create text_surface_titre_temps.make ("Temps :", font, couleur)
-			create text_surface_temps.make ((chronometre.temps_minutes).out + ":" + (chronometre.temps_secondes).out, font, couleur)
-			create text_surface_titre_nom.make ("Nom : ", font, couleur)
+			create l_text_surface_titre_temps.make ("Temps :", font, couleur)
+			create text_surface_temps.make ((chronometre.temps_minutes).out + ":" + (chronometre.temps_secondes).out, font, couleur_temps_nom)
+			create l_text_surface_titre_nom.make ("Nom : ", font, couleur)
 			create text_surface_nom.make ("Écrivez votre nom!", font, couleur)
-			create texture_titre_temps.make_from_surface (fenetre.fenetre.renderer, text_surface_titre_temps)
+			create texture_titre_temps.make_from_surface (fenetre.fenetre.renderer, l_text_surface_titre_temps)
 			create texture_temps.make_from_surface (fenetre.fenetre.renderer, text_surface_temps)
-			create texture_titre_nom.make_from_surface (fenetre.fenetre.renderer, text_surface_titre_nom)
+			create texture_titre_nom.make_from_surface (fenetre.fenetre.renderer, l_text_surface_titre_nom)
 			create texture_nom.make_from_surface (fenetre.fenetre.renderer, text_surface_nom)
 			liste_coordonnees.extend (Bouton_suivant_coordonnees)
 		ensure
@@ -71,7 +74,7 @@ feature {ANY} -- Access
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
-			-- Méthode qui gère les actions (a_etat_souris) de la souris dans le menu.
+			-- Méthode qui gère les actions `a_etat_souris' de la souris dans le menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
 				valider_bouton_suivant (a_etat_souris.x, a_etat_souris.y)
@@ -79,7 +82,8 @@ feature {ANY} -- Access
 		end
 
 	valider_bouton_suivant (a_x, a_y: INTEGER)
-			-- Méthode vérifiant si la souris (a_x, a_y) est sur le bouton SUIVANT et exécute l'action en conséquence.
+			-- Méthode vérifiant si les coordonnées de la souris `a_x' et `a_y' sont égales aux coordonnées du bouton SUIVANT
+			-- et exécute l'action en conséquence.
 		local
 			l_nom_string: STRING
 			l_temps_string: STRING
@@ -94,17 +98,13 @@ feature {ANY} -- Access
 				curseur.reinitialiser_curseur
 				l_nom_string := text_surface_nom.text.as_string_32
 				l_temps_string := text_surface_temps.text.as_string_32
-				if not reseau.socket.network then
-					reseau.inserer_record (l_nom_string, l_temps_string)
-					lancer_fenetre_classement
-				else
-					print("Accès au serveur impossible!!%N")
-				end
+				reseau.inserer_record (l_nom_string, l_temps_string)
+				lancer_fenetre_classement
 			end
 		end
 
 	effacer (a_temps: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
-			-- Efface des lettres.
+			-- Efface la dernière lettre du nom entré.
 		do
 			if a_etat_clavier.is_backspace and not nom.last.lettre.is_empty then
 				nom.last.lettre := nom.last.lettre.substring (1, nom.last.lettre.count - 1)
@@ -112,7 +112,7 @@ feature {ANY} -- Access
 		end
 
 	ecriture (a_temps: NATURAL_32; a_lettre: STRING_32)
-			-- Prend la lettre écrite (a_lettre) et la mets dans une liste.
+			-- Prend la lettre écrite `a_lettre' et la mets dans une liste.
 		do
 			if not nom.is_empty then
 				if nom.last.lettre.count < 15 then
@@ -125,7 +125,7 @@ feature {ANY} -- Access
 		end
 
 	sur_iteration (a_temps: NATURAL_32)
-			-- Boucle pour afficher le nom comme il se doit.
+			-- Boucle pour recréer une texture avec la nouvelle lettre ajoutée.
 		do
 			across
 				nom as la_nom
@@ -149,7 +149,7 @@ feature {ANY} -- Affichage
 		end
 
 	lancer_fenetre_classement
-			-- Lance le classement du jeu.
+			-- Lance le menu du classement du jeu.
 		local
 			l_menu_classement: MENU_CLASSEMENT
 		do
@@ -160,7 +160,7 @@ feature {ANY} -- Affichage
 		end
 
 	afficher_texte
-			-- Affiche le texte à l'écran.
+			-- Affiche les textures à l'écran.
 		do
 			fenetre.fenetre.renderer.draw_texture (texture_titre_temps, 150, 225)
 			if chronometre.temps_secondes < 10 then
@@ -196,23 +196,17 @@ feature {NONE} -- Implementation
 	chronometre: TEMPS_CHRONOMETRE
 			-- Le chronomètre du jeu.
 
-	text_surface_titre_temps: TEXT_SURFACE_BLENDED
-			-- Une surface pour le titre "TEMPS".
+	text_surface_nom: TEXT_SURFACE_BLENDED
+			-- Une surface pour le nom.
 
 	text_surface_temps: TEXT_SURFACE_BLENDED
-			-- Une surface pour le temps réalisés.
-
-	text_surface_titre_nom: TEXT_SURFACE_BLENDED
-			-- Une surface pour le titre "NOM".
-
-	text_surface_nom: TEXT_SURFACE_BLENDED
-			-- Une surface pour le nom du joueur.
+			-- Une surface pour le temps.
 
 	texture_titre_temps: GAME_TEXTURE
 			-- Une texture pour le titre "TEMPS".
 
 	texture_temps: GAME_TEXTURE
-			-- Une texture pour le temps réalisés.
+			-- Une texture pour le temps réalisé.
 
 	texture_titre_nom: GAME_TEXTURE
 			-- Une texture pour le titre "NOM".
@@ -226,7 +220,7 @@ feature {NONE} -- Implementation
 feature {ANY} -- Constantes
 
 	Bouton_suivant_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
-			-- Constante représentant les coordonnées du bouton SUIVANT.
+			-- Constante représentant les coordonnées du bouton SUIVANT exclusivement à la classe présente.
 		once
 			Result := [759, 519, 965, 577]
 		end

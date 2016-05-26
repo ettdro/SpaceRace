@@ -22,7 +22,7 @@ create
 feature {NONE} -- Initialization
 
 	make (a_fenetre: FENETRE; a_musique: EFFET_SONORE; a_son_click: EFFET_SONORE; a_piste_selectionnee: PISTE)
-			-- Construit le menu pour choisir le vaisseaux (a_fenetre), ses sons (a_musique et a_son_click) et ses images. a_pite_selectionnee sert à être passé au menu de jeu.
+			-- Construit le menu pour choisir le vaisseaux `a_fenetre', ses sons `a_musique' et `a_son_click' et ses images. `a_piste_selectionnee' sert à être passé au menu de jeu.
 		do
 			make_menu (a_fenetre, a_musique, a_son_click)
 			piste_selectionnee := a_piste_selectionnee
@@ -63,7 +63,7 @@ feature {ANY} -- Access
 		end
 
 	action_souris (a_temps: NATURAL_32; a_etat_souris: GAME_MOUSE_BUTTON_PRESSED_STATE; a_nb_clicks: NATURAL_8)
-			-- Méthode qui gère les actions de la souris (a_etat_souris) dans le menu.
+			-- Méthode qui gère les actions de la souris `a_etat_souris' dans le menu.
 		do
 			if a_etat_souris.is_left_button_pressed then
 				valider_bouton_retour (a_etat_souris.x, a_etat_souris.y)
@@ -81,7 +81,8 @@ feature {ANY} -- Access
 		end
 
 	valider_cadre_gauche(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris (a_x, a_y) est sur le cadre en haut à gauche et exécute l'action en conséquence.
+			-- Méthode vérifiant si les coordonnées de la souris `a_x' et `a_y' sont égales aux coordonnées du bouton
+			-- `Bouton_cadre_gauche_coordonnees' et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_cadre_gauche_coordonnees.x1 and
@@ -98,7 +99,8 @@ feature {ANY} -- Access
 		end
 
 	valider_cadre_milieu(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris (a_x, a_y) est sur le cadre en haut à droite et exécute l'action en conséquence.
+			-- Méthode vérifiant si les coordonnées de la souris `a_x' et `a_y' sont égales aux coordonnées du bouton
+			-- `Bouton_cadre_milieu_coordonnees' et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_cadre_milieu_coordonnees.x1 and
@@ -115,7 +117,8 @@ feature {ANY} -- Access
 		end
 
 	valider_cadre_droite(a_x, a_y:INTEGER)
-			-- Méthode vérifiant si la souris (a_x, a_y) est sur le cadre en bas à gauche et exécute l'action en conséquence.
+			-- Méthode vérifiant si les coordonnées de la souris `a_x' et `a_y' sont égales aux coordonnées du bouton
+			-- `Bouton_cadre_droite_coordonnees' et exécute l'action en conséquence.
 		do
 			if
 				a_x > Bouton_cadre_droite_coordonnees.x1 and
@@ -134,7 +137,7 @@ feature {ANY} -- Access
 feature {NONE} -- Affichage
 
 	actualiser_cadre (a_liste_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER])
-			-- Affiche le cadre en jaune (a_liste_coordonnes) puisqu'il est celui sélectionné et affiche le bouton SUIVANT.
+			-- Affiche le cadre en jaune `a_liste_coordonnes' puisqu'il est celui sélectionné et affiche le bouton SUIVANT.
 		require
 			Liste_Vide: not a_liste_coordonnees.is_empty
 			Position_X1_Valide: a_liste_coordonnees.x1 >= 0 and a_liste_coordonnees.x1 <= 1000
