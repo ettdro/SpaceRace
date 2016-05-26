@@ -31,6 +31,7 @@ feature {NONE} -- Initialization
 			create font.make ("./font/impact.ttf", 35)
 			font.open
 			create couleur.make_rgb (255, 255, 255)
+			create couleur_temps_nom.make_rgb (230, 12, 64)
 			create reseau.make
 			create {LINKED_LIST [TUPLE [lettre: STRING_32]]} nom.make
 			create text_surface_titre_temps.make ("Temps :", font, couleur)
@@ -65,6 +66,7 @@ feature {ANY} -- Access
 				game_library.iteration_actions.extend (agent sur_iteration (?))
 				fenetre.fenetre.key_pressed_actions.extend (agent effacer (?, ?))
 				game_library.launch
+				nom.wipe_out
 			end
 		end
 
@@ -92,16 +94,19 @@ feature {ANY} -- Access
 				curseur.reinitialiser_curseur
 				l_nom_string := text_surface_nom.text.as_string_32
 				l_temps_string := text_surface_temps.text.as_string_32
-				reseau.inserer_record (l_nom_string, l_temps_string)
-				lancer_fenetre_classement
-				sortir_menu := True
+				if not reseau.socket.network then
+					reseau.inserer_record (l_nom_string, l_temps_string)
+					lancer_fenetre_classement
+				else
+					print("Accès au serveur impossible!!%N")
+				end
 			end
 		end
 
 	effacer (a_temps: NATURAL_32; a_etat_clavier: GAME_KEY_STATE)
 			-- Efface des lettres.
 		do
-			if a_etat_clavier.is_backspace then
+			if a_etat_clavier.is_backspace and not nom.last.lettre.is_empty then
 				nom.last.lettre := nom.last.lettre.substring (1, nom.last.lettre.count - 1)
 			end
 		end
@@ -109,13 +114,13 @@ feature {ANY} -- Access
 	ecriture (a_temps: NATURAL_32; a_lettre: STRING_32)
 			-- Prend la lettre écrite (a_lettre) et la mets dans une liste.
 		do
-			if nom.count < 15 then
-				if not nom.is_empty then
+			if not nom.is_empty then
+				if nom.last.lettre.count < 15 then
 					nom.last.lettre := nom.last.lettre + a_lettre
 					nom.extend (nom.last.lettre)
-				else
-					nom.extend (a_lettre)
 				end
+			else
+				nom.extend (a_lettre)
 			end
 		end
 
@@ -125,7 +130,7 @@ feature {ANY} -- Access
 			across
 				nom as la_nom
 			loop
-				create text_surface_nom.make (la_nom.item.lettre, font, couleur)
+				create text_surface_nom.make (la_nom.item.lettre, font, couleur_temps_nom)
 				create texture_nom.make_from_surface (fenetre.fenetre.renderer, text_surface_nom)
 			end
 			lancer_fenetre_inscription
@@ -151,6 +156,7 @@ feature {ANY} -- Affichage
 			create l_menu_classement.make (fenetre, musique, son_click)
 			l_menu_classement.execution
 			quitter := l_menu_classement.quitter
+			sortir_menu := l_menu_classement.sortir_menu
 		end
 
 	afficher_texte
@@ -158,12 +164,12 @@ feature {ANY} -- Affichage
 		do
 			fenetre.fenetre.renderer.draw_texture (texture_titre_temps, 150, 225)
 			if chronometre.temps_secondes < 10 then
-				create text_surface_temps.make ((chronometre.temps_minutes).out + ":" + "0" + (chronometre.temps_secondes).out, font, couleur)
+				create text_surface_temps.make ((chronometre.temps_minutes).out + ":" + "0" + (chronometre.temps_secondes).out, font, couleur_temps_nom)
 				create texture_temps.make_from_surface (fenetre.fenetre.renderer, text_surface_temps)
 			end
 			fenetre.fenetre.renderer.draw_texture (texture_temps, 275, 225)
 			fenetre.fenetre.renderer.draw_texture (texture_titre_nom, 150, 325)
-			fenetre.fenetre.renderer.draw_texture (texture_nom, 275, 325)
+			fenetre.fenetre.renderer.draw_texture (texture_nom, 250, 325)
 			fenetre.fenetre.renderer.present
 		end
 
@@ -182,7 +188,10 @@ feature {NONE} -- Implementation
 			-- Police d'écriture du texte.
 
 	couleur: GAME_COLOR
-			-- Couleur de l'écriture.
+			-- Couleur de l'écriture des titres.
+
+	couleur_temps_nom: GAME_COLOR
+			-- Couleur de l'écriture du temps et du nom du joueur.
 
 	chronometre: TEMPS_CHRONOMETRE
 			-- Le chronomètre du jeu.
@@ -219,7 +228,7 @@ feature {ANY} -- Constantes
 	Bouton_suivant_coordonnees: TUPLE [x1, y1, x2, y2: INTEGER]
 			-- Constante représentant les coordonnées du bouton SUIVANT.
 		once
-			Result := [759, 519, 917, 577]
+			Result := [759, 519, 965, 577]
 		end
 
 end

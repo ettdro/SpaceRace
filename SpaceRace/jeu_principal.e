@@ -164,6 +164,8 @@ feature {ANY} -- Access
 				a_y > Bouton_retour_jeu_coordonnees.y1 and
 				a_y < Bouton_retour_jeu_coordonnees.y2
 			then
+				son_vaisseau.source.stop
+				son_vaisseau_fin.source.stop
 				verifier_son_click_muet
 				curseur.reinitialiser_curseur
 				sortir_menu := True

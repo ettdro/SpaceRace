@@ -16,7 +16,7 @@ create
 feature {NONE} -- Initialization
 
 	make
-			-- Crée le socket.
+			-- Crée le socket et la liste de joueurs.
 		local
 			l_port: INTEGER
 			l_host: STRING
@@ -31,7 +31,7 @@ feature {NONE} -- Initialization
 feature {ANY} -- Access
 
 	ecouter
-			-- Écoute sur le port pour interpréter les commandes.
+			-- Écoute sur le port 2768 pour recevoir le classement.
 		local
 			l_socket: NETWORK_DATAGRAM_SOCKET
 			l_infos_joueur: STRING
@@ -59,17 +59,18 @@ feature {ANY} -- Access
 		end
 
 	inserer_record (a_nom: STRING; a_temps: STRING)
-			-- Enregistre le record (a_nom et a_temps) dans la base de données.
+			-- Enregistre le record en envoyant `a_nom' et `a_temps' dans la base de données.
 		do
 			create message.make_empty
 			message := a_nom + "|" + a_temps
+			socket.put_boolean (True)
 			socket.put_integer (message.count)
 			socket.put_string (message)
 			socket.close
 		end
 
 	lire_donnees
-			-- Lis les données pour les affichées à l'écran.
+			-- Lis les données sur le serveur pour les affichées à l'écran.
 		do
 			create message.make_empty
 			message := "lire"

@@ -13,7 +13,7 @@ create
 feature {NONE} -- Initialization
 
 	serveur
-			-- Crée le serveur.
+			-- Crée le serveur et écoute les données reçu dans le socket.
 		local
 			l_socket: NETWORK_DATAGRAM_SOCKET
 			l_port: INTEGER
@@ -45,7 +45,7 @@ feature {NONE} -- Initialization
 		end
 
 	envoyer_classement
-			-- Envoie le classement à l'application pour l'afficher.
+			-- Envoie le classement à l'application SpaceRace sur le port 2768 en UDP pour afficher celui-ci.
 		local
 			l_socket: NETWORK_DATAGRAM_SOCKET
 		do

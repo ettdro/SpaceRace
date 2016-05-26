@@ -17,18 +17,20 @@ create
 feature {NONE} -- Initialization
 
 	make (a_nom: STRING; a_temps: STRING)
-			-- Création d'un joueur (a_nom et a_temps) dont les données sont dans la base de données.
+			-- Création d'un joueur (`a_nom' et `a_temps') dont les données sont dans la base de données.
+		require
+			Nom_Est_Type_Valide: a_nom.is_string_8
+			Temps_Est_Type_Valide: a_temps.is_string_8
 		do
-			-- P-e pas nécessaire...
-			if a_nom.count < 11 then
+			if a_nom.count < 16 then
 				from
 				until
-					a_nom.count.is_equal (10)
+					a_nom.count.is_equal (15)
 				loop
 					a_nom.append (" ")
 				end
 			else
-				a_nom.keep_head (10)
+				a_nom.keep_head (15)
 				a_nom.append ("...")
 			end
 			nom_joueur := a_nom
@@ -43,7 +45,7 @@ feature {NONE} -- Initialization
 feature {ANY} -- Access
 
 	is_less alias "<" (a_autre: like Current): BOOLEAN
-			-- Classe les temps des joueurs (du plus petit au plus grand).
+			-- Classe les temps des joueurs (du plus petit au plus grand) en comparant `Current' avec `a_autre'.
 		local
 			liste_string: LIST [STRING]
 			minutes, secondes: INTEGER

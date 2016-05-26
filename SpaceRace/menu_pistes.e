@@ -210,6 +210,7 @@ feature {NONE} -- Affichage
 				create l_menu_vaisseaux.make (fenetre, musique, son_click, la_piste)
 				l_menu_vaisseaux.execution
 				quitter := l_menu_vaisseaux.quitter
+--				sortir_menu := l_menu_vaisseaux.sortir_menu
 			end
 		end
 
