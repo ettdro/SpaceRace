@@ -166,6 +166,7 @@ feature {NONE} -- Affichage
 			create l_menu_piste.make (fenetre, musique, son_click)
 			l_menu_piste.execution
 			quitter := l_menu_piste.quitter
+			sortir_menu := not l_menu_piste.sortir_menu
 		end
 
 	lancer_fenetre_classement
@@ -176,7 +177,9 @@ feature {NONE} -- Affichage
 			create l_menu_classement.make (fenetre, musique, son_click)
 			l_menu_classement.execution
 			quitter := l_menu_classement.quitter
+			sortir_menu := l_menu_classement.sortir_menu
 		end
+
 
 feature {ANY} -- Implementation
 

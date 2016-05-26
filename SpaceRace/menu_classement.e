@@ -28,7 +28,7 @@ feature {NONE} -- Initialization
 			create bouton_retour.creer_affichable (fenetre.fenetre.renderer, "./images/bouton_retour.png")
 			create image_classement.creer_affichable (fenetre.fenetre.renderer, "./images/classement.png")
 			liste_coordonnees.extend (Bouton_retour_coordonnees)
-			create font.make ("impact.ttf", 30)
+			create font.make ("./font/impact.ttf", 30)
 			font.open
 			create couleur.make_rgb (255, 102, 0)
 			create {LINKED_LIST[GAME_TEXTURE]}liste_textures_numeros.make
@@ -85,6 +85,7 @@ feature {ANY} -- Access
 				sortir_menu := True
 				io.put_string ("Acces au serveur impossible.%N")
 				game_library.stop
+				musique.jouer (True)
 			else
 				across
 					reseau.joueurs as la_liste_joueurs

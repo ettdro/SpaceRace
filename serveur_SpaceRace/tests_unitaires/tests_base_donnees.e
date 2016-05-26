@@ -1,10 +1,10 @@
 note
 	description: "[
-		Eiffel tests that can be executed by testing tool.
+		Classe effectuant des tests sur les méthodes testables de la classe BASE_DONNEES.
 	]"
-	author: "EiffelStudio test wizard"
-	date: "$Date$"
-	revision: "$Revision$"
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-05-25"
+	revision: "1.5"
 	testing: "type/manual"
 
 class
@@ -24,7 +24,7 @@ inherit
 feature {NONE} -- Events
 
 	on_prepare
-		-- Crée les attributs de la classe BASE_DONNEES.
+		-- Crée les attributs de la classe BASE_DONNEES avant d'effectuer les tests.
 			note
 				testing: "execution/serial"
 			do
@@ -34,7 +34,7 @@ feature {NONE} -- Events
 feature -- Test routines
 
 	remplir_liste_joueurs_normal
-		-- Test normal de la routine `remplir_liste_joueurs'.
+			-- Test normal de la routine `remplir_liste_joueurs'.
 		note
 			testing: "execution/serial"
 		local
@@ -45,19 +45,4 @@ feature -- Test routines
 			remplir_liste_joueurs
 			assert ("remplir_liste_joueur test normal", joueurs.last ~ un_joueur)
 		end
-
---	ajouter_joueur_normal
---			-- Test normal de la routine `remplir_liste_joueurs'.
---		note
---			testing: "execution/serial"
---		local
---			un_joueur: JOUEUR
---		do
---			create un_joueur.make ("Nicolas", "1:10")
---			ajouter_joueur (un_joueur.nom_joueur, un_joueur.temps_joueur)
---			remplir_liste_joueurs
---			assert ("ajouter_joueur test normal", joueurs.first ~ un_joueur)
---		end
 end
-
-

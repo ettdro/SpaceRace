@@ -1,5 +1,7 @@
 note
-	description: "Classe contenant les tests de la classe TEMPS."
+	description: "[
+		Classe effectuant des tests sur les méthodes testables de la classe TEMPS.
+	]"
 	author: "Étienne Drolet et Nicolas Bisson"
 	date: "2016-04-25"
 	revision: "1.3"
@@ -9,7 +11,6 @@ class
 	TESTS_TEMPS
 
 inherit
-
 	EQA_TEST_SET
 
 	TEMPS
@@ -17,7 +18,7 @@ inherit
 			default_create
 		end
 
-feature {NONE} -- Test routines
+feature -- Test routines
 
 	chronometre_normal
 			-- Test normal de la routine `chronometre'.
@@ -96,3 +97,5 @@ feature {NONE} -- Test routines
 		end
 
 end
+
+

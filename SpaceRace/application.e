@@ -40,5 +40,4 @@ feature {NONE} -- Initialization
 			image_file_library.quit_library
 			game_library.quit_library
 		end
-
 end

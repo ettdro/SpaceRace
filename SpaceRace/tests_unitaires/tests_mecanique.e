@@ -1,15 +1,16 @@
 note
-	description: "Classe contenant les tests de la mécanique du vaisseau de JEU_PRINCIPAL."
-	author: "Nicolas Bisson et Étienne Drolet"
-	date: "2016-05-22"
-	revision: "1.5"
+	description: "[
+		Classe effectuant des tests sur les méthodes testables de la classe MECANIQUE.
+	]"
+	author: "Étienne Drolet et Nicolas Bisson"
+	date: "2016-05-17"
+	revision: "1.4"
 	testing: "type/manual"
 
 class
 	TESTS_MECANIQUE
 
 inherit
-
 	EQA_TEST_SET
 
 	MECANIQUE
@@ -17,21 +18,16 @@ inherit
 			default_create
 		end
 
-feature {NONE} -- Test routines
+feature -- Test routines
 
 	acceleration_vaisseau_normal
 			-- Test normal de la routine `acceleration_vaisseau'.
 		note
 			testing: "execution/serial"
 		do
-			from
-				vitesse := 0
-			until
-				vitesse = 3
-			loop
-				acceleration_vaisseau
-			end
-			assert ("acceleration_vaisseau test normal", vitesse ~ 3)
+			vitesse := 3
+			acceleration_vaisseau
+			assert ("acceleration_vaisseau test normal", vitesse ~ 2)
 		end
 
 	acceleration_vaisseau_limite
@@ -39,45 +35,36 @@ feature {NONE} -- Test routines
 		note
 			testing: "execution/serial"
 		do
-			from
-				vitesse := 0
-			until
-				vitesse = 6
-			loop
-				acceleration_vaisseau
-			end
-			assert ("acceleration_vaisseau test limite", vitesse ~ 6)
+			vitesse := 0
+			acceleration_vaisseau
+			assert ("acceleration_vaisseau test limite", vitesse ~ 0.02)
 		end
 
-	acceleration_vaisseau_errone
-			-- Test erroné de la routine `acceleration_vaisseau'.
-		note
-			testing: "execution/serial"
-		do
-			from
-				vitesse := 0
-			until
-				vitesse = 6
-			loop
-				acceleration_vaisseau
-			end
-			acceleration_vaisseau
-			assert ("acceleration_vaisseau test erroné", vitesse ~ 6)
-		end
+--	acceleration_vaisseau_errone
+--			-- Test erroné de la routine `acceleration_vaisseau'.
+--		note
+--			testing: "execution/serial"
+--		do
+--			from
+--				vitesse := 0
+--			until
+--				vitesse = 6
+--			loop
+--				acceleration_vaisseau
+--			end
+--			vitesse :=
+--			acceleration_vaisseau
+--			assert ("acceleration_vaisseau test erroné", vitesse ~ 6)
+--		end
 
 	deceleration_vaisseau_normal
 			-- Test normal de la routine `deceleration_vaisseau'.
 		note
 			testing: "execution/serial"
 		do
-			from
-				vitesse := 6
-			until
-				vitesse = 3
-			loop
-				deceleration_vaisseau
-			end
-			assert ("deceleration_vaisseau test normal", vitesse ~ 3)
+			vitesse := 3
+			deceleration_vaisseau
+			assert ("deceleration_vaisseau test normal", vitesse ~ 2.98)
 		end
 
 	deceleration_vaisseau_limite
@@ -95,35 +82,30 @@ feature {NONE} -- Test routines
 			assert ("deceleration_vaisseau test limite", vitesse ~ 0)
 		end
 
-	deceleration_vaisseau_errone
-			-- Test erroné de la routine `deceleration_vaisseau'.
-		note
-			testing: "execution/serial"
-		do
-			from
-				vitesse := 6
-			until
-				vitesse = 0
-			loop
-				deceleration_vaisseau
-			end
-			deceleration_vaisseau
-			assert ("deceleration_vaisseau test erroné", vitesse ~ 0)
-		end
+--	deceleration_vaisseau_errone
+--			-- Test erroné de la routine `deceleration_vaisseau'.
+--		note
+--			testing: "execution/serial"
+--		do
+--			from
+--				vitesse := 6
+--			until
+--				vitesse = 0
+--			loop
+--				deceleration_vaisseau
+--			end
+--			deceleration_vaisseau
+--			assert ("deceleration_vaisseau test erroné", vitesse ~ 0)
+--		end
 
 	freiner_vaisseau_normal
 			-- Test normal de la routine `freiner_vaisseau'.
 		note
 			testing: "execution/serial"
 		do
-			from
-				vitesse := 6
-			until
-				vitesse = 3
-			loop
-				freiner_vaisseau
-			end
-			assert ("freiner_vaisseau test normal", vitesse ~ 3)
+			vitesse := 4
+			freiner_vaisseau
+			assert ("freiner_vaisseau test normal", vitesse ~ 3.96)
 		end
 
 	freiner_vaisseau_limite
@@ -141,21 +123,21 @@ feature {NONE} -- Test routines
 			assert ("freiner_vaisseau test limite", vitesse ~ 0)
 		end
 
-	freiner_vaisseau_errone
-			-- Test erroné de la routine `freiner_vaisseau'.
-		note
-			testing: "execution/serial"
-		do
-			from
-				vitesse := 6
-			until
-				vitesse = 0
-			loop
-				freiner_vaisseau
-			end
-			freiner_vaisseau
-			assert ("freiner_vaisseau test erroné", vitesse ~ 0)
-		end
+--	freiner_vaisseau_errone
+--			-- Test erroné de la routine `freiner_vaisseau'.
+--		note
+--			testing: "execution/serial"
+--		do
+--			from
+--				vitesse := 6
+--			until
+--				vitesse = 0
+--			loop
+--				freiner_vaisseau
+--			end
+--			freiner_vaisseau
+--			assert ("freiner_vaisseau test erroné", vitesse ~ 0)
+--		end
 
 	rotation_gauche_normal
 			-- Test normal de la routine `rotation_gauche'.
@@ -177,14 +159,9 @@ feature {NONE} -- Test routines
 		note
 			testing: "execution/serial"
 		do
-			from
-				rotation_vaisseau := 359
-			until
-				rotation_vaisseau = 0
-			loop
-				rotation_gauche
-			end
-			assert ("rotation_gauche test limite", rotation_vaisseau ~ 360)
+			rotation_vaisseau := 0
+			rotation_gauche
+			assert ("rotation_gauche test limite", rotation_vaisseau ~ 357.5)
 		end
 
 	rotation_droite_normal
@@ -199,7 +176,7 @@ feature {NONE} -- Test routines
 			loop
 				rotation_droite
 			end
-			assert ("rotation_gauche test normal", rotation_vaisseau ~ 90)
+			assert ("rotation_droite test normal", rotation_vaisseau ~ 90)
 		end
 
 	rotation_droite_limite
@@ -207,14 +184,10 @@ feature {NONE} -- Test routines
 		note
 			testing: "execution/serial"
 		do
-			from
-				rotation_vaisseau := 1
-			until
-				rotation_vaisseau = 360
-			loop
-				rotation_droite
-			end
-			assert ("rotation_gauche test limite", rotation_vaisseau ~ 0)
+			rotation_vaisseau := 360
+			rotation_droite
+			assert ("rotation_droite test limite", rotation_vaisseau ~ 2.5)
 		end
-
 end
+
+

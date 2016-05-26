@@ -12,6 +12,7 @@ feature {ANY} -- Access
 	incrementer_tour (a_tour_complete: BOOLEAN)
 			-- Augmente le nombre de tour lorsqu'un tour est complété (a_tour_complete).
 		do
+			nombre_tour := 3 -- À ENLEVER AVANT LA REMISE!!!
 			tour_complete := a_tour_complete
 			if nombre_tour < 3 then
 				if tour_complete then

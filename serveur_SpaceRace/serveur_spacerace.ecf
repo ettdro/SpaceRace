@@ -33,6 +33,18 @@
 			<file_rule>
 				<exclude>^tests_unitaires$</exclude>
 			</file_rule>
+			<file_rule>
+				<exclude>^tests_unitaires$</exclude>
+			</file_rule>
+			<file_rule>
+				<exclude>^tests_unitaires$</exclude>
+			</file_rule>
+			<file_rule>
+				<exclude>^tests_unitaires$</exclude>
+			</file_rule>
+			<file_rule>
+				<exclude>^tests_unitaires$</exclude>
+			</file_rule>
 			<tests name="tests_unitaires" location="C:\Users\Proprietaire\Documents\Eiffel User Files\15.08\projects\serveur_SpaceRace\tests_unitaires\"/>
 		</cluster>
 	</target>
