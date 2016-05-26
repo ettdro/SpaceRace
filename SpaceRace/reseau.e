@@ -63,7 +63,6 @@ feature {ANY} -- Access
 		do
 			create message.make_empty
 			message := a_nom + "|" + a_temps
-			socket.put_boolean (True)
 			socket.put_integer (message.count)
 			socket.put_string (message)
 			socket.close

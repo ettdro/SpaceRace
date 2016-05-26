@@ -17,7 +17,7 @@ create
 feature {NONE} -- Initialization
 
 	make (a_fenetre: GAME_RENDERER; a_police: TEXT_FONT; a_couleur: GAME_COLOR)
-			-- Crée le chronomètre, sa police (a_police) et sa couleur (a_couleur) dans la fenêtre (a_fenetre).
+			-- Crée le chronomètre, sa police `a_police' et sa couleur `a_couleur' dans la fenêtre `a_fenetre'.
 		do
 			temps_debut_milliseconde := 0
 			temps_milliseconde := 0
@@ -41,7 +41,7 @@ feature {NONE} -- Initialization
 feature {ANY} -- Access
 
 	afficher_temps
-			-- Affiche le chronomètre à l'écran.
+			-- Affiche le chronomètre à l'écran et ajoute un 0 devant le chiffre si celui-ci est en bas de 10.
 		do
 			temps_secondes := ((temps_milliseconde // 1000) \\ 60)
 			temps_minutes := (temps_milliseconde // 60000)
@@ -66,7 +66,7 @@ feature {ANY} -- Access
 		end
 
 	pause_chrono (a_temps: NATURAL)
-			-- Mets le chronomètre sur pause en retenant a_temps.
+			-- Mets le chronomètre sur pause en retenant `a_temps'.
 		do
 			temps_pause := a_temps
 			pause := True

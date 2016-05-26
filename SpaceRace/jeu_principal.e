@@ -149,6 +149,7 @@ feature {ANY} -- Access
 				verifier_son_click_muet
 				if not etait_pause and not est_debut then
 					etait_pause := True
+					verifier_son_vaisseau_muet
 					chronometre.pause_chrono (a_temps)
 				end
 				curseur.reinitialiser_curseur
@@ -234,19 +235,24 @@ feature {ANY} -- Access
 	verifier_son_vaisseau_muet
 			-- Vérifie si le son est muet pour jouer ou non le son du vaisseau.
 		do
-			if not musique.est_muet then
-				if accelerer then
-					son_vaisseau.jouer (True)
-				end
-				if not accelerer then
-					son_vaisseau.source.stop
-					son_vaisseau_fin.jouer (False)
-				end
-				if tourne_droite or tourne_gauche and not accelerer then
-					son_vaisseau.jouer (True)
+			if not etait_pause then
+				if not musique.est_muet then
+					if accelerer then
+						son_vaisseau.jouer (True)
+					end
+					if not accelerer then
+						son_vaisseau.source.stop
+						son_vaisseau_fin.jouer (False)
+					end
+					if tourne_droite or tourne_gauche and not accelerer then
+						son_vaisseau.jouer (True)
+					end
+				else
+					son_vaisseau.mute
 				end
 			else
-				son_vaisseau.mute
+				son_vaisseau.source.stop
+				son_vaisseau_fin.source.stop
 			end
 		end
 
